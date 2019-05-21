@@ -1,0 +1,32 @@
+{
+  "name": "micm-project-match-api",
+  "version": "1.0.0",
+  "description": "MiCM Project Match client web app",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.4",
+    "nodemon": "^1.19.0"
+  },
+  "scripts": {
+    "start": "nodemon --watch src --exec babel-node src/index.js",
+    "build": "babel src --out-dir dist",
+    "serve": "node dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pranavtharoor/micm-project-match.git"
+  },
+  "author": "Pranav Tharoor <pranav.tharoor@gmail.com> (https://github.com/pranavtharoor/)",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/pranavtharoor/micm-project-match/issues"
+  },
+  "homepage": "https://github.com/pranavtharoor/micm-project-match#readme"
+}

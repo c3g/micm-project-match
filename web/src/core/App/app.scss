@@ -1,0 +1,15 @@
+@import 'Src/core/common.scss';
+
+* {
+  font-weight: 300;
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+}
