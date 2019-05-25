@@ -1,0 +1,63 @@
+version: '3.5'
+services:
+  api:
+    build: 
+      dockerfile: ./api/Dockerfile
+      context: .
+    image: micm-project-match-api
+    restart: unless-stopped
+    networks:
+      - micm-project-match-network
+    container_name: micm-project-match-api
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DB_NAME=micm
+      - DB_HOST=db
+      - DB_USER=user
+      - DB_PASS=password
+      - REDIS_HOST=redis
+  db:
+    build: ./db
+    image: micm-project-match-db
+    restart: unless-stopped
+    networks:
+      - micm-project-match-network
+    container_name: micm-project-match-db
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=micm
+  redis:
+    image: redis
+    container_name: micm-project-match-redis
+    restart: unless-stopped
+    networks:
+      - micm-project-match-network
+    volumes:
+      - redis-data:/data
+  web:
+    build: 
+      dockerfile: ./web/Dockerfile
+      context: .
+    image: micm-project-match-web
+    restart: unless-stopped
+    networks:
+      - micm-project-match-network
+    container_name: micm-project-match-web
+    depends_on:
+      - api
+    ports:
+      - 6001:80
+
+networks:
+  micm-project-match-network:
+    driver: bridge
+    name: micm-project-match-network
+
+volumes:
+  db-data:
+  redis-data:
