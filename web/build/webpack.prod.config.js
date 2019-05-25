@@ -18,9 +18,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 1,
-              sourceMap: true,
-              minimize: true
+              importLoaders: 1
             }
           },
           {
@@ -38,7 +36,7 @@ module.exports = {
     chunkFilename: '[name].[chunkhash].bundle.js'
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
+    new CleanWebpackPlugin({
       root: __dirname + '/..'
     }),
     new MiniCssExtractPlugin({
@@ -46,7 +44,7 @@ module.exports = {
       chunkFilename: '[id].[hash].css'
     }),
     new CompressionPlugin({
-      asset: '[path].gz[query]',
+      filename: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/,
       minRatio: 0.8
