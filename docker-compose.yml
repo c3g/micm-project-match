@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   api:
-    build: 
+    build:
       dockerfile: ./api/Dockerfile
       context: .
     image: micm-project-match-api
@@ -19,14 +19,16 @@ services:
       - DB_PASS=password
       - REDIS_HOST=redis
   db:
-    build: ./db
+    build:
+      dockerfile: ./db/Dockerfile
+      context: .
     image: micm-project-match-db
     restart: unless-stopped
     networks:
       - micm-project-match-network
     container_name: micm-project-match-db
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
@@ -40,7 +42,7 @@ services:
     volumes:
       - redis-data:/data
   web:
-    build: 
+    build:
       dockerfile: ./web/Dockerfile
       context: .
     image: micm-project-match-web
