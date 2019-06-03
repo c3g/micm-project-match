@@ -54,6 +54,7 @@
     "prettier": "1.17.1",
     "react-hot-loader": "4.8.8",
     "react-test-renderer": "16.8.6",
+    "rimraf": "2.6.3",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",
     "url-loader": "1.1.2",
@@ -64,13 +65,13 @@
     "webpack-merge": "4.2.1"
   },
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack --env.env=prod",
-    "build:stats": "webpack --env.env=prod --env.addons=analyze",
+    "start": "webpack-dev-server --color",
+    "build": "webpack --env.env=prod --color",
+    "build:stats": "webpack --env.env=prod --env.addons=analyze --color",
     "clean": "rimraf ./dist",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "jest --color",
+    "test:watch": "jest --watch --color",
+    "test:coverage": "jest --coverage --color"
   },
   "repository": {
     "type": "git",

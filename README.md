@@ -16,55 +16,28 @@ to analyze.
 - React
 - Redis
 
-## Installation - Development
-### Database
-From the project root follow this build the database.
+## Installation
+To configure the api, copy `api/.env.example` to `api/.env` and modify the variables.
+From the project root follow this to set up the database and run the project:
 ```
+# setup database
 createdb micm
 psql -d micm -f db/sql-scripts/01_build.sql
-```
-### Backend
-To configure the server, copy `api/.env.example` to `api/.env` and
-modify the variables. From the project root, follow this to start the node server.
-```
-cd api
-npm install
-npm start
-```
-### Frontend
-From the project root, follow this to start webpack-dev-server.
-```
-cd web
-npm install
-npm start
-```
 
-## Installation - Production
-### Database
-From the project root follow this build the database.
-```
-createdb micm
-psql -d micm -f db/sql-scripts/01_build.sql
-```
-### Backend
-To configure the server, copy `api/.env.example` to `api/.env` and
-modify the variables. From the project root, follow this to start the node server.
-```
-cd api
+# installs dependencies
 npm install
-npm run build
-npm run serve
 ```
-### Frontend
-From the project root, follow this to start webpack-dev-server.
+For development run:
 ```
-cd web
-npm install
+npm start
+```
+For production run:
+```
 npm run build
 ```
 
-## Installation - Docker
-From the project root follow this to run the project with docker.
+## Installation (Docker)
+From the project root follow this to run the project with docker:
 ```
 docker-compose up
 ```

@@ -1,0 +1,14 @@
+{
+  "name": "micm-project-match",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.13.1"
+  },
+  "scripts": {
+    "postinstall": "lerna bootstrap --hoist",
+    "start": "lerna run start",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "clean": "lerna run clean"
+  }
+}
