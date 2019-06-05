@@ -3,16 +3,18 @@
 CREATE TYPE USER_TYPE AS ENUM ('ADMIN', 'PROFESSOR', 'STUDENT');
 CREATE TYPE STRATEGY_TYPE AS ENUM ('LOCAL', 'GOOGLE', 'FACEBOOK', 'OPENID');
 
-CREATE TABLE IF NOT EXISTS "user" (
+CREATE TABLE IF NOT EXISTS user_account (
   id           SERIAL PRIMARY KEY ,
-  name         VARCHAR(100) NOT NULL ,
+  first_name   VARCHAR(50) NOT NULL ,
+  last_name    VARCHAR(50) NOT NULL ,
+  tel          VARCHAR(20) NOT NULL ,
   email        VARCHAR(100) NOT NULL UNIQUE ,
   password     VARCHAR(60) ,
   type         USER_TYPE NOT NULL ,
   token        VARCHAR(100) UNIQUE ,
   strategy     STRATEGY_TYPE NOT NULL ,
   identifier   VARCHAR(100) ,
-  authentified BOOLEAN NOT NULL
+  approved     BOOLEAN NOT NULL
 );
 
 
@@ -30,7 +32,7 @@ CREATE TABLE IF NOT EXISTS project
   slug         VARCHAR(30) NOT NULL ,
   tag_id       INT[] ,
 
-  FOREIGN KEY (author_id) REFERENCES "user" (id)
+  FOREIGN KEY (author_id) REFERENCES user_account (id)
 );
 
 
@@ -42,7 +44,7 @@ CREATE TABLE IF NOT EXISTS document
   location VARCHAR(255) NOT NULL ,
   user_id  INT NOT NULL ,
 
-  FOREIGN KEY (user_id) REFERENCES "user" (id)
+  FOREIGN KEY (user_id) REFERENCES user_account (id)
 );
 
 
@@ -56,7 +58,7 @@ CREATE TABLE IF NOT EXISTS application
   proposal   TEXT NOT NULL ,
   accepted   INT NOT NULL ,
 
-  FOREIGN KEY (student_id) REFERENCES "user" (id),
+  FOREIGN KEY (student_id) REFERENCES user_account (id),
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 
