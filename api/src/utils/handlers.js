@@ -13,10 +13,10 @@ export const errorHandler = (res, status = 500) => err => {
     unknownErr = true;
   }
   const response = {
-    ok: false,
-    message: unknownErr ? 'Internal server error' : err.message,
+    success: false,
+    msg: unknownErr ? 'Internal server error' : err.message,
     ...(process.env.NODE_ENV !== 'production' && {
-      message: err.message,
+      msg: err.message,
       code: err.code,
       type: err.type,
       stack: err.stack.split('\n')
@@ -27,11 +27,11 @@ export const errorHandler = (res, status = 500) => err => {
 };
 
 export const dataHandler = (res, status = 200) => data => {
-  res.status(status).json({ ok: true, data });
+  res.status(status).json({ success: true, data });
   res.end();
 };
 
 export const okHandler = (res, status = 200) => () => {
-  res.status(status).json({ ok: true });
+  res.status(status).json({ success: true });
   res.end();
 };

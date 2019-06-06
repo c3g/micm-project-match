@@ -30,6 +30,9 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
   }
 };

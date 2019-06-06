@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from 'Src/routes';
+import Snackbar from 'Src/modules/Snackbar';
 import './app.scss';
 
 const App = () => (
@@ -17,6 +18,7 @@ const App = () => (
             />
           ))}
         </Switch>
+        <Snackbar />
       </div>
     </Router>
   </div>

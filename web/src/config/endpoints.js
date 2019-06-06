@@ -1,4 +1,4 @@
-export const api = '/api/';
+export const api = '/api';
 
 export default {
   api

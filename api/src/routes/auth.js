@@ -3,7 +3,7 @@ import { errorHandler, dataHandler } from '../utils/handlers';
 import { sendConfirmationMail } from '../mail';
 
 function register(req, res) {
-  User.create(req.body)
+  User.create(req.body.userData)
     .then(sendConfirmationMail)
     .then(dataHandler(res))
     .catch(errorHandler(res));

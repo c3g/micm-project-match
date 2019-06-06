@@ -1,0 +1,30 @@
+@import 'Src/core/common.scss';
+
+.snackbar {
+  color: $color-light;
+  position: fixed;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 30px;
+  border-radius: 1px;
+  font-weight: 400;
+  text-align: center;
+
+  &.info {
+    background: $color-info;
+  }
+
+  &.danger {
+    background: $color-danger;
+  }
+
+  &.success {
+    background: $color-success;
+  }
+
+  &.shown {
+    transition: transform 0.2s ease;
+    transform: translate(-50%, -70px);
+  }
+}
