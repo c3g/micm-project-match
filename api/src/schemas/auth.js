@@ -20,6 +20,17 @@ const register = Joi.object({
   }).required()
 });
 
+const setPassword = Joi.object({
+  body: Joi.object({
+    password: Joi.string()
+      .max(30)
+      .min(8)
+      .required(),
+    token: Joi.string().required()
+  }).required()
+});
+
 export default {
-  register
+  register,
+  setPassword
 };

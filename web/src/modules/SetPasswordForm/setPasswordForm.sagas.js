@@ -1,5 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
 
 function* setPassword({ payload }) {

@@ -9,6 +9,13 @@ function register(req, res) {
     .catch(errorHandler(res));
 }
 
+function setPassword(req, res) {
+  User.setPassword(req.body)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
-  register
+  register,
+  setPassword
 };

@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 
 import db from '../database.js';
-import { objToColumns } from '../utils/query';
+import { objToColumns, objToMapping } from '../utils/query';
 import { rejectMessage } from '../utils/promise';
 import k from '../constants';
 
@@ -32,7 +32,35 @@ function create(user) {
     });
 }
 
+function update(user) {
+  const { id, ...change } = user;
+  const mapping = objToMapping(change);
+  return db
+    .query(`UPDATE user_account SET ${mapping} WHERE id = @id`, user)
+    .then(() => findById(id));
+}
+
+function setPassword({ password, token }) {
+  return db
+    .selectOne(
+      'SELECT * FROM user_account WHERE token = @token',
+      { token },
+      'id'
+    )
+    .then(id => update({ id, password, token: null }))
+    .catch(err => {
+      switch (err.type) {
+        case k.ROW_NOT_FOUND:
+          return rejectMessage('Account not found', k.ACCOUNT_NOT_FOUND);
+        default:
+          return Promise.reject(err);
+      }
+    });
+}
+
 export default {
   create,
-  findById
+  findById,
+  update,
+  setPassword
 };

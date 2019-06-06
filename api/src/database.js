@@ -1,5 +1,5 @@
 import pool from './config/db';
-import rejectMessage from './utils/promise';
+import { rejectMessage } from './utils/promise';
 import k from './constants';
 
 /**
