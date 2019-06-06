@@ -2,10 +2,10 @@ import Joi from '@hapi/joi';
 
 const register = Joi.object({
   body: Joi.object({
-    first_name: Joi.string()
+    firstName: Joi.string()
       .max(50)
       .required(),
-    last_name: Joi.string()
+    lastName: Joi.string()
       .max(50)
       .required(),
     tel: Joi.string()

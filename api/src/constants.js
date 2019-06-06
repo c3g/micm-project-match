@@ -1,0 +1,7 @@
+const k = {
+  ROW_NOT_FOUND: 'ROW_NOT_FOUND',
+  ACCOUNT_NOT_FOUND: 'ACCOUNT_NOT_FOUND',
+  EMAIL_EXISTS: 'EMAIL_EXISTS'
+};
+
+export default k;

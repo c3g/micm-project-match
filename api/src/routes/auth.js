@@ -1,4 +1,14 @@
-import db from '../config/db';
-import to from '../utils/to';
+import { User } from '../models';
+import { errorHandler, dataHandler } from '../utils/handlers';
+import { sendConfirmationMail } from '../mail';
 
-export const register = async (req, res) => {};
+function register(req, res) {
+  User.create(req.body)
+    .then(sendConfirmationMail)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
+export default {
+  register
+};
