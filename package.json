@@ -9,7 +9,7 @@
     "start": "lerna run start",
     "build": "lerna run build",
     "test": "lerna run test",
-    "clean": "lerna run clean"
-  },
-  "dependencies": {}
+    "clean": "lerna run clean",
+    "lint": "lerna run lint"
+  }
 }

@@ -10,10 +10,15 @@ function* register({ payload }) {
     userData
   });
   if (data.success) {
-    yield put(action('SET_SNACKBAR', { type: 'success', message: data.msg }));
+    yield put(
+      action('SET_SNACKBAR', { type: 'success', message: data.message })
+    );
     yield payload.push('/');
-  } else
-    yield put(action('SET_SNACKBAR', { type: 'danger', message: data.msg }));
+  } else {
+    yield put(
+      action('SET_SNACKBAR', { type: 'danger', message: data.message })
+    );
+  }
   yield delay(3000);
   yield put(action('CLEAR_SNACKBAR'));
 }

@@ -2,6 +2,7 @@
   "parser": "babel-eslint",
   "rules": {
     "no-console": "off",
+    "curly": ["error", "multi", "consistent"],
     "prettier/prettier": "error",
     "no-underscore-dangle": [
       "error",

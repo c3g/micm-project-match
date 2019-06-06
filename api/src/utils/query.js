@@ -1,6 +1,6 @@
 import { snake } from 'change-case';
 
-export function objToColumns(obj) {
+export function toColumns(obj) {
   return {
     columns: Object.keys(obj)
       .map(snake)
@@ -9,7 +9,7 @@ export function objToColumns(obj) {
   };
 }
 
-export function objToMapping(obj) {
+export function toMapping(obj) {
   return Object.keys(obj)
     .map(snake)
     .map(key => `${key} = @${key}`)

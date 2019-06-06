@@ -9,7 +9,7 @@ const validator = schema => (req, res, next) => {
     if (err)
       return res.status(422).json({
         success: false,
-        msg:
+        message:
           process.env.NODE_ENV === 'production'
             ? 'Invalid input'
             : err.details

@@ -7,16 +7,17 @@ export const errorHandler = (res, status = 500) => err => {
     [k.EMAIL_EXISTS]: 409
   };
   let unknownErr = false;
-  if (err.type && errStatus[err.type]) status = errStatus[err.type];
-  else {
+  if (err.type && errStatus[err.type]) {
+    status = errStatus[err.type];
+  } else {
     console.log(err);
     unknownErr = true;
   }
   const response = {
     success: false,
-    msg: unknownErr ? 'Internal server error' : err.message,
+    message: unknownErr ? 'Internal server error' : err.message,
     ...(process.env.NODE_ENV !== 'production' && {
-      msg: err.message,
+      message: err.message,
       code: err.code,
       type: err.type,
       stack: err.stack.split('\n')

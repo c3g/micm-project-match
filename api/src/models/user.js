@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 
 import db from '../database.js';
-import { objToColumns, objToMapping } from '../utils/query';
+import * as Query from '../utils/query';
 import { rejectMessage } from '../utils/promise';
 import k from '../constants';
 
@@ -18,7 +18,7 @@ function findById(id) {
 function create(user) {
   const token = uuid();
   user = { ...user, token };
-  const { columns, values } = objToColumns(user);
+  const { columns, values } = Query.toColumns(user);
   return db
     .insert(`INSERT INTO user_account (${columns}) values (${values})`, user)
     .then(findById)
@@ -34,7 +34,7 @@ function create(user) {
 
 function update(user) {
   const { id, ...change } = user;
-  const mapping = objToMapping(change);
+  const mapping = Query.toMapping(change);
   return db
     .query(`UPDATE user_account SET ${mapping} WHERE id = @id`, user)
     .then(() => findById(id));

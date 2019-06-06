@@ -36,7 +36,8 @@
     "start": "nodemon --watch src --exec babel-node src/index.js",
     "build": "babel src --out-dir dist",
     "serve": "node dist",
-    "clean": "rimraf ./dist"
+    "clean": "rimraf ./dist",
+    "lint": "eslint ./src --fix --color"
   },
   "repository": {
     "type": "git",

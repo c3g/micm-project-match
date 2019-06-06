@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS user_account (
 CREATE TABLE IF NOT EXISTS oauth_details (
   id           SERIAL PRIMARY KEY,
   identifier   VARCHAR(100),
-  given_name   VARCHAR(50) NOT NULL,
-  family_name  VARCHAR(50) NOT NULL,
+  first_name   VARCHAR(50) NOT NULL,
+  last_name    VARCHAR(50) NOT NULL,
   email        VARCHAR(100) UNIQUE,
   user_id      INT NOT NULL,
 

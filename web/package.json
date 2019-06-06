@@ -72,7 +72,8 @@
     "clean": "rimraf ./dist",
     "test": "jest --color",
     "test:watch": "jest --watch --color",
-    "test:coverage": "jest --coverage --color"
+    "test:coverage": "jest --coverage --color",
+    "lint": "eslint ./src --fix --color"
   },
   "repository": {
     "type": "git",
