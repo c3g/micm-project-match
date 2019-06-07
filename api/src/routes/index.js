@@ -12,5 +12,10 @@ router.post(
   validator(schemas.auth.setPassword),
   auth.setPassword
 );
+router.post(
+  '/forgotpassword',
+  validator(schemas.auth.forgotPassword),
+  auth.forgotPassword
+);
 
 export default router;

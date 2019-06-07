@@ -15,7 +15,15 @@ function setPassword(req, res) {
     .catch(errorHandler(res));
 }
 
+function forgotPassword(req, res) {
+  User.forgotPassword(req.body)
+    .then(sendConfirmationMail)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   register,
-  setPassword
+  setPassword,
+  forgotPassword
 };

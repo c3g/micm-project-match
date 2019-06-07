@@ -2,6 +2,7 @@ import { all, put } from 'redux-saga/effects';
 import { action } from 'Src/utils';
 import { registerFormSaga } from 'Src/modules/RegisterForm';
 import { setPasswordFormSaga } from 'Src/modules/SetPasswordForm';
+import { forgotPasswordFormSaga } from 'Src/modules/ForgotPasswordForm';
 import { AUTH, LOADING } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -13,7 +14,12 @@ function* init() {
 }
 
 export function* rootSaga() {
-  yield all([init(), registerFormSaga(), setPasswordFormSaga()]);
+  yield all([
+    init(),
+    registerFormSaga(),
+    setPasswordFormSaga(),
+    forgotPasswordFormSaga()
+  ]);
 }
 
 export default rootSaga;

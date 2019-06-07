@@ -1,6 +1,7 @@
 import Home from './Home';
 import Register from './Register';
 import SetPassword from './SetPassword';
+import ForgotPassword from './ForgotPassword';
 
 export default [
   {
@@ -12,6 +13,11 @@ export default [
     name: 'SetPassword',
     pathname: '/setpassword',
     component: SetPassword
+  },
+  {
+    name: 'ForgotPassword',
+    pathname: '/forgotpassword',
+    component: ForgotPassword
   },
   {
     name: 'Home',

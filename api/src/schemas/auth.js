@@ -31,7 +31,17 @@ const setPassword = Joi.object({
   }).required()
 });
 
+const forgotPassword = Joi.object({
+  body: Joi.object({
+    email: Joi.string()
+      .email()
+      .required(),
+    captchaResponse: Joi.string().required()
+  }).required()
+});
+
 export default {
   register,
-  setPassword
+  setPassword,
+  forgotPassword
 };

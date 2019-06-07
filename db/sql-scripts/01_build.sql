@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS user_account (
   last_name    VARCHAR(50) NOT NULL,
   tel          VARCHAR(20),
   email        VARCHAR(100) UNIQUE,
-  password     VARCHAR(60),
+  password     VARCHAR(61),
   type         USER_TYPE DEFAULT 'UNSET' NOT NULL,
   token        VARCHAR(100) UNIQUE,
   strategy     STRATEGY_TYPE DEFAULT 'LOCAL' NOT NULL,
