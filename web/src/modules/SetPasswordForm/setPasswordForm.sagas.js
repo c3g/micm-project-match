@@ -1,5 +1,6 @@
 import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
+import { SNACKBAR, SET_PASSWORD } from 'Src/constants/actionTypes';
 
 function* setPassword({ payload }) {
   if (
@@ -9,30 +10,23 @@ function* setPassword({ payload }) {
     payload.data.password.length > 30
   ) {
     yield put(
-      action('SET_SNACKBAR', {
-        type: 'danger',
-        message: 'Password must be 8 - 30 charaters long'
-      })
+      action(SNACKBAR.DANGER, 'Password must be 8 - 30 charaters long')
     );
   } else {
     const data = yield call(request, '/setpassword', payload.data);
     if (data.success) {
-      yield put(
-        action('SET_SNACKBAR', { type: 'success', message: data.message })
-      );
+      yield put(action(SNACKBAR.SUCCESS, data.message));
       yield payload.push('/login');
     } else {
-      yield put(
-        action('SET_SNACKBAR', { type: 'danger', message: data.message })
-      );
+      yield put(action(SNACKBAR.DANGER, data.message));
     }
   }
   yield delay(3000);
-  yield put(action('CLEAR_SNACKBAR'));
+  yield put(action(SNACKBAR.CLEAR));
 }
 
 function* setPasswordFormSaga() {
-  yield takeLatest('FETCH_SET_PASSWORD_BEGIN', setPassword);
+  yield takeLatest(SET_PASSWORD.REQUEST, setPassword);
 }
 
 export default setPasswordFormSaga;

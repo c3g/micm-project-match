@@ -1,8 +1,11 @@
 import reducer from 'Src/utils/reducer';
+import { SNACKBAR } from 'Src/constants/actionTypes';
 
 const actionHandlers = {
-  SET_SNACKBAR: (s, a) => ({ ...s, ...a.payload }),
-  CLEAR_SNACKBAR: s => ({ ...s, ...initialState })
+  [SNACKBAR.INFO]: (s, a) => ({ ...s, message: a.payload, type: 'info' }),
+  [SNACKBAR.SUCCESS]: (s, a) => ({ ...s, message: a.payload, type: 'success' }),
+  [SNACKBAR.DANGER]: (s, a) => ({ ...s, message: a.payload, type: 'danger' }),
+  [SNACKBAR.CLEAR]: s => ({ ...s, ...initialState })
 };
 
 const initialState = {

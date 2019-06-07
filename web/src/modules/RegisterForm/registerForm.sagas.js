@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
+import { SNACKBAR, REGISTER } from 'Src/constants/actionTypes';
 
 function* register({ payload }) {
   if (!payload.data.captchaResponse) return;
@@ -10,21 +11,17 @@ function* register({ payload }) {
     userData
   });
   if (data.success) {
-    yield put(
-      action('SET_SNACKBAR', { type: 'success', message: data.message })
-    );
+    yield put(action(SNACKBAR.SUCCESS, data.message));
     yield payload.push('/');
   } else {
-    yield put(
-      action('SET_SNACKBAR', { type: 'danger', message: data.message })
-    );
+    yield put(action(SNACKBAR.DANGER, data.message));
   }
   yield delay(3000);
-  yield put(action('CLEAR_SNACKBAR'));
+  yield put(action(SNACKBAR.CLEAR));
 }
 
 function* registerFormSaga() {
-  yield takeLatest('FETCH_REGISTER_BEGIN', register);
+  yield takeLatest(REGISTER.REQUEST, register);
 }
 
 export default registerFormSaga;

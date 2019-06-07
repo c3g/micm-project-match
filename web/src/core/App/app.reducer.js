@@ -1,8 +1,11 @@
 import reducer from 'Src/utils/reducer';
+import { AUTH, LOADING } from 'Src/constants/actionTypes';
 
 const actionHandlers = {
-  SET_LOGGED_IN: (s, a) => ({ ...s, loggedIn: a.payload }),
-  SET_LOADING: (s, a) => ({ ...s, loading: a.payload })
+  [AUTH.RECEIVE]: s => ({ ...s, loggedIn: true }),
+  [AUTH.ERROR]: s => ({ ...s, loggedIn: false }),
+  [LOADING.START]: s => ({ ...s, loading: true }),
+  [LOADING.DONE]: s => ({ ...s, loading: false })
 };
 
 const initialState = {

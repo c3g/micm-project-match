@@ -13,4 +13,4 @@ router.post(
   auth.setPassword
 );
 
-module.exports = router;
+export default router;
