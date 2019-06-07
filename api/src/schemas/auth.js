@@ -9,11 +9,12 @@ const register = Joi.object({
       lastName: Joi.string()
         .max(50)
         .required(),
-      tel: Joi.string()
-        .max(20)
-        .required(),
+      tel: Joi.string().max(20),
       email: Joi.string()
         .email()
+        .required(),
+      type: Joi.string()
+        .valid('PROFESSOR', 'STUDENT')
         .required()
     }).required(),
     captchaResponse: Joi.string().required()

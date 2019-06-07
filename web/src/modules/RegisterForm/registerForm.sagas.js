@@ -6,6 +6,7 @@ import { SNACKBAR, REGISTER } from 'Src/constants/actionTypes';
 function* register({ payload }) {
   if (!payload.data.captchaResponse) return;
   const { captchaResponse, ...userData } = payload.data;
+  if (!userData.type) userData.type = 'STUDENT';
   const data = yield call(request, '/register', {
     captchaResponse,
     userData

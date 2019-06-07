@@ -19,7 +19,6 @@ const registerValidate = values => {
   else if (values.lastName.length > 50)
     errors.lastName = 'Must be less than 50 characters long';
 
-  if (!values.tel) errors.tel = 'Required';
   return errors;
 };
 
@@ -72,6 +71,16 @@ let RegisterForm = props => (
           type="text"
           label="Contact Number"
         />
+        <Field
+          name="type"
+          component="input"
+          type="radio"
+          value="STUDENT"
+          checked
+        />
+        Student
+        <Field name="type" component="input" type="radio" value="PROFESSOR" />
+        Professor
         <Field name="captchaResponse" component={Captcha} />
         <button>Continue</button>
       </form>
