@@ -40,8 +40,17 @@ const forgotPassword = Joi.object({
   }).required()
 });
 
+const registerResend = Joi.object({
+  params: Joi.object({
+    email: Joi.string()
+      .email()
+      .required()
+  }).required()
+});
+
 export default {
   register,
   setPassword,
-  forgotPassword
+  forgotPassword,
+  registerResend
 };

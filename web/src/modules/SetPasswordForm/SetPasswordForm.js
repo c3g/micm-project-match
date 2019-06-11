@@ -6,6 +6,16 @@ import './setPasswordForm.scss';
 import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
 
+const SetPasswordField = ({ input, type, placeholder }) => (
+  <InputField {...input} type={type} placeholder={placeholder} />
+);
+
+SetPasswordField.propTypes = {
+  input: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired
+};
+
 let SetPasswordForm = props => (
   <div className="set-password-form">
     <div className="form">
@@ -19,7 +29,7 @@ let SetPasswordForm = props => (
       >
         <Field
           name="password"
-          component={InputField}
+          component={SetPasswordField}
           type="password"
           placeholder="Password"
         />

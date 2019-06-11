@@ -22,8 +22,16 @@ function forgotPassword(req, res) {
     .catch(errorHandler(res));
 }
 
+function registerResend(req, res) {
+  User.findByEmail(req.params)
+    .then(sendConfirmationMail)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   register,
   setPassword,
-  forgotPassword
+  forgotPassword,
+  registerResend
 };

@@ -7,6 +7,11 @@ import auth from './auth';
 const router = express.Router();
 
 router.post('/register', validator(schemas.auth.register), auth.register);
+router.get(
+  '/register/resend/:email',
+  validator(schemas.auth.registerResend),
+  auth.registerResend
+);
 router.post(
   '/setpassword',
   validator(schemas.auth.setPassword),

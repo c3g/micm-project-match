@@ -44,65 +44,87 @@ RegisterField.propTypes = {
 
 let RegisterForm = props => (
   <div className="register-form">
-    <div className="form">
-      <form
-        onSubmit={props.handleSubmit(data =>
-          props.onRegister({ data, push: props.history.push })
-        )}
-      >
-        <Field
-          name="firstName"
-          component={RegisterField}
-          type="text"
-          label="First Name"
-        />
-        <Field
-          name="lastName"
-          component={RegisterField}
-          type="text"
-          label="Last Name"
-        />
-        <Field
-          name="email"
-          component={RegisterField}
-          type="email"
-          label="Email"
-        />
-        <Field
-          name="tel"
-          component={RegisterField}
-          type="text"
-          label="Contact Number"
-        />
-        <Field
-          name="type"
-          text="Student"
-          component={RadioButton}
-          type="radio"
-          value="STUDENT"
-        />
-        <Field
-          name="type"
-          text="Professor"
-          component={RadioButton}
-          type="radio"
-          value="PROFESSOR"
-        />
-        <div className="captcha-container">
-          <Field name="captchaResponse" component={Captcha} />
+    {!props.complete ? (
+      <div className="form">
+        <form
+          onSubmit={props.handleSubmit(data =>
+            props.onRegister({ data, push: props.history.push })
+          )}
+        >
+          <Field
+            name="firstName"
+            component={RegisterField}
+            type="text"
+            label="First Name"
+          />
+          <Field
+            name="lastName"
+            component={RegisterField}
+            type="text"
+            label="Last Name"
+          />
+          <Field
+            name="email"
+            component={RegisterField}
+            type="email"
+            label="Email"
+          />
+          <Field
+            name="tel"
+            component={RegisterField}
+            type="text"
+            label="Contact Number"
+          />
+          <Field
+            name="type"
+            text="Student"
+            component={RadioButton}
+            type="radio"
+            value="STUDENT"
+          />
+          <Field
+            name="type"
+            text="Professor"
+            component={RadioButton}
+            type="radio"
+            value="PROFESSOR"
+          />
+          <div className="captcha-container">
+            <Field name="captchaResponse" component={Captcha} />
+          </div>
+          <div className="centered-button">
+            <RoundedButton>Continue</RoundedButton>
+          </div>
+        </form>
+      </div>
+    ) : (
+      <div className="form-complete">
+        <div>
+          A verification link has been e-mailed to {props.email}. Follow it to
+          complete your registration by setting your password.
         </div>
-        <div className="continue-button">
-          <RoundedButton>Continue</RoundedButton>
+        <div className="centered-button">
+          <div
+            onClick={() => {
+              console.log('click');
+              props.onResendMail({ email: props.email });
+            }}
+          >
+            <RoundedButton>Resend E-mail</RoundedButton>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+    )}
   </div>
 );
 
 RegisterForm.propTypes = {
+  email: PropTypes.string.isRequired,
+  complete: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  onResendMail: PropTypes.func.isRequired
 };
 
 RegisterForm = reduxForm({

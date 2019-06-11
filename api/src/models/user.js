@@ -83,10 +83,21 @@ function forgotPassword({ email }) {
     });
 }
 
+function findByEmail({ email }) {
+  return db
+    .selectOne('SELECT * FROM user_account WHERE email = @email', { email })
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
+        : Promise.reject(err)
+    );
+}
+
 export default {
   create,
   findById,
   update,
   setPassword,
-  forgotPassword
+  forgotPassword,
+  findByEmail
 };
