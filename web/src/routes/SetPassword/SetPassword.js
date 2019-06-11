@@ -27,9 +27,6 @@ class SetPassword extends Component {
       <div className="set-password-page">
         <Navbar>
           <Link to="/">Home</Link>
-          <Link to="/signin">
-            <RoundedButton>Sign In</RoundedButton>
-          </Link>
           <Link to="/signup">
             <RoundedButton>Sign Up</RoundedButton>
           </Link>

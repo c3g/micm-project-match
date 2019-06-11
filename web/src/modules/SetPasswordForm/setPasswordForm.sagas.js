@@ -14,12 +14,8 @@ function* setPassword({ payload }) {
     );
   } else {
     const data = yield call(request, '/setpassword', payload.data);
-    if (data.success) {
-      yield put(action(SNACKBAR.SUCCESS, data.message));
-      yield payload.push('/login');
-    } else {
-      yield put(action(SNACKBAR.DANGER, data.message));
-    }
+    if (data.success) yield put(action(SET_PASSWORD.RECEIVE));
+    else yield put(action(SNACKBAR.DANGER, data.message));
   }
   yield delay(3000);
   yield put(action(SNACKBAR.CLEAR));
