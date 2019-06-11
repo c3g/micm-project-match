@@ -6,16 +6,19 @@ import { SNACKBAR, REGISTER } from 'Src/constants/actionTypes';
 function* register({ payload }) {
   if (!payload.data.captchaResponse) return;
   const { captchaResponse, ...userData } = payload.data;
-  if (!userData.type) userData.type = 'STUDENT';
-  const data = yield call(request, '/register', {
-    captchaResponse,
-    userData
-  });
-  if (data.success) {
-    yield put(action(SNACKBAR.SUCCESS, data.message));
-    yield payload.push('/');
+  if (!userData.type) {
+    yield put(action(SNACKBAR.DANGER, 'Please choose a role'));
   } else {
-    yield put(action(SNACKBAR.DANGER, data.message));
+    const data = yield call(request, '/register', {
+      captchaResponse,
+      userData
+    });
+    if (data.success) {
+      yield put(action(SNACKBAR.SUCCESS, data.message));
+      yield payload.push('/');
+    } else {
+      yield put(action(SNACKBAR.DANGER, data.message));
+    }
   }
   yield delay(3000);
   yield put(action(SNACKBAR.CLEAR));

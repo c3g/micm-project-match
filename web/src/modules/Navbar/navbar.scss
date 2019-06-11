@@ -1,0 +1,28 @@
+.navbar {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 15px;
+
+  .logo {
+    padding: 15px;
+    margin-right: auto;
+    height: 100%;
+  }
+
+  .nav-link {
+    padding: 15px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333333;
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+
+}

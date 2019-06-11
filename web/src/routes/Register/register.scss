@@ -2,10 +2,16 @@
 
 .register-page {
 
+  .heading-container {
+    text-align: center;
+    margin: 10px;
+  }
+
   .form-container {
     height: 100%;
     overflow: hidden;
-    width: 400px;
+    width: 420px;
+    margin: 0 auto;
   }
 
 }

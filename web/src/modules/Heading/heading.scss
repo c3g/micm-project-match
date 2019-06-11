@@ -1,0 +1,9 @@
+@import 'Src/core/common.scss';
+
+.heading {
+  font-size: 1.7rem;
+  font-weight: 800;
+  padding: 8px 0;
+  border-bottom: solid 3px $color-primary;
+  display: inline-block;
+}

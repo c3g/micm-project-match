@@ -1,4 +1,36 @@
+@import 'Src/core/common.scss';
+
 .register-form {
   height: 100%;
   width: 100%;
+  padding: 15px;
+
+  .captcha-container {
+    margin-top: 20px;
+  }
+
+  .continue-button {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+}
+
+.register-field {
+  position: relative;
+
+  &.error {
+    input {
+      border: solid thin $color-danger;
+      margin: 14px 0;
+    }
+
+    .message {
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      color: $color-danger;
+      font-size: 0.7rem;
+    }
+  }
 }

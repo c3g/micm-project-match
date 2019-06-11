@@ -1,7 +1,7 @@
 {
   "name": "micm-project-match-api",
   "version": "1.0.0",
-  "description": "MiCM Project Match client web app",
+  "description": "MiCM Project Match API",
   "main": "index.js",
   "dependencies": {
     "@hapi/joi": "15.0.3",

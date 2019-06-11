@@ -3,6 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Captcha from 'Src/modules/Captcha';
+import RoundedButton from 'Src/modules/RoundedButton';
+import InputField from 'Src/modules/InputField';
+import RadioButton from 'Src/modules/RadioButton';
 import './registerForm.scss';
 
 const registerValidate = values => {
@@ -23,9 +26,9 @@ const registerValidate = values => {
 };
 
 let RegisterField = ({ input, label, type, meta: { touched, error } }) => (
-  <div>
-    <input {...input} placeholder={label} type={type} />
-    <span className="error">{touched && (error && error)}</span>
+  <div className={`register-field ${error && touched ? 'error' : ''}`}>
+    <InputField {...input} placeholder={label} type={type} />
+    <span className="message">{touched && (error && error)}</span>
   </div>
 );
 
@@ -73,16 +76,24 @@ let RegisterForm = props => (
         />
         <Field
           name="type"
-          component="input"
+          text="Student"
+          component={RadioButton}
           type="radio"
           value="STUDENT"
-          checked
         />
-        Student
-        <Field name="type" component="input" type="radio" value="PROFESSOR" />
-        Professor
-        <Field name="captchaResponse" component={Captcha} />
-        <button>Continue</button>
+        <Field
+          name="type"
+          text="Professor"
+          component={RadioButton}
+          type="radio"
+          value="PROFESSOR"
+        />
+        <div className="captcha-container">
+          <Field name="captchaResponse" component={Captcha} />
+        </div>
+        <div className="continue-button">
+          <RoundedButton>Continue</RoundedButton>
+        </div>
       </form>
     </div>
   </div>

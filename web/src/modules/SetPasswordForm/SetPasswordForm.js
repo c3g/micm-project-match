@@ -3,6 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import './setPasswordForm.scss';
+import RoundedButton from 'Src/modules/RoundedButton';
+import InputField from 'Src/modules/InputField';
 
 let SetPasswordForm = props => (
   <div className="set-password-form">
@@ -17,12 +19,13 @@ let SetPasswordForm = props => (
       >
         <Field
           name="password"
-          component="input"
+          component={InputField}
           type="password"
           placeholder="Password"
         />
-        <br />
-        <button>Continue</button>
+        <div className="continue-button">
+          <RoundedButton>Continue</RoundedButton>
+        </div>
       </form>
     </div>
   </div>

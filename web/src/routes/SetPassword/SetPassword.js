@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SetPasswordForm from 'Src/modules/SetPasswordForm';
+import Heading from 'Src/modules/Heading';
 import './setPassword.scss';
+import Navbar from 'Src/modules/Navbar';
+import { Link } from 'react-router-dom';
+import RoundedButton from 'Src/modules/RoundedButton';
 
 class SetPassword extends Component {
   static propTypes = {
@@ -21,6 +25,18 @@ class SetPassword extends Component {
   render() {
     return (
       <div className="set-password-page">
+        <Navbar>
+          <Link to="/">Home</Link>
+          <Link to="/signin">
+            <RoundedButton>Sign In</RoundedButton>
+          </Link>
+          <Link to="/signup">
+            <RoundedButton>Sign Up</RoundedButton>
+          </Link>
+        </Navbar>
+        <div className="heading-container">
+          <Heading>Set Password</Heading>
+        </div>
         <div className="form-container">
           <SetPasswordForm token={this.state.token} />
         </div>

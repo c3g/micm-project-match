@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Captcha from 'Src/modules/Captcha';
 import './forgotPasswordForm.scss';
+import RoundedButton from 'Src/modules/RoundedButton';
+import InputField from 'Src/modules/InputField';
 
 let ForgotPasswordForm = props => (
   <div className="forgot-password-form">
@@ -11,12 +13,16 @@ let ForgotPasswordForm = props => (
       <form onSubmit={props.handleSubmit}>
         <Field
           name="email"
-          component="input"
+          component={InputField}
           type="email"
           placeholder="Email"
         />
-        <Field name="captchaResponse" component={Captcha} />
-        <button>Continue</button>
+        <div className="captcha-container">
+          <Field name="captchaResponse" component={Captcha} />
+        </div>
+        <div className="continue-button">
+          <RoundedButton>Continue</RoundedButton>
+        </div>
       </form>
     </div>
   </div>

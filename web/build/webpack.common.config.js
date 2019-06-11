@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -27,8 +28,7 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
     alias: {
-      Src: path.resolve(__dirname, '../src/'),
-      Config: path.resolve(__dirname, '../config/')
+      Src: path.resolve(__dirname, '../src/')
     }
   },
   devServer: {
@@ -41,9 +41,15 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html'
-    })
+    }),
+    new CopyPlugin([{ from: './src/public/favicon.ico', to: 'images/' }])
   ],
   node: {
     fs: 'empty'
+  },
+  output: {
+    filename: '[name].bundle.js',
+    chunkFilename: 'js/[name].bundle.js',
+    publicPath: '/'
   }
 };

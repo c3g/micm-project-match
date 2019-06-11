@@ -1,0 +1,16 @@
+@import 'Src/core/common.scss';
+
+.rounded-button {
+  background: $color-primary;
+  border-radius: 20px;
+  color: $text-color-primary;
+  border: none;
+  padding: 7px 25px;
+  font-size: 1rem;
+  outline: none;
+
+  &:focus {
+    border: solid 1px darken($color-primary, 20);
+    margin: -1px;
+  }
+}

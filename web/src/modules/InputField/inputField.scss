@@ -1,0 +1,14 @@
+@import 'Src/core/common.scss';
+
+.input-field {
+  margin: 15px 0;
+  font-weight: 300;
+  padding: 14px;
+  font-size: inherit;
+  font-family: inherit;
+  background: $input-color;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 0.9rem;
+}
