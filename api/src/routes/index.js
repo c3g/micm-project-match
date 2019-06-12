@@ -1,5 +1,4 @@
 import express from 'express';
-
 import validator from '../utils/validator';
 import schemas from '../schemas';
 import auth from './auth';
@@ -23,4 +22,13 @@ router.post(
   auth.forgotPassword
 );
 
-export default router;
+export default passport => {
+  router.post(
+    '/login',
+    validator(schemas.auth.login),
+    passport.authenticate('local', { failWithError: true }),
+    auth.loginSuccess,
+    auth.loginFailure
+  );
+  return router;
+};

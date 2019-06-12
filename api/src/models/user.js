@@ -7,6 +7,7 @@ import k from '../constants';
 import bcrypt from 'bcryptjs';
 
 function findById(id) {
+  if (!id) return Promise.resolve(null);
   return db
     .selectOne('SELECT * FROM user_account WHERE id = @id', { id })
     .catch(err =>
@@ -23,14 +24,11 @@ function create(user) {
   return db
     .insert(`INSERT INTO user_account (${columns}) values (${values})`, user)
     .then(findById)
-    .catch(err => {
-      switch (err.code) {
-        case '23505':
-          return rejectMessage('Email already in use', k.EMAIL_EXISTS);
-        default:
-          return Promise.reject(err);
-      }
-    });
+    .catch(err =>
+      err.code === '23505'
+        ? rejectMessage('Email already in use', k.EMAIL_EXISTS)
+        : Promise.reject(err)
+    );
 }
 
 function update(user) {
@@ -54,14 +52,11 @@ function setPassword({ password, token }) {
   );
   return Promise.all([hash, userId])
     .then(([password, id]) => update({ id, password, token: null }))
-    .catch(err => {
-      switch (err.type) {
-        case k.ROW_NOT_FOUND:
-          return rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND);
-        default:
-          return Promise.reject(err);
-      }
-    });
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
+        : Promise.reject(err)
+    );
 }
 
 function forgotPassword({ email }) {
@@ -73,14 +68,11 @@ function forgotPassword({ email }) {
       'id'
     )
     .then(id => update({ id, token }))
-    .catch(err => {
-      switch (err.type) {
-        case k.ROW_NOT_FOUND:
-          return rejectMessage('Account not found', k.ACCOUNT_NOT_FOUND);
-        default:
-          return Promise.reject(err);
-      }
-    });
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
+        : Promise.reject(err)
+    );
 }
 
 function findByEmail({ email }) {
@@ -93,11 +85,16 @@ function findByEmail({ email }) {
     );
 }
 
+function validatePassword(user, password) {
+  return bcrypt.compare(password, user.password);
+}
+
 export default {
   create,
   findById,
   update,
   setPassword,
   forgotPassword,
-  findByEmail
+  findByEmail,
+  validatePassword
 };

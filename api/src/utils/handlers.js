@@ -4,7 +4,8 @@ export const errorHandler = (res, status = 500) => err => {
   const errStatus = {
     [k.ROW_NOT_FOUND]: 404,
     [k.ACCOUNT_NOT_FOUND]: 404,
-    [k.EMAIL_EXISTS]: 409
+    [k.EMAIL_EXISTS]: 409,
+    [k.INCORRECT_CREDENTIALS]: 401
   };
   let unknownErr = false;
   if (err.type && errStatus[err.type]) {

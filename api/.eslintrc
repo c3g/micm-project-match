@@ -8,6 +8,7 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next","ignoreRestSiblings": true }],
     "curly": ["error", "multi", "consistent"],
     "no-console": "off"
   }
