@@ -1,6 +1,6 @@
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
-// import { Strategy as GoogleStrategy } from 'passport-google-oauth';
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { User } from '../models';
 import k from '../constants';
 import { rejectMessage } from '../utils/promise';
@@ -9,11 +9,12 @@ const config = {
   facebook: {
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: process.env.FACEBOOK_CALLBACK_URL
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+    profileFields: ['id', 'first_name', 'last_name', 'email']
   },
   google: {
-    consumerKey: process.env.GOOGLE_CONSUMER_KEY,
-    consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK_URL
   }
 };
@@ -35,19 +36,21 @@ function localAuth(email, password, done) {
     );
 }
 
-function facebookAuth(accessToken, refreshToken, profile, done) {
-  User.findByIdentifier(profile.id, k.STRATEGY.FACEBOOK)
-    .then(user => done(null, user))
-    .catch(err =>
-      err.type === k.ACCOUNT_NOT_FOUND
-        ? User.createOAuth(profile, k.STRATEGY.FACEBOOK)
-            .then(user => {
-              const { password, token, ...userDetails } = user;
-              done(null, userDetails);
-            })
-            .catch(done)
-        : done(err)
-    );
+function oAuth(strategy) {
+  return function(accessToken, refreshToken, profile, done) {
+    User.findByIdentifier(profile.id, strategy)
+      .then(user => done(null, user))
+      .catch(err =>
+        err.type === k.ACCOUNT_NOT_FOUND
+          ? User.createOAuth(profile, strategy)
+              .then(user => {
+                const { password, token, ...userDetails } = user;
+                done(null, userDetails);
+              })
+              .catch(done)
+          : done(err)
+      );
+  };
 }
 
 export default passport => {
@@ -58,8 +61,10 @@ export default passport => {
     )
   );
 
-  passport.use(new FacebookStrategy(config.facebook, facebookAuth));
-  // passport.use(new GoogleStrategy(config.google, googleAuth));
+  passport.use(
+    new FacebookStrategy(config.facebook, oAuth(k.STRATEGY.FACEBOOK))
+  );
+  passport.use(new GoogleStrategy(config.google, oAuth(k.STRATEGY.GOOGLE)));
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);

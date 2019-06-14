@@ -123,12 +123,10 @@ function createOAuth(profile, strategy) {
         .then(id => {
           const user = {
             identifier: profile.id,
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
+            firstName: profile.name && profile.name.givenName,
+            lastName: profile.name && profile.name.familyName,
             email:
-              profile.emails && profile.emails[0]
-                ? profile.emails[0].value
-                : null,
+              profile.emails && profile.emails[0] && profile.emails[0].value,
             userId: id
           };
           const { columns, values } = Query.toColumns(user);

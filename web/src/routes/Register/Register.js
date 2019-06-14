@@ -5,7 +5,7 @@ import Heading from 'Src/modules/Heading';
 import Navbar from 'Src/modules/Navbar';
 import { Link } from 'react-router-dom';
 import RoundedButton from 'Src/modules/RoundedButton';
-import { facebookLogin } from 'Src/config/endpoints';
+import { facebookLogin, googleLogin } from 'Src/config/endpoints';
 
 const Register = () => (
   <div className="register-page">
@@ -19,6 +19,7 @@ const Register = () => (
       <Heading>Sign Up</Heading>
     </div>
     <a href={facebookLogin}>Facebook</a>
+    <a href={googleLogin}>Google</a>
     <div className="form-container">
       <RegisterForm />
     </div>
