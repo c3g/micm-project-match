@@ -22,7 +22,17 @@ router.post(
   auth.forgotPassword
 );
 
+router.get('/logout', auth.logout);
+
 export default passport => {
+  router.get('/auth/facebook', passport.authenticate('facebook'));
+  router.get(
+    '/auth/facebook/callback',
+    passport.authenticate('facebook', {
+      successRedirect: process.env.OAUTH_SUCCESS_REDIRECT || '/',
+      failureRedirect: process.env.OAUTH_FAILURE_REDIRECT || '/signin'
+    })
+  );
   router.post(
     '/login',
     validator(schemas.auth.login),

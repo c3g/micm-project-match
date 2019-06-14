@@ -38,11 +38,11 @@ function interpolate(query, params) {
  * Perform a query using the pool/request's app's pool
  * @returns Promise
  */
-function query(q, params) {
+function query(q, params, conn = pool) {
   return new Promise((resolve, reject) => {
     const interpolated = interpolate(q, params);
 
-    pool.query(interpolated.query, interpolated.params, (err, results) => {
+    conn.query(interpolated.query, interpolated.params, (err, results) => {
       if (err) reject(err);
       else resolve(results);
     });
@@ -70,8 +70,8 @@ function selectAll(q, params, field) {
   );
 }
 
-function insert(q, params, field = 'id') {
-  return query(q + ` RETURNING ${field}`, params).then(result =>
+function insert(q, params, field = 'id', conn) {
+  return query(q + ` RETURNING ${field}`, params, conn).then(result =>
     result.rows.length > 0 ? result.rows[0][field] : undefined
   );
 }

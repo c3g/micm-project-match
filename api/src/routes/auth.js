@@ -44,11 +44,17 @@ function loginFailure(err, req, res, next) {
   errorHandler(res)(err);
 }
 
+function logout(req, res) {
+  req.logout();
+  okHandler(res)();
+}
+
 export default {
   register,
   setPassword,
   forgotPassword,
   registerResend,
   loginSuccess,
-  loginFailure
+  loginFailure,
+  logout
 };

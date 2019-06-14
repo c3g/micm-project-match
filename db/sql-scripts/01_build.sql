@@ -8,8 +8,8 @@ CREATE TYPE STRATEGY_TYPE AS ENUM ('LOCAL', 'GOOGLE', 'FACEBOOK', 'OPENID');
 
 CREATE TABLE IF NOT EXISTS user_account (
   id           SERIAL PRIMARY KEY,
-  first_name   VARCHAR(50) NOT NULL,
-  last_name    VARCHAR(50) NOT NULL,
+  first_name   VARCHAR(50),
+  last_name    VARCHAR(50),
   tel          VARCHAR(20),
   email        VARCHAR(100) UNIQUE,
   password     VARCHAR(61),
@@ -24,10 +24,10 @@ CREATE TABLE IF NOT EXISTS user_account (
 
 CREATE TABLE IF NOT EXISTS oauth_details (
   id           SERIAL PRIMARY KEY,
-  identifier   VARCHAR(100),
-  first_name   VARCHAR(50) NOT NULL,
-  last_name    VARCHAR(50) NOT NULL,
-  email        VARCHAR(100) UNIQUE,
+  identifier   VARCHAR(100) NOT NULL,
+  first_name   VARCHAR(50),
+  last_name    VARCHAR(50),
+  email        VARCHAR(100),
   user_id      INT NOT NULL,
 
   FOREIGN KEY (user_id) REFERENCES user_account (id)

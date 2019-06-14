@@ -22,7 +22,7 @@ function create(user) {
   user = { ...user, token };
   const { columns, values } = Query.toColumns(user);
   return db
-    .insert(`INSERT INTO user_account (${columns}) values (${values})`, user)
+    .insert(`INSERT INTO user_account (${columns}) VALUES (${values})`, user)
     .then(findById)
     .catch(err =>
       err.code === '23505'
@@ -89,6 +89,65 @@ function validatePassword(user, password) {
   return bcrypt.compare(password, user.password);
 }
 
+function findByIdentifier(identifier, strategy) {
+  return db
+    .selectOne(
+      `SELECT user_account.*, row_to_json(oauth_details.*) as "oauthDetails"
+       FROM user_account JOIN oauth_details
+       ON user_account.id = oauth_details.user_id
+       WHERE oauth_details.identifier = @identifier
+       ${strategy ? `AND user_account.strategy = @strategy` : ''}`,
+      { identifier, strategy }
+    )
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
+        : Promise.reject(err)
+    );
+}
+
+function createOAuth(profile, strategy) {
+  return db.pool
+    .connect()
+    .then(client =>
+      client
+        .query('BEGIN')
+        .then(() =>
+          db.insert(
+            `INSERT INTO user_account(strategy) VALUES(@strategy)`,
+            { strategy },
+            'id',
+            client
+          )
+        )
+        .then(id => {
+          const user = {
+            identifier: profile.id,
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName,
+            email:
+              profile.emails && profile.emails[0]
+                ? profile.emails[0].value
+                : null,
+            userId: id
+          };
+          const { columns, values } = Query.toColumns(user);
+          return db.insert(
+            `INSERT INTO oauth_details (${columns}) VALUES (${values})`,
+            user,
+            'identifier',
+            client
+          );
+        })
+        .then(identifier =>
+          client.query('COMMIT').then(() => Promise.resolve(identifier))
+        )
+        .catch(err => client.query('ROLLBACK').then(() => Promise.reject(err)))
+        .finally(() => client.release())
+    )
+    .then(identifier => findByIdentifier(identifier, strategy));
+}
+
 export default {
   create,
   findById,
@@ -96,5 +155,7 @@ export default {
   setPassword,
   forgotPassword,
   findByEmail,
-  validatePassword
+  validatePassword,
+  findByIdentifier,
+  createOAuth
 };

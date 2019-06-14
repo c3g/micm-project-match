@@ -5,7 +5,9 @@ export const errorHandler = (res, status = 500) => err => {
     [k.ROW_NOT_FOUND]: 404,
     [k.ACCOUNT_NOT_FOUND]: 404,
     [k.EMAIL_EXISTS]: 409,
-    [k.INCORRECT_CREDENTIALS]: 401
+    [k.INCORRECT_CREDENTIALS]: 401,
+    [k.TOKEN_NOT_FOUND]: 409,
+    [k.PASSWORD_NOT_SET]: 404
   };
   let unknownErr = false;
   if (err.type && errStatus[err.type]) {
@@ -21,7 +23,7 @@ export const errorHandler = (res, status = 500) => err => {
       message: err.message,
       code: err.code,
       type: err.type,
-      stack: err.stack.split('\n')
+      stack: err.stack && err.stack.split('\n')
     })
   };
   res.status(status).json(response);
