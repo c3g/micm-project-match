@@ -36,7 +36,7 @@ function loginSuccess(req, res) {
 }
 
 function loginFailure(err, req, res, next) {
-  if (err.status === 401) {
+  if (err.status === k.UNAUTHORIZED) {
     const err = new Error('Email or password is incorrect');
     err.type = k.INCORRECT_CREDENTIALS;
     return errorHandler(res)(err);

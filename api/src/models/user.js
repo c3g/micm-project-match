@@ -25,7 +25,7 @@ function create(user) {
     .insert(`INSERT INTO user_account (${columns}) VALUES (${values})`, user)
     .then(findById)
     .catch(err =>
-      err.code === '23505'
+      err.code === k.UNIQUE_VIOLATION
         ? rejectMessage('Email already in use', k.EMAIL_EXISTS)
         : Promise.reject(err)
     );
