@@ -9,6 +9,8 @@
     "start": "lerna run start",
     "build": "lerna run build",
     "test": "lerna run test",
+    "test:watch": "lerna run test:watch",
+    "test:coverage": "lerna run test:coverage",
     "clean": "lerna run clean",
     "lint": "lerna run lint"
   }

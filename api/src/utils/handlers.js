@@ -13,7 +13,7 @@ export const errorHandler = (res, status = 500) => err => {
   if (err.type && errStatus[err.type]) {
     status = errStatus[err.type];
   } else {
-    console.log(err);
+    console.error(err);
     unknownErr = true;
   }
   const response = {

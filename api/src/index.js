@@ -20,5 +20,4 @@ passportConfig(passport);
 
 app.use('/api', routes(passport));
 
-const port = process.env.NODE_PORT || 3000;
-app.listen(port, () => console.log(`Listening on ${port}`));
+export default app;

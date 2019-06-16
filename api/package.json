@@ -29,18 +29,25 @@
     "@babel/preset-env": "7.0.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.1",
+    "babel-jest": "24.8.0",
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.3.0",
     "eslint-plugin-prettier": "3.1.0",
+    "jest": "24.8.0",
+    "node-mocks-http": "1.7.6",
     "nodemon": "1.19.0",
     "prettier": "1.17.1",
-    "rimraf": "2.6.3"
+    "rimraf": "2.6.3",
+    "supertest": "4.0.2"
   },
   "scripts": {
-    "start": "nodemon --watch src --exec babel-node src/index.js",
-    "build": "babel src --out-dir dist",
-    "serve": "node dist",
+    "start": "nodemon --watch src --exec babel-node src/bin/www",
+    "build": "babel src --out-dir dist --copy-files",
+    "serve": "node dist/bin/www",
     "clean": "rimraf ./dist",
+    "test": "jest --color",
+    "test:watch": "jest --watch --color",
+    "test:coverage": "jest --coverage --color",
     "lint": "eslint ./src --fix --color"
   },
   "repository": {

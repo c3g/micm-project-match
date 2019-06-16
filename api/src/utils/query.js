@@ -5,13 +5,15 @@ export function toColumns(obj) {
     columns: Object.keys(obj)
       .map(snake)
       .join(', '),
-    values: '@' + Object.keys(obj).join(', @')
+    values:
+      (Object.keys(obj).length > 0 ? '@' : '') + Object.keys(obj).join(', @')
   };
 }
 
 export function toMapping(obj) {
-  return Object.keys(obj)
-    .map(snake)
-    .map(key => `${key} = @${key}`)
-    .join(', ');
+  return (
+    Object.keys(obj)
+      .map(key => `${snake(key)} = @${key}`)
+      .join(', ') || ''
+  );
 }
