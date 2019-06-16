@@ -1,7 +1,7 @@
 FROM node:10-alpine
 WORKDIR /usr/src/api
 COPY ./api/package*.json ./
-RUN npm install --production --silent
+RUN npm install --silent
 COPY ./api/ .
 RUN npm run build
 EXPOSE 3000

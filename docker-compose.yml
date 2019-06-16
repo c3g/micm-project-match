@@ -13,12 +13,25 @@ services:
       - db
       - redis
     environment:
+      - NODE_ENV=production
+      - NODE_PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SESSION_SECRET=secret
       - POSTGRES_DB=micm
       - POSTGRES_HOST=db
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
       - POSTGRES_PORT=5432
-      - REDIS_HOST=redis
+      - FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
+      - FACEBOOK_CLIENT_SECRET=${FACEBOOK_CLIENT_SECRET}
+      - FACEBOOK_CALLBACK_URL=/api/auth/facebook/callback
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_CALLBACK_URL=/api/auth/google/callback
+      - OAUTH_SUCCESS_REDIRECT=/
+      - OAUTH_FAILURE_REDIRECT=/signin
+
   db:
     build:
       dockerfile: ./db/Dockerfile
