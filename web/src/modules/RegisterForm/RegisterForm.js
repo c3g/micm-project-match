@@ -6,6 +6,10 @@ import Captcha from 'Src/modules/Captcha';
 import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
 import RadioButton from 'Src/modules/RadioButton';
+import { facebookLogin, googleLogin } from 'Src/config/endpoints';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import './registerForm.scss';
 
 const registerValidate = values => {
@@ -45,57 +49,86 @@ RegisterField.propTypes = {
 let RegisterForm = props => (
   <div className="register-form">
     {!props.complete ? (
-      <div className="form">
-        <form
-          onSubmit={props.handleSubmit(data =>
-            props.onRegister({ data, push: props.history.push })
-          )}
-        >
-          <Field
-            name="firstName"
-            component={RegisterField}
-            type="text"
-            label="First Name"
+      <div>
+        <a className="facebook-auth-button" href={facebookLogin}>
+          <FontAwesomeIcon
+            size="1x"
+            transform="down-3 grow-10"
+            icon={faFacebookF}
           />
-          <Field
-            name="lastName"
-            component={RegisterField}
-            type="text"
-            label="Last Name"
+          Continue with Facebook
+          <FontAwesomeIcon
+            size="1x"
+            transform="down-3 grow-10"
+            icon={faArrowCircleRight}
           />
-          <Field
-            name="email"
-            component={RegisterField}
-            type="email"
-            label="Email"
+        </a>
+        <a className="google-auth-button" href={googleLogin}>
+          <FontAwesomeIcon
+            size="1x"
+            transform="down-3 grow-10"
+            icon={faGoogle}
           />
-          <Field
-            name="tel"
-            component={RegisterField}
-            type="text"
-            label="Contact Number"
+          Continue with Google
+          <FontAwesomeIcon
+            size="1x"
+            transform="down-3 grow-10"
+            icon={faArrowCircleRight}
           />
-          <Field
-            name="type"
-            text="I'm a Student"
-            component={RadioButton}
-            type="radio"
-            value="STUDENT"
-          />
-          <Field
-            name="type"
-            text="I'm a Professor"
-            component={RadioButton}
-            type="radio"
-            value="PROFESSOR"
-          />
-          <div className="captcha-container">
-            <Field name="captchaResponse" component={Captcha} />
-          </div>
-          <div className="centered-button">
-            <RoundedButton>Continue</RoundedButton>
-          </div>
-        </form>
+        </a>
+        <div className="separator">or</div>
+        <div className="form">
+          <form
+            onSubmit={props.handleSubmit(data =>
+              props.onRegister({ data, push: props.history.push })
+            )}
+          >
+            <Field
+              name="firstName"
+              component={RegisterField}
+              type="text"
+              label="First Name"
+            />
+            <Field
+              name="lastName"
+              component={RegisterField}
+              type="text"
+              label="Last Name"
+            />
+            <Field
+              name="email"
+              component={RegisterField}
+              type="email"
+              label="Email"
+            />
+            <Field
+              name="tel"
+              component={RegisterField}
+              type="text"
+              label="Contact Number"
+            />
+            <Field
+              name="type"
+              text="I'm a Student"
+              component={RadioButton}
+              type="radio"
+              value="STUDENT"
+            />
+            <Field
+              name="type"
+              text="I'm a Professor"
+              component={RadioButton}
+              type="radio"
+              value="PROFESSOR"
+            />
+            <div className="captcha-container">
+              <Field name="captchaResponse" component={Captcha} />
+            </div>
+            <div className="centered-button">
+              <RoundedButton>Continue</RoundedButton>
+            </div>
+          </form>
+        </div>
       </div>
     ) : (
       <div className="form-complete">
