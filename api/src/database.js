@@ -1,6 +1,7 @@
 import pool from './config/db';
 import { rejectMessage } from './utils/promise';
 import k from './constants';
+import { camel, snake } from 'change-case';
 
 /**
  * Turns 'SELECT * FROM users WHERE id = @id', { id: 42 }
@@ -49,6 +50,13 @@ function query(q, params, conn = pool) {
   });
 }
 
+function correctCase(object) {
+  return Object.keys(object).reduce(
+    (a, c) => ({ ...a, [camel(c)]: object[c] }),
+    {}
+  );
+}
+
 function selectOne(q, params, field) {
   return query(q, params).then(result =>
     result.rows.length === 0
@@ -59,14 +67,14 @@ function selectOne(q, params, field) {
           k.ROW_NOT_FOUND
         )
       : field
-      ? result.rows[0][field]
-      : result.rows[0]
+      ? correctCase(result.rows[0])[field]
+      : correctCase(result.rows[0])
   );
 }
 
 function selectAll(q, params, field) {
   return query(q, params).then(result =>
-    field ? result.rows.map(r => r[field]) : result.rows
+    field ? result.rows.map(r => r[field]) : result.rows.map(correctCase)
   );
 }
 

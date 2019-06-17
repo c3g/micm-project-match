@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@hapi/joi": "15.0.3",
+    "aws-sdk": "2.476.0",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "change-case": "3.1.0",
@@ -14,6 +15,8 @@
     "express-session": "1.16.1",
     "morgan": "1.9.1",
     "node-fetch": "2.6.0",
+    "nodemailer": "6.2.1",
+    "nodemailer-plugin-inline-base64": "2.1.1",
     "passport": "0.4.0",
     "passport-facebook": "3.0.0",
     "passport-google-oauth": "2.0.0",

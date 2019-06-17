@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var app = require('../').default;
+var app = require('../app').default;
 var http = require('http');
 
 var port = process.env.NODE_PORT || 3000;
