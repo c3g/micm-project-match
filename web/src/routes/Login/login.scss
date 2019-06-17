@@ -1,4 +1,6 @@
-.forgot-password-page {
+@import 'Src/core/common.scss';
+
+.login-page {
   .heading-container {
     text-align: center;
     margin: 10px;
@@ -6,6 +8,7 @@
 
   .form-container {
     height: 100%;
+    overflow: hidden;
     width: 420px;
     margin: 0 auto;
   }

@@ -50,9 +50,7 @@ const registerResend = Joi.object({
 
 const login = Joi.object({
   body: Joi.object({
-    email: Joi.string()
-      .email()
-      .required(),
+    email: Joi.string().required(),
     password: Joi.string().required()
   }).required()
 });

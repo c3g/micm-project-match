@@ -4,10 +4,11 @@ import { request, action } from 'Src/utils';
 import { SNACKBAR, REGISTER, REGISTER_EMAIL } from 'Src/constants/actionTypes';
 
 function* register({ payload }) {
-  if (!payload.data.captchaResponse) return;
   const { captchaResponse, ...userData } = payload.data;
   if (!userData.type) {
     yield put(action(SNACKBAR.DANGER, 'Please choose a role'));
+  } else if (!payload.data.captchaResponse) {
+    yield put(action(SNACKBAR.DANGER, 'Fill the captcha'));
   } else {
     const data = yield call(request, '/register', {
       captchaResponse,

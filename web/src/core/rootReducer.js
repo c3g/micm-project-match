@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { snackbarReducer } from 'Src/modules/Snackbar';
 import { registerFormReducer } from 'Src/modules/RegisterForm';
+import { loginFormReducer } from 'Src/modules/LoginForm';
 import { forgotPasswordFormReducer } from 'Src/modules/ForgotPasswordForm';
 import { setPasswordFormReducer } from 'Src/modules/SetPasswordForm';
 import { appReducer } from 'Src/core/App';
@@ -12,5 +13,6 @@ export default combineReducers({
   form: formReducer,
   register: registerFormReducer,
   forgotPassword: forgotPasswordFormReducer,
-  setPassword: setPasswordFormReducer
+  setPassword: setPasswordFormReducer,
+  login: loginFormReducer
 });

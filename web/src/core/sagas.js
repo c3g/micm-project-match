@@ -1,6 +1,7 @@
 import { all, put } from 'redux-saga/effects';
 import { action } from 'Src/utils';
 import { registerFormSaga } from 'Src/modules/RegisterForm';
+import { loginFormSaga } from 'Src/modules/LoginForm';
 import { setPasswordFormSaga } from 'Src/modules/SetPasswordForm';
 import { forgotPasswordFormSaga } from 'Src/modules/ForgotPasswordForm';
 import { AUTH, LOADING } from 'Src/constants/actionTypes';
@@ -18,7 +19,8 @@ export function* rootSaga() {
     init(),
     registerFormSaga(),
     setPasswordFormSaga(),
-    forgotPasswordFormSaga()
+    forgotPasswordFormSaga(),
+    loginFormSaga()
   ]);
 }
 
