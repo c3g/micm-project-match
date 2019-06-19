@@ -27,13 +27,14 @@ export default (email, token, firstName, lastName) => `
   <tr>
     <td align="left" style="padding: 30px 0; padding-top: 50px;">
       <span style="font-weight: 400;">Hey${name(firstName, lastName)},</span>
-      <br />Click on the continue button to verify your email.
+      <br />Click on the continue button to verify your email and set your
+      password.
     </td>
   </tr>
   <tr>
     <td align="center">
       <a
-        href="${process.env.PUBLIC_URL}/verify?token=${token}"
+        href="${process.env.PUBLIC_URL}/setpassword?token=${token}"
         target="_blank"
       >
         <button
@@ -47,7 +48,7 @@ export default (email, token, firstName, lastName) => `
   <tr>
     <td align="left" style="padding: 30px 0 0; font-size: 0.8rem; color: #333333">
       Alternatively, copy paste the following link into your browser:<br />
-      ${process.env.PUBLIC_URL}/verify?token=${token}
+      ${process.env.PUBLIC_URL}/setpassword?token=${token}
     </td>
   </tr>
   <tr>

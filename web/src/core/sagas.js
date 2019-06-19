@@ -1,17 +1,18 @@
-import { all, put } from 'redux-saga/effects';
-import { action } from 'Src/utils';
+import { all, put, call } from 'redux-saga/effects';
+import { request, action } from 'Src/utils';
 import { registerFormSaga } from 'Src/modules/RegisterForm';
 import { loginFormSaga } from 'Src/modules/LoginForm';
 import { setPasswordFormSaga } from 'Src/modules/SetPasswordForm';
 import { forgotPasswordFormSaga } from 'Src/modules/ForgotPasswordForm';
-import { AUTH, LOADING } from 'Src/constants/actionTypes';
+import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
   process.env.NODE_ENV === 'development' &&
     console.log('🍪🍪🍪 cookies:', document.cookie || 'none');
-  if (document.cookie.includes('connect.sid'))
-    yield put(action(AUTH.RECEIVE, true));
-  yield put(action(LOADING.START, false));
+  const data = yield call(request, `/user`);
+  if (data.data && data.data.loggedIn)
+    yield put(action(LOGIN.RECEIVE, data.data.user));
+  else yield put(action(LOGIN.ERROR));
 }
 
 export function* rootSaga() {

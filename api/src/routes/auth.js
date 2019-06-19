@@ -1,11 +1,11 @@
 import { User } from '../models';
 import { errorHandler, dataHandler, okHandler } from '../utils/handlers';
-import { sendVerificationMail } from '../mail';
+import { sendSetPasswordMail } from '../mail';
 import k from '../constants';
 
 function register(req, res) {
   User.create(req.body.userData)
-    .then(sendVerificationMail)
+    .then(sendSetPasswordMail)
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }
@@ -18,14 +18,14 @@ function setPassword(req, res) {
 
 function forgotPassword(req, res) {
   User.forgotPassword(req.body)
-    .then(sendVerificationMail)
+    .then(sendSetPasswordMail)
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }
 
 function registerResend(req, res) {
   User.findByEmail(req.params)
-    .then(sendVerificationMail)
+    .then(sendSetPasswordMail)
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }

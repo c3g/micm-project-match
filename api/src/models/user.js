@@ -46,12 +46,14 @@ function saltAndHash(password) {
 function setPassword({ password, token }) {
   const hash = saltAndHash(password);
   const userId = db.selectOne(
-    'SELECT * FROM user_account WHERE token = @token',
-    { token },
+    `SELECT * FROM user_account WHERE token = @token and strategy = @strategy`,
+    { token, strategy: k.STRATEGY.LOCAL },
     'id'
   );
   return Promise.all([hash, userId])
-    .then(([password, id]) => update({ id, password, token: null }))
+    .then(([password, id]) =>
+      update({ id, password, token: null, verified: true })
+    )
     .catch(err =>
       err.type === k.ROW_NOT_FOUND
         ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)

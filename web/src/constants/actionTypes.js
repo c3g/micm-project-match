@@ -5,12 +5,6 @@ export const LOGIN = createNetworkConstants('LOGIN');
 export const SET_PASSWORD = createNetworkConstants('SET_PASSWORD');
 export const FORGOT_PASSWORD = createNetworkConstants('FORGOT_PASSWORD');
 export const REGISTER_EMAIL = createNetworkConstants('REGISTER_EMAIL');
-export const AUTH = createNetworkConstants('AUTH');
-
-export const LOADING = {
-  START: 'LOADING.START',
-  DONE: 'LOADING.DONE'
-};
 
 export const SNACKBAR = {
   INFO: 'SNACKBAR.INFO',

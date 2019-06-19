@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS user_account (
   type         USER_TYPE DEFAULT 'UNSET' NOT NULL,
   token        VARCHAR(100) UNIQUE,
   strategy     STRATEGY_TYPE DEFAULT 'LOCAL' NOT NULL,
-  approved     BOOLEAN DEFAULT false NOT NULL
+  approved     BOOLEAN DEFAULT false NOT NULL,
+  verified     BOOLEAN DEFAULT false NOT NULL
 );
 
 
@@ -36,18 +37,18 @@ CREATE TABLE IF NOT EXISTS oauth_details (
 
 -- ************************************** department
 
-CREATE TABLE IF NOT EXISTS department (
-  id   SERIAL PRIMARY KEY,
-  name VARCHAR(150) NOT NULL
-);
+-- CREATE TABLE IF NOT EXISTS department (
+--   id   SERIAL PRIMARY KEY,
+--   name VARCHAR(150) NOT NULL
+-- );
 
 
 -- ************************************** position
 
-CREATE TABLE IF NOT EXISTS position (
-  id   SERIAL PRIMARY KEY,
-  name VARCHAR(150) NOT NULL
-);
+-- CREATE TABLE IF NOT EXISTS position (
+--   id   SERIAL PRIMARY KEY,
+--   name VARCHAR(150) NOT NULL
+-- );
 
 
 -- ************************************** professor
@@ -55,12 +56,12 @@ CREATE TABLE IF NOT EXISTS position (
 CREATE TABLE IF NOT EXISTS professor_details (
   id             SERIAL PRIMARY KEY,
   user_id        INT NOT NULL,
-  department_id  INT NOT NULL,
-  position_id    INT NOT NULL,
+  department     VARCHAR(150) NOT NULL,
+  position       VARCHAR(150) NOT NULL,
 
-  FOREIGN KEY (user_id)       REFERENCES user_account (id),
-  FOREIGN KEY (department_id) REFERENCES department (id),
-  FOREIGN KEY (position_id)   REFERENCES position (id)
+  FOREIGN KEY (user_id)       REFERENCES user_account (id)
+  -- FOREIGN KEY (department_id) REFERENCES department (id),
+  -- FOREIGN KEY (position_id)   REFERENCES position (id)
 );
 
 

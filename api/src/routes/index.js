@@ -2,6 +2,7 @@ import express from 'express';
 import validator from '../utils/validator';
 import schemas from '../schemas';
 import auth from './auth';
+import user from './user';
 
 const router = express.Router();
 
@@ -21,8 +22,14 @@ router.post(
   validator(schemas.auth.forgotPassword),
   auth.forgotPassword
 );
-
 router.get('/logout', auth.logout);
+
+router.get('/user', user.userData);
+router.post(
+  '/user/update',
+  validator(schemas.user.updateUser),
+  user.updateUser
+);
 
 export default passport => {
   router.get(

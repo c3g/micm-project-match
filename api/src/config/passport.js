@@ -30,7 +30,10 @@ function localAuth(email, password, done) {
       : User.validatePassword(user, password)
   );
   Promise.all([user, valid])
-    .then(([user, result]) => (result ? done(null, user) : done(null, false)))
+    .then(([user, result]) => {
+      const { password, token, ...userDetails } = user;
+      return result ? done(null, userDetails) : done(null, false);
+    })
     .catch(err =>
       err.type === k.ACCOUNT_NOT_FOUND ? done(null, false) : done(err)
     );
@@ -39,7 +42,10 @@ function localAuth(email, password, done) {
 function oAuth(strategy) {
   return function(accessToken, refreshToken, profile, done) {
     User.findByIdentifier(profile.id, strategy)
-      .then(user => done(null, user))
+      .then(user => {
+        const { password, token, ...userDetails } = user;
+        done(null, userDetails);
+      })
       .catch(err =>
         err.type === k.ACCOUNT_NOT_FOUND
           ? User.createOAuth(profile, strategy)
@@ -72,7 +78,10 @@ export default passport => {
 
   passport.deserializeUser(function(id, done) {
     User.findById(id)
-      .then(user => done(null, user))
+      .then(user => {
+        const { password, token, ...userDetails } = user;
+        done(null, userDetails);
+      })
       .catch(err =>
         err.type === k.ACCOUNT_NOT_FOUND ? done(null, false) : done(err)
       );
