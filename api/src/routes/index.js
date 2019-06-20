@@ -1,10 +1,13 @@
 import express from 'express';
 import validator from '../utils/validator';
 import schemas from '../schemas';
+import multer from 'multer';
 import auth from './auth';
 import user from './user';
 
 const router = express.Router();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.post('/register', validator(schemas.auth.register), auth.register);
 router.get(
@@ -30,6 +33,12 @@ router.post(
   validator(schemas.user.updateUser),
   user.updateUser
 );
+router.post(
+  '/professor/update',
+  validator(schemas.user.updateProfessor),
+  user.updateProfessor
+);
+router.post('/cv/update', upload.single('cv'), user.updateCv);
 
 export default passport => {
   router.get(

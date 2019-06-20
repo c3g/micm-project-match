@@ -21,3 +21,18 @@ passportConfig(passport);
 app.use('/api', routes(passport));
 
 export default app;
+
+// import * as File from './utils/file';
+// const fs = require('fs');
+// const path = require('path');
+
+// var filePath = __dirname + '/app.js';
+
+// var params = {
+//   Body: fs.createReadStream(filePath),
+//   Key: 'folder/' + path.basename(filePath)
+// };
+
+// File.upload(params)
+//   .then(console.log)
+//   .catch(console.log);

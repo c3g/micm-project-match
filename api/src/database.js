@@ -1,7 +1,7 @@
 import pool from './config/db';
 import { rejectMessage } from './utils/promise';
 import k from './constants';
-import { camel, snake } from 'change-case';
+import { camel } from 'change-case';
 
 /**
  * Turns 'SELECT * FROM users WHERE id = @id', { id: 42 }

@@ -17,7 +17,10 @@ CREATE TABLE IF NOT EXISTS user_account (
   token        VARCHAR(100) UNIQUE,
   strategy     STRATEGY_TYPE DEFAULT 'LOCAL' NOT NULL,
   approved     BOOLEAN DEFAULT false NOT NULL,
-  verified     BOOLEAN DEFAULT false NOT NULL
+  verified     BOOLEAN DEFAULT false NOT NULL,
+  cv_location  VARCHAR(400),
+  cv_key       VARCHAR(340),
+  cv_bucket    VARCHAR(64)
 );
 
 
@@ -53,9 +56,9 @@ CREATE TABLE IF NOT EXISTS oauth_details (
 
 -- ************************************** professor
 
-CREATE TABLE IF NOT EXISTS professor_details (
+CREATE TABLE IF NOT EXISTS professor (
   id             SERIAL PRIMARY KEY,
-  user_id        INT NOT NULL,
+  user_id        INT UNIQUE NOT NULL,
   department     VARCHAR(150) NOT NULL,
   position       VARCHAR(150) NOT NULL,
 

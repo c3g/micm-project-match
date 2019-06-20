@@ -19,6 +19,28 @@ const config = {
   }
 };
 
+const clean = ({
+  id,
+  firstName,
+  lastName,
+  tel,
+  email,
+  type,
+  strategy,
+  approved,
+  verified
+}) => ({
+  id,
+  firstName,
+  lastName,
+  tel,
+  email,
+  type,
+  strategy,
+  approved,
+  verified
+});
+
 function localAuth(email, password, done) {
   const user = User.findByEmail({ email });
   const valid = user.then(user =>
@@ -30,10 +52,9 @@ function localAuth(email, password, done) {
       : User.validatePassword(user, password)
   );
   Promise.all([user, valid])
-    .then(([user, result]) => {
-      const { password, token, ...userDetails } = user;
-      return result ? done(null, userDetails) : done(null, false);
-    })
+    .then(([user, result]) =>
+      result ? done(null, clean(user)) : done(null, false)
+    )
     .catch(err =>
       err.type === k.ACCOUNT_NOT_FOUND ? done(null, false) : done(err)
     );
@@ -42,17 +63,11 @@ function localAuth(email, password, done) {
 function oAuth(strategy) {
   return function(accessToken, refreshToken, profile, done) {
     User.findByIdentifier(profile.id, strategy)
-      .then(user => {
-        const { password, token, ...userDetails } = user;
-        done(null, userDetails);
-      })
+      .then(user => done(null, clean(user)))
       .catch(err =>
         err.type === k.ACCOUNT_NOT_FOUND
           ? User.createOAuth(profile, strategy)
-              .then(user => {
-                const { password, token, ...userDetails } = user;
-                done(null, userDetails);
-              })
+              .then(user => done(null, clean(user)))
               .catch(done)
           : done(err)
       );
@@ -78,10 +93,7 @@ export default passport => {
 
   passport.deserializeUser(function(id, done) {
     User.findById(id)
-      .then(user => {
-        const { password, token, ...userDetails } = user;
-        done(null, userDetails);
-      })
+      .then(user => done(null, clean(user)))
       .catch(err =>
         err.type === k.ACCOUNT_NOT_FOUND ? done(null, false) : done(err)
       );
