@@ -8,11 +8,16 @@ const Navbar = ({ children }) => (
     <div className="logo">
       <C3GLogo />
     </div>
-    {children.map((child, i) => (
-      <div key={`child_${i}`} className="nav-link">
-        {child}
-      </div>
-    ))}
+    {children &&
+      (children.map ? (
+        children.map((child, i) => (
+          <div key={`child_${i}`} className="nav-link">
+            {child}
+          </div>
+        ))
+      ) : (
+        <div className="nav-link">{children}</div>
+      ))}
   </div>
 );
 

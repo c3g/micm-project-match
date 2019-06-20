@@ -1,0 +1,132 @@
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import RoundedButton from 'Src/modules/RoundedButton';
+import InputField from 'Src/modules/InputField';
+import RadioButton from 'Src/modules/RadioButton';
+import './setupForm.scss';
+
+const setupValidate = values => {
+  const errors = {};
+  if (!values.email) errors.email = 'Required';
+  else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))
+    errors.email = 'Invalid email address';
+
+  if (!values.firstName) errors.firstName = 'Required';
+  else if (values.firstName.length > 50)
+    errors.firstName = 'Must be less than 50 characters long';
+
+  if (!values.lastName) errors.lastName = 'Required';
+  else if (values.lastName.length > 50)
+    errors.lastName = 'Must be less than 50 characters long';
+
+  return errors;
+};
+
+let SetupField = ({ input, label, type, meta: { touched, error } }) => (
+  <div className={`setup-field ${error && touched ? 'error' : ''}`}>
+    <InputField {...input} placeholder={label} type={type} />
+    <span className="message">{touched && (error && error)}</span>
+  </div>
+);
+
+SetupField.propTypes = {
+  input: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool.isRequired,
+    error: PropTypes.string
+  })
+};
+
+let SetupForm = props => (
+  <div className="setup-form">
+    {!props.complete ? (
+      <div className="form">
+        <div className="note">
+          <div>Hey,</div>
+          Let&apos;s get your profile set up. Please make sure you provide a
+          McGill email. We will send you a verification email before you can
+          start with your projects.
+        </div>
+        <form
+          onSubmit={props.handleSubmit(data =>
+            props.onSetup({ data, push: props.history.push })
+          )}
+        >
+          <Field
+            name="firstName"
+            component={SetupField}
+            type="text"
+            label="First Name"
+          />
+          <Field
+            name="lastName"
+            component={SetupField}
+            type="text"
+            label="Last Name"
+          />
+          <Field
+            name="email"
+            component={SetupField}
+            type="email"
+            label="Email"
+          />
+          <Field
+            name="tel"
+            component={SetupField}
+            type="text"
+            label="Contact Number"
+          />
+          <Field
+            name="type"
+            text="I'm a Student"
+            component={RadioButton}
+            type="radio"
+            value="STUDENT"
+          />
+          <Field
+            name="type"
+            text="I'm a Professor"
+            component={RadioButton}
+            type="radio"
+            value="PROFESSOR"
+          />
+          <div className="centered-button">
+            <RoundedButton>Continue</RoundedButton>
+          </div>
+        </form>
+      </div>
+    ) : (
+      <div className="form-complete">
+        <div>
+          A verification link has been e-mailed to {props.email}. Follow it to
+          verify your email.
+        </div>
+        <div className="centered-button">
+          <div onClick={() => props.onResendMail({ email: props.email })}>
+            <RoundedButton>Resend E-mail</RoundedButton>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+SetupForm.propTypes = {
+  email: PropTypes.string.isRequired,
+  complete: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  onSetup: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  onResendMail: PropTypes.func.isRequired
+};
+
+SetupForm = reduxForm({
+  form: 'setup',
+  validate: setupValidate
+})(SetupForm);
+
+export default withRouter(SetupForm);

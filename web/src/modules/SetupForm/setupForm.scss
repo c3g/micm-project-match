@@ -1,0 +1,50 @@
+@import 'Src/core/common.scss';
+
+.setup-form {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+
+  .note {
+    div {
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    font-weight: 300;
+    padding-bottom: 10px;
+  }
+
+  .centered-button {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .form-complete {
+    text-align: center;
+
+    div {
+      color: #333333;
+      margin: 20px 0 0;
+    }
+  }
+}
+
+.setup-field {
+  position: relative;
+
+  &.error {
+    input {
+      border: solid thin $color-danger;
+      margin: 14px 0;
+    }
+
+    .message {
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      color: $color-danger;
+      font-size: 0.7rem;
+    }
+  }
+}

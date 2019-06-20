@@ -3,8 +3,14 @@ import Register from './Register';
 import SetPassword from './SetPassword';
 import ForgotPassword from './ForgotPassword';
 import Login from './Login';
+import Setup from './Setup';
 
 export default [
+  {
+    name: 'Setup',
+    pathname: '/setup',
+    component: Setup
+  },
   {
     name: 'Login',
     pathname: '/signin',

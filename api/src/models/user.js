@@ -36,7 +36,12 @@ function update(user) {
   const mapping = Query.toMapping(change);
   return db
     .query(`UPDATE user_account SET ${mapping} WHERE id = @id`, user)
-    .then(() => findById(id));
+    .then(() => findById(id))
+    .catch(err =>
+      err.code === k.UNIQUE_VIOLATION
+        ? rejectMessage('Email already in use', k.EMAIL_EXISTS)
+        : Promise.reject(err)
+    );
 }
 
 function saltAndHash(password) {
