@@ -54,9 +54,16 @@ function updateCv(req, res) {
     .catch(errorHandler(res));
 }
 
+function oauthData(req, res) {
+  User.getOAuthData(req.user.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   userData,
   updateUser,
   updateProfessor,
-  updateCv
+  updateCv,
+  oauthData
 };

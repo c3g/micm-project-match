@@ -28,6 +28,7 @@ router.post(
 router.get('/logout', auth.logout);
 
 router.get('/user', user.userData);
+router.get('/user/oauth', user.oauthData);
 router.post(
   '/user/update',
   validator(schemas.user.updateUser),

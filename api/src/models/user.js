@@ -153,6 +153,12 @@ function createOAuth(profile, strategy) {
     .then(identifier => findByIdentifier(identifier, strategy));
 }
 
+function getOAuthData(userId) {
+  return db.selectOne('SELECT * FROM oauth_details WHERE user_id = @userId', {
+    userId
+  });
+}
+
 export default {
   create,
   findById,
@@ -162,5 +168,6 @@ export default {
   findByEmail,
   validatePassword,
   findByIdentifier,
-  createOAuth
+  createOAuth,
+  getOAuthData
 };
