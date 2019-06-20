@@ -29,7 +29,8 @@ export function sendSetPasswordMail({ email, token, firstName, lastName }) {
     .then(() => Promise.resolve({ email }));
 }
 
-export function sendVerificationMail({ email, token, firstName, lastName }) {
+export function sendVerificationMail(user) {
+  const { email, token, firstName, lastName } = user;
   const html = verificationMail(email, token, firstName, lastName);
 
   return transporter
@@ -39,5 +40,5 @@ export function sendVerificationMail({ email, token, firstName, lastName }) {
       subject: 'Verify your email',
       html
     })
-    .then(() => Promise.resolve({ email }));
+    .then(() => Promise.resolve(user));
 }

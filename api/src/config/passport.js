@@ -19,7 +19,7 @@ const config = {
   }
 };
 
-const clean = ({
+export const clean = ({
   id,
   firstName,
   lastName,

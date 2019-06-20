@@ -4,28 +4,35 @@ import { dataHandler, errorHandler, okHandler } from '../utils/handlers';
 import { sendVerificationMail } from '../mail';
 import uuid from 'uuid';
 import * as File from '../utils/file';
+import { clean } from '../config/passport';
 
 function userData(req, res) {
   dataHandler(res)({ loggedIn: !!req.user, user: req.user });
 }
 
 function updateUser(req, res) {
-  User.update({
-    ...req.body,
-    id: req.user.id,
-    ...(req.body.email && { token: uuid() })
-  })
-    .then(req.body.email ? sendVerificationMail : Promise.resolve())
+  const { email, ...userData } = req.body;
+  const emailShouldUpdate = email && !req.user.verified;
+  const updateData = {
+    ...userData,
+    id: req.user.id
+  };
+  if (emailShouldUpdate) {
+    updateData.email = email;
+    updateData.token = uuid();
+  }
+  User.update(updateData)
+    .then(emailShouldUpdate ? sendVerificationMail : Promise.resolve())
     .then(
-      () =>
+      user =>
         new Promise((res, rej) =>
-          req.login({ ...req.user, ...req.body }, err => {
+          req.login(clean(user), err => {
             if (err) rej(err);
-            else res(userData);
+            else res(clean(user));
           })
         )
     )
-    .then(() => dataHandler(res)(req.body))
+    .then(dataHandler(res))
     .catch(errorHandler(res));
 }
 
