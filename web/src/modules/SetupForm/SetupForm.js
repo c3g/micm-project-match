@@ -5,7 +5,8 @@ import { withRouter } from 'react-router-dom';
 import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
 import RadioButton from 'Src/modules/RadioButton';
-import { equals, pick } from 'ramda';
+import { equals, pick, pickBy } from 'ramda';
+import { name } from 'Src/utils';
 import './setupForm.scss';
 
 const setupValidate = values => {
@@ -43,16 +44,21 @@ SetupField.propTypes = {
 };
 
 class SetupFormComponent extends Component {
-  state = { firstName: '', lastName: '', email: '' };
+  state = { firstName: '', lastName: '', email: '', tel: '', type: '' };
 
   componentDidMount() {
     this.props.fetchOAuthData();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const newProps = pick(['firstName', 'lastName', 'email'], nextProps.oauth);
-    console.log(newProps, prevState, equals(newProps, prevState));
-    if (!equals(newProps, prevState)) nextProps.initialize(newProps);
+    const oAuthData = pick(['firstName', 'lastName', 'email'], nextProps.oauth);
+    const userData = pickBy(v => v && v !== 'UNSET', nextProps.userData);
+    const newProps = { ...prevState, ...oAuthData, ...userData };
+    if (!equals(newProps, prevState)) {
+      nextProps.initialize(newProps);
+      if (userData.firstName && userData.lastName && userData.email)
+        nextProps.onFormFilled();
+    }
     return newProps;
   }
 
@@ -63,7 +69,7 @@ class SetupFormComponent extends Component {
         {!props.complete ? (
           <div className="form">
             <div className="note">
-              <div>Hey,</div>
+              <div>Hey{name(this.state.firstName)},</div>
               Let&apos;s get your profile set up. Please make sure you provide a
               McGill email. We will send you a verification email before you can
               start with your projects.
@@ -73,24 +79,28 @@ class SetupFormComponent extends Component {
                 props.onSetup({ data, push: props.history.push })
               )}
             >
+              First Name
               <Field
                 name="firstName"
                 component={SetupField}
                 type="text"
                 label="First Name"
               />
+              Last Name
               <Field
                 name="lastName"
                 component={SetupField}
                 type="text"
                 label="Last Name"
               />
+              Email
               <Field
                 name="email"
                 component={SetupField}
                 type="email"
                 label="Email"
               />
+              Contact Number
               <Field
                 name="tel"
                 component={SetupField}
@@ -118,13 +128,14 @@ class SetupFormComponent extends Component {
           </div>
         ) : (
           <div className="form-complete">
-            <div>
-              A verification link has been e-mailed to {props.email}. Follow it
-              to verify your email.
+            <div className="note">
+              We&apos;ve sent a verification email to {this.state.email}. Follow
+              it to verify your email. Incase you didn&apos;t get the email or
+              filled it wrong, you can change it by clicking Refill Details.
             </div>
             <div className="centered-button">
-              <div onClick={() => props.onResendMail({ email: props.email })}>
-                <RoundedButton>Resend E-mail</RoundedButton>
+              <div onClick={() => props.onRefillForm()}>
+                <RoundedButton>Refill Details</RoundedButton>
               </div>
             </div>
           </div>
@@ -135,18 +146,25 @@ class SetupFormComponent extends Component {
 }
 
 SetupFormComponent.propTypes = {
-  email: PropTypes.string.isRequired,
   complete: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onSetup: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  onResendMail: PropTypes.func.isRequired,
+  onRefillForm: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
   fetchOAuthData: PropTypes.func.isRequired,
+  onFormFilled: PropTypes.func.isRequired,
   oauth: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     email: PropTypes.string
+  }).isRequired,
+  userData: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+    tel: PropTypes.string,
+    type: PropTypes.string
   }).isRequired
 };
 

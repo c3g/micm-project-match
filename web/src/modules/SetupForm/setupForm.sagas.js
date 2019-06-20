@@ -1,12 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
-import {
-  OAUTH_DATA,
-  SNACKBAR,
-  SETUP,
-  SETUP_EMAIL
-} from 'Src/constants/actionTypes';
+import { OAUTH_DATA, SNACKBAR, SETUP } from 'Src/constants/actionTypes';
 
 function* setup({ payload }) {
   if (!payload.data.type) {
@@ -20,14 +15,6 @@ function* setup({ payload }) {
   yield put(action(SNACKBAR.CLEAR));
 }
 
-function* resendEmail({ payload }) {
-  const data = yield call(request, `/setup/resend/${payload.email}`);
-  if (data.success) yield put(action(SNACKBAR.SUCCESS, 'E-mail resent'));
-  else yield put(action(SNACKBAR.DANGER, data.message));
-  yield delay(3000);
-  yield put(action(SNACKBAR.CLEAR));
-}
-
 function* oauthData() {
   const data = yield call(request, `/user/oauth`);
   if (data.success) yield put(action(OAUTH_DATA.RECEIVE, data.data));
@@ -36,7 +23,6 @@ function* oauthData() {
 
 function* setupFormSaga() {
   yield takeLatest(SETUP.REQUEST, setup);
-  yield takeLatest(SETUP_EMAIL.REQUEST, resendEmail);
   yield takeLatest(OAUTH_DATA.REQUEST, oauthData);
 }
 

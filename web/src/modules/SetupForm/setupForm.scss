@@ -11,7 +11,7 @@
       font-size: 2rem;
     }
     font-weight: 300;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
 
   .centered-button {
@@ -22,16 +22,13 @@
 
   .form-complete {
     text-align: center;
-
-    div {
-      color: #333333;
-      margin: 20px 0 0;
-    }
   }
 }
 
 .setup-field {
   position: relative;
+  margin-top: -5px;
+  margin-bottom: 5px;
 
   &.error {
     input {

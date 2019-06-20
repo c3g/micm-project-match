@@ -5,7 +5,9 @@ const name = (firstName, lastName) =>
     ? ` ${firstName} ${lastName}`
     : firstName
     ? ` ${firstName}`
-    : ` ${lastName}`;
+    : lastName
+    ? ` ${lastName}`
+    : '';
 
 export default (email, token, firstName, lastName) => `
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" type="text/css">
