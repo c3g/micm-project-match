@@ -1,4 +1,5 @@
 import Joi from '@hapi/joi';
+import k from '../constants';
 
 const updateUser = Joi.object({
   body: Joi.object({
@@ -11,7 +12,7 @@ const updateUser = Joi.object({
     tel: Joi.string().max(20),
     email: Joi.string().email(),
     type: Joi.string()
-      .valid('PROFESSOR', 'STUDENT')
+      .valid(k.PROFESSOR, k.STUDENT)
       .required()
   }).required()
 });

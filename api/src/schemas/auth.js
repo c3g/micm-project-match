@@ -1,4 +1,5 @@
 import Joi from '@hapi/joi';
+import k from '../constants';
 
 const register = Joi.object({
   body: Joi.object({
@@ -14,7 +15,7 @@ const register = Joi.object({
         .email()
         .required(),
       type: Joi.string()
-        .valid('PROFESSOR', 'STUDENT')
+        .valid(k.PROFESSOR, k.STUDENT)
         .required()
     }).required(),
     captchaResponse: Joi.string().required()

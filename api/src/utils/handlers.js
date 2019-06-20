@@ -7,7 +7,8 @@ export const errorHandler = (res, status = 500) => err => {
     [k.EMAIL_EXISTS]: 409,
     [k.INCORRECT_CREDENTIALS]: 401,
     [k.TOKEN_NOT_FOUND]: 409,
-    [k.PASSWORD_NOT_SET]: 404
+    [k.PASSWORD_NOT_SET]: 404,
+    [k.UNAUTHORIZED]: 401
   };
   let unknownErr = false;
   if (err.type && errStatus[err.type]) {

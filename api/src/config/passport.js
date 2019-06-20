@@ -44,7 +44,9 @@ const clean = ({
 function localAuth(email, password, done) {
   const user = User.findByEmail({ email });
   const valid = user.then(user =>
-    user.password === null
+    user.strategy !== k.STRATEGY.LOCAL
+      ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
+      : user.password === null
       ? rejectMessage(
           'You have not set a password yet. Try forgot password',
           k.PASSWORD_NOT_SET
