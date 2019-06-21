@@ -1,5 +1,5 @@
 import User from '../models/user';
-import Professor from '../models/professor';
+import { Professor } from '../models';
 import { dataHandler, errorHandler, okHandler } from '../utils/handlers';
 import { sendVerificationMail } from '../mail';
 import uuid from 'uuid';

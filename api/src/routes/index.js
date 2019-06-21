@@ -36,7 +36,7 @@ router.get(
   auth.verifyEmail
 );
 
-router.get('/user', allAccess, user.userData);
+router.get('/user', user.userData);
 router.get('/user/oauth', allAccess, user.oauthData);
 router.post(
   '/user/update',

@@ -17,6 +17,22 @@ function findById(id) {
     );
 }
 
+function findProfessorById(id) {
+  if (!id) return Promise.resolve(null);
+  return db
+    .selectOne(
+      `SELECT user_account.*, row_to_json(professor.*) as "professor"
+      FROM user_account LEFT JOIN professor ON user_account.id = professor.user_id
+      WHERE user_account.id = @id`,
+      { id }
+    )
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
+        : Promise.reject(err)
+    );
+}
+
 function create(user) {
   const token = uuid();
   user = { ...user, token };
@@ -177,5 +193,6 @@ export default {
   findByIdentifier,
   createOAuth,
   getOAuthData,
-  verifyEmail
+  verifyEmail,
+  findProfessorById
 };

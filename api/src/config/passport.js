@@ -1,7 +1,7 @@
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
-import { User } from '../models';
+import { User, Professor } from '../models';
 import k from '../constants';
 import { rejectMessage } from '../utils/promise';
 
@@ -28,7 +28,8 @@ export const clean = ({
   type,
   strategy,
   approved,
-  verified
+  verified,
+  professor
 }) => ({
   id,
   firstName,
@@ -38,11 +39,17 @@ export const clean = ({
   type,
   strategy,
   approved,
-  verified
+  verified,
+  professor
 });
 
 function localAuth(email, password, done) {
   const user = User.findByEmail({ email });
+  const professor = user
+    .then(user => Professor.findByUserId(user.id))
+    .catch(err =>
+      err.type === k.ACCOUNT_NOT_FOUND ? null : Promise.reject(err)
+    );
   const valid = user.then(user =>
     user.strategy !== k.STRATEGY.LOCAL
       ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
@@ -53,9 +60,9 @@ function localAuth(email, password, done) {
         )
       : User.validatePassword(user, password)
   );
-  Promise.all([user, valid])
-    .then(([user, result]) =>
-      result ? done(null, clean(user)) : done(null, false)
+  Promise.all([user, valid, professor])
+    .then(([user, result, professor]) =>
+      result ? done(null, clean({ ...user, professor })) : done(null, false)
     )
     .catch(err =>
       err.type === k.ACCOUNT_NOT_FOUND ? done(null, false) : done(err)
@@ -64,12 +71,18 @@ function localAuth(email, password, done) {
 
 function oAuth(strategy) {
   return function(accessToken, refreshToken, profile, done) {
-    User.findByIdentifier(profile.id, strategy)
-      .then(user => done(null, clean(user)))
+    const user = User.findByIdentifier(profile.id, strategy);
+    const professor = user
+      .then(user => Professor.findByUserId(user.id))
+      .catch(err =>
+        err.type === k.ACCOUNT_NOT_FOUND ? null : Promise.reject(err)
+      );
+    Promise.all([user, professor])
+      .then(([user, professor]) => done(null, clean({ ...user, professor })))
       .catch(err =>
         err.type === k.ACCOUNT_NOT_FOUND
           ? User.createOAuth(profile, strategy)
-              .then(user => done(null, clean(user)))
+              .then(user => done(null, clean({ ...user, professor: null })))
               .catch(done)
           : done(err)
       );
@@ -94,7 +107,7 @@ export default passport => {
   });
 
   passport.deserializeUser(function(id, done) {
-    User.findById(id)
+    User.findProfessorById(id)
       .then(user => done(null, clean(user)))
       .catch(err =>
         err.type === k.ACCOUNT_NOT_FOUND ? done(null, false) : done(err)
