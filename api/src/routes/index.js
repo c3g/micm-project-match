@@ -10,8 +10,8 @@ import k from '../constants';
 const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const allAccess = isAuthenticated([k.PRFOESSOR, k.STUDENT, k.ADMIN, k.UNSET]);
-const professorAccess = isAuthenticated([k.PRFOESSOR, k.ADMIN]);
+const allAccess = isAuthenticated([k.PROFESSOR, k.STUDENT, k.ADMIN, k.UNSET]);
+const professorAccess = isAuthenticated([k.PROFESSOR, k.ADMIN]);
 
 router.post('/register', validator(schemas.auth.register), auth.register);
 router.get(
