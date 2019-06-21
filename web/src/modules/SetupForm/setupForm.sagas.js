@@ -1,13 +1,17 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
+import { pickBy, identity } from 'ramda';
 import { OAUTH_DATA, SNACKBAR, SETUP } from 'Src/constants/actionTypes';
 
 function* setup({ payload }) {
   if (!payload.data.type) {
     yield put(action(SNACKBAR.DANGER, 'Please choose a role'));
   } else {
-    const data = yield call(request, '/user/update', payload.data);
+    console.log(payload.data);
+    const body = pickBy(identity, payload.data);
+    console.log(body);
+    const data = yield call(request, '/user/update', body);
     if (data.success) yield put(action(SETUP.RECEIVE, data.data));
     else yield put(action(SNACKBAR.DANGER, data.message));
   }
