@@ -30,6 +30,11 @@ router.post(
   auth.forgotPassword
 );
 router.get('/logout', auth.logout);
+router.get(
+  '/email/verify/:token',
+  validator(schemas.auth.verifyEmail),
+  auth.verifyEmail
+);
 
 router.get('/user', allAccess, user.userData);
 router.get('/user/oauth', allAccess, user.oauthData);

@@ -19,7 +19,7 @@ class SetPassword extends Component {
   componentDidMount() {
     const token = new URL(window.location.href).searchParams.get('token');
     if (token) this.setState({ token });
-    else this.props.history.push('/login');
+    else this.props.history.push('/signin');
   }
 
   render() {

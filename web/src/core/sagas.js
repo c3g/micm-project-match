@@ -6,6 +6,7 @@ import { setupFormSaga } from 'Src/modules/SetupForm';
 import { logoutButtonSaga } from 'Src/modules/LogoutButton';
 import { setPasswordFormSaga } from 'Src/modules/SetPasswordForm';
 import { forgotPasswordFormSaga } from 'Src/modules/ForgotPasswordForm';
+import { verifyEmailSaga } from 'Src/routes/VerifyEmail';
 import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -22,6 +23,7 @@ export function* rootSaga() {
     init(),
     registerFormSaga(),
     setPasswordFormSaga(),
+    verifyEmailSaga(),
     forgotPasswordFormSaga(),
     loginFormSaga(),
     setupFormSaga(),

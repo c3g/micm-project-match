@@ -56,10 +56,17 @@ const login = Joi.object({
   }).required()
 });
 
+const verifyEmail = Joi.object({
+  params: Joi.object({
+    token: Joi.string().required()
+  }).required()
+});
+
 export default {
   register,
   setPassword,
   forgotPassword,
   registerResend,
-  login
+  login,
+  verifyEmail
 };

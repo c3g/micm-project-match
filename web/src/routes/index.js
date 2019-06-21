@@ -6,8 +6,14 @@ import SetPassword from './SetPassword';
 import ForgotPassword from './ForgotPassword';
 import Login from './Login';
 import Setup from './Setup';
+import VerifyEmail from './VerifyEmail';
 
 export default [
+  {
+    name: 'VerifyEmail',
+    pathname: '/verify',
+    component: VerifyEmail
+  },
   {
     name: 'Setup',
     pathname: '/setup',

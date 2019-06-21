@@ -49,6 +49,12 @@ function logout(req, res) {
   okHandler(res)();
 }
 
+function verifyEmail(req, res) {
+  User.verifyEmail(req.params.token)
+    .then(okHandler(res))
+    .then(errorHandler(res));
+}
+
 export default {
   register,
   setPassword,
@@ -56,5 +62,6 @@ export default {
   registerResend,
   loginSuccess,
   loginFailure,
-  logout
+  logout,
+  verifyEmail
 };

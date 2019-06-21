@@ -159,6 +159,13 @@ function getOAuthData(userId) {
   });
 }
 
+function verifyEmail(token) {
+  return db.query(
+    'UPDATE user_account SET verified = true, token = null WHERE token = @token',
+    { token }
+  );
+}
+
 export default {
   create,
   findById,
@@ -169,5 +176,6 @@ export default {
   validatePassword,
   findByIdentifier,
   createOAuth,
-  getOAuthData
+  getOAuthData,
+  verifyEmail
 };

@@ -8,9 +8,7 @@ function* setup({ payload }) {
   if (!payload.data.type) {
     yield put(action(SNACKBAR.DANGER, 'Please choose a role'));
   } else {
-    console.log(payload.data);
     const body = pickBy(identity, payload.data);
-    console.log(body);
     const data = yield call(request, '/user/update', body);
     if (data.success) yield put(action(SETUP.RECEIVE, data.data));
     else yield put(action(SNACKBAR.DANGER, data.message));
