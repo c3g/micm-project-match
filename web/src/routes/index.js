@@ -1,3 +1,5 @@
+import withAuth from 'Src/enhancers/withAuth';
+import * as k from 'Src/constants/values';
 import Home from './Home';
 import Register from './Register';
 import SetPassword from './SetPassword';
@@ -9,31 +11,31 @@ export default [
   {
     name: 'Setup',
     pathname: '/setup',
-    component: Setup
+    component: withAuth(Setup, true, [k.ADMIN, k.PROFESSOR, k.STUDENT, k.UNSET])
   },
   {
     name: 'Login',
     pathname: '/signin',
-    component: Login
+    component: withAuth(Login, false)
   },
   {
     name: 'Register',
     pathname: '/signup',
-    component: Register
+    component: withAuth(Register, false)
   },
   {
     name: 'SetPassword',
     pathname: '/setpassword',
-    component: SetPassword
+    component: withAuth(SetPassword, false)
   },
   {
     name: 'ForgotPassword',
     pathname: '/forgotpassword',
-    component: ForgotPassword
+    component: withAuth(ForgotPassword, false)
   },
   {
     name: 'Home',
-    pathname: '*',
+    pathname: '/home',
     component: Home
   }
 ];
