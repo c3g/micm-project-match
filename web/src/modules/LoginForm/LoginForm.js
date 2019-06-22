@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import './loginForm.scss';
 import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
@@ -46,11 +45,7 @@ let LoginForm = props => (
     </a>
     <div className="separator">or</div>
     <div className="form">
-      <form
-        onSubmit={props.handleSubmit(data =>
-          props.onLogin({ data, push: props.history.push })
-        )}
-      >
+      <form onSubmit={props.handleSubmit(data => props.onLogin(data))}>
         <Field
           name="email"
           component={LoginField}
@@ -74,12 +69,11 @@ let LoginForm = props => (
 LoginForm.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  onLogin: PropTypes.func.isRequired
 };
 
 LoginForm = reduxForm({
   form: 'login'
 })(LoginForm);
 
-export default withRouter(LoginForm);
+export default LoginForm;

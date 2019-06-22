@@ -4,7 +4,7 @@ import LogoutButton from './LogoutButton';
 import { LOGOUT } from 'Src/constants/actionTypes';
 
 const mapDispatchToProps = dispatch => ({
-  onLogout: push => dispatch(action(LOGOUT, push))
+  onLogout: () => dispatch(action(LOGOUT.REQUEST))
 });
 
 const mapStateToProps = () => ({});

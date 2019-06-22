@@ -7,8 +7,15 @@ import ForgotPassword from './ForgotPassword';
 import Login from './Login';
 import Setup from './Setup';
 import VerifyEmail from './VerifyEmail';
+import ProfessorSetup from './ProfessorSetup';
+import Profile from './Profile';
 
 export default [
+  {
+    name: 'ProfessorSetup',
+    pathname: '/professorsetup',
+    component: withAuth(ProfessorSetup, true, [k.PROFESSOR])
+  },
   {
     name: 'VerifyEmail',
     pathname: '/verify',
@@ -43,5 +50,10 @@ export default [
     name: 'Home',
     pathname: '/home',
     component: Home
+  },
+  {
+    name: 'Profile',
+    pathname: '*',
+    component: withAuth(Profile, true, [k.PROFESSOR])
   }
 ];

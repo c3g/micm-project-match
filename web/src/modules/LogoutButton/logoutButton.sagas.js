@@ -1,14 +1,14 @@
-import { call, takeLatest } from 'redux-saga/effects';
-import { request } from 'Src/utils';
+import { call, takeLatest, put } from 'redux-saga/effects';
+import { request, action } from 'Src/utils';
 import { LOGOUT } from 'Src/constants/actionTypes';
 
-function* logout({ payload }) {
+function* logout() {
   yield call(request, '/logout');
-  yield payload.push('/');
+  yield put(action(LOGOUT.RECEIVE));
 }
 
 function* logoutButtonSaga() {
-  yield takeLatest(LOGOUT, logout);
+  yield takeLatest(LOGOUT.REQUEST, logout);
 }
 
 export default logoutButtonSaga;

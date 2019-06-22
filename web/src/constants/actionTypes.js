@@ -7,12 +7,12 @@ export const FORGOT_PASSWORD = createNetworkConstants('FORGOT_PASSWORD');
 export const SETUP = createNetworkConstants('SETUP');
 export const OAUTH_DATA = createNetworkConstants('OAUTH_DATA');
 export const REGISTER_EMAIL = createNetworkConstants('REGISTER_EMAIL');
+export const LOGOUT = createNetworkConstants('LOGOUT');
 
 export const VERIFY_EMAIL = {
   REQUEST: 'VERIFY_EMAIL.REQUEST'
 };
 
-export const LOGOUT = 'LOGOUT';
 export const SETUP_REFILL = 'SETUP_REFILL';
 export const SETUP_FILLED = 'SETUP_FILLED';
 

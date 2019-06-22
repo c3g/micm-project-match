@@ -1,5 +1,5 @@
 import reducer from 'Src/utils/reducer';
-import { LOGIN, SETUP } from 'Src/constants/actionTypes';
+import { LOGIN, SETUP, LOGOUT } from 'Src/constants/actionTypes';
 
 const actionHandlers = {
   [LOGIN.RECEIVE]: (s, a) => ({
@@ -12,7 +12,8 @@ const actionHandlers = {
     ...s,
     user: { ...s.user, ...a.payload }
   }),
-  [LOGIN.ERROR]: s => ({ ...s, loggedIn: false, isLoading: false })
+  [LOGIN.ERROR]: s => ({ ...s, loggedIn: false, isLoading: false }),
+  [LOGOUT.RECEIVE]: s => ({ ...s, loggedIn: false, user: null })
 };
 
 const initialState = {

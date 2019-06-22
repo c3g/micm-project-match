@@ -14,27 +14,33 @@ const withAuth = (
   class withAuthHOC extends React.Component {
     state = {
       start: false,
-      wasLoading: true
+      loggedIn: null
     };
 
     static propTypes = {
       loggedIn: PropTypes.bool.isRequired,
       isLoading: PropTypes.bool.isRequired,
       history: PropTypes.object.isRequired,
-      type: PropTypes.string.isRequired,
+      type: PropTypes.string,
       verified: PropTypes.bool,
-      strategy: PropTypes.string
+      strategy: PropTypes.string,
+      professor: PropTypes.object
     };
 
     static getDerivedStateFromProps(nextProps, prevState) {
-      if (nextProps.isLoading === prevState.wasLoading) return null;
+      if (nextProps.isLoading || nextProps.loggedIn === prevState.loggedIn)
+        return null;
       if (!nextProps.loggedIn && authRequired)
         nextProps.history.push(loggedOutRedirect);
       else if (nextProps.loggedIn && !authRequired)
         nextProps.history.push(loggedInRedirect);
-      else if (!type.includes(nextProps.type))
+      else if (nextProps.loggedIn && !type.includes(nextProps.type))
         nextProps.history.push(loggedInRedirect);
-      return { start: true };
+      else if (nextProps.loggedIn && !nextProps.verified)
+        nextProps.history.push('/setup');
+      else if (nextProps.loggedIn && nextProps.professor === null)
+        nextProps.history.push('/professorsetup');
+      return { start: true, loggedIn: nextProps.loggedIn };
     }
 
     componentDidMount() {
@@ -43,8 +49,12 @@ const withAuth = (
         this.props.history.push(loggedOutRedirect);
       else if (this.props.loggedIn && !authRequired)
         this.props.history.push(loggedInRedirect);
-      else if (!type.includes(this.props.type))
+      else if (this.props.loggedIn && !type.includes(this.props.type))
         this.props.history.push(loggedInRedirect);
+      else if (this.props.loggedIn && !this.props.verified)
+        this.props.history.push('/setup');
+      else if (this.props.loggedIn && this.props.professor === null)
+        this.props.history.push('/professorsetup');
       else this.setState({ start: true });
     }
 

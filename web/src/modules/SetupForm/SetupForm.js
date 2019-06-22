@@ -47,6 +47,7 @@ class SetupFormComponent extends Component {
   state = { firstName: '', lastName: '', email: '', tel: '', type: '' };
 
   componentDidMount() {
+    if (this.props.userData.verified) this.props.history.push('/');
     this.props.fetchOAuthData();
   }
 
@@ -160,6 +161,7 @@ SetupFormComponent.propTypes = {
     email: PropTypes.string
   }).isRequired,
   userData: PropTypes.shape({
+    verified: PropTypes.bool.isRequired,
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     email: PropTypes.string,

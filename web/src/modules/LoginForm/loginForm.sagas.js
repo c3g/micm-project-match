@@ -3,13 +3,12 @@ import { request, action } from 'Src/utils';
 import { SNACKBAR, LOGIN } from 'Src/constants/actionTypes';
 
 function* login({ payload }) {
-  if (!payload.data.email || !payload.data.password) {
+  if (!payload.email || !payload.password) {
     yield put(action(SNACKBAR.DANGER, 'Fill all fields'));
   } else {
-    const data = yield call(request, '/login', payload.data);
+    const data = yield call(request, '/login', payload);
     if (data.success) {
       yield put(action(LOGIN.RECEIVE, data.data));
-      yield payload.push('/');
     } else {
       yield put(action(LOGIN.ERROR));
       yield put(action(SNACKBAR.DANGER, data.message));

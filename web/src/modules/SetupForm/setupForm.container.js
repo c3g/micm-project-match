@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   ...pick(['email', 'complete', 'isLoading', 'oauth'], state.setup),
   userData: pick(
-    ['email', 'firstName', 'lastName', 'tel', 'type'],
+    ['email', 'firstName', 'lastName', 'tel', 'type', 'verified'],
     state.app.user
   )
 });

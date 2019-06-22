@@ -6,7 +6,8 @@ const mapDispatchToProps = () => ({});
 
 const mapStateToProps = state => ({
   ...pick(['loggedIn', 'isLoading'], state.app),
-  ...pick(['verified', 'strategy', 'type'], state.app.user)
+  ...(state.app.user &&
+    pick(['verified', 'strategy', 'type', 'professor'], state.app.user))
 });
 
 const connector = Component =>

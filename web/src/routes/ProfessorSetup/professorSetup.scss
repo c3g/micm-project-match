@@ -1,0 +1,22 @@
+@import 'Src/core/common.scss';
+
+.professor-setup-page {
+  padding-bottom: 50px;
+
+  .logout-button {
+    font-size: 1rem;
+    color: $color-primary;
+  }
+
+  .heading-container {
+    text-align: center;
+    margin: 10px;
+  }
+
+  .form-container {
+    height: 100%;
+    overflow: hidden;
+    width: 420px;
+    margin: 0 auto;
+  }
+}
