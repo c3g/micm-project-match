@@ -6,6 +6,7 @@ import { setupFormSaga } from 'Src/modules/SetupForm';
 import { logoutButtonSaga } from 'Src/modules/LogoutButton';
 import { setPasswordFormSaga } from 'Src/modules/SetPasswordForm';
 import { forgotPasswordFormSaga } from 'Src/modules/ForgotPasswordForm';
+import { professorSetupFormSaga } from 'Src/modules/ProfessorSetupForm';
 import { verifyEmailSaga } from 'Src/routes/VerifyEmail';
 import { LOGIN } from 'Src/constants/actionTypes';
 
@@ -24,6 +25,7 @@ export function* rootSaga() {
     registerFormSaga(),
     setPasswordFormSaga(),
     verifyEmailSaga(),
+    professorSetupFormSaga(),
     forgotPasswordFormSaga(),
     loginFormSaga(),
     setupFormSaga(),

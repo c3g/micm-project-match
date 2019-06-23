@@ -1,0 +1,20 @@
+.professor-setup-form {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+
+  .centered-button {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .form-complete {
+    text-align: center;
+
+    div {
+      color: #333333;
+      margin: 20px 0 0;
+    }
+  }
+}

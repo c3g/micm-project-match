@@ -3,6 +3,11 @@
 .professor-setup-page {
   padding-bottom: 50px;
 
+  .note {
+    text-align: center;
+    margin: 30px 0 0;
+  }
+
   .logout-button {
     font-size: 1rem;
     color: $color-primary;
