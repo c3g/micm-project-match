@@ -29,7 +29,8 @@ export const clean = ({
   strategy,
   approved,
   verified,
-  professor
+  professor,
+  cvLocation
 }) => ({
   id,
   firstName,
@@ -40,7 +41,8 @@ export const clean = ({
   strategy,
   approved,
   verified,
-  professor
+  professor,
+  cvUploaded: !!cvLocation
 });
 
 function localAuth(email, password, done) {

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import './cvSetupForm.scss';
-import RoundedButton from 'Src/modules/RoundedButton';
 import Dropzone from 'Src/modules/Dropzone';
 
 const CVSetupForm = props => (
@@ -20,11 +19,6 @@ const CVSetupForm = props => (
           : "Drag 'n' drop your CV here, or click to select it"
       }
     />
-    <div className="centered-button">
-      <Link to="/">
-        <RoundedButton>Skip for now</RoundedButton>
-      </Link>
-    </div>
   </div>
 );
 

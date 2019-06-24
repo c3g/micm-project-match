@@ -1,13 +1,11 @@
 import React from 'react';
 import Navbar from 'Src/modules/Navbar';
-import LogoutButton from 'Src/modules/LogoutButton';
+import UserProfile from 'Src/modules/UserProfile';
 
 const Profile = () => (
   <div className="profile">
-    <Navbar>
-      <LogoutButton />
-    </Navbar>
-    profile
+    <Navbar />
+    <UserProfile />
   </div>
 );
 
