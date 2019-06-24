@@ -7,10 +7,16 @@ import ForgotPassword from './ForgotPassword';
 import Login from './Login';
 import Setup from './Setup';
 import VerifyEmail from './VerifyEmail';
-import ProfessorSetup from './ProfessorSetup';
 import Profile from './Profile';
+import ProfessorSetup from './ProfessorSetup';
+import CVSetup from './CVSetup';
 
 export default [
+  {
+    name: 'CVSetup',
+    pathname: '/cvsetup',
+    component: withAuth(CVSetup, true, [k.PROFESSOR, k.STUDENT])
+  },
   {
     name: 'ProfessorSetup',
     pathname: '/professorsetup',

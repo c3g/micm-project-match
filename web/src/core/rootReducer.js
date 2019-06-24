@@ -6,6 +6,7 @@ import { setupFormReducer } from 'Src/modules/SetupForm';
 import { forgotPasswordFormReducer } from 'Src/modules/ForgotPasswordForm';
 import { setPasswordFormReducer } from 'Src/modules/SetPasswordForm';
 import { professorSetupFormReducer } from 'Src/modules/ProfessorSetupForm';
+import { cvSetupFormReducer } from 'Src/modules/CVSetupForm';
 import { appReducer } from 'Src/core/App';
 import { reducer as formReducer } from 'redux-form';
 
@@ -15,6 +16,7 @@ export default combineReducers({
   form: formReducer,
   register: registerFormReducer,
   forgotPassword: forgotPasswordFormReducer,
+  cvSetup: cvSetupFormReducer,
   professorSetup: professorSetupFormReducer,
   setPassword: setPasswordFormReducer,
   login: loginFormReducer,

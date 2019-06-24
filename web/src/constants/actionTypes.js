@@ -9,6 +9,7 @@ export const OAUTH_DATA = createNetworkConstants('OAUTH_DATA');
 export const REGISTER_EMAIL = createNetworkConstants('REGISTER_EMAIL');
 export const LOGOUT = createNetworkConstants('LOGOUT');
 export const PROFESSOR_SETUP = createNetworkConstants('PROFESSOR_SETUP');
+export const CV_UPLOAD = createNetworkConstants('CV_UPLOAD');
 
 export const VERIFY_EMAIL = {
   REQUEST: 'VERIFY_EMAIL.REQUEST'

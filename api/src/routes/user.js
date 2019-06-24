@@ -44,7 +44,9 @@ function updateProfessor(req, res) {
 
 function updateCv(req, res) {
   const params = {
-    Key: `users/${req.user.id}/cv/` + req.file.originalname,
+    Key: `users/${req.user.id}/cv/${req.user.firstName} ${
+      req.user.lastName
+    } - CV`,
     Body: req.file.buffer,
     ContentType: req.file.mimetype
   };

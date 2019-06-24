@@ -15,6 +15,7 @@
     "ramda": "0.26.1",
     "react": "16.8.6",
     "react-dom": "16.8.6",
+    "react-dropzone": "10.1.5",
     "react-favicon": "0.0.16",
     "react-google-recaptcha": "1.0.5",
     "react-redux": "7.0.3",

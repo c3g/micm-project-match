@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 import { api } from 'Src/config/endpoints';
 
-export default (route, data = null, endpoint = api) => {
+export default (route, data = null, file = false, endpoint = api) => {
   process.env.NODE_ENV === 'development' &&
     console.log(
       `Fetch: %c ${route} %c ${endpoint}`,
@@ -16,11 +16,11 @@ export default (route, data = null, endpoint = api) => {
     credentials: 'include',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json; charset=utf-8'
+      ...(file ? {} : { 'Content-Type': 'application/json; charset=utf-8' })
     },
     redirect: 'follow',
     referrer: 'no-referrer',
-    ...(data && { body: JSON.stringify(data) })
+    ...(data && { body: file ? data : JSON.stringify(data) })
   })
     .then(res => res.json())
     .then(data => {
