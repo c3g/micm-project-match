@@ -1,12 +1,12 @@
 import React from 'react';
-import C3GLogo from 'Src/modules/C3GLogo';
+import MiCMLogo from 'Src/modules/MiCMLogo';
 import PropTypes from 'prop-types';
 import './navbar.scss';
 
 const Navbar = ({ children }) => (
   <div className="navbar">
     <div className="logo">
-      <C3GLogo />
+      <MiCMLogo />
     </div>
     {children &&
       (children.map ? (
