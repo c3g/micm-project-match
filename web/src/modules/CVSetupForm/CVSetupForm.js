@@ -14,6 +14,11 @@ const CVSetupForm = props => (
           cv: acceptedFiles && acceptedFiles[0]
         })
       }
+      text={
+        props.isLoading
+          ? 'Uploading...'
+          : "Drag 'n' drop your CV here, or click to select it"
+      }
     />
     <div className="centered-button">
       <Link to="/">
@@ -25,7 +30,8 @@ const CVSetupForm = props => (
 
 CVSetupForm.propTypes = {
   onSubmitCV: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default withRouter(CVSetupForm);

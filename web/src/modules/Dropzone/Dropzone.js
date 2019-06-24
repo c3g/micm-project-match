@@ -1,20 +1,22 @@
 import React from 'react';
 import ReactDropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
+import './dropzone.scss';
 
-const Dropzone = ({ onDrop }) => (
+const Dropzone = ({ onDrop, text }) => (
   <ReactDropzone onDrop={acceptedFiles => onDrop(acceptedFiles)}>
     {({ getRootProps, getInputProps }) => (
-      <div {...getRootProps()}>
+      <div className="dropzone" {...getRootProps()}>
         <input {...getInputProps()} />
-        <p>Drag &apos;n&apos; drop some files here, or click to select files</p>
+        <div>{text}</div>
       </div>
     )}
   </ReactDropzone>
 );
 
 Dropzone.propTypes = {
-  onDrop: PropTypes.func.isRequired
+  onDrop: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired
 };
 
 export default Dropzone;
