@@ -1,10 +1,9 @@
 import React from 'react';
-import Navbar from 'Src/modules/Navbar';
 import UserProfile from 'Src/modules/UserProfile';
+import './profile.scss';
 
 const Profile = () => (
   <div className="profile">
-    <Navbar />
     <UserProfile />
   </div>
 );

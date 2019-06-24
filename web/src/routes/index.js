@@ -1,4 +1,3 @@
-import withAuth from 'Src/enhancers/withAuth';
 import * as k from 'Src/constants/values';
 import Home from './Home';
 import Register from './Register';
@@ -15,12 +14,16 @@ export default [
   {
     name: 'CVSetup',
     pathname: '/cvsetup',
-    component: withAuth(CVSetup, true, [k.PROFESSOR, k.STUDENT])
+    component: CVSetup,
+    access: [k.PROFESSOR, k.STUDENT],
+    withAuth: true
   },
   {
     name: 'ProfessorSetup',
     pathname: '/professorsetup',
-    component: withAuth(ProfessorSetup, true, [k.PROFESSOR])
+    component: ProfessorSetup,
+    access: [k.PROFESSOR],
+    withAuth: true
   },
   {
     name: 'VerifyEmail',
@@ -30,27 +33,33 @@ export default [
   {
     name: 'Setup',
     pathname: '/setup',
-    component: withAuth(Setup, true, [k.ADMIN, k.PROFESSOR, k.STUDENT, k.UNSET])
+    component: Setup,
+    access: [k.ADMIN, k.PROFESSOR, k.STUDENT, k.UNSET],
+    withAuth: true
   },
   {
     name: 'Login',
     pathname: '/signin',
-    component: withAuth(Login, false)
+    component: Login,
+    withAuth: false
   },
   {
     name: 'Register',
     pathname: '/signup',
-    component: withAuth(Register, false)
+    component: Register,
+    withAuth: false
   },
   {
     name: 'SetPassword',
     pathname: '/setpassword',
-    component: withAuth(SetPassword, false)
+    component: SetPassword,
+    withAuth: false
   },
   {
     name: 'ForgotPassword',
     pathname: '/forgotpassword',
-    component: withAuth(ForgotPassword, false)
+    component: ForgotPassword,
+    withAuth: false
   },
   {
     name: 'Home',
@@ -59,12 +68,10 @@ export default [
   },
   {
     name: 'Profile',
-    pathname: '*',
-    component: withAuth(Profile, true, [
-      k.PROFESSOR,
-      k.STUDENT,
-      k.ADMIN,
-      k.UNSET
-    ])
+    pathname: '/',
+    component: Profile,
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN, k.UNSET],
+    withAuth: true,
+    withSidebar: true
   }
 ];

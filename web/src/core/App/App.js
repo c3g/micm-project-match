@@ -4,6 +4,18 @@ import routes from 'Src/routes';
 import Snackbar from 'Src/modules/Snackbar';
 import Favicon from 'react-favicon';
 import './app.scss';
+import withAuth from 'Src/enhancers/withAuth';
+import withSidebar from 'Src/enhancers/withSidebar';
+
+function getComponent(route) {
+  let Component = route.component;
+  if (route.withSidebar) Component = withSidebar(Component);
+  return route.withAuth === true
+    ? withAuth(Component, true, route.access)
+    : route.withAuth === false
+    ? withAuth(Component, false)
+    : Component;
+}
 
 const App = () => (
   <div>
@@ -16,7 +28,7 @@ const App = () => (
               exact
               key={route.pathname}
               path={route.pathname}
-              component={route.component}
+              component={getComponent(route)}
             />
           ))}
         </Switch>

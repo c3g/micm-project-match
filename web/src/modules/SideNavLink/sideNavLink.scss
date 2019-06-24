@@ -1,0 +1,30 @@
+@import 'Src/core/common.scss';
+
+.side-nav-link {
+  display: inline-block;
+  text-decoration: none;
+  color: $text-color-primary;
+  padding: 8px 30px;
+  margin: 10px 0;
+  font-weight: 700;
+  width: 100%;
+  position: relative;
+
+  span {
+    display: none;
+  }
+
+  &.active {
+    box-shadow: 0px 0px 10px 0px #dddddd;
+    width: 90%;
+    background: #ffffff;
+    color: $color-primary;
+    border-radius: 0 20px 20px 0;
+
+    span {
+      display: inline;
+      position: absolute;
+      right: 20px;
+    }
+  }
+}
