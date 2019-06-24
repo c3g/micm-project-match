@@ -52,7 +52,7 @@ function logout(req, res) {
 function verifyEmail(req, res) {
   User.verifyEmail(req.params.token)
     .then(okHandler(res))
-    .then(errorHandler(res));
+    .catch(errorHandler(res));
 }
 
 export default {

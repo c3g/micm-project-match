@@ -10,10 +10,7 @@ export const REGISTER_EMAIL = createNetworkConstants('REGISTER_EMAIL');
 export const LOGOUT = createNetworkConstants('LOGOUT');
 export const PROFESSOR_SETUP = createNetworkConstants('PROFESSOR_SETUP');
 export const CV_UPLOAD = createNetworkConstants('CV_UPLOAD');
-
-export const VERIFY_EMAIL = {
-  REQUEST: 'VERIFY_EMAIL.REQUEST'
-};
+export const VERIFY_EMAIL = createNetworkConstants('VERIFY_EMAIL');
 
 export const SETUP_REFILL = 'SETUP_REFILL';
 export const SETUP_FILLED = 'SETUP_FILLED';

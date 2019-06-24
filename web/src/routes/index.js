@@ -60,6 +60,11 @@ export default [
   {
     name: 'Profile',
     pathname: '*',
-    component: withAuth(Profile, true, [k.PROFESSOR])
+    component: withAuth(Profile, true, [
+      k.PROFESSOR,
+      k.STUDENT,
+      k.ADMIN,
+      k.UNSET
+    ])
   }
 ];

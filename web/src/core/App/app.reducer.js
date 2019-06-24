@@ -3,7 +3,8 @@ import {
   PROFESSOR_SETUP,
   LOGIN,
   SETUP,
-  LOGOUT
+  LOGOUT,
+  VERIFY_EMAIL
 } from 'Src/constants/actionTypes';
 
 const actionHandlers = {
@@ -18,10 +19,14 @@ const actionHandlers = {
     user: { ...s.user, ...a.payload }
   }),
   [LOGIN.ERROR]: s => ({ ...s, loggedIn: false, isLoading: false }),
-  [LOGOUT.RECEIVE]: s => ({ ...s, loggedIn: false, user: null }),
+  [LOGOUT.RECEIVE]: s => ({ ...s, loggedIn: false, user: {} }),
   [PROFESSOR_SETUP.RECEIVE]: (s, a) => ({
     ...s,
     user: { ...s.user, professor: a.payload }
+  }),
+  [VERIFY_EMAIL.RECEIVE]: s => ({
+    ...s,
+    user: { ...s.user, verified: true }
   })
 };
 

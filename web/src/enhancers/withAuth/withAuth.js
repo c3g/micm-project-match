@@ -38,7 +38,11 @@ const withAuth = (
         nextProps.history.push(loggedInRedirect);
       else if (nextProps.loggedIn && !nextProps.verified)
         nextProps.history.push('/setup');
-      else if (nextProps.loggedIn && nextProps.professor === null)
+      else if (
+        nextProps.loggedIn &&
+        nextProps.type === k.PROFESSOR &&
+        nextProps.professor === null
+      )
         nextProps.history.push('/professorsetup');
       return { start: true, loggedIn: nextProps.loggedIn };
     }
@@ -53,7 +57,11 @@ const withAuth = (
         this.props.history.push(loggedInRedirect);
       else if (this.props.loggedIn && !this.props.verified)
         this.props.history.push('/setup');
-      else if (this.props.loggedIn && this.props.professor === null)
+      else if (
+        this.props.loggedIn &&
+        this.props.type === k.PROFESSOR &&
+        this.props.professor === null
+      )
         this.props.history.push('/professorsetup');
       else this.setState({ start: true });
     }
