@@ -3,6 +3,7 @@ import './sideNav.scss';
 import PropTypes from 'prop-types';
 import SideNavLink from 'Src/modules/SideNavLink';
 import routes from 'Src/routes';
+import LogoutButton from 'Src/modules/LogoutButton';
 
 const SideNav = props => (
   <div className="side-nav">
@@ -10,11 +11,14 @@ const SideNav = props => (
       route.withSidebar && route.access.includes(props.type) ? (
         <SideNavLink
           key={`side_nav_link_${i}`}
-          text={route.name}
+          text={route.withSidebar}
           link={route.pathname}
         />
       ) : null
     )}
+    <div className="logout-container">
+      <LogoutButton />
+    </div>
   </div>
 );
 

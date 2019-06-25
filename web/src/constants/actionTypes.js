@@ -1,4 +1,4 @@
-import { createNetworkConstants } from 'Src/utils';
+import { createNetworkConstants, createModelConstants } from 'Src/utils';
 
 export const REGISTER = createNetworkConstants('REGISTER');
 export const LOGIN = createNetworkConstants('LOGIN');
@@ -11,6 +11,8 @@ export const LOGOUT = createNetworkConstants('LOGOUT');
 export const PROFESSOR_SETUP = createNetworkConstants('PROFESSOR_SETUP');
 export const CV_UPLOAD = createNetworkConstants('CV_UPLOAD');
 export const VERIFY_EMAIL = createNetworkConstants('VERIFY_EMAIL');
+
+export const PROJECT = createModelConstants('PROJECT');
 
 export const SETUP_REFILL = 'SETUP_REFILL';
 export const SETUP_FILLED = 'SETUP_FILLED';

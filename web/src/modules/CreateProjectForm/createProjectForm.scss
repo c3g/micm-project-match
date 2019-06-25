@@ -1,0 +1,33 @@
+@import 'Src/core/common.scss';
+
+.create-project-form {
+  height: 100%;
+  width: 100%;
+
+  .form {
+    padding-top: 80px;
+    width: 90%;
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .half-width {
+      width: 48%;
+    }
+
+    .create-project-field {
+      margin-bottom: 20px;
+    }
+
+    .create-project-text-area {
+      margin-bottom: 50px;
+    }
+
+    .right-button {
+      text-align: right;
+      padding: 40px 0;
+    }
+  }
+}

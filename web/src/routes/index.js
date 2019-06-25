@@ -9,8 +9,17 @@ import VerifyEmail from './VerifyEmail';
 import Profile from './Profile';
 import ProfessorSetup from './ProfessorSetup';
 import CVSetup from './CVSetup';
+import CreateProject from './CreateProject';
 
 export default [
+  {
+    name: 'CreateProject',
+    pathname: '/createproject',
+    component: CreateProject,
+    access: [k.PROFESSOR, k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Create Project'
+  },
   {
     name: 'CVSetup',
     pathname: '/cvsetup',
@@ -72,6 +81,6 @@ export default [
     component: Profile,
     access: [k.PROFESSOR, k.STUDENT, k.ADMIN, k.UNSET],
     withAuth: true,
-    withSidebar: true
+    withSidebar: 'Profile'
   }
 ];
