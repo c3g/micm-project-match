@@ -9,18 +9,13 @@ import './createProjectForm.scss';
 
 const createProjectValidate = values => {
   const errors = {};
-  if (!values.email) errors.email = 'Required';
-  else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))
-    errors.email = 'Invalid email address';
-
-  if (!values.firstName) errors.firstName = 'Required';
-  else if (values.firstName.length > 50)
-    errors.firstName = 'Must be less than 50 characters long';
-
-  if (!values.lastName) errors.lastName = 'Required';
-  else if (values.lastName.length > 50)
-    errors.lastName = 'Must be less than 50 characters long';
-
+  if (!values.title) errors.email = 'Required';
+  if (!values.title) errors.title = 'Required';
+  if (!values.startDate) errors.startDate = 'Required';
+  if (!values.abstract) errors.abstract = 'Required';
+  if (!values.description) errors.description = 'Required';
+  if (!values.datasets) errors.datasets = 'Required';
+  if (!values.motive) errors.motive = 'Required';
   return errors;
 };
 
@@ -73,9 +68,10 @@ class CreateProjectFormComponent extends Component {
       <div className="create-project-form">
         <div className="form">
           <form
-            onSubmit={props.handleSubmit(data =>
-              props.onCreateProject({ data, push: props.history.push })
-            )}
+            onSubmit={props.handleSubmit(data => {
+              console.log(data);
+              props.onCreateProject({ data, push: props.history.push });
+            })}
           >
             <div>
               Project Title
@@ -122,19 +118,30 @@ class CreateProjectFormComponent extends Component {
             <div className="row">
               <div className="half-width">
                 Expected project timeframe
-                <Field
-                  name="timeframe"
-                  component={CreateProjectField}
-                  type="text"
-                />
+                <Field name="timeframe" component="select">
+                  <option hidden>Click here to select</option>
+                  <option value={'3 - 4 Months'} default>
+                    3 - 4 Months
+                  </option>
+                  <option value={'6 - 12 Months'}>6 - 12 Months</option>
+                </Field>
               </div>
+              <div />
               <div className="half-width">
                 Can students apply for this project?
-                <Field name="open" component={CreateProjectField} type="text" />
+                <div>
+                  <Field name="openForStudents" component="select">
+                    <option hidden>Click here to select</option>
+                    <option value={true} default>
+                      Yes
+                    </option>
+                    <option value={false}>No</option>
+                  </Field>
+                </div>
               </div>
             </div>
             <div className="right-button">
-              <RoundedButton>Apply Now</RoundedButton>
+              <RoundedButton>Create Project</RoundedButton>
             </div>
           </form>
         </div>
@@ -144,7 +151,9 @@ class CreateProjectFormComponent extends Component {
 }
 
 CreateProjectFormComponent.propTypes = {
-  isLoading: PropTypes.bool.isRequired
+  initialize: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  onCreateProject: PropTypes.func.isRequired
 };
 
 const CreateProjectForm = reduxForm({

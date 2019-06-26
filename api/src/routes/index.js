@@ -4,6 +4,7 @@ import schemas from '../schemas';
 import multer from 'multer';
 import auth from './auth';
 import user from './user';
+import project from './project';
 import isAuthenticated from '../utils/isAuthenticated';
 import k from '../constants';
 
@@ -51,6 +52,13 @@ router.post(
   user.updateProfessor
 );
 router.post('/cv/update', upload.single('cv'), allAccess, user.updateCv);
+
+router.post(
+  '/project/create',
+  validator(schemas.project.create),
+  professorAccess,
+  project.create
+);
 
 export default passport => {
   router.get(

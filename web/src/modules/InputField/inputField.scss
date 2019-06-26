@@ -10,9 +10,12 @@
   border: none;
   border-radius: 5px;
   width: 100%;
-  font-size: 0.9rem;
 
   &[type='date'] {
     text-transform: uppercase;
+
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
   }
 }

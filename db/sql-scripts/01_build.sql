@@ -38,22 +38,6 @@ CREATE TABLE IF NOT EXISTS oauth_details (
 );
 
 
--- ************************************** department
-
--- CREATE TABLE IF NOT EXISTS department (
---   id   SERIAL PRIMARY KEY,
---   name VARCHAR(150) NOT NULL
--- );
-
-
--- ************************************** position
-
--- CREATE TABLE IF NOT EXISTS position (
---   id   SERIAL PRIMARY KEY,
---   name VARCHAR(150) NOT NULL
--- );
-
-
 -- ************************************** professor
 
 CREATE TABLE IF NOT EXISTS professor (
@@ -63,25 +47,34 @@ CREATE TABLE IF NOT EXISTS professor (
   position       VARCHAR(150) NOT NULL,
 
   FOREIGN KEY (user_id)       REFERENCES user_account (id)
-  -- FOREIGN KEY (department_id) REFERENCES department (id),
-  -- FOREIGN KEY (position_id)   REFERENCES position (id)
 );
 
 
 -- ************************************** project
 
 CREATE TABLE IF NOT EXISTS project (
-  id           SERIAL PRIMARY KEY,
-  name         VARCHAR(100) NOT NULL,
-  min_students INT NOT NULL,
-  max_students INT,
-  description  TEXT NOT NULL,
-  author_id    INT NOT NULL,
-  visibility   INT NOT NULL,
-  slug         VARCHAR(30) NOT NULL,
-  tag_id       INT[],
+  id                SERIAL PRIMARY KEY,
+  title             VARCHAR(100) NOT NULL,
+  start_date        DATE NOT NULL,
+  axis              VARCHAR(100) NOT NULL,
+  abstract          TEXT NOT NULL,
+  description       TEXT NOT NULL,
+  datasets          TEXT NOT NULL,
+  motive            TEXT NOT NULL,
+  timeframe         VARCHAR(20) NOT NULL,
+  open_for_students BOOLEAN DEFAULT true NOT NULL,
+  author_id         INT NOT NULL,
 
   FOREIGN KEY (author_id) REFERENCES user_account (id)
+);
+
+
+-- ************************************** organization_initiative
+
+CREATE TABLE IF NOT EXISTS organization_initiative
+(
+  id        SERIAL PRIMARY KEY,
+  title     VARCHAR(255) NOT NULL
 );
 
 

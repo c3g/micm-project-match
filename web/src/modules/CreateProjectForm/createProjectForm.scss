@@ -13,16 +13,54 @@
       justify-content: space-between;
     }
 
+    select {
+      margin: 15px 0;
+      font-weight: 300;
+      padding: 14px;
+      font-size: inherit;
+      font-family: inherit;
+      background: $input-color;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 0.9rem;
+      appearance: none;
+    }
+
     .half-width {
       width: 48%;
     }
 
-    .create-project-field {
+    .create-project-field,
+    .create-project-text-area {
       margin-bottom: 20px;
+      position: relative;
+
+      &.error {
+        input,
+        textarea {
+          border: solid thin $color-danger;
+          margin: 14px 0;
+        }
+
+        .message {
+          position: absolute;
+          bottom: -5px;
+          right: 0;
+          color: $color-danger;
+          font-size: 0.7rem;
+        }
+      }
     }
 
     .create-project-text-area {
       margin-bottom: 50px;
+
+      &.error {
+        .message {
+          bottom: -35px;
+        }
+      }
     }
 
     .right-button {

@@ -1,5 +1,6 @@
 import reducer from 'Src/utils/reducer';
 import {
+  CV_UPLOAD,
   PROFESSOR_SETUP,
   LOGIN,
   SETUP,
@@ -27,6 +28,10 @@ const actionHandlers = {
   [VERIFY_EMAIL.RECEIVE]: s => ({
     ...s,
     user: { ...s.user, verified: true }
+  }),
+  [CV_UPLOAD.RECEIVE]: s => ({
+    ...s,
+    user: { ...s.user, cvUploaded: true }
   })
 };
 
@@ -38,7 +43,8 @@ const initialState = {
     lastName: '',
     email: '',
     tel: '',
-    type: ''
+    type: '',
+    cvUploaded: false
   }
 };
 
