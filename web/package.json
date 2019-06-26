@@ -76,9 +76,9 @@
     "build": "webpack --env.env=prod --color",
     "build:stats": "webpack --env.env=prod --env.addons=analyze --color",
     "clean": "rimraf ./dist",
-    "test": "jest --color",
-    "test:watch": "jest --watch --color",
-    "test:coverage": "jest --coverage --color",
+    "test": "jest ./src --color",
+    "test:watch": "jest ./src --watch --color",
+    "test:coverage": "jest ./src --coverage --color",
     "lint": "eslint ./src --fix --color"
   },
   "repository": {
