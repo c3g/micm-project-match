@@ -1,0 +1,60 @@
+@import 'Src/core/common.scss';
+
+.checkbox {
+  padding: 10px;
+  display: flex;
+  cursor: pointer;
+
+  .fake-checkbox {
+    border: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+
+    div {
+      height: 100%;
+      width: 50%;
+      background: $input-color;
+      position: absolute;
+      top: 0;
+      transition: all 0.2s ease;
+
+      &:first-child {
+        left: 0;
+      }
+
+      &:last-child {
+        right: 0;
+      }
+    }
+
+    &.checked-true {
+      background: none;
+      overflow: visible;
+
+      div {
+        background: $color-primary;
+        border-radius: 10px;
+        width: 25%;
+
+        &:first-child {
+          height: 50%;
+          transform: translate(0px, 7px) rotate(-50deg);
+        }
+
+        &:last-child {
+          right: 0;
+          transform: translate(-6px, 0px) rotate(40deg);
+        }
+      }
+    }
+  }
+
+  input[type='checkbox'] {
+    appearance: none;
+  }
+}

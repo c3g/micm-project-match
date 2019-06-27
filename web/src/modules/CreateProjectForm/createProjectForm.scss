@@ -31,6 +31,25 @@
       width: 48%;
     }
 
+    .checkbox-group {
+      margin: 20px 0 40px;
+      max-height: 200px;
+      overflow: auto;
+
+      @include scrollbar();
+
+      .checkbox:hover {
+        background: lighten($color-primary, 45);
+        transition: all 0.2s ease;
+
+        .fake-checkbox:not(.checked-true) {
+          div {
+            background: lighten($color-primary, 30);
+          }
+        }
+      }
+    }
+
     .create-project-field,
     .create-project-text-area {
       margin-bottom: 20px;

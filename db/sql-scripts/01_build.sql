@@ -69,15 +69,6 @@ CREATE TABLE IF NOT EXISTS project (
 );
 
 
--- ************************************** organization_initiative
-
-CREATE TABLE IF NOT EXISTS organization_initiative
-(
-  id        SERIAL PRIMARY KEY,
-  title     VARCHAR(255) NOT NULL
-);
-
-
 -- ************************************** document
 
 CREATE TABLE IF NOT EXISTS document

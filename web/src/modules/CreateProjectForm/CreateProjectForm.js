@@ -5,11 +5,12 @@ import { withRouter } from 'react-router-dom';
 import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
 import TextArea from 'Src/modules/TextArea';
+import Checkbox from 'Src/modules/Checkbox';
 import './createProjectForm.scss';
+import { axis, organizations } from 'Src/config/data';
 
 const createProjectValidate = values => {
   const errors = {};
-  if (!values.title) errors.email = 'Required';
   if (!values.title) errors.title = 'Required';
   if (!values.startDate) errors.startDate = 'Required';
   if (!values.abstract) errors.abstract = 'Required';
@@ -88,7 +89,14 @@ class CreateProjectFormComponent extends Component {
               </div>
               <div className="half-width">
                 MiCM Axis
-                <Field name="axis" component={CreateProjectField} type="text" />
+                <Field name="axis" component="select">
+                  <option hidden>Click here to select</option>
+                  {axis.map((axis, i) => (
+                    <option key={`axis_${i}`} value={axis}>
+                      {axis}
+                    </option>
+                  ))}
+                </Field>
               </div>
             </div>
             <div>
@@ -115,14 +123,27 @@ class CreateProjectFormComponent extends Component {
               competition.
               <Field name="motive" component={CreateProjectTextArea} />
             </div>
+            <div>
+              Relevant to the following organization/initiatives (Select all
+              that apply)
+              <div className="checkbox-group">
+                {organizations.map((organization, i) => (
+                  <div className="checkbox-container" key={`organization_${i}`}>
+                    <Field
+                      name={organization}
+                      component={Checkbox}
+                      text={organization}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
             <div className="row">
               <div className="half-width">
                 Expected project timeframe
                 <Field name="timeframe" component="select">
                   <option hidden>Click here to select</option>
-                  <option value={'3 - 4 Months'} default>
-                    3 - 4 Months
-                  </option>
+                  <option value={'3 - 4 Months'}>3 - 4 Months</option>
                   <option value={'6 - 12 Months'}>6 - 12 Months</option>
                 </Field>
               </div>
@@ -132,9 +153,7 @@ class CreateProjectFormComponent extends Component {
                 <div>
                   <Field name="openForStudents" component="select">
                     <option hidden>Click here to select</option>
-                    <option value={true} default>
-                      Yes
-                    </option>
+                    <option value={true}>Yes</option>
                     <option value={false}>No</option>
                   </Field>
                 </div>
