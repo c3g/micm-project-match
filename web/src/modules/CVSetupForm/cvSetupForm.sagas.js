@@ -9,7 +9,6 @@ function* uploadCV({ payload }) {
     console.log(payload.cv);
     const body = new FormData();
     body.append('cv', payload.cv);
-    for (let file of body.entries()) console.log(file);
     const data = yield call(request, '/cv/update', body, true);
     if (data.success) {
       yield put(action(CV_UPLOAD.RECEIVE, data.data));

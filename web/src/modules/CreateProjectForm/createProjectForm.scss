@@ -82,6 +82,46 @@
       }
     }
 
+    .documents {
+      margin: 20px 0;
+
+      .dropzone-container {
+        margin: 20px 0 0;
+        height: 250px;
+      }
+
+      .selected-files {
+        font-size: 0.8rem;
+        color: #666666;
+        padding: 15px 0 0;
+
+        span {
+          font-size: 1rem;
+          color: #000000;
+        }
+
+        .file-list {
+          margin: 15px 0 0;
+          max-height: 200px;
+          overflow: auto;
+          @include scrollbar();
+          border-left: solid thin #dddddd;
+          border-right: solid thin #dddddd;
+
+          .file {
+            padding: 5px 10px;
+            border-bottom: solid thin #dddddd;
+            display: flex;
+            justify-content: space-between;
+
+            .remove-icon {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
     .right-button {
       text-align: right;
       padding: 40px 0;

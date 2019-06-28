@@ -7,6 +7,7 @@ import user from './user';
 import project from './project';
 import isAuthenticated from '../utils/isAuthenticated';
 import k from '../constants';
+import { errorHandler } from '../utils/handlers';
 
 const router = express.Router();
 const storage = multer.memoryStorage();
@@ -55,6 +56,15 @@ router.post('/cv/update', upload.single('cv'), allAccess, user.updateCv);
 
 router.post(
   '/project/create',
+  upload.array('files'),
+  (req, res, next) => {
+    try {
+      req.body = JSON.parse(req.body.data);
+      next();
+    } catch (err) {
+      errorHandler(res)(err);
+    }
+  },
   validator(schemas.project.create),
   professorAccess,
   project.create

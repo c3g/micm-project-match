@@ -8,6 +8,10 @@ import TextArea from 'Src/modules/TextArea';
 import Checkbox from 'Src/modules/Checkbox';
 import './createProjectForm.scss';
 import { axis, organizations } from 'Src/config/data';
+import Dropzone from 'Src/modules/Dropzone';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { remove, uniqBy, prop } from 'ramda';
 
 const createProjectValidate = values => {
   const errors = {};
@@ -17,7 +21,7 @@ const createProjectValidate = values => {
   if (!values.description) errors.description = 'Required';
   if (!values.datasets) errors.datasets = 'Required';
   if (!values.motive) errors.motive = 'Required';
-  return errors;
+  return {}; //errors;
 };
 
 let CreateProjectCheckbox = ({ input: { onChange, ...input }, ...rest }) => (
@@ -88,6 +92,7 @@ CreateProjectField.propTypes = {
 };
 
 class CreateProjectFormComponent extends Component {
+  state = { files: [] };
   render() {
     const props = this.props;
     return (
@@ -95,7 +100,11 @@ class CreateProjectFormComponent extends Component {
         <div className="form">
           <form
             onSubmit={props.handleSubmit(data =>
-              props.onCreateProject({ data, push: props.history.push })
+              props.onCreateProject({
+                data,
+                push: props.history.push,
+                files: this.state.files
+              })
             )}
           >
             <div>
@@ -180,6 +189,42 @@ class CreateProjectFormComponent extends Component {
                     <option value={true}>Yes</option>
                     <option value={false}>No</option>
                   </Field>
+                </div>
+              </div>
+            </div>
+            <div className="documents">
+              Add any documents wich are relevant to the project
+              <div className="dropzone-container">
+                <Dropzone
+                  onDrop={files =>
+                    this.setState({
+                      files: uniqBy(prop('name'), [
+                        ...this.state.files,
+                        ...files
+                      ])
+                    })
+                  }
+                  text="Drag 'n' drop documents here, or click to select them"
+                />
+              </div>
+              <div className="selected-files">
+                <span>{this.state.files.length > 0 && `Selected files`}</span>
+                <div className="file-list">
+                  {this.state.files.map((file, i) => (
+                    <div className="file" key={`file_${i}`}>
+                      <div>{file.name}</div>
+                      <div
+                        className="remove-icon"
+                        onClick={() =>
+                          this.setState({
+                            files: remove(i, 1, this.state.files)
+                          })
+                        }
+                      >
+                        <FontAwesomeIcon icon={faTimes} />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

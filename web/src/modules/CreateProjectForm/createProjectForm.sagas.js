@@ -6,7 +6,6 @@ import { organizations } from 'Src/config/data';
 import { pick, omit, filter, identity, keys, compose } from 'ramda';
 
 function* createProject({ payload }) {
-  console.log(payload.data);
   const body = {
     ...omit(organizations, payload.data),
     organizations: compose(
@@ -16,7 +15,10 @@ function* createProject({ payload }) {
     )(payload.data)
   };
   console.log(body);
-  const data = yield call(request, '/project/create', body);
+  const formData = new FormData();
+  payload.files.forEach(file => formData.append('files', file));
+  formData.append('data', JSON.stringify(body));
+  const data = yield call(request, '/project/create', formData, true);
   if (data.success) yield put(action(PROJECT.CREATE.RECEIVE, data.data));
   else yield put(action(SNACKBAR.DANGER, data.message));
   yield delay(3000);
