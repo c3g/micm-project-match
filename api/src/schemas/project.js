@@ -19,7 +19,8 @@ const create = Joi.object({
     timeframe: Joi.string()
       .max(20)
       .required(),
-    openForStudents: Joi.bool().required()
+    openForStudents: Joi.bool().required(),
+    organizations: Joi.array().items(Joi.string())
   }).required()
 });
 

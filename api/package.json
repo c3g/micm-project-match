@@ -24,6 +24,7 @@
     "passport-google-oauth": "2.0.0",
     "passport-local": "1.0.0",
     "pg": "7.11.0",
+    "ramda": "0.26.1",
     "react-dropzone": "10.1.5",
     "redis": "2.8.0",
     "uuid": "3.3.2"

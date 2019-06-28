@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS project (
   motive            TEXT NOT NULL,
   timeframe         VARCHAR(20) NOT NULL,
   open_for_students BOOLEAN DEFAULT true NOT NULL,
+  organizations     VARCHAR(100)[],
   author_id         INT NOT NULL,
 
   FOREIGN KEY (author_id) REFERENCES user_account (id)

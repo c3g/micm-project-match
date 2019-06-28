@@ -20,6 +20,31 @@ const createProjectValidate = values => {
   return errors;
 };
 
+let CreateProjectCheckbox = ({ input: { onChange, ...input }, ...rest }) => (
+  <Checkbox
+    {...input}
+    {...rest}
+    onChange={value => onChange(value)}
+    type="checkbox"
+  />
+);
+
+CreateProjectCheckbox.propTypes = {
+  input: PropTypes.object.isRequired
+};
+
+let CreateProjectSelect = ({ input, meta: { touched, error } }) => (
+  <div className={`create-project-field ${error && touched ? 'error' : ''}`}>
+    <input {...input} type="select" />
+    <span className="message">{touched && (error && error)}</span>
+  </div>
+);
+
+CreateProjectSelect.propTypes = {
+  input: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired
+};
+
 let CreateProjectTextArea = ({
   input,
   height,
@@ -69,10 +94,9 @@ class CreateProjectFormComponent extends Component {
       <div className="create-project-form">
         <div className="form">
           <form
-            onSubmit={props.handleSubmit(data => {
-              console.log(data);
-              props.onCreateProject({ data, push: props.history.push });
-            })}
+            onSubmit={props.handleSubmit(data =>
+              props.onCreateProject({ data, push: props.history.push })
+            )}
           >
             <div>
               Project Title
@@ -131,7 +155,7 @@ class CreateProjectFormComponent extends Component {
                   <div className="checkbox-container" key={`organization_${i}`}>
                     <Field
                       name={organization}
-                      component={Checkbox}
+                      component={CreateProjectCheckbox}
                       text={organization}
                     />
                   </div>
