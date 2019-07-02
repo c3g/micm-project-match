@@ -6,7 +6,13 @@ import k from '../constants';
 function findByUserId(userId) {
   if (!userId) return Promise.resolve(null);
   return db
-    .selectOne('SELECT * FROM professor WHERE user_id = @userId', { userId })
+    .selectOne(
+      `
+      SELECT * FROM professor
+       WHERE user_id = @userId
+      `,
+      { userId }
+    )
     .catch(err =>
       err.type === k.ROW_NOT_FOUND
         ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
@@ -19,7 +25,12 @@ function updateByUserId(professor) {
   const mapping = Query.toMapping(change);
   return db
     .query(
-      `UPDATE professor SET ${mapping} WHERE user_id = @userId RETURNING user_id`,
+      `
+      UPDATE professor
+         SET ${mapping}
+       WHERE user_id = @userId
+   RETURNING user_id
+      `,
       professor
     )
     .then(res =>
@@ -33,7 +44,10 @@ function create(professor) {
   const { columns, values } = Query.toColumns(professor);
   return db
     .insert(
-      `INSERT INTO professor (${columns}) VALUES (${values})`,
+      `
+      INSERT INTO professor (${columns})
+      VALUES (${values})
+      `,
       professor,
       'user_id'
     )

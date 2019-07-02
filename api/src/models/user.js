@@ -9,7 +9,14 @@ import bcrypt from 'bcryptjs';
 function findById(id) {
   if (!id) return Promise.resolve(null);
   return db
-    .selectOne('SELECT * FROM user_account WHERE id = @id', { id })
+    .selectOne(
+      `
+      SELECT *
+        FROM user_account
+       WHERE id = @id
+      `,
+      { id }
+    )
     .catch(err =>
       err.type === k.ROW_NOT_FOUND
         ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
@@ -21,9 +28,14 @@ function findProfessorById(id) {
   if (!id) return Promise.resolve(null);
   return db
     .selectOne(
-      `SELECT user_account.*, row_to_json(professor.*) as "professor"
-      FROM user_account LEFT JOIN professor ON user_account.id = professor.user_id
-      WHERE user_account.id = @id`,
+      `
+      SELECT user_account.*,
+             row_to_json(professor.*) AS "professor"
+        FROM user_account
+             LEFT JOIN professor
+             ON user_account.id = professor.user_id
+       WHERE user_account.id = @id
+      `,
       { id }
     )
     .catch(err =>
@@ -38,7 +50,13 @@ function create(user) {
   user = { ...user, token };
   const { columns, values } = Query.toColumns(user);
   return db
-    .insert(`INSERT INTO user_account (${columns}) VALUES (${values})`, user)
+    .insert(
+      `
+      INSERT INTO user_account (${columns})
+      VALUES (${values})
+      `,
+      user
+    )
     .then(findById)
     .catch(err =>
       err.code === k.UNIQUE_VIOLATION
@@ -51,7 +69,14 @@ function update(user) {
   const { id, ...change } = user;
   const mapping = Query.toMapping(change);
   return db
-    .query(`UPDATE user_account SET ${mapping} WHERE id = @id`, user)
+    .query(
+      `
+      UPDATE user_account
+         SET ${mapping}
+       WHERE id = @id
+      `,
+      user
+    )
     .then(() => findById(id))
     .catch(err =>
       err.code === k.UNIQUE_VIOLATION
@@ -67,7 +92,12 @@ function saltAndHash(password) {
 function setPassword({ password, token }) {
   const hash = saltAndHash(password);
   const userId = db.selectOne(
-    `SELECT * FROM user_account WHERE token = @token and strategy = @strategy`,
+    `
+    SELECT *
+      FROM user_account
+     WHERE token = @token
+       AND strategy = @strategy
+    `,
     { token, strategy: k.STRATEGY.LOCAL },
     'id'
   );
@@ -86,7 +116,11 @@ function forgotPassword({ email }) {
   const token = uuid();
   return db
     .selectOne(
-      'SELECT * FROM user_account WHERE email = @email',
+      `
+      SELECT *
+        FROM user_account
+       WHERE email = @email
+      `,
       { email },
       'id'
     )
@@ -100,7 +134,14 @@ function forgotPassword({ email }) {
 
 function findByEmail({ email }) {
   return db
-    .selectOne('SELECT * FROM user_account WHERE email = @email', { email })
+    .selectOne(
+      `
+      SELECT *
+        FROM user_account
+       WHERE email = @email
+      `,
+      { email }
+    )
     .catch(err =>
       err.type === k.ROW_NOT_FOUND
         ? rejectMessage('User account not found', k.ACCOUNT_NOT_FOUND)
@@ -115,11 +156,20 @@ function validatePassword(user, password) {
 function findByIdentifier(identifier, strategy) {
   return db
     .selectOne(
-      `SELECT user_account.*, row_to_json(oauth_details.*) as "oauthDetails"
-       FROM user_account JOIN oauth_details
-       ON user_account.id = oauth_details.user_id
+      `
+      SELECT user_account.*,
+             row_to_json(oauth_details.*) AS "oauthDetails"
+        FROM user_account
+             JOIN oauth_details
+             ON user_account.id = oauth_details.user_id
        WHERE oauth_details.identifier = @identifier
-       ${strategy ? `AND user_account.strategy = @strategy` : ''}`,
+       ${
+         strategy
+           ? `
+         AND user_account.strategy = @strategy
+           `
+           : ''
+       }`,
       { identifier, strategy }
     )
     .catch(err =>
@@ -137,7 +187,10 @@ function createOAuth(profile, strategy) {
         .query('BEGIN')
         .then(() =>
           db.insert(
-            `INSERT INTO user_account(strategy) VALUES(@strategy)`,
+            `
+            INSERT INTO user_account(strategy)
+            VALUES (@strategy)
+            `,
             { strategy },
             'id',
             client
@@ -154,7 +207,10 @@ function createOAuth(profile, strategy) {
           };
           const { columns, values } = Query.toColumns(user);
           return db.insert(
-            `INSERT INTO oauth_details (${columns}) VALUES (${values})`,
+            `
+            INSERT INTO oauth_details (${columns})
+            VALUES (${values})
+            `,
             user,
             'identifier',
             client
@@ -170,14 +226,26 @@ function createOAuth(profile, strategy) {
 }
 
 function getOAuthData(userId) {
-  return db.selectOne('SELECT * FROM oauth_details WHERE user_id = @userId', {
-    userId
-  });
+  return db.selectOne(
+    `
+    SELECT *
+      FROM oauth_details
+     WHERE user_id = @userId
+    `,
+    {
+      userId
+    }
+  );
 }
 
 function verifyEmail(token) {
   return db.query(
-    'UPDATE user_account SET verified = true, token = null WHERE token = @token',
+    `
+    UPDATE user_account
+       SET verified = true,
+           token = null
+     WHERE token = @token
+    `,
     { token }
   );
 }
