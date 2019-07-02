@@ -12,8 +12,16 @@ import { errorHandler } from '../utils/handlers';
 const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const allAccess = isAuthenticated([k.PROFESSOR, k.STUDENT, k.ADMIN, k.UNSET]);
-const professorAccess = isAuthenticated([k.PROFESSOR, k.ADMIN]);
+const allAccess = isAuthenticated([
+  k.USER_TYPE.PROFESSOR,
+  k.USER_TYPE.STUDENT,
+  k.USER_TYPE.ADMIN,
+  k.USER_TYPE.UNSET
+]);
+const professorAccess = isAuthenticated([
+  k.USER_TYPE.PROFESSOR,
+  k.USER_TYPE.ADMIN
+]);
 
 router.post('/register', validator(schemas.auth.register), auth.register);
 router.get(

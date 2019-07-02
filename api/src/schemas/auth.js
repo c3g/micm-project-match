@@ -15,7 +15,7 @@ const register = Joi.object({
         .email()
         .required(),
       type: Joi.string()
-        .valid(k.PROFESSOR, k.STUDENT)
+        .valid(k.USER_TYPE.PROFESSOR, k.USER_TYPE.STUDENT)
         .required()
     }).required(),
     captchaResponse: Joi.string().required()

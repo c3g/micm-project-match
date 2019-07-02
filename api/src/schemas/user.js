@@ -12,7 +12,7 @@ const updateUser = Joi.object({
     tel: Joi.string().max(20),
     email: Joi.string().email(),
     type: Joi.string()
-      .valid(k.PROFESSOR, k.STUDENT)
+      .valid(k.USER_TYPE.PROFESSOR, k.USER_TYPE.STUDENT)
       .required()
   }).required()
 });

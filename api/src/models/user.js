@@ -59,7 +59,7 @@ function create(user) {
     )
     .then(findById)
     .catch(err =>
-      err.code === k.UNIQUE_VIOLATION
+      err.code === k.POSTGRES_UNIQUE_VIOLATION
         ? rejectMessage('Email already in use', k.EMAIL_EXISTS)
         : Promise.reject(err)
     );
@@ -79,7 +79,7 @@ function update(user) {
     )
     .then(() => findById(id))
     .catch(err =>
-      err.code === k.UNIQUE_VIOLATION
+      err.code === k.POSTGRES_UNIQUE_VIOLATION
         ? rejectMessage('Email already in use', k.EMAIL_EXISTS)
         : Promise.reject(err)
     );
@@ -216,9 +216,7 @@ function createOAuth(profile, strategy) {
             client
           );
         })
-        .then(identifier =>
-          client.query('COMMIT').then(() => Promise.resolve(identifier))
-        )
+        .then(identifier => client.query('COMMIT').then(() => identifier))
         .catch(err => client.query('ROLLBACK').then(() => Promise.reject(err)))
         .finally(() => client.release())
     )
