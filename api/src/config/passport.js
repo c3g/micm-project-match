@@ -4,6 +4,7 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { User, Professor } from '../models';
 import k from '../constants';
 import { rejectMessage } from '../utils/promise';
+import { pick } from 'ramda';
 
 const config = {
   facebook: {
@@ -19,29 +20,23 @@ const config = {
   }
 };
 
-export const clean = ({
-  id,
-  firstName,
-  lastName,
-  tel,
-  email,
-  type,
-  strategy,
-  approved,
-  verified,
-  professor,
-  cvLocation
-}) => ({
-  id,
-  firstName,
-  lastName,
-  tel,
-  email,
-  type,
-  strategy,
-  approved,
-  verified,
-  professor,
+export const clean = ({ cvLocation, ...data }) => ({
+  ...pick(
+    [
+      'id',
+      'firstName',
+      'lastName',
+      'tel',
+      'email',
+      'type',
+      'strategy',
+      'approved',
+      'verified',
+      'professor',
+      'cvLocation'
+    ],
+    data
+  ),
   cvUploaded: !!cvLocation
 });
 
