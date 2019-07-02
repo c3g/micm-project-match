@@ -30,12 +30,12 @@ router.get(
   auth.registerResend
 );
 router.post(
-  '/setpassword',
+  '/set-password',
   validator(schemas.auth.setPassword),
   auth.setPassword
 );
 router.post(
-  '/forgotpassword',
+  '/forgot-password',
   validator(schemas.auth.forgotPassword),
   auth.forgotPassword
 );

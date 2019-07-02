@@ -60,13 +60,13 @@ export default [
   },
   {
     name: 'SetPassword',
-    pathname: '/setpassword',
+    pathname: '/set-password',
     component: SetPassword,
     withAuth: false
   },
   {
     name: 'ForgotPassword',
-    pathname: '/forgotpassword',
+    pathname: '/forgot-password',
     component: ForgotPassword,
     withAuth: false
   },

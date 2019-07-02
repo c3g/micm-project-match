@@ -36,7 +36,7 @@ export default (email, token, firstName, lastName) => `
   <tr>
     <td align="center">
       <a
-        href="${process.env.PUBLIC_URL}/setpassword?token=${token}"
+        href="${process.env.PUBLIC_URL}/set-password?token=${token}"
         target="_blank"
       >
         <button
@@ -50,7 +50,7 @@ export default (email, token, firstName, lastName) => `
   <tr>
     <td align="left" style="padding: 30px 0 0; font-size: 0.8rem; color: #333333">
       Alternatively, copy paste the following link into your browser:<br />
-      ${process.env.PUBLIC_URL}/setpassword?token=${token}
+      ${process.env.PUBLIC_URL}/set-password?token=${token}
     </td>
   </tr>
   <tr>

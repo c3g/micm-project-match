@@ -13,7 +13,7 @@ function* setPassword({ payload }) {
       action(SNACKBAR.DANGER, 'Password must be 8 - 30 charaters long')
     );
   } else {
-    const data = yield call(request, '/setpassword', payload.data);
+    const data = yield call(request, '/set-password', payload.data);
     if (data.success) yield put(action(SET_PASSWORD.RECEIVE));
     else yield put(action(SNACKBAR.DANGER, data.message));
   }

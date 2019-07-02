@@ -14,7 +14,7 @@ function* forgotPasswordSubmit({ payload }) {
   } else if (!payload.captchaResponse) {
     yield put(action(SNACKBAR.DANGER, 'Please fill the captcha'));
   }
-  const data = yield call(request, '/forgotpassword', payload);
+  const data = yield call(request, '/forgot-password', payload);
   if (data.success) yield put(action(FORGOT_PASSWORD.RECEIVE, data.data));
   else yield put(action(SNACKBAR.DANGER, data.message));
   yield delay(3000);

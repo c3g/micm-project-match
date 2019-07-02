@@ -8,7 +8,7 @@ const Home = () => (
     <br />
     <Link to="/signup">Sign Up</Link>
     <br />
-    <Link to="/forgotpassword">Forgot Password</Link>
+    <Link to="/forgot-password">Forgot Password</Link>
     <br />
     <Link to="/signin">Sign In</Link>
   </div>
