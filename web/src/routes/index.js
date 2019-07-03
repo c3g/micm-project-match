@@ -10,11 +10,20 @@ import Profile from './Profile';
 import ProfessorSetup from './ProfessorSetup';
 import CVSetup from './CVSetup';
 import CreateProject from './CreateProject';
+import Discover from './Discover';
 
 export default [
   {
+    name: 'Discover',
+    pathname: '/discover',
+    component: Discover,
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Discover Projects'
+  },
+  {
     name: 'CreateProject',
-    pathname: '/createproject',
+    pathname: '/create-project',
     component: CreateProject,
     access: [k.PROFESSOR, k.ADMIN],
     withAuth: true,
@@ -22,14 +31,14 @@ export default [
   },
   {
     name: 'CVSetup',
-    pathname: '/cvsetup',
+    pathname: '/cv-setup',
     component: CVSetup,
     access: [k.PROFESSOR, k.STUDENT],
     withAuth: true
   },
   {
     name: 'ProfessorSetup',
-    pathname: '/professorsetup',
+    pathname: '/professor-setup',
     component: ProfessorSetup,
     access: [k.PROFESSOR],
     withAuth: true

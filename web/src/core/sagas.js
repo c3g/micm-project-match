@@ -9,6 +9,7 @@ import { forgotPasswordFormSaga } from 'Src/modules/ForgotPasswordForm';
 import { professorSetupFormSaga } from 'Src/modules/ProfessorSetupForm';
 import { cvSetupFormSaga } from 'Src/modules/CVSetupForm';
 import { createProjectFormSaga } from 'Src/modules/CreateProjectForm';
+import { projectSearchbarSaga } from 'Src/modules/ProjectSearchbar';
 import { verifyEmailSaga } from 'Src/routes/VerifyEmail';
 import { LOGIN } from 'Src/constants/actionTypes';
 
@@ -27,6 +28,7 @@ export function* rootSaga() {
     registerFormSaga(),
     setPasswordFormSaga(),
     verifyEmailSaga(),
+    projectSearchbarSaga(),
     createProjectFormSaga(),
     cvSetupFormSaga(),
     professorSetupFormSaga(),

@@ -11,6 +11,7 @@ export const LOGOUT = createNetworkConstants('LOGOUT');
 export const PROFESSOR_SETUP = createNetworkConstants('PROFESSOR_SETUP');
 export const CV_UPLOAD = createNetworkConstants('CV_UPLOAD');
 export const VERIFY_EMAIL = createNetworkConstants('VERIFY_EMAIL');
+export const PROJECT_SEARCH = createNetworkConstants('PROJECT_SEARCH');
 
 export const PROJECT = createModelConstants('PROJECT');
 

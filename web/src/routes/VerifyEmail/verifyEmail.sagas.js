@@ -5,7 +5,7 @@ import { VERIFY_EMAIL } from 'Src/constants/actionTypes';
 function* verifyEmail({ payload }) {
   const data = yield call(request, `/email/verify/${payload.token}`);
   if (data.success) yield put(action(VERIFY_EMAIL.RECEIVE));
-  yield payload.push('/cvsetup');
+  yield payload.push('/cv-setup');
 }
 
 function* verifyEmailSaga() {

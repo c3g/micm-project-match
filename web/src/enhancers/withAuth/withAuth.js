@@ -43,7 +43,7 @@ const withAuth = (
         nextProps.type === k.PROFESSOR &&
         nextProps.professor === null
       )
-        nextProps.history.push('/professorsetup');
+        nextProps.history.push('/professor-setup');
       return { start: true, loggedIn: nextProps.loggedIn };
     }
 
@@ -62,7 +62,7 @@ const withAuth = (
         this.props.type === k.PROFESSOR &&
         this.props.professor === null
       )
-        this.props.history.push('/professorsetup');
+        this.props.history.push('/professor-setup');
       else this.setState({ start: true });
     }
 

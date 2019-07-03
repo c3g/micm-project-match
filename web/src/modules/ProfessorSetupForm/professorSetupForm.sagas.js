@@ -11,7 +11,7 @@ function* setProfessorDetails({ payload }) {
     const data = yield call(request, '/professor/update', payload.data);
     if (data.success) {
       yield put(action(PROFESSOR_SETUP.RECEIVE, data.data));
-      yield payload.push('/cvsetup');
+      yield payload.push('/cv-setup');
     } else {
       yield put(action(SNACKBAR.DANGER, data.message));
     }

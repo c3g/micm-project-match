@@ -6,7 +6,6 @@ function* uploadCV({ payload }) {
   if (!payload.cv) {
     yield put(action(SNACKBAR.DANGER, 'Please add your CV'));
   } else {
-    console.log(payload.cv);
     const body = new FormData();
     body.append('cv', payload.cv);
     const data = yield call(request, '/cv/update', body, true);
