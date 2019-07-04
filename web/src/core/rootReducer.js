@@ -9,6 +9,7 @@ import { professorSetupFormReducer } from 'Src/modules/ProfessorSetupForm';
 import { cvSetupFormReducer } from 'Src/modules/CVSetupForm';
 import { createProjectFormReducer } from 'Src/modules/CreateProjectForm';
 import { projectSearchbarReducer } from 'Src/modules/ProjectSearchbar';
+import { projectListReducer } from 'Src/modules/ProjectList';
 import { appReducer } from 'Src/core/App';
 import { reducer as formReducer } from 'redux-form';
 
@@ -18,6 +19,7 @@ export default combineReducers({
   form: formReducer,
   register: registerFormReducer,
   forgotPassword: forgotPasswordFormReducer,
+  projectList: projectListReducer,
   projectSearchbar: projectSearchbarReducer,
   createProject: createProjectFormReducer,
   cvSetup: cvSetupFormReducer,

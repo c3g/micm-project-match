@@ -18,6 +18,11 @@ const allAccess = isAuthenticated([
   k.USER_TYPE.ADMIN,
   k.USER_TYPE.UNSET
 ]);
+const setupAccess = isAuthenticated([
+  k.USER_TYPE.PROFESSOR,
+  k.USER_TYPE.STUDENT,
+  k.USER_TYPE.ADMIN
+]);
 const professorAccess = isAuthenticated([
   k.USER_TYPE.PROFESSOR,
   k.USER_TYPE.ADMIN
@@ -77,6 +82,9 @@ router.post(
   professorAccess,
   project.create
 );
+
+router.get('/project/list', setupAccess, project.list);
+router.get('/project/search', setupAccess, project.search);
 
 export default passport => {
   router.get(

@@ -34,7 +34,46 @@ function create(project) {
     .then(findById);
 }
 
+function selectAll() {
+  return db.selectAll(
+    `
+      SELECT project.id,
+             project.title,
+             project.abstract,
+             project.author_id,
+             user_account.first_name,
+             user_account.last_name
+        FROM project
+             JOIN user_account
+             ON project.author_id = user_account.id
+      `
+  );
+}
+
+function search({ term }) {
+  return db.selectAll(
+    `
+      SELECT project.id,
+             project.title,
+             project.abstract,
+             project.author_id,
+             user_account.first_name,
+             user_account.last_name
+        FROM project
+             JOIN user_account
+             ON project.author_id = user_account.id
+       WHERE LOWER(project.title) LIKE LOWER(@term)
+             OR LOWER(user_account.first_name) LIKE LOWER(@term)
+             OR LOWER(user_account.last_name) LIKE LOWER(@term)
+             OR LOWER(project.abstract) LIKE LOWER(@term)
+      `,
+    { term: `%${term}%` }
+  );
+}
+
 export default {
   create,
-  findById
+  findById,
+  selectAll,
+  search
 };

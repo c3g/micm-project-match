@@ -10,8 +10,7 @@ const ProjectSearchbarField = ({ input, type, placeholder }) => (
 ProjectSearchbarField.propTypes = {
   input: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  name: PropTypes.string.isRequired
+  placeholder: PropTypes.string
 };
 
 let ProjectSearchbar = props => (

@@ -87,6 +87,7 @@ function oAuth(strategy) {
 }
 
 export default passport => {
+  // TODO add OpenId Auth
   passport.use(
     new LocalStrategy(
       { usernameField: 'email', passwordField: 'password' },

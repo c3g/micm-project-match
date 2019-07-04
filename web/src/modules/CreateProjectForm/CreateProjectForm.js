@@ -91,6 +91,8 @@ CreateProjectField.propTypes = {
   })
 };
 
+// TODO add tags
+
 class CreateProjectFormComponent extends Component {
   state = { files: [] };
   render() {

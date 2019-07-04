@@ -9,6 +9,7 @@ export function createNetworkConstants(namespace) {
 export function createModelConstants(namespace, others = []) {
   const constants = {
     FETCH: createNetworkConstants(`${namespace}.FETCH`),
+    LIST: createNetworkConstants(`${namespace}.LIST`),
     CREATE: createNetworkConstants(`${namespace}.CREATE`),
     UPDATE: createNetworkConstants(`${namespace}.UPDATE`),
     DELETE: createNetworkConstants(`${namespace}.DELETE`)
