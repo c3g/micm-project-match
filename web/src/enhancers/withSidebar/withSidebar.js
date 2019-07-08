@@ -4,7 +4,7 @@ import './withSidebar.scss';
 import MiCMLogo from 'Src/modules/MiCMLogo';
 
 const withSidebar = Component => {
-  const withSidebarHOC = () => (
+  const withSidebarHOC = props => (
     <div className="with-sidebar">
       <div className="sidebar-container">
         <div className="logo">
@@ -13,7 +13,7 @@ const withSidebar = Component => {
         <SideNav />
       </div>
       <div className="component-container">
-        <Component />
+        <Component {...props} />
       </div>
     </div>
   );

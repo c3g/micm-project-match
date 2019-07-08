@@ -20,8 +20,15 @@ function search(req, res) {
     .catch(errorHandler(res));
 }
 
+function details(req, res) {
+  Project.details(req.params.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   create,
   list,
-  search
+  search,
+  details
 };

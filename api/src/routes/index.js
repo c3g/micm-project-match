@@ -84,7 +84,18 @@ router.post(
 );
 
 router.get('/project/list', setupAccess, project.list);
-router.get('/project/search', setupAccess, project.search);
+router.get(
+  '/project/search',
+  validator(schemas.project.search),
+  setupAccess,
+  project.search
+);
+router.get(
+  '/project/:id',
+  validator(schemas.project.details),
+  setupAccess,
+  project.details
+);
 
 export default passport => {
   router.get(

@@ -24,6 +24,20 @@ const create = Joi.object({
   }).required()
 });
 
+const search = Joi.object({
+  query: Joi.object({
+    term: Joi.string().required()
+  }).required()
+});
+
+const details = Joi.object({
+  params: Joi.object({
+    id: Joi.number().required()
+  }).required()
+});
+
 export default {
-  create
+  create,
+  search,
+  details
 };

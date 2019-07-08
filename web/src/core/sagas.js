@@ -12,6 +12,7 @@ import { createProjectFormSaga } from 'Src/modules/CreateProjectForm';
 import { projectSearchbarSaga } from 'Src/modules/ProjectSearchbar';
 import { projectListSaga } from 'Src/modules/ProjectList';
 import { verifyEmailSaga } from 'Src/routes/VerifyEmail';
+import { projectDetailsSaga } from 'Src/modules/ProjectDetails';
 import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -37,7 +38,8 @@ export function* rootSaga() {
     forgotPasswordFormSaga(),
     loginFormSaga(),
     setupFormSaga(),
-    logoutButtonSaga()
+    logoutButtonSaga(),
+    projectDetailsSaga()
   ]);
 }
 

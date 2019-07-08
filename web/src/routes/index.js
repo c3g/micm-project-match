@@ -11,15 +11,24 @@ import ProfessorSetup from './ProfessorSetup';
 import CVSetup from './CVSetup';
 import CreateProject from './CreateProject';
 import Discover from './Discover';
+import Project from './Project';
 
 export default [
+  {
+    name: 'Project',
+    pathname: '/project/:id',
+    component: Project,
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    withAuth: true,
+    withSidebar: true
+  },
   {
     name: 'Discover',
     pathname: '/discover',
     component: Discover,
     access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
     withAuth: true,
-    withSidebar: 'Discover Projects'
+    withSidebar: 'Discover'
   },
   {
     name: 'CreateProject',

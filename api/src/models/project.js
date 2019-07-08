@@ -21,6 +21,36 @@ function findById(id) {
     );
 }
 
+function details(id) {
+  if (!id) return Promise.resolve(null);
+  return db
+    .selectOne(
+      `
+      SELECT project.id,
+             project.title,
+             project.abstract,
+             project.open_for_students,
+             project.author_id,
+             user_account.first_name,
+             user_account.last_name,
+             user_account.email,
+             professor.department
+        FROM project
+             JOIN user_account
+             ON project.author_id = user_account.id
+             JOIN professor
+             ON project.author_id = professor.user_id
+       WHERE project.id = @id
+      `,
+      { id }
+    )
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('Project not found', k.PROJECT_NOT_FOUND)
+        : Promise.reject(err)
+    );
+}
+
 function create(project) {
   const { columns, values } = Query.toColumns(project);
   return db
@@ -75,5 +105,6 @@ export default {
   create,
   findById,
   selectAll,
-  search
+  search,
+  details
 };
