@@ -1,17 +1,25 @@
 @import 'Src/core/common.scss';
 
-.user-profile {
-  font-size: 1.2rem;
+.project-details {
+  font-weight: 300;
 
-  .type {
-    text-transform: capitalize;
-    margin: 40px 0 30px;
+  .abstract {
+    padding: 20px 0;
+    font-weight: 300;
+    font-size: 1.2rem;
+  }
+
+  .sub-heading {
+    margin: 20px 0 15px;
     font-weight: 700;
+    font-size: 1.2rem;
   }
 
   .details {
+    margin: 0px 0 30px;
+
     div {
-      margin: 30px 0;
+      margin: 10px 0;
 
       span {
         display: inline-block;
@@ -24,11 +32,12 @@
           font-weight: 400;
         }
 
-        &.blue {
-          cursor: pointer;
+        &.blue,
+        a {
           color: $color-primary;
           font-weight: 700;
           font-weight: 1rem;
+          cursor: pointer;
           text-decoration: none;
         }
       }

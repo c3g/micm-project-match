@@ -25,7 +25,7 @@ const ProjectListItem = ({
     </Link>
     <div className="by">
       <span>Project by</span>
-      <Link to={`/profile/${authorId}`}>{name(firstName, lastName)}</Link>
+      <Link to={`/user/${authorId}`}>{name(firstName, lastName)}</Link>
     </div>
   </div>
 );

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import Heading from 'Src/modules/Heading';
+import './projectDetails.scss';
 
 class ProjectDetails extends Component {
   static propTypes = {
@@ -31,14 +33,37 @@ class ProjectDetails extends Component {
 
   render() {
     return (
-      <div>
-        <div>{this.props.project.title}</div>
-        <div>{this.props.project.abstract}</div>
-        <div>{this.props.project.department}</div>
-        <div>{this.props.project.email}</div>
-        <div>{this.props.project.firstName}</div>
-        <div>{this.props.project.lastName}</div>
-        <div>{this.props.project.openForStudents}</div>
+      <div className="project-details">
+        <Heading hideUnderline>{this.props.project.title}</Heading>
+        <div className="abstract">{this.props.project.abstract}</div>
+        <div className="sub-heading">Professor Details</div>
+        <div className="details">
+          <div>
+            <span>Name</span>
+            <span className="blue">
+              <Link to={`/user/${this.props.project.authorId}`}>
+                {this.props.project.firstName}
+                &nbsp;
+                {this.props.project.lastName}
+              </Link>
+            </span>
+          </div>
+          <div>
+            <span>Email</span>
+            <span>{this.props.project.email}</span>
+          </div>
+          <div>
+            <span>Department</span>
+            <span>{this.props.project.department}</span>
+          </div>
+        </div>
+        <div className="sub-heading">Other Details</div>
+        <div>
+          This project is&nbsp;
+          {this.props.project.openForStudents
+            ? 'open to both students and professors'
+            : 'only open to professors'}
+        </div>
       </div>
     );
   }
