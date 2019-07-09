@@ -4,6 +4,7 @@ import schemas from '../schemas';
 import multer from 'multer';
 import auth from './auth';
 import user from './user';
+import tag from './tag';
 import project from './project';
 import isAuthenticated from '../utils/isAuthenticated';
 import k from '../constants';
@@ -82,7 +83,6 @@ router.post(
   professorAccess,
   project.create
 );
-
 router.get('/project/list', setupAccess, project.list);
 router.get(
   '/project/search',
@@ -95,6 +95,19 @@ router.get(
   validator(schemas.project.details),
   setupAccess,
   project.details
+);
+
+router.post(
+  '/tag/create',
+  validator(schemas.tag.create),
+  setupAccess,
+  tag.create
+);
+router.get(
+  '/tag/search',
+  validator(schemas.tag.search),
+  setupAccess,
+  tag.search
 );
 
 export default passport => {

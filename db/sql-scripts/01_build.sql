@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS professor (
   department     VARCHAR(150) NOT NULL,
   position       VARCHAR(150) NOT NULL,
 
-  FOREIGN KEY (user_id)       REFERENCES user_account (id)
+  FOREIGN KEY (user_id) REFERENCES user_account (id)
 );
 
 
@@ -67,18 +67,6 @@ CREATE TABLE IF NOT EXISTS project (
   author_id         INT NOT NULL,
 
   FOREIGN KEY (author_id) REFERENCES user_account (id)
-);
-
-
--- ************************************** document
-
-CREATE TABLE IF NOT EXISTS document
-(
-  id       SERIAL PRIMARY KEY,
-  location VARCHAR(255) NOT NULL,
-  user_id  INT NOT NULL,
-
-  FOREIGN KEY (user_id) REFERENCES user_account (id)
 );
 
 
@@ -103,35 +91,5 @@ CREATE TABLE IF NOT EXISTS tag
 (
   id          SERIAL PRIMARY KEY,
   text        VARCHAR(50) NOT NULL,
-  project_id   INT[]
+  project_id  INT[]
 );
-
-
--- ************************************** application_document
-
-CREATE TABLE IF NOT EXISTS application_document
-(
-  id             SERIAL PRIMARY KEY,
-  application_id INT NOT NULL,
-  document_id    INT NOT NULL,
-  title          VARCHAR(100),
-
-  FOREIGN KEY (application_id) REFERENCES application (id),
-  FOREIGN KEY (document_id) REFERENCES document (id)
-);
-
-
--- ************************************** project_document
-
-CREATE TABLE IF NOT EXISTS project_document
-(
-  id          SERIAL PRIMARY KEY,
-  project_id  INT NOT NULL,
-  document_id INT NOT NULL,
-  title       VARCHAR(100) NOT NULL,
-
-  FOREIGN KEY (project_id) REFERENCES project (id),
-  FOREIGN KEY (document_id) REFERENCES document (id)
-);
-
-
