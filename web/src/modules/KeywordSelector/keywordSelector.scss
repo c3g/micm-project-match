@@ -1,0 +1,56 @@
+@import 'Src/core/common.scss';
+
+.keyword-selector {
+  .selected {
+    min-height: 67px;
+    display: flex;
+    padding: 20px 10px 5px 10px;
+    flex-wrap: wrap;
+
+    div {
+      background: $color-primary;
+      color: $text-color-primary;
+      padding: 5px 15px;
+      border-radius: 5px;
+      margin: 0 10px 10px 0;
+      cursor: pointer;
+    }
+  }
+
+  .add {
+    max-height: 0;
+    display: flex;
+    justify-content: flex-end;
+
+    div {
+      background: $color-primary;
+      color: $text-color-primary;
+      padding: 11.5px 20px;
+      min-height: 45px;
+      border-radius: 0 22px 22px 0;
+      cursor: pointer;
+      transform: translateY(-60px);
+    }
+  }
+
+  .suggestions {
+    @include scrollbar();
+    display: flex;
+    max-height: 125px;
+    min-height: 125px;
+    overflow: auto;
+    flex-wrap: wrap;
+
+    div {
+      max-height: 35px;
+      padding: 5px 15px;
+      font-weight: 300;
+      cursor: pointer;
+      margin: 0 10px 10px 0;
+      border: solid thin rgba(0, 0, 0, 0.1);
+    }
+  }
+  .message {
+    color: #666666;
+  }
+}
