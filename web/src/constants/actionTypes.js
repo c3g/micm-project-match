@@ -14,9 +14,12 @@ export const VERIFY_EMAIL = createNetworkConstants('VERIFY_EMAIL');
 export const PROJECT_SEARCH = createNetworkConstants('PROJECT_SEARCH');
 
 export const PROJECT = createModelConstants('PROJECT');
+export const KEYWORD = createModelConstants('KEYWORD');
 
 export const SETUP_REFILL = 'SETUP_REFILL';
 export const SETUP_FILLED = 'SETUP_FILLED';
+export const KEYWORD_SELECT = 'KEYWORD_SELECT';
+export const KEYWORD_DESELECT = 'KEYWORD_DESELECT';
 
 export const SNACKBAR = {
   INFO: 'SNACKBAR.INFO',

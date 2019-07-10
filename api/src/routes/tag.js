@@ -8,7 +8,7 @@ function create(req, res) {
 }
 
 function search(req, res) {
-  Tag.create(req.query)
+  Tag.search(req.query)
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }

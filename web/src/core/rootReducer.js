@@ -11,6 +11,7 @@ import { createProjectFormReducer } from 'Src/modules/CreateProjectForm';
 import { projectSearchbarReducer } from 'Src/modules/ProjectSearchbar';
 import { projectListReducer } from 'Src/modules/ProjectList';
 import { projectDetailsReducer } from 'Src/modules/ProjectDetails';
+import { keywordSelectorReducer } from 'Src/modules/KeywordSelector';
 import { appReducer } from 'Src/core/App';
 import { reducer as formReducer } from 'redux-form';
 
@@ -21,6 +22,7 @@ export default combineReducers({
   register: registerFormReducer,
   forgotPassword: forgotPasswordFormReducer,
   projectList: projectListReducer,
+  keywordSelector: keywordSelectorReducer,
   projectDetails: projectDetailsReducer,
   projectSearchbar: projectSearchbarReducer,
   createProject: createProjectFormReducer,

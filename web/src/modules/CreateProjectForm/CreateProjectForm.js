@@ -12,6 +12,7 @@ import Dropzone from 'Src/modules/Dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { remove, uniqBy, prop } from 'ramda';
+import KeywordSelector from 'Src/modules/KeywordSelector';
 
 const createProjectValidate = values => {
   const errors = {};
@@ -90,8 +91,6 @@ CreateProjectField.propTypes = {
     error: PropTypes.string
   })
 };
-
-// TODO add tags
 
 class CreateProjectFormComponent extends Component {
   state = { files: [] };
@@ -230,6 +229,7 @@ class CreateProjectFormComponent extends Component {
                 </div>
               </div>
             </div>
+            <KeywordSelector />
             <div className="right-button">
               <RoundedButton>Create Project</RoundedButton>
             </div>

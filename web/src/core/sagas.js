@@ -13,6 +13,7 @@ import { projectSearchbarSaga } from 'Src/modules/ProjectSearchbar';
 import { projectListSaga } from 'Src/modules/ProjectList';
 import { verifyEmailSaga } from 'Src/routes/VerifyEmail';
 import { projectDetailsSaga } from 'Src/modules/ProjectDetails';
+import { keywordSelectorSaga } from 'Src/modules/KeywordSelector';
 import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -39,6 +40,7 @@ export function* rootSaga() {
     loginFormSaga(),
     setupFormSaga(),
     logoutButtonSaga(),
+    keywordSelectorSaga(),
     projectDetailsSaga()
   ]);
 }

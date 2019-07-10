@@ -14,7 +14,6 @@ function* createProject({ payload }) {
       pick(organizations)
     )(payload.data)
   };
-  console.log(body);
   const formData = new FormData();
   payload.files.forEach(file => formData.append('files', file));
   formData.append('data', JSON.stringify(body));
