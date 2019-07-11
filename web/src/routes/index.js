@@ -12,8 +12,17 @@ import CVSetup from './CVSetup';
 import CreateProject from './CreateProject';
 import Discover from './Discover';
 import Project from './Project';
+import Application from './Application';
 
 export default [
+  {
+    name: 'Application',
+    pathname: '/application',
+    component: Application,
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    withAuth: true,
+    withSidebar: true
+  },
   {
     name: 'Project',
     pathname: '/project/:id',

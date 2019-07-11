@@ -15,6 +15,7 @@ export const PROJECT_SEARCH = createNetworkConstants('PROJECT_SEARCH');
 
 export const PROJECT = createModelConstants('PROJECT');
 export const KEYWORD = createModelConstants('KEYWORD');
+export const APPLICATION = createModelConstants('APPLICATION');
 
 export const SETUP_REFILL = 'SETUP_REFILL';
 export const SETUP_FILLED = 'SETUP_FILLED';

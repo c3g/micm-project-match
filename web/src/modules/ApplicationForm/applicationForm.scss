@@ -1,0 +1,38 @@
+@import 'Src/core/common.scss';
+
+.application-form {
+  height: 100%;
+  width: 100%;
+
+  .form {
+    padding-top: 20px;
+    width: 90%;
+
+    .create-application-text-area {
+      margin-bottom: 50px;
+      margin-bottom: 20px;
+      position: relative;
+
+      &.error {
+        input,
+        textarea {
+          border: solid thin $color-danger;
+          margin: 14px 0;
+        }
+
+        .message {
+          position: absolute;
+          right: 0;
+          color: $color-danger;
+          font-size: 0.7rem;
+          bottom: -35px;
+        }
+      }
+    }
+
+    .right-button {
+      padding: 30px 0;
+      text-align: right;
+    }
+  }
+}

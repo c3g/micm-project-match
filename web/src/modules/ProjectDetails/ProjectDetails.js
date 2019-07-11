@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
+import RoundedButton from 'Src/modules/RoundedButton';
 import './projectDetails.scss';
 
 class ProjectDetails extends Component {
@@ -63,6 +64,11 @@ class ProjectDetails extends Component {
           {this.props.project.openForStudents
             ? 'open to both students and professors'
             : 'only open to professors'}
+        </div>
+        <div className="apply">
+          <Link to={{ pathname: '/application', state: this.props.project }}>
+            <RoundedButton>Apply</RoundedButton>
+          </Link>
         </div>
       </div>
     );
