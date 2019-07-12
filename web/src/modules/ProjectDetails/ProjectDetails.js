@@ -21,6 +21,7 @@ class ProjectDetails extends Component {
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired
     }).isRequired,
+    application: PropTypes.object,
     isLoading: PropTypes.bool.isRequired
   };
 
@@ -65,11 +66,34 @@ class ProjectDetails extends Component {
             ? 'open to both students and professors'
             : 'only open to professors'}
         </div>
-        <div className="apply">
-          <Link to={{ pathname: '/application', state: this.props.project }}>
-            <RoundedButton>Apply</RoundedButton>
-          </Link>
-        </div>
+        {this.props.application ? (
+          <div className="apply">
+            <Link
+              to={{
+                pathname: '/application',
+                state: {
+                  project: this.props.project,
+                  application: this.props.application
+                }
+              }}
+            >
+              <RoundedButton>Update Application</RoundedButton>
+            </Link>
+          </div>
+        ) : (
+          <div className="apply">
+            <Link
+              to={{
+                pathname: '/application',
+                state: {
+                  project: this.props.project
+                }
+              }}
+            >
+              <RoundedButton>Apply</RoundedButton>
+            </Link>
+          </div>
+        )}
       </div>
     );
   }

@@ -6,13 +6,15 @@ const actionHandlers = {
   [PROJECT.FETCH.RECEIVE]: (s, a) => ({
     ...s,
     isLoading: false,
-    project: a.payload
+    project: a.payload.project,
+    application: a.payload.application
   }),
   [PROJECT.FETCH.ERROR]: s => ({ ...s, isLoading: false })
 };
 
 const initialState = {
   isLoading: false,
+  application: null,
   project: {
     id: 0,
     title: '',

@@ -74,13 +74,13 @@ CREATE TABLE IF NOT EXISTS project (
 
 CREATE TABLE IF NOT EXISTS application
 (
-  id         SERIAL PRIMARY KEY,
-  student_id INT NOT NULL,
-  project_id INT NOT NULL,
-  proposal   TEXT NOT NULL,
-  accepted   INT NOT NULL,
+  id            SERIAL PRIMARY KEY,
+  applicant_id  INT NOT NULL,
+  project_id    INT NOT NULL,
+  proposal      TEXT NOT NULL,
+  accepted      BOOLEAN DEFAULT false NULL,
 
-  FOREIGN KEY (student_id) REFERENCES user_account (id),
+  FOREIGN KEY (applicant_id) REFERENCES user_account (id),
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 

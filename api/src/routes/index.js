@@ -6,6 +6,7 @@ import auth from './auth';
 import user from './user';
 import tag from './tag';
 import project from './project';
+import application from './application';
 import isAuthenticated from '../utils/isAuthenticated';
 import k from '../constants';
 import { errorHandler } from '../utils/handlers';
@@ -108,6 +109,25 @@ router.get(
   validator(schemas.tag.search),
   setupAccess,
   tag.search
+);
+
+router.post(
+  '/application/create',
+  validator(schemas.application.create),
+  setupAccess,
+  application.create
+);
+router.post(
+  '/application/update',
+  validator(schemas.application.update),
+  setupAccess,
+  application.update
+);
+router.get(
+  '/application/:projectId/project',
+  validator(schemas.application.findByApplicantProject),
+  setupAccess,
+  application.findByApplicantProject
 );
 
 export default passport => {

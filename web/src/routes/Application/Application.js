@@ -6,8 +6,11 @@ import './application.scss';
 
 const Application = ({ location }) => (
   <div className="application-page">
-    {location && location.state && location.state.id ? (
-      <ApplicationForm project={location.state} />
+    {location && location.state && location.state.project ? (
+      <ApplicationForm
+        project={location.state.project}
+        application={location.state.application}
+      />
     ) : (
       <Redirect to="/" />
     )}

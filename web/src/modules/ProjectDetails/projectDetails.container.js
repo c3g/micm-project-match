@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  ...pick(['isLoading', 'project'], state.projectDetails)
+  ...pick(['isLoading', 'project', 'application'], state.projectDetails)
 });
 
 export default connect(
