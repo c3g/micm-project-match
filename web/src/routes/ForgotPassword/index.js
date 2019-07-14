@@ -1,3 +1,3 @@
-import ForgotPassword from './ForgotPassword';
+import asyncComponent from 'Src/enhancers/asyncComponent';
 
-export default ForgotPassword;
+export default asyncComponent(() => import('./ForgotPassword'));

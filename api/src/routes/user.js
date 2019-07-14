@@ -69,10 +69,17 @@ function oauthData(req, res) {
     .catch(errorHandler(res));
 }
 
+function details(req, res) {
+  User.findProfessorById(req.params.id)
+    .then(data => dataHandler(res)(clean(data)))
+    .catch(errorHandler(res));
+}
+
 export default {
   userData,
   updateUser,
   updateProfessor,
   updateCv,
-  oauthData
+  oauthData,
+  details
 };

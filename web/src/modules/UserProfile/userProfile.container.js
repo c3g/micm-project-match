@@ -1,11 +1,16 @@
 import { connect } from 'react-redux';
 import UserProfile from './UserProfile';
+import { action } from 'Src/utils';
 import { pick } from 'ramda';
+import { USER } from 'Src/constants/actionTypes';
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  fetchUser: data => dispatch(action(USER.FETCH.REQUEST, data))
+});
 
 const mapStateToProps = state => ({
-  ...pick(['user'], state.app)
+  ...pick(['user'], state.app),
+  ...pick(['publicUser', 'isLoading'], state.userProfile)
 });
 
 export default connect(

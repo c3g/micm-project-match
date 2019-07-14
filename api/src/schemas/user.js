@@ -28,7 +28,14 @@ const updateProfessor = Joi.object({
   }).required()
 });
 
+const details = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
 export default {
   updateUser,
-  updateProfessor
+  updateProfessor,
+  details
 };

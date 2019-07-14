@@ -54,6 +54,12 @@ router.get(
 );
 
 router.get('/user', user.userData);
+router.get(
+  '/user/:id',
+  validator(schemas.user.details),
+  setupAccess,
+  user.details
+);
 router.get('/user/oauth', allAccess, user.oauthData);
 router.post(
   '/user/update',
