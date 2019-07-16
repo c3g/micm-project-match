@@ -20,7 +20,14 @@ class ProjectDetails extends Component {
       department: PropTypes.string,
       email: PropTypes.string,
       firstName: PropTypes.string,
-      lastName: PropTypes.string
+      lastName: PropTypes.string,
+      axis: PropTypes.string,
+      datasets: PropTypes.string,
+      description: PropTypes.string,
+      motive: PropTypes.string,
+      organizations: PropTypes.array,
+      startDate: PropTypes.string,
+      timeframe: PropTypes
     }).isRequired,
     application: PropTypes.object,
     isLoading: PropTypes.bool.isRequired
@@ -39,10 +46,24 @@ class ProjectDetails extends Component {
       <div className="project-details">
         <Heading hideUnderline>{this.props.project.title}</Heading>
         <div className="abstract">{this.props.project.abstract}</div>
-        {['firstName', 'lastName', 'email', 'department'].reduce(
-          (a, c) => a || Object.keys(this.props.project).includes(c),
-          false
-        ) && (
+        {this.props.userId === this.props.project.authorId ? (
+          <div className="details">
+            <div>
+              <span>Prefered project start date</span>
+              <span>
+                {new Date(this.props.project.startDate).toDateString()}
+              </span>
+            </div>
+            <div>
+              <span>MiCM Axis</span>
+              <span>{this.props.project.axis}</span>
+            </div>
+            <div>
+              <span>Expected project timeframe</span>
+              <span>{this.props.project.timeframe}</span>
+            </div>
+          </div>
+        ) : (
           <>
             <div className="sub-heading">Professor Details</div>
             <div className="details">
@@ -76,13 +97,34 @@ class ProjectDetails extends Component {
             </div>
           </>
         )}
-        <div className="sub-heading">Other Details</div>
+        {this.props.userId !== this.props.project.authorId && (
+          <div className="sub-heading">Other Details</div>
+        )}
         <div>
           This project is&nbsp;
           {this.props.project.openForStudents
             ? 'open to both students and professors'
             : 'only open to professors'}
         </div>
+        {this.props.userId === this.props.project.authorId && (
+          <div className="details-long">
+            <div>
+              <div>Project description</div>
+              <div>{this.props.project.description}</div>
+            </div>
+            <div>
+              <div>Description of datasets to be used or generated</div>
+              <div>{this.props.project.datasets}</div>
+            </div>
+            <div>
+              <div>
+                Why you see this as a collaborative research project and what
+                you hope to gain from the collaboration
+              </div>
+              <div>{this.props.project.motive}</div>
+            </div>
+          </div>
+        )}
         {this.props.userId === this.props.project.authorId ? (
           <div className="apply">
             <Link

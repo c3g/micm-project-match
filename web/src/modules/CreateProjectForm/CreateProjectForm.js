@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { remove, uniqBy, prop } from 'ramda';
 import KeywordSelector from 'Src/modules/KeywordSelector';
+import { formatDate } from 'Src/utils';
 
 const createProjectValidate = values => {
   const errors = {};
@@ -91,18 +92,6 @@ CreateProjectField.propTypes = {
     error: PropTypes.string
   })
 };
-
-function formatDate(date) {
-  let d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [year, month, day].join('-');
-}
 
 class CreateProjectFormComponent extends Component {
   state = { files: [] };

@@ -15,6 +15,16 @@
     font-size: 1.2rem;
   }
 
+  .details-long {
+    & > div {
+      div:first-child {
+        font-weight: 400;
+        padding: 30px 0 10px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
   .details {
     margin: 0px 0 30px;
 
@@ -25,7 +35,7 @@
         display: inline-block;
 
         &:first-child {
-          min-width: 200px;
+          min-width: 250px;
           font-weight: 300;
         }
         &:last-child {
