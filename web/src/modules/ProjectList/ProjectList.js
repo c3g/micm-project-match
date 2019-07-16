@@ -5,7 +5,8 @@ import './projectList.scss';
 
 class ProjectList extends Component {
   componentDidMount() {
-    this.props.fetchProjects();
+    if (this.props.userProjects) this.props.fetchUserProjects();
+    else this.props.fetchProjects();
   }
 
   render() {
@@ -21,7 +22,9 @@ class ProjectList extends Component {
 
 ProjectList.propTypes = {
   fetchProjects: PropTypes.func.isRequired,
-  projects: PropTypes.array.isRequired
+  projects: PropTypes.array.isRequired,
+  fetchUserProjects: PropTypes.func.isRequired,
+  userProjects: PropTypes.bool
 };
 
 export default ProjectList;

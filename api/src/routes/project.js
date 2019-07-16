@@ -26,9 +26,16 @@ function details(req, res) {
     .catch(errorHandler(res));
 }
 
+function listUserProjects(req, res) {
+  Project.listUserProjects(req.user.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   create,
   list,
   search,
-  details
+  details,
+  listUserProjects
 };

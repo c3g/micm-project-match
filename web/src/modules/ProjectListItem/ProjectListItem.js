@@ -23,17 +23,19 @@ const ProjectListItem = ({
         {abstract.length > 335 ? '...' : ''}
       </div>
     </Link>
-    <div className="by">
-      <span>Project by</span>
-      <Link to={`/user/${authorId}`}>{name(firstName, lastName)}</Link>
-    </div>
+    {(firstName || lastName) && (
+      <div className="by">
+        <span>Project by</span>
+        <Link to={`/user/${authorId}`}>{name(firstName, lastName)}</Link>
+      </div>
+    )}
   </div>
 );
 
 ProjectListItem.propTypes = {
   project: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
     title: PropTypes.string.isRequired,
     abstract: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,

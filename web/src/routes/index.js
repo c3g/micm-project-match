@@ -14,8 +14,17 @@ import Discover from './Discover';
 import Project from './Project';
 import Application from './Application';
 import User from './User';
+import Projects from './Projects';
 
 export default [
+  {
+    name: 'Projects',
+    pathname: '/projects',
+    component: Projects,
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    withAuth: true,
+    withSidebar: 'My Projects'
+  },
   {
     name: 'User',
     pathname: '/user/:id',

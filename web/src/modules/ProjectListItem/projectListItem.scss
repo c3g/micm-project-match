@@ -1,7 +1,7 @@
 @import 'Src/core/common.scss';
 
 .project-list-item {
-  padding: 20px;
+  padding: 35px 0 0 0;
 
   .details {
     color: #000000;
@@ -14,16 +14,17 @@
     }
 
     .abstract {
-      padding: 10px 0 15px;
-      font-size: 1.1rem;
+      padding: 10px 0;
+      font-size: 1rem;
       font-weight: 300;
     }
   }
 
   .by {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 
     a {
+      font-size: 0.9rem;
       font-weight: 700;
       color: $color-primary;
       text-decoration: none;

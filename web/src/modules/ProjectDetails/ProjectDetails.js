@@ -9,6 +9,7 @@ class ProjectDetails extends Component {
   static propTypes = {
     fetchProject: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
     history: PropTypes.object.isRequired,
     project: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -66,7 +67,21 @@ class ProjectDetails extends Component {
             ? 'open to both students and professors'
             : 'only open to professors'}
         </div>
-        {this.props.application ? (
+        {this.props.userId === this.props.project.authorId ? (
+          <div className="apply">
+            <Link
+              to={{
+                pathname: '/update-project',
+                state: {
+                  project: this.props.project,
+                  application: this.props.application
+                }
+              }}
+            >
+              <RoundedButton>Update</RoundedButton>
+            </Link>
+          </div>
+        ) : this.props.application ? (
           <div className="apply">
             <Link
               to={{
