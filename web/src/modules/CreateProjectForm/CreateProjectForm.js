@@ -92,8 +92,35 @@ CreateProjectField.propTypes = {
   })
 };
 
+function formatDate(date) {
+  let d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
 class CreateProjectFormComponent extends Component {
   state = { files: [] };
+
+  componentDidMount() {
+    if (this.props.project) {
+      const { id, organizations, ...project } = this.props.project;
+      this.props.initialize({
+        ...project,
+        startDate: formatDate(project.startDate),
+        ...this.props.project.organizations.reduce(
+          (a, c) => ({ ...a, [c]: true }),
+          {}
+        )
+      });
+    }
+  }
+
   render() {
     const props = this.props;
     return (
@@ -101,11 +128,17 @@ class CreateProjectFormComponent extends Component {
         <div className="form">
           <form
             onSubmit={props.handleSubmit(data =>
-              props.onCreateProject({
-                data,
-                push: props.history.push,
-                files: this.state.files
-              })
+              this.props.project
+                ? props.onUpdateProject({
+                    data,
+                    push: props.history.push,
+                    files: this.state.files
+                  })
+                : props.onCreateProject({
+                    data,
+                    push: props.history.push,
+                    files: this.state.files
+                  })
             )}
           >
             <div>
@@ -231,7 +264,9 @@ class CreateProjectFormComponent extends Component {
             </div>
             <KeywordSelector />
             <div className="right-button">
-              <RoundedButton>Create Project</RoundedButton>
+              <RoundedButton>
+                {this.props.project ? 'Update Project' : 'Create Project'}
+              </RoundedButton>
             </div>
           </form>
         </div>
@@ -243,7 +278,22 @@ class CreateProjectFormComponent extends Component {
 CreateProjectFormComponent.propTypes = {
   initialize: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onCreateProject: PropTypes.func.isRequired
+  onCreateProject: PropTypes.func.isRequired,
+  onUpdateProject: PropTypes.func.isRequired,
+  project: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    abstract: PropTypes.string.isRequired,
+    openForStudents: PropTypes.bool.isRequired,
+    authorId: PropTypes.number.isRequired,
+    axis: PropTypes.string.isRequired,
+    datasets: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    motive: PropTypes.string.isRequired,
+    organizations: PropTypes.array,
+    startDate: PropTypes.string.isRequired,
+    timeframe: PropTypes.isRequired
+  })
 };
 
 const CreateProjectForm = reduxForm({

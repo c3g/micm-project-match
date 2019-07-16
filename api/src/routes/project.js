@@ -21,7 +21,7 @@ function search(req, res) {
 }
 
 function details(req, res) {
-  Project.details(req.params.id)
+  Project.details(req.params.id, req.user.id)
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }

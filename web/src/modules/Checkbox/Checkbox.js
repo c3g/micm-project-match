@@ -5,14 +5,15 @@ import './checkbox.scss';
 class Checkbox extends Component {
   state = { checked: false };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.value !== prevState.checked)
+      return { checked: nextProps.value };
+  }
+
   render() {
     return (
       <div
-        onClick={() =>
-          this.setState({ checked: !this.state.checked }, () =>
-            this.props.onChange(this.state.checked)
-          )
-        }
+        onClick={() => this.props.onChange(!this.state.checked)}
         className={`checkbox`}
       >
         <div className={`fake-checkbox checked-${this.state.checked}`}>
@@ -29,7 +30,8 @@ class Checkbox extends Component {
 Checkbox.propTypes = {
   input: PropTypes.object,
   text: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 };
 
 export default Checkbox;

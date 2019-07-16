@@ -17,10 +17,10 @@ class ProjectDetails extends Component {
       abstract: PropTypes.string.isRequired,
       openForStudents: PropTypes.bool.isRequired,
       authorId: PropTypes.number.isRequired,
-      department: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired
+      department: PropTypes.string,
+      email: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string
     }).isRequired,
     application: PropTypes.object,
     isLoading: PropTypes.bool.isRequired
@@ -39,27 +39,43 @@ class ProjectDetails extends Component {
       <div className="project-details">
         <Heading hideUnderline>{this.props.project.title}</Heading>
         <div className="abstract">{this.props.project.abstract}</div>
-        <div className="sub-heading">Professor Details</div>
-        <div className="details">
-          <div>
-            <span>Name</span>
-            <span className="blue">
-              <Link to={`/user/${this.props.project.authorId}`}>
-                {this.props.project.firstName}
-                &nbsp;
-                {this.props.project.lastName}
-              </Link>
-            </span>
-          </div>
-          <div>
-            <span>Email</span>
-            <span>{this.props.project.email}</span>
-          </div>
-          <div>
-            <span>Department</span>
-            <span>{this.props.project.department}</span>
-          </div>
-        </div>
+        {['firstName', 'lastName', 'email', 'department'].reduce(
+          (a, c) => a || Object.keys(this.props.project).includes(c),
+          false
+        ) && (
+          <>
+            <div className="sub-heading">Professor Details</div>
+            <div className="details">
+              {(this.props.project.firstName ||
+                this.props.project.lastName) && (
+                <div>
+                  <span>Name</span>
+                  <span className="blue">
+                    <Link to={`/user/${this.props.project.authorId}`}>
+                      {this.props.project.firstName}
+                      &nbsp;
+                      {this.props.project.lastName}
+                    </Link>
+                  </span>
+                </div>
+              )}
+              {this.props.project.email && (
+                <div>
+                  <span>Email</span>
+                  <span>{this.props.project.email}</span>
+                </div>
+              )}
+              {this.props.project.department && (
+                <div>
+                  <span>Department</span>
+                  {this.props.project.department && (
+                    <span>{this.props.project.department}</span>
+                  )}
+                </div>
+              )}
+            </div>
+          </>
+        )}
         <div className="sub-heading">Other Details</div>
         <div>
           This project is&nbsp;
@@ -73,8 +89,7 @@ class ProjectDetails extends Component {
               to={{
                 pathname: '/update-project',
                 state: {
-                  project: this.props.project,
-                  application: this.props.application
+                  project: this.props.project
                 }
               }}
             >

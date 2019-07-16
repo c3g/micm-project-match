@@ -15,13 +15,22 @@ import Project from './Project';
 import Application from './Application';
 import User from './User';
 import Projects from './Projects';
+import UpdateProject from './UpdateProject';
 
 export default [
+  {
+    name: 'UpdateProject',
+    pathname: '/update-project',
+    component: UpdateProject,
+    access: [k.PROFESSOR, k.ADMIN],
+    withAuth: true,
+    withSidebar: true
+  },
   {
     name: 'Projects',
     pathname: '/projects',
     component: Projects,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    access: [k.PROFESSOR, k.ADMIN],
     withAuth: true,
     withSidebar: 'My Projects'
   },

@@ -21,7 +21,7 @@ function findById(id) {
     );
 }
 
-function details(id) {
+function details(id, userId) {
   if (!id) return Promise.resolve(null);
   return db
     .selectOne(
@@ -43,6 +43,9 @@ function details(id) {
        WHERE project.id = @id
       `,
       { id }
+    )
+    .then(details =>
+      details.authorId == userId ? findById(details.id) : details
     )
     .catch(err =>
       err.type === k.ROW_NOT_FOUND

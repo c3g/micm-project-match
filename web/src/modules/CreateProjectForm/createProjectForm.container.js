@@ -5,7 +5,8 @@ import { PROJECT } from 'Src/constants/actionTypes';
 import { action } from 'Src/utils';
 
 const mapDispatchToProps = dispatch => ({
-  onCreateProject: data => dispatch(action(PROJECT.CREATE.REQUEST, data))
+  onCreateProject: data => dispatch(action(PROJECT.CREATE.REQUEST, data)),
+  onUpdateProject: data => dispatch(action(PROJECT.UPDATE.REQUEST, data))
 });
 
 const mapStateToProps = state => ({
