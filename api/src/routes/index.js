@@ -91,6 +91,21 @@ router.post(
   professorAccess,
   project.create
 );
+router.post(
+  '/project/update',
+  upload.array('files'),
+  (req, res, next) => {
+    try {
+      req.body = JSON.parse(req.body.data);
+      next();
+    } catch (err) {
+      errorHandler(res)(err);
+    }
+  },
+  validator(schemas.project.update),
+  professorAccess,
+  project.update
+);
 router.get('/project/list', setupAccess, project.list);
 router.get(
   '/project/search',

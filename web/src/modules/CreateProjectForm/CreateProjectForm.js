@@ -98,7 +98,7 @@ class CreateProjectFormComponent extends Component {
 
   componentDidMount() {
     if (this.props.project) {
-      const { id, organizations, ...project } = this.props.project;
+      const { organizations, authorId, ...project } = this.props.project;
       this.props.initialize({
         ...project,
         startDate: formatDate(project.startDate),

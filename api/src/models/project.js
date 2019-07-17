@@ -4,6 +4,7 @@ import { rejectMessage } from '../utils/promise';
 import k from '../constants';
 
 function findById(id) {
+  console.log(id);
   if (!id) return Promise.resolve(null);
   return db
     .selectOne(
@@ -118,11 +119,33 @@ function search({ term }) {
   );
 }
 
+function update(project) {
+  const { id, authorId, ...change } = project;
+  const mapping = Query.toMapping(change);
+  return db
+    .query(
+      `
+    UPDATE project
+       SET ${mapping}
+     WHERE author_id = @authorId
+           AND id = @id
+ RETURNING id
+    `,
+      project
+    )
+    .then(res =>
+      res.rowCount === 0
+        ? rejectMessage('Project not found', k.PROJECT_NOT_FOUND)
+        : findById(id)
+    );
+}
+
 export default {
   create,
   findById,
   selectAll,
   search,
   details,
-  listUserProjects
+  listUserProjects,
+  update
 };

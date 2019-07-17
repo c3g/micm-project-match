@@ -8,6 +8,12 @@ function create(req, res) {
     .catch(errorHandler(res));
 }
 
+function update(req, res) {
+  Project.update({ ...req.body, authorId: req.user.id })
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 function list(req, res) {
   Project.selectAll()
     .then(dataHandler(res))
@@ -34,6 +40,7 @@ function listUserProjects(req, res) {
 
 export default {
   create,
+  update,
   list,
   search,
   details,
