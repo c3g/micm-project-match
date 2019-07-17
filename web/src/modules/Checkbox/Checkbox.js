@@ -8,6 +8,7 @@ class Checkbox extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.value !== prevState.checked)
       return { checked: nextProps.value };
+    return null;
   }
 
   render() {

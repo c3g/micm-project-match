@@ -156,6 +156,12 @@ router.get(
   setupAccess,
   application.findByApplicantProject
 );
+router.get(
+  '/application/:id/pass',
+  validator(schemas.application.pass),
+  professorAccess,
+  application.pass
+);
 
 export default passport => {
   router.get(

@@ -27,7 +27,7 @@ class ProjectDetails extends Component {
       motive: PropTypes.string,
       organizations: PropTypes.array,
       startDate: PropTypes.string,
-      timeframe: PropTypes
+      timeframe: PropTypes.string
     }).isRequired,
     application: PropTypes.object,
     isLoading: PropTypes.bool.isRequired

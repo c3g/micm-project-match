@@ -21,8 +21,15 @@ const update = Joi.object({
   }).required()
 }).required();
 
+const pass = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  })
+}).required();
+
 export default {
   create,
   findByApplicantProject,
-  update
+  update,
+  pass
 };

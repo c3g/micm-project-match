@@ -2,7 +2,7 @@ import pool from './config/db';
 import { rejectMessage } from './utils/promise';
 import k from './constants';
 import { camel } from 'change-case';
-
+import deepMapKeys from 'deep-map-keys';
 /**
  * Turns 'SELECT * FROM users WHERE id = @id', { id: 42 }
  * into  'SELECT * FROM users WHERE id = $1',  [ 42 ]
@@ -51,11 +51,7 @@ function query(q, params, conn = pool) {
 }
 
 function correctCase(object) {
-  if (typeof object !== 'object' || object === null) return object;
-  return Object.keys(object).reduce(
-    (a, c) => ({ ...a, [camel(c)]: correctCase(object[c]) }),
-    {}
-  );
+  return deepMapKeys(object, camel);
 }
 
 function selectOne(q, params, field) {

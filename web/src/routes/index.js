@@ -17,8 +17,17 @@ import User from './User';
 import Projects from './Projects';
 import UpdateProject from './UpdateProject';
 import Applications from './Applications';
+import ApplicationLetter from './ApplicationLetter';
 
 export default [
+  {
+    name: 'ApplicationLetter',
+    pathname: '/application-letter',
+    component: ApplicationLetter,
+    access: [k.PROFESSOR, k.ADMIN],
+    withAuth: true,
+    withSidebar: true
+  },
   {
     name: 'Applications',
     pathname: '/applications',

@@ -78,10 +78,15 @@ function selectApplications(userId) {
            ON application.applicant_id = user_account.id
            JOIN project
            ON application.project_id = project.id
-     WHERE user_account.id = @userId
+     WHERE project.author_id = @userId
     `,
     { userId }
   );
+}
+
+function pass(id, userId) {
+  // TODO finish pass function
+  return { id, userId };
 }
 
 export default {
@@ -89,5 +94,6 @@ export default {
   findById,
   findByApplicantProject,
   update,
-  selectApplications
+  selectApplications,
+  pass
 };

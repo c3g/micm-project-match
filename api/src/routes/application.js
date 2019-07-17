@@ -38,9 +38,16 @@ function selectApplications(req, res) {
     .catch(errorHandler(res));
 }
 
+function pass(req, res) {
+  Application.pass(req.params.id, req.user.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   create,
   findByApplicantProject,
   update,
-  selectApplications
+  selectApplications,
+  pass
 };

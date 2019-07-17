@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS professor (
 CREATE TABLE IF NOT EXISTS project (
   id                SERIAL PRIMARY KEY,
   title             VARCHAR(100) NOT NULL,
-  start_date        DATE NOT NULL,
+  start_date        VARCHAR(50) NOT NULL,
   axis              VARCHAR(100) NOT NULL,
   abstract          TEXT NOT NULL,
   description       TEXT NOT NULL,
@@ -65,8 +65,10 @@ CREATE TABLE IF NOT EXISTS project (
   open_for_students BOOLEAN DEFAULT true NOT NULL,
   organizations     VARCHAR(100)[],
   author_id         INT NOT NULL,
+  chosen_id         INT,
 
-  FOREIGN KEY (author_id) REFERENCES user_account (id)
+  FOREIGN KEY (author_id) REFERENCES user_account (id),
+  FOREIGN KEY (chosen_id) REFERENCES user_account (id)
 );
 
 

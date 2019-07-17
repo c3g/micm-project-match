@@ -17,6 +17,7 @@ import { applicationFormSaga } from 'Src/modules/ApplicationForm';
 import { applicationListSaga } from 'Src/modules/ApplicationList';
 import { userProfileSaga } from 'Src/modules/UserProfile';
 import { keywordSelectorSaga } from 'Src/modules/KeywordSelector';
+import { applicationDetailsSaga } from 'Src/modules/ApplicationDetails';
 import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -47,7 +48,8 @@ export function* rootSaga() {
     userProfileSaga(),
     applicationFormSaga(),
     applicationListSaga(),
-    projectDetailsSaga()
+    projectDetailsSaga(),
+    applicationDetailsSaga()
   ]);
 }
 
