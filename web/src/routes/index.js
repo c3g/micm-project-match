@@ -16,8 +16,17 @@ import Application from './Application';
 import User from './User';
 import Projects from './Projects';
 import UpdateProject from './UpdateProject';
+import Applications from './Applications';
 
 export default [
+  {
+    name: 'Applications',
+    pathname: '/applications',
+    component: Applications,
+    access: [k.PROFESSOR, k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Applications'
+  },
   {
     name: 'UpdateProject',
     pathname: '/update-project',

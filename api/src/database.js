@@ -51,8 +51,9 @@ function query(q, params, conn = pool) {
 }
 
 function correctCase(object) {
+  if (typeof object !== 'object' || object === null) return object;
   return Object.keys(object).reduce(
-    (a, c) => ({ ...a, [camel(c)]: object[c] }),
+    (a, c) => ({ ...a, [camel(c)]: correctCase(object[c]) }),
     {}
   );
 }

@@ -133,6 +133,11 @@ router.get(
   tag.search
 );
 
+router.get(
+  '/application/list',
+  professorAccess,
+  application.selectApplications
+);
 router.post(
   '/application/create',
   validator(schemas.application.create),

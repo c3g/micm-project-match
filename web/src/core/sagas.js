@@ -14,6 +14,7 @@ import { projectListSaga } from 'Src/modules/ProjectList';
 import { verifyEmailSaga } from 'Src/routes/VerifyEmail';
 import { projectDetailsSaga } from 'Src/modules/ProjectDetails';
 import { applicationFormSaga } from 'Src/modules/ApplicationForm';
+import { applicationListSaga } from 'Src/modules/ApplicationList';
 import { userProfileSaga } from 'Src/modules/UserProfile';
 import { keywordSelectorSaga } from 'Src/modules/KeywordSelector';
 import { LOGIN } from 'Src/constants/actionTypes';
@@ -45,6 +46,7 @@ export function* rootSaga() {
     keywordSelectorSaga(),
     userProfileSaga(),
     applicationFormSaga(),
+    applicationListSaga(),
     projectDetailsSaga()
   ]);
 }

@@ -32,8 +32,15 @@ function update(req, res) {
     .catch(errorHandler(res));
 }
 
+function selectApplications(req, res) {
+  Application.selectApplications(req.user.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   create,
   findByApplicantProject,
-  update
+  update,
+  selectApplications
 };

@@ -4,7 +4,6 @@ import { rejectMessage } from '../utils/promise';
 import k from '../constants';
 
 function findById(id) {
-  console.log(id);
   if (!id) return Promise.resolve(null);
   return db
     .selectOne(

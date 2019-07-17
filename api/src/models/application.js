@@ -66,9 +66,28 @@ function update(application) {
     .then(findById);
 }
 
+function selectApplications(userId) {
+  return db.selectAll(
+    `
+    SELECT row_to_json(application.*) AS "application",
+           user_account.first_name,
+           user_account.last_name,
+           project.title AS "projectTitle"
+      FROM application
+           JOIN user_account
+           ON application.applicant_id = user_account.id
+           JOIN project
+           ON application.project_id = project.id
+     WHERE user_account.id = @userId
+    `,
+    { userId }
+  );
+}
+
 export default {
   create,
   findById,
   findByApplicantProject,
-  update
+  update,
+  selectApplications
 };
