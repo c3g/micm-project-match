@@ -94,7 +94,24 @@ function approve(id, userId) {
         : db.query(
             `
           UPDATE application
-             SET accepted = true
+             SET approved = true
+           WHERE id = @id
+          `,
+            { id }
+          )
+    );
+}
+
+function disapprove(id, userId) {
+  return findById(id)
+    .then(application => Project.findById(application.projectId))
+    .then(project =>
+      project.authorId !== userId
+        ? rejectMessage('Unauthorized', k.UNAUTHORIZED)
+        : db.query(
+            `
+          UPDATE application
+             SET approved = false
            WHERE id = @id
           `,
             { id }
@@ -108,5 +125,6 @@ export default {
   findByApplicantProject,
   update,
   selectApplications,
-  approve
+  approve,
+  disapprove
 };

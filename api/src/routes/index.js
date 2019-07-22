@@ -162,6 +162,12 @@ router.get(
   professorAccess,
   application.approve
 );
+router.get(
+  '/application/:id/disapprove',
+  validator(schemas.application.disapprove),
+  professorAccess,
+  application.disapprove
+);
 
 export default passport => {
   router.get(

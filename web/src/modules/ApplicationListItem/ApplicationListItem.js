@@ -27,6 +27,9 @@ const ApplicationListItem = ({
     <div className="name">
       {firstName} {lastName}
     </div>
+    <div className="approved">
+      {application.approved ? 'Approved' : 'Waiting'}
+    </div>
   </div>
 );
 
@@ -37,7 +40,7 @@ ApplicationListItem.propTypes = {
     applicantId: PropTypes.number.isRequired,
     projectId: PropTypes.number.isRequired,
     proposal: PropTypes.string.isRequired,
-    accepted: PropTypes.bool.isRequired
+    approved: PropTypes.bool.isRequired
   }).isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired

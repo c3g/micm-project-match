@@ -27,9 +27,16 @@ const approve = Joi.object({
   })
 }).required();
 
+const disapprove = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  })
+}).required();
+
 export default {
   create,
   findByApplicantProject,
   update,
-  approve
+  approve,
+  disapprove
 };

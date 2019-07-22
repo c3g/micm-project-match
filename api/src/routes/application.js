@@ -44,10 +44,17 @@ function approve(req, res) {
     .catch(errorHandler(res));
 }
 
+function disapprove(req, res) {
+  Application.disapprove(req.params.id, req.user.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   create,
   findByApplicantProject,
   update,
   selectApplications,
-  approve
+  approve,
+  disapprove
 };

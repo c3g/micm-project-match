@@ -15,6 +15,9 @@ export const PROJECT_SEARCH = createNetworkConstants('PROJECT_SEARCH');
 export const APPROVE_APPLICATION = createNetworkConstants(
   'APPROVE_APPLICATION'
 );
+export const DISAPPROVE_APPLICATION = createNetworkConstants(
+  'DISAPPROVE_APPLICATION'
+);
 
 export const PROJECT = createModelConstants('PROJECT');
 export const KEYWORD = createModelConstants('KEYWORD');

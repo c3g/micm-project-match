@@ -13,7 +13,7 @@ class ApplicationList extends Component {
           applicantId: PropTypes.number.isRequired,
           projectId: PropTypes.number.isRequired,
           proposal: PropTypes.string.isRequired,
-          accepted: PropTypes.bool.isRequired
+          approved: PropTypes.bool.isRequired
         }).isRequired,
         firstName: PropTypes.string.isRequired,
         lastName: PropTypes.string.isRequired

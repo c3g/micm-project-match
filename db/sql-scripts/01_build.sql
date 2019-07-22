@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS application
   applicant_id  INT NOT NULL,
   project_id    INT NOT NULL,
   proposal      TEXT NOT NULL,
-  accepted      BOOLEAN DEFAULT false NULL,
+  approved      BOOLEAN DEFAULT false NULL,
 
   FOREIGN KEY (applicant_id) REFERENCES user_account (id),
   FOREIGN KEY (project_id) REFERENCES project (id)
