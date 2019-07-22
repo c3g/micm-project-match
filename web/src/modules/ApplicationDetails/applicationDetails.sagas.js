@@ -1,13 +1,18 @@
 import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
-import { SNACKBAR, PASS_APPLICATION } from 'Src/constants/actionTypes';
+import { SNACKBAR, APPROVE_APPLICATION } from 'Src/constants/actionTypes';
 
-function* passApplication({ payload }) {
-  const data = yield call(request, `/application/${payload}/pass/`);
+function* approveApplication({ payload }) {
+  const data = yield call(
+    request,
+    `/application/${payload.applicationId}/approve/`
+  );
   if (data.success) {
-    yield put(action(PASS_APPLICATION.RECEIVE, data.data));
+    yield put(action(APPROVE_APPLICATION.RECEIVE));
+    yield put(action(SNACKBAR.SUCCESS, 'Application approved'));
+    yield payload.push('/applications');
   } else {
-    yield put(action(PASS_APPLICATION.ERROR));
+    yield put(action(APPROVE_APPLICATION.ERROR));
     yield put(action(SNACKBAR.DANGER, data.message));
   }
   yield delay(3000);
@@ -15,7 +20,7 @@ function* passApplication({ payload }) {
 }
 
 function* applicationDetailsSaga() {
-  yield takeLatest(PASS_APPLICATION.REQUEST, passApplication);
+  yield takeLatest(APPROVE_APPLICATION.REQUEST, approveApplication);
 }
 
 export default applicationDetailsSaga;

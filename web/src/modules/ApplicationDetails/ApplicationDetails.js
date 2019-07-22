@@ -1,14 +1,16 @@
 import React from 'react';
 import RoundedButton from 'Src/modules/RoundedButton';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import './applicationDetails.scss';
 
 const ApplicationDetails = ({
-  passApplication,
+  approveApplication,
   application,
   projectTitle,
   firstName,
-  lastName
+  lastName,
+  history
 }) => (
   <div className="application-details">
     <div className="proposal">{application.proposal}</div>
@@ -20,10 +22,13 @@ const ApplicationDetails = ({
       <div
         className="button-container"
         onClick={() => {
-          passApplication(application.id);
+          approveApplication({
+            applicationId: application.id,
+            push: history.push
+          });
         }}
       >
-        <RoundedButton>Select Applicant</RoundedButton>
+        <RoundedButton>Approve Application</RoundedButton>
       </div>
     </div>
   </div>
@@ -40,7 +45,8 @@ ApplicationDetails.propTypes = {
   projectTitle: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-  passApplication: PropTypes.func.isRequired
+  approveApplication: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-export default ApplicationDetails;
+export default withRouter(ApplicationDetails);

@@ -157,10 +157,10 @@ router.get(
   application.findByApplicantProject
 );
 router.get(
-  '/application/:id/pass',
-  validator(schemas.application.pass),
+  '/application/:id/approve',
+  validator(schemas.application.approve),
   professorAccess,
-  application.pass
+  application.approve
 );
 
 export default passport => {

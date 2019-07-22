@@ -1,4 +1,5 @@
 import db from '../database.js';
+import { Project } from '.';
 import * as Query from '../utils/query';
 import { rejectMessage } from '../utils/promise';
 import k from '../constants';
@@ -84,9 +85,21 @@ function selectApplications(userId) {
   );
 }
 
-function pass(id, userId) {
-  // TODO finish pass function
-  return { id, userId };
+function approve(id, userId) {
+  return findById(id)
+    .then(application => Project.findById(application.projectId))
+    .then(project =>
+      project.authorId !== userId
+        ? rejectMessage('Unauthorized', k.UNAUTHORIZED)
+        : db.query(
+            `
+          UPDATE application
+             SET accepted = true
+           WHERE id = @id
+          `,
+            { id }
+          )
+    );
 }
 
 export default {
@@ -95,5 +108,5 @@ export default {
   findByApplicantProject,
   update,
   selectApplications,
-  pass
+  approve
 };
