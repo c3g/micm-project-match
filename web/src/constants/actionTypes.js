@@ -18,6 +18,8 @@ export const APPROVE_APPLICATION = createNetworkConstants(
 export const DISAPPROVE_APPLICATION = createNetworkConstants(
   'DISAPPROVE_APPLICATION'
 );
+export const CLAIM_PROJECT = createNetworkConstants('CLAIM_PROJECT');
+export const APPLIED_PROJECTS = createNetworkConstants('APPLIED_PROJECTS');
 
 export const PROJECT = createModelConstants('PROJECT');
 export const KEYWORD = createModelConstants('KEYWORD');

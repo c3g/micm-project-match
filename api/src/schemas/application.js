@@ -33,10 +33,17 @@ const disapprove = Joi.object({
   })
 }).required();
 
+const claim = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  })
+}).required();
+
 export default {
   create,
   findByApplicantProject,
   update,
   approve,
-  disapprove
+  disapprove,
+  claim
 };

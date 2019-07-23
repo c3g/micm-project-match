@@ -18,8 +18,17 @@ import Projects from './Projects';
 import UpdateProject from './UpdateProject';
 import Applications from './Applications';
 import ApplicationLetter from './ApplicationLetter';
+import AppliedProjects from './AppliedProjects';
 
 export default [
+  {
+    name: 'AppliedProjects',
+    pathname: '/applied-projects',
+    component: AppliedProjects,
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Applied Projects'
+  },
   {
     name: 'ApplicationLetter',
     pathname: '/application-letter',

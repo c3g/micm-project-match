@@ -15,6 +15,7 @@ import { keywordSelectorReducer } from 'Src/modules/KeywordSelector';
 import { applicationFormReducer } from 'Src/modules/ApplicationForm';
 import { applicationListReducer } from 'Src/modules/ApplicationList';
 import { userProfileReducer } from 'Src/modules/UserProfile';
+import { appliedProjectsListReducer } from 'Src/modules/AppliedProjectsList';
 import { appReducer } from 'Src/core/App';
 import { reducer as formReducer } from 'redux-form';
 
@@ -35,6 +36,7 @@ export default combineReducers({
   cvSetup: cvSetupFormReducer,
   professorSetup: professorSetupFormReducer,
   setPassword: setPasswordFormReducer,
+  appliedProjectsList: appliedProjectsListReducer,
   login: loginFormReducer,
   setup: setupFormReducer
 });

@@ -168,6 +168,13 @@ router.get(
   professorAccess,
   application.disapprove
 );
+router.get('/application/applied/list', setupAccess, application.applied);
+router.get(
+  '/application/claim/:id',
+  validator(schemas.application.claim),
+  setupAccess,
+  application.claim
+);
 
 export default passport => {
   router.get(

@@ -96,7 +96,7 @@ function approve(id, userId) {
           UPDATE application
              SET approved = true
            WHERE id = @id
-          `,
+            `,
             { id }
           )
     );
@@ -113,9 +113,58 @@ function disapprove(id, userId) {
           UPDATE application
              SET approved = false
            WHERE id = @id
-          `,
+            `,
             { id }
           )
+    );
+}
+
+function applied(userId) {
+  return db.selectAll(
+    `
+    SELECT row_to_json(application.*) AS "application",
+           user_account.first_name,
+           user_account.last_name,
+           project.author_id,
+           project.title AS "projectTitle",
+           project.id AS "projectId"
+      FROM application
+           JOIN project
+           ON application.project_id = project.id
+           JOIN user_account
+           ON project.author_id = user_account.id
+     WHERE application.applicant_id = @userId
+    `,
+    { userId }
+  );
+}
+
+function claim(id, userId) {
+  return db
+    .selectOne(
+      `
+      SELECT application.*,
+             project.author_id AS "authorId"
+        FROM application
+             JOIN project
+             ON application.project_id = project.id
+       WHERE application.id = @id
+             AND approved = true
+             AND applicant_id = @userId
+    `,
+      { id, userId }
+    )
+    .then(application =>
+      Project.update({
+        id: application.projectId,
+        chosenId: userId,
+        authorId: application.authorId
+      })
+    )
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('Application not found', k.APPLICATION_NOT_FOUND)
+        : Promise.reject(err)
     );
 }
 
@@ -126,5 +175,7 @@ export default {
   update,
   selectApplications,
   approve,
-  disapprove
+  disapprove,
+  applied,
+  claim
 };

@@ -50,11 +50,25 @@ function disapprove(req, res) {
     .catch(errorHandler(res));
 }
 
+function applied(req, res) {
+  Application.applied(req.user.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
+function claim(req, res) {
+  Application.claim(req.params.id, req.user.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   create,
   findByApplicantProject,
   update,
   selectApplications,
   approve,
-  disapprove
+  disapprove,
+  applied,
+  claim
 };
