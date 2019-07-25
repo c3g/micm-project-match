@@ -72,6 +72,19 @@ CREATE TABLE IF NOT EXISTS project (
 );
 
 
+-- ************************************** project_document
+
+CREATE TABLE IF NOT EXISTS project_document (
+  id                SERIAL PRIMARY KEY,
+  location          VARCHAR(400),
+  key               VARCHAR(340),
+  bucket            VARCHAR(64),
+  project_id        INT NOT NULL,
+
+  FOREIGN KEY (project_id) REFERENCES project (id)
+);
+
+
 -- ************************************** application
 
 CREATE TABLE IF NOT EXISTS application

@@ -1,11 +1,28 @@
 import { Project } from '../models';
 import { errorHandler, dataHandler } from '../utils/handlers';
+import * as File from '../utils/file';
 
 function create(req, res) {
-  // TODO upload files to S3 and add tags
-  Project.create({ ...req.body, authorId: req.user.id })
-    .then(dataHandler(res))
-    .catch(errorHandler(res));
+  // TODO add tags
+  function uploadFiles(project) {
+    return req.files.map(file =>
+      File.upload({
+        Key: `projects/${project.id}/documents/${file.originalname}`,
+        Body: file.buffer,
+        ContentType: file.mimetype
+      }).then(file => Project.addDocument(file, project.id))
+    );
+  }
+
+  Project.create({
+    ...req.body,
+    authorId: req.user.id
+  }).then(project => {
+    const fileUploads = uploadFiles(project);
+    Promise.all(fileUploads)
+      .then(() => dataHandler(res)(project))
+      .catch(errorHandler(res));
+  });
 }
 
 function update(req, res) {

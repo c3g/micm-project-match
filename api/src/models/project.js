@@ -124,11 +124,11 @@ function update(project) {
   return db
     .query(
       `
-    UPDATE project
-       SET ${mapping}
-     WHERE author_id = @authorId
-           AND id = @id
- RETURNING id
+      UPDATE project
+         SET ${mapping}
+       WHERE author_id = @authorId
+             AND id = @id
+   RETURNING id
     `,
       project
     )
@@ -139,6 +139,23 @@ function update(project) {
     );
 }
 
+function addDocument(document, id) {
+  const data = {
+    location: document.Location,
+    key: document.Key,
+    bucket: document.Bucket,
+    projectId: id
+  };
+  const { columns, values } = Query.toColumns(data);
+  return db.insert(
+    `
+      INSERT INTO project_document (${columns})
+      VALUES (${values})
+      `,
+    data
+  );
+}
+
 export default {
   create,
   findById,
@@ -146,5 +163,6 @@ export default {
   search,
   details,
   listUserProjects,
-  update
+  update,
+  addDocument
 };
