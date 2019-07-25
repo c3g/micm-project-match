@@ -8,9 +8,13 @@ function findById(id) {
   return db
     .selectOne(
       `
-      SELECT *
+      SELECT project.*,
+             array_agg(tag.text) as tags
         FROM project
-       WHERE id = @id
+             JOIN tag
+             ON tag.id = ANY(project.tag_id)
+       GROUP BY project.id
+      HAVING project.id = @id
       `,
       { id }
     )
@@ -34,13 +38,21 @@ function details(id, userId) {
              user_account.first_name,
              user_account.last_name,
              user_account.email,
-             professor.department
+             professor.department,
+             array_agg(tag.text) as tags
         FROM project
              JOIN user_account
              ON project.author_id = user_account.id
              JOIN professor
              ON project.author_id = professor.user_id
-       WHERE project.id = @id
+             JOIN tag
+             ON tag.id = ANY(project.tag_id)
+       GROUP BY project.id,
+             user_account.first_name,
+             user_account.last_name,
+             user_account.email,
+             professor.department
+      HAVING project.id = @id
       `,
       { id }
     )
@@ -75,10 +87,16 @@ function selectAll() {
            project.abstract,
            project.author_id,
            user_account.first_name,
-           user_account.last_name
+           user_account.last_name,
+           array_agg(tag.text) as tags
       FROM project
            JOIN user_account
            ON project.author_id = user_account.id
+           JOIN tag
+           ON tag.id = ANY(project.tag_id)
+     GROUP BY project.id,
+           user_account.first_name,
+           user_account.last_name
     `
   );
 }
@@ -105,14 +123,17 @@ function search({ term }) {
            project.abstract,
            project.author_id,
            user_account.first_name,
-           user_account.last_name
+           user_account.last_name,
+           array_agg(tag.text) as tags
       FROM project
            JOIN user_account
            ON project.author_id = user_account.id
-     WHERE LOWER(project.title) LIKE LOWER(@term)
-           OR LOWER(user_account.first_name) LIKE LOWER(@term)
-           OR LOWER(user_account.last_name) LIKE LOWER(@term)
-           OR LOWER(project.abstract) LIKE LOWER(@term)
+           JOIN tag
+           ON tag.id = ANY(project.tag_id)
+     GROUP BY project.id,
+           user_account.first_name,
+           user_account.last_name
+    HAVING LOWER(project.title) LIKE LOWER(@term)
     `,
     { term: `%${term}%` }
   );

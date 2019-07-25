@@ -3,7 +3,6 @@ import { errorHandler, dataHandler } from '../utils/handlers';
 import * as File from '../utils/file';
 
 function create(req, res) {
-  // TODO add tags
   function uploadFiles(project) {
     return req.files.map(file =>
       File.upload({

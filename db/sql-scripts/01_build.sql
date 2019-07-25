@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS project (
   organizations     VARCHAR(100)[],
   author_id         INT NOT NULL,
   chosen_id         INT,
+  tag_id            INT[],
 
   FOREIGN KEY (author_id) REFERENCES user_account (id),
   FOREIGN KEY (chosen_id) REFERENCES user_account (id)
@@ -105,6 +106,5 @@ CREATE TABLE IF NOT EXISTS application
 CREATE TABLE IF NOT EXISTS tag
 (
   id          SERIAL PRIMARY KEY,
-  text        VARCHAR(50) NOT NULL,
-  project_id  INT[]
+  text        VARCHAR(50) NOT NULL
 );

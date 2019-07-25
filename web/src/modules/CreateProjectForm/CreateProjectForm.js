@@ -96,9 +96,42 @@ CreateProjectField.propTypes = {
 class CreateProjectFormComponent extends Component {
   state = { files: [] };
 
+  static propTypes = {
+    initialize: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    onCreateProject: PropTypes.func.isRequired,
+    onUpdateProject: PropTypes.func.isRequired,
+    initializeKeyword: PropTypes.func.isRequired,
+    selected: PropTypes.array.isRequired,
+    project: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      abstract: PropTypes.string.isRequired,
+      openForStudents: PropTypes.bool.isRequired,
+      authorId: PropTypes.number.isRequired,
+      axis: PropTypes.string.isRequired,
+      datasets: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      motive: PropTypes.string.isRequired,
+      organizations: PropTypes.array,
+      startDate: PropTypes.string.isRequired,
+      timeframe: PropTypes.isRequired,
+      chosenId: PropTypes.number,
+      tags: PropTypes.array,
+      tagId: PropTypes.array
+    })
+  };
+
   componentDidMount() {
     if (this.props.project) {
-      const { organizations, authorId, ...project } = this.props.project;
+      const {
+        organizations,
+        authorId,
+        chosenId,
+        tags,
+        tagId,
+        ...project
+      } = this.props.project;
       this.props.initialize({
         ...project,
         startDate: formatDate(project.startDate),
@@ -107,6 +140,10 @@ class CreateProjectFormComponent extends Component {
           {}
         )
       });
+      if (tags && tagId)
+        tags
+          .map((tag, i) => ({ text: tag, id: tagId[i] }))
+          .forEach(this.props.initializeKeyword);
     }
   }
 
@@ -119,12 +156,12 @@ class CreateProjectFormComponent extends Component {
             onSubmit={props.handleSubmit(data =>
               this.props.project
                 ? props.onUpdateProject({
-                    data,
+                    data: { ...data, tagId: props.selected.map(tag => tag.id) },
                     push: props.history.push,
                     files: this.state.files
                   })
                 : props.onCreateProject({
-                    data,
+                    data: { ...data, tagId: props.selected.map(tag => tag.id) },
                     push: props.history.push,
                     files: this.state.files
                   })
@@ -263,27 +300,6 @@ class CreateProjectFormComponent extends Component {
     );
   }
 }
-
-CreateProjectFormComponent.propTypes = {
-  initialize: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  onCreateProject: PropTypes.func.isRequired,
-  onUpdateProject: PropTypes.func.isRequired,
-  project: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    abstract: PropTypes.string.isRequired,
-    openForStudents: PropTypes.bool.isRequired,
-    authorId: PropTypes.number.isRequired,
-    axis: PropTypes.string.isRequired,
-    datasets: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    motive: PropTypes.string.isRequired,
-    organizations: PropTypes.array,
-    startDate: PropTypes.string.isRequired,
-    timeframe: PropTypes.isRequired
-  })
-};
 
 const CreateProjectForm = reduxForm({
   form: 'createProject',

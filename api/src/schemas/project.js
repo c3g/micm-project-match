@@ -20,7 +20,8 @@ const create = Joi.object({
       .max(20)
       .required(),
     openForStudents: Joi.bool().required(),
-    organizations: Joi.array().items(Joi.string())
+    organizations: Joi.array().items(Joi.string()),
+    tagId: Joi.array().items(Joi.number())
   }).required()
 });
 
@@ -42,7 +43,8 @@ const update = Joi.object({
       .max(20)
       .required(),
     openForStudents: Joi.bool().required(),
-    organizations: Joi.array().items(Joi.string())
+    organizations: Joi.array().items(Joi.string()),
+    tagId: Joi.array().items(Joi.number())
   }).required()
 });
 
