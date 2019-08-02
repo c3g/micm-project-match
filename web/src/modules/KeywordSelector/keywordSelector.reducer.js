@@ -2,6 +2,7 @@ import reducer from 'Src/utils/reducer';
 import {
   KEYWORD,
   KEYWORD_SELECT,
+  KEYWORD_CLEAR,
   KEYWORD_DESELECT
 } from 'Src/constants/actionTypes';
 
@@ -24,6 +25,7 @@ const actionHandlers = {
       a.payload
     ]
   }),
+  [KEYWORD_CLEAR]: s => ({ ...s, keywords: [], selected: [] }),
   [KEYWORD.CREATE.REQUEST]: s => ({ ...s, isLoading: true }),
   [KEYWORD.CREATE.RECEIVE]: s => ({ ...s, isLoading: false }),
   [KEYWORD.CREATE.ERROR]: s => ({ ...s, isLoading: false })

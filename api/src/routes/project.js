@@ -1,5 +1,5 @@
 import { Project } from '../models';
-import { errorHandler, dataHandler } from '../utils/handlers';
+import { errorHandler, dataHandler, okHandler } from '../utils/handlers';
 import * as File from '../utils/file';
 
 function create(req, res) {
@@ -9,7 +9,9 @@ function create(req, res) {
         Key: `projects/${project.id}/documents/${file.originalname}`,
         Body: file.buffer,
         ContentType: file.mimetype
-      }).then(file => Project.addDocument(file, project.id))
+      }).then(fileData =>
+        Project.addDocument(fileData, project.id, file.originalname)
+      )
     );
   }
 
@@ -54,11 +56,19 @@ function listUserProjects(req, res) {
     .catch(errorHandler(res));
 }
 
+function deleteDocument(req, res) {
+  Project.deleteDocument(req.params.id, req.user.id)
+    .then(data => File.deleteObject({ Key: data.rows[0].key }))
+    .then(okHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   create,
   update,
   list,
   search,
   details,
-  listUserProjects
+  listUserProjects,
+  deleteDocument
 };

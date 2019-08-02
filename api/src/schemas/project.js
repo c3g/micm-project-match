@@ -60,9 +60,16 @@ const details = Joi.object({
   }).required()
 });
 
+const deleteDocument = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
 export default {
   create,
   update,
   search,
-  details
+  details,
+  deleteDocument
 };

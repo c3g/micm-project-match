@@ -26,11 +26,13 @@ export const KEYWORD = createModelConstants('KEYWORD');
 export const APPLICATION = createModelConstants('APPLICATION');
 export const USER = createModelConstants('USER');
 export const USER_PROJECT = createModelConstants('USER_PROJECT');
+export const DOCUMENT = createModelConstants('DOCUMENT');
 
 export const SETUP_REFILL = 'SETUP_REFILL';
 export const SETUP_FILLED = 'SETUP_FILLED';
 export const KEYWORD_SELECT = 'KEYWORD_SELECT';
 export const KEYWORD_DESELECT = 'KEYWORD_DESELECT';
+export const KEYWORD_CLEAR = 'KEYWORD_CLEAR';
 
 export const SNACKBAR = {
   INFO: 'SNACKBAR.INFO',

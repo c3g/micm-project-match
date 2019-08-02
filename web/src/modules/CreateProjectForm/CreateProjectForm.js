@@ -141,8 +141,8 @@ class CreateProjectFormComponent extends Component {
         )
       });
       if (tags && tagId)
-        tags
-          .map((tag, i) => ({ text: tag, id: tagId[i] }))
+        tagId
+          .map((tagId, i) => ({ text: tags[i], id: tagId }))
           .forEach(this.props.initializeKeyword);
     }
   }
@@ -252,42 +252,44 @@ class CreateProjectFormComponent extends Component {
                 </div>
               </div>
             </div>
-            <div className="documents">
-              Add any documents wich are relevant to the project
-              <div className="dropzone-container">
-                <Dropzone
-                  onDrop={files =>
-                    this.setState({
-                      files: uniqBy(prop('name'), [
-                        ...this.state.files,
-                        ...files
-                      ])
-                    })
-                  }
-                  text="Drag 'n' drop documents here, or click to select them"
-                />
-              </div>
-              <div className="selected-files">
-                <span>{this.state.files.length > 0 && `Selected files`}</span>
-                <div className="file-list">
-                  {this.state.files.map((file, i) => (
-                    <div className="file" key={`file_${i}`}>
-                      <div>{file.name}</div>
-                      <div
-                        className="remove-icon"
-                        onClick={() =>
-                          this.setState({
-                            files: remove(i, 1, this.state.files)
-                          })
-                        }
-                      >
-                        <FontAwesomeIcon icon={faTimes} />
+            {!this.props.project && (
+              <div className="documents">
+                Add any documents wich are relevant to the project
+                <div className="dropzone-container">
+                  <Dropzone
+                    onDrop={files =>
+                      this.setState({
+                        files: uniqBy(prop('name'), [
+                          ...this.state.files,
+                          ...files
+                        ])
+                      })
+                    }
+                    text="Drag 'n' drop documents here, or click to select them"
+                  />
+                </div>
+                <div className="selected-files">
+                  <span>{this.state.files.length > 0 && `Selected files`}</span>
+                  <div className="file-list">
+                    {this.state.files.map((file, i) => (
+                      <div className="file" key={`file_${i}`}>
+                        <div>{file.name}</div>
+                        <div
+                          className="remove-icon"
+                          onClick={() =>
+                            this.setState({
+                              files: remove(i, 1, this.state.files)
+                            })
+                          }
+                        >
+                          <FontAwesomeIcon icon={faTimes} />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <KeywordSelector />
             <div className="right-button">
               <RoundedButton>

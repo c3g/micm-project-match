@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { pick } from 'ramda';
 import { action } from 'Src/utils';
-import { PROJECT } from 'Src/constants/actionTypes';
+import { PROJECT, DOCUMENT } from 'Src/constants/actionTypes';
 import ProjectDetails from './ProjectDetails';
 
 const mapDispatchToProps = dispatch => ({
-  fetchProject: data => dispatch(action(PROJECT.FETCH.REQUEST, data))
+  fetchProject: data => dispatch(action(PROJECT.FETCH.REQUEST, data)),
+  deleteDocument: data => dispatch(action(DOCUMENT.DELETE.REQUEST, data))
 });
 
 const mapStateToProps = state => ({

@@ -11,6 +11,7 @@ class ProjectDetails extends Component {
     id: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
     history: PropTypes.object.isRequired,
+    deleteDocument: PropTypes.func.isRequired,
     project: PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
@@ -28,7 +29,10 @@ class ProjectDetails extends Component {
       organizations: PropTypes.array,
       startDate: PropTypes.string,
       timeframe: PropTypes.string,
-      chosenId: PropTypes.number
+      chosenId: PropTypes.number,
+      tags: PropTypes.array,
+      tagId: PropTypes.array,
+      documents: PropTypes.array
     }).isRequired,
     application: PropTypes.object,
     isLoading: PropTypes.bool.isRequired
@@ -101,11 +105,21 @@ class ProjectDetails extends Component {
         {this.props.userId !== this.props.project.authorId && (
           <div className="sub-heading">Other Details</div>
         )}
-        <div>
+        <div className="open-for-students">
           This project is&nbsp;
           {this.props.project.openForStudents
             ? 'open to both students and professors'
             : 'only open to professors'}
+        </div>
+        <div className="tags">
+          {this.props.project.tags.map(
+            (tag, i) =>
+              tag && (
+                <div className="tag" key={`tag_${i}`}>
+                  {tag}
+                </div>
+              )
+          )}
         </div>
         {this.props.userId === this.props.project.authorId && (
           <div className="details-long">
@@ -124,8 +138,42 @@ class ProjectDetails extends Component {
               </div>
               <div>{this.props.project.motive}</div>
             </div>
+            {this.props.project.organizations.length > 0 && (
+              <div>
+                <div>Relevant to the following organization/initiatives</div>
+                <div>
+                  {this.props.project.organizations.map((organization, i) => (
+                    <div key={`organization_${i}`}>{organization}</div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
+        {this.props.userId === this.props.project.authorId &&
+          this.props.project.documents.length > 0 && (
+            <div className="documents">
+              <div>Relevant Documents</div>
+              {this.props.project.documents.map((document, i) => (
+                <div key={`document_${i}`}>
+                  <div>{document.name}</div>
+                  {this.props.userId === this.props.project.authorId && (
+                    <button
+                      onClick={() =>
+                        this.props.deleteDocument({
+                          id: document.id,
+                          projectId: this.props.project.id,
+                          push: this.props.history.push
+                        })
+                      }
+                    >
+                      delete
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         {this.props.userId === this.props.project.authorId ? (
           <div className="apply">
             <Link

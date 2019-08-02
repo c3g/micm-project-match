@@ -5,6 +5,7 @@ import KeywordSelector from './KeywordSelector';
 import {
   KEYWORD,
   KEYWORD_SELECT,
+  KEYWORD_CLEAR,
   KEYWORD_DESELECT
 } from 'Src/constants/actionTypes';
 
@@ -12,7 +13,8 @@ const mapDispatchToProps = dispatch => ({
   searchKeyword: data => dispatch(action(KEYWORD.FETCH.REQUEST, data)),
   createKeyword: data => dispatch(action(KEYWORD.CREATE.REQUEST, data)),
   selectKeyword: data => dispatch(action(KEYWORD_SELECT, data)),
-  deselectKeyword: data => dispatch(action(KEYWORD_DESELECT, data))
+  deselectKeyword: data => dispatch(action(KEYWORD_DESELECT, data)),
+  clearKeywords: () => dispatch(action(KEYWORD_CLEAR))
 });
 
 const mapStateToProps = state => ({

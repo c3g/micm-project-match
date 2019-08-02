@@ -6,6 +6,7 @@ import './keywordSelector.scss';
 class KeywordSelector extends Component {
   static propTypes = {
     searchKeyword: PropTypes.func.isRequired,
+    clearKeywords: PropTypes.func.isRequired,
     selectKeyword: PropTypes.func.isRequired,
     deselectKeyword: PropTypes.func.isRequired,
     keywords: PropTypes.array.isRequired,
@@ -16,6 +17,10 @@ class KeywordSelector extends Component {
   state = {
     term: ''
   };
+
+  componentWillUnmount() {
+    this.props.clearKeywords();
+  }
 
   onChange = e => {
     this.setState({ term: e.target.value });

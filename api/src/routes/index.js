@@ -176,6 +176,13 @@ router.get(
   application.claim
 );
 
+router.get(
+  '/document/:id/delete',
+  validator(schemas.project.deleteDocument),
+  setupAccess,
+  project.deleteDocument
+);
+
 export default passport => {
   router.get(
     '/auth/facebook',

@@ -24,7 +24,10 @@ const initialState = {
     firstName: '',
     lastName: '',
     department: '',
-    email: ''
+    email: '',
+    tags: [],
+    tagId: [],
+    documents: []
   }
 };
 

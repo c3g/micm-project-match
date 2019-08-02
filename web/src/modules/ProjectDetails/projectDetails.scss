@@ -17,11 +17,36 @@
 
   .details-long {
     & > div {
-      div:first-child {
+      & > div:first-child {
         font-weight: 400;
         padding: 30px 0 10px;
         font-size: 1.2rem;
       }
+    }
+  }
+
+  .documents {
+    & > div:first-child {
+      font-weight: 400;
+      padding: 30px 0 10px;
+      font-size: 1.2rem;
+    }
+  }
+
+  .open-for-students {
+    font-weight: 400;
+  }
+
+  .tags {
+    display: flex;
+    padding-top: 20px;
+
+    .tag {
+      background: $color-primary;
+      padding: 5px 10px;
+      margin: 10px 10px 0 0;
+      border-radius: 5px;
+      color: $text-color-primary;
     }
   }
 
