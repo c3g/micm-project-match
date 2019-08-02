@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
 import RoundedButton from 'Src/modules/RoundedButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import './projectDetails.scss';
 
 class ProjectDetails extends Component {
@@ -156,9 +158,9 @@ class ProjectDetails extends Component {
               <div>Relevant Documents</div>
               {this.props.project.documents.map((document, i) => (
                 <div key={`document_${i}`}>
-                  <div>{document.name}</div>
                   {this.props.userId === this.props.project.authorId && (
                     <button
+                      className="delete-button"
                       onClick={() =>
                         this.props.deleteDocument({
                           id: document.id,
@@ -167,9 +169,10 @@ class ProjectDetails extends Component {
                         })
                       }
                     >
-                      delete
+                      <FontAwesomeIcon icon={faTrash} color="#00a1f8" />
                     </button>
                   )}
+                  <div>{document.name}</div>
                 </div>
               ))}
             </div>
