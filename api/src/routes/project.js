@@ -46,7 +46,14 @@ function search(req, res) {
 
 function details(req, res) {
   Project.details(req.params.id, req.user.id)
-    .then(dataHandler(res))
+    .then(data =>
+      dataHandler(res)({
+        ...data,
+        documents: Array.from(
+          new Set(data.documents.map(document => document.id))
+        ).map(id => data.documents.find(document => document.id === id))
+      })
+    )
     .catch(errorHandler(res));
 }
 
