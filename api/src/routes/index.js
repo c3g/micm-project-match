@@ -107,7 +107,7 @@ router.post(
   project.update
 );
 router.get('/project/list', setupAccess, project.list);
-router.get(
+router.post(
   '/project/search',
   validator(schemas.project.search),
   setupAccess,

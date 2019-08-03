@@ -130,7 +130,8 @@ function listUserProjects(id) {
   );
 }
 
-function search({ term }) {
+function search({ term, keywords }) {
+  console.log(keywords);
   return db.selectAll(
     `
     SELECT project.id,
@@ -149,8 +150,9 @@ function search({ term }) {
            user_account.first_name,
            user_account.last_name
     HAVING LOWER(project.title) LIKE LOWER(@term)
+           AND project.tag_id @> @keywords
     `,
-    { term: `%${term}%` }
+    { term: `%${term}%`, keywords }
   );
 }
 

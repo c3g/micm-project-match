@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './projectListItem.scss';
 import { Link } from 'react-router-dom';
+import { identity } from 'ramda';
 
 const name = (firstName, lastName) =>
   firstName && lastName
@@ -13,7 +14,7 @@ const name = (firstName, lastName) =>
     : '';
 
 const ProjectListItem = ({
-  project: { firstName, lastName, title, abstract, id, authorId }
+  project: { firstName, lastName, title, abstract, id, authorId, tags }
 }) => (
   <div className="project-list-item">
     <Link to={`/project/${id}`} className="details">
@@ -29,6 +30,12 @@ const ProjectListItem = ({
         <Link to={`/user/${authorId}`}>{name(firstName, lastName)}</Link>
       </div>
     )}
+    <div className="tags">
+      {tags &&
+        tags
+          .filter(identity)
+          .map((tag, i) => <div key={`tag_${i}`}>{tag}</div>)}
+    </div>
   </div>
 );
 
@@ -39,7 +46,8 @@ ProjectListItem.propTypes = {
     title: PropTypes.string.isRequired,
     abstract: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    authorId: PropTypes.number.isRequired
+    authorId: PropTypes.number.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string)
   }).isRequired
 };
 

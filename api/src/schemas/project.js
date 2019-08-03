@@ -51,6 +51,9 @@ const update = Joi.object({
 const search = Joi.object({
   query: Joi.object({
     term: Joi.string().required()
+  }).required(),
+  body: Joi.object({
+    keywords: Joi.array()
   }).required()
 });
 

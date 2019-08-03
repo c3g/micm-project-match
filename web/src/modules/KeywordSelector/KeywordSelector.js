@@ -11,7 +11,8 @@ class KeywordSelector extends Component {
     deselectKeyword: PropTypes.func.isRequired,
     keywords: PropTypes.array.isRequired,
     selected: PropTypes.array.isRequired,
-    createKeyword: PropTypes.func.isRequired
+    createKeyword: PropTypes.func.isRequired,
+    preventAddition: PropTypes.bool
   };
 
   state = {
@@ -52,11 +53,13 @@ class KeywordSelector extends Component {
           onChange={this.onChange}
           placeholder="Search for keywords to add..."
         />
-        <div className="add">
-          {this.state.term !== '' && !this.props.keywords.length && (
-            <div onClick={this.onClick}>Add</div>
-          )}
-        </div>
+        {!this.props.preventAddition && (
+          <div className="add">
+            {this.state.term !== '' && !this.props.keywords.length && (
+              <div onClick={this.onClick}>Add</div>
+            )}
+          </div>
+        )}
         <div className="suggestions">
           {this.state.term !== '' &&
             this.props.keywords.map((keyword, i) => (

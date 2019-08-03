@@ -39,7 +39,7 @@ function list(req, res) {
 }
 
 function search(req, res) {
-  Project.search(req.query)
+  Project.search({ ...req.query, ...req.body })
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }

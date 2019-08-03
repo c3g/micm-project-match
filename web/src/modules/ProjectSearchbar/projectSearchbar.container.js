@@ -5,11 +5,12 @@ import { PROJECT_SEARCH } from 'Src/constants/actionTypes';
 import { pick } from 'ramda';
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(action(PROJECT_SEARCH.REQUEST, data))
+  onSearch: data => dispatch(action(PROJECT_SEARCH.REQUEST, data))
 });
 
 const mapStateToProps = state => ({
-  ...pick(['isLoading'], state.projectSearchbar)
+  ...pick(['isLoading'], state.projectSearchbar),
+  ...pick(['selected'], state.keywordSelector)
 });
 
 export default connect(
