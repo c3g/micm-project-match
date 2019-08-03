@@ -28,7 +28,8 @@ function findById(id) {
              ON tag.id = ANY(project.tag_id)
              LEFT JOIN project_document
              ON project.id = project_document.project_id
-       GROUP BY project.id
+       GROUP BY project.id,
+                tag.id
       HAVING project.id = @id
       `,
       { id }
