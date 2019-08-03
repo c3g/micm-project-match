@@ -107,5 +107,5 @@ CREATE TABLE IF NOT EXISTS application
 CREATE TABLE IF NOT EXISTS tag
 (
   id          SERIAL PRIMARY KEY,
-  text        VARCHAR(50) NOT NULL
+  text        VARCHAR(50) UNIQUE NOT NULL
 );

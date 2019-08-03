@@ -21,6 +21,24 @@ function findById(id) {
     );
 }
 
+function findByText({ text }) {
+  if (!text) return Promise.resolve(null);
+  return db
+    .selectOne(
+      `
+      SELECT *
+        FROM tag
+       WHERE text = @text
+      `,
+      { text }
+    )
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('Tag not found', k.TAG_NOT_FOUND)
+        : Promise.reject(err)
+    );
+}
+
 function create(tag) {
   const { columns, values } = Query.toColumns(tag);
   return db
@@ -31,7 +49,12 @@ function create(tag) {
       `,
       tag
     )
-    .then(findById);
+    .then(findById)
+    .catch(err =>
+      err.code === k.POSTGRES_UNIQUE_VIOLATION
+        ? findByText(tag)
+        : Promise.reject(err)
+    );
 }
 
 function search({ term }) {

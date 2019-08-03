@@ -23,7 +23,7 @@ const createProjectValidate = values => {
   if (!values.description) errors.description = 'Required';
   if (!values.datasets) errors.datasets = 'Required';
   if (!values.motive) errors.motive = 'Required';
-  return {}; //errors;
+  return errors;
 };
 
 let CreateProjectCheckbox = ({ input: { onChange, ...input }, ...rest }) => (

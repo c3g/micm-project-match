@@ -28,7 +28,10 @@ class KeywordSelector extends Component {
     if (e.target.value !== '') this.props.searchKeyword(e.target.value);
   };
 
-  onClick = () => this.props.createKeyword(this.state.term);
+  onClick = () => {
+    this.props.createKeyword(this.state.term);
+    this.setState({ term: '' });
+  };
 
   render() {
     return (
@@ -49,27 +52,45 @@ class KeywordSelector extends Component {
           )}
         </div>
         <RoundedInputField
-          onKeyDown={e => e.keyCode === 13 && e.preventDefault()}
+          ref={search => (this.search = search)}
+          value={this.state.term}
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              e.preventDefault();
+              this.onClick();
+            }
+          }}
           onChange={this.onChange}
           placeholder="Search for keywords to add..."
         />
         {!this.props.preventAddition && (
           <div className="add">
-            {this.state.term !== '' && !this.props.keywords.length && (
-              <div onClick={this.onClick}>Add</div>
-            )}
+            {this.state.term !== '' && <div onClick={this.onClick}>Add</div>}
           </div>
         )}
         <div className="suggestions">
           {this.state.term !== '' &&
-            this.props.keywords.map((keyword, i) => (
-              <div
-                onClick={() => this.props.selectKeyword(keyword)}
-                key={`keyword_${i}`}
-              >
-                {keyword.text}
-              </div>
-            ))}
+            this.props.keywords
+              .filter(
+                keyword =>
+                  !(
+                    this.props.selected.filter(
+                      selected => selected.text === keyword.text
+                    ).length > 0
+                  )
+              )
+              .map((keyword, i) => (
+                <div
+                  onClick={() => {
+                    this.props.selectKeyword(keyword);
+                    this.setState({ term: '' });
+                    this.search.input.focus();
+                  }}
+                  key={`keyword_${i}`}
+                >
+                  {keyword.text}
+                </div>
+              ))}
         </div>
       </div>
     );
