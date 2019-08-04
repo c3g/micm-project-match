@@ -7,7 +7,9 @@
     padding: 20px 10px 5px 10px;
     flex-wrap: wrap;
 
-    div {
+    button {
+      border: none;
+      font-size: inherit;
       background: $color-primary;
       color: $text-color-primary;
       padding: 5px 15px;
@@ -22,7 +24,9 @@
     display: flex;
     justify-content: flex-end;
 
-    div {
+    button {
+      border: none;
+      font-size: inherit;
       background: $color-primary;
       color: $text-color-primary;
       padding: 11.5px 20px;
@@ -41,7 +45,9 @@
     overflow: auto;
     flex-wrap: wrap;
 
-    div {
+    button {
+      background: none;
+      font-size: inherit;
       max-height: 35px;
       padding: 5px 15px;
       font-weight: 300;
@@ -50,6 +56,7 @@
       border: solid thin rgba(0, 0, 0, 0.1);
     }
   }
+
   .message {
     color: #666666;
   }

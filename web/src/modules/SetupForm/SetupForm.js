@@ -135,8 +135,10 @@ class SetupFormComponent extends Component {
               filled it wrong, you can change it by clicking Refill Details.
             </div>
             <div className="centered-button">
-              <div onClick={() => props.onRefillForm()}>
-                <RoundedButton>Refill Details</RoundedButton>
+              <div>
+                <RoundedButton onClick={() => props.onRefillForm()}>
+                  Refill Details
+                </RoundedButton>
               </div>
             </div>
           </div>

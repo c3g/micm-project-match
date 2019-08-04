@@ -36,9 +36,7 @@ const AppliedProjectListItem = ({
     </Link>
     {application.approved ? 'Approved' : 'Waiting'}
     {application.approved && (
-      <div className="claim" onClick={claimProject}>
-        <RoundedButton>Claim</RoundedButton>
-      </div>
+      <RoundedButton onClick={claimProject}>Claim</RoundedButton>
     )}
   </div>
 );

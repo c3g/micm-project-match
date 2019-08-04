@@ -137,9 +137,11 @@ let RegisterForm = props => (
           complete your registration by setting your password.
         </div>
         <div className="centered-button">
-          <div onClick={() => props.onResendMail({ email: props.email })}>
-            <RoundedButton>Resend E-mail</RoundedButton>
-          </div>
+          <RoundedButton
+            onClick={() => props.onResendMail({ email: props.email })}
+          >
+            Resend E-mail
+          </RoundedButton>
         </div>
       </div>
     )}

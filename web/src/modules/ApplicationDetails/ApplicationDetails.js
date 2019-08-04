@@ -21,28 +21,30 @@ const ApplicationDetails = ({
     <div className="title">{projectTitle}</div>
     <div className="right-button">
       {application.approved ? (
-        <div
-          className="button-container"
-          onClick={() => {
-            disapproveApplication({
-              applicationId: application.id,
-              push: history.push
-            });
-          }}
-        >
-          <RoundedButton>Disapprove Application</RoundedButton>
+        <div className="button-container">
+          <RoundedButton
+            onClick={() => {
+              disapproveApplication({
+                applicationId: application.id,
+                push: history.push
+              });
+            }}
+          >
+            Disapprove Application
+          </RoundedButton>
         </div>
       ) : (
-        <div
-          className="button-container"
-          onClick={() => {
-            approveApplication({
-              applicationId: application.id,
-              push: history.push
-            });
-          }}
-        >
-          <RoundedButton>Approve Application</RoundedButton>
+        <div className="button-container">
+          <RoundedButton
+            onClick={() => {
+              approveApplication({
+                applicationId: application.id,
+                push: history.push
+              });
+            }}
+          >
+            Approve Application
+          </RoundedButton>
         </div>
       )}
     </div>

@@ -115,6 +115,9 @@
             justify-content: space-between;
 
             .remove-icon {
+              background: none;
+              border: none;
+              color: #666666;
               cursor: pointer;
             }
           }

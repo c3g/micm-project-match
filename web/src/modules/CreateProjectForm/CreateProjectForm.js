@@ -276,7 +276,7 @@ class CreateProjectFormComponent extends Component {
                     {this.state.files.map((file, i) => (
                       <div className="file" key={`file_${i}`}>
                         <div>{file.name}</div>
-                        <div
+                        <button
                           className="remove-icon"
                           onClick={() =>
                             this.setState({
@@ -285,7 +285,7 @@ class CreateProjectFormComponent extends Component {
                           }
                         >
                           <FontAwesomeIcon icon={faTimes} />
-                        </div>
+                        </button>
                       </div>
                     ))}
                   </div>

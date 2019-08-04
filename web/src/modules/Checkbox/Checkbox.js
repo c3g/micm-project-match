@@ -15,6 +15,7 @@ class Checkbox extends Component {
     return (
       <div
         onClick={() => this.props.onChange(!this.state.checked)}
+        role="checkbox"
         className={`checkbox`}
       >
         <div className={`fake-checkbox checked-${this.state.checked}`}>

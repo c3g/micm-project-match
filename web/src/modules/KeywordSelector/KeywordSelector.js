@@ -40,12 +40,12 @@ class KeywordSelector extends Component {
         <div className="selected">
           {this.props.selected.length > 0 ? (
             this.props.selected.map((keyword, i) => (
-              <div
+              <button
                 onClick={() => this.props.deselectKeyword(keyword)}
                 key={`selected_keyword_${i}`}
               >
                 {keyword.text}
-              </div>
+              </button>
             ))
           ) : (
             <span className="message">None</span>
@@ -65,7 +65,9 @@ class KeywordSelector extends Component {
         />
         {!this.props.preventAddition && (
           <div className="add">
-            {this.state.term !== '' && <div onClick={this.onClick}>Add</div>}
+            {this.state.term !== '' && (
+              <button onClick={this.onClick}>Add</button>
+            )}
           </div>
         )}
         <div className="suggestions">
@@ -80,7 +82,7 @@ class KeywordSelector extends Component {
                   )
               )
               .map((keyword, i) => (
-                <div
+                <button
                   onClick={() => {
                     this.props.selectKeyword(keyword);
                     this.setState({ term: '' });
@@ -89,7 +91,7 @@ class KeywordSelector extends Component {
                   key={`keyword_${i}`}
                 >
                   {keyword.text}
-                </div>
+                </button>
               ))}
         </div>
       </div>
