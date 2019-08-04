@@ -4,7 +4,9 @@ import { withRouter, Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
 import RoundedButton from 'Src/modules/RoundedButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { remove, uniqBy, prop } from 'ramda';
+import Dropzone from 'Src/modules/Dropzone';
 import './projectDetails.scss';
 
 class ProjectDetails extends Component {
@@ -14,6 +16,7 @@ class ProjectDetails extends Component {
     userId: PropTypes.number.isRequired,
     history: PropTypes.object.isRequired,
     deleteDocument: PropTypes.func.isRequired,
+    uploadDocuments: PropTypes.func.isRequired,
     project: PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
@@ -39,6 +42,8 @@ class ProjectDetails extends Component {
     application: PropTypes.object,
     isLoading: PropTypes.bool.isRequired
   };
+
+  state = { dropzoneOpen: false, files: [] };
 
   componentDidMount() {
     const {
@@ -155,9 +160,22 @@ class ProjectDetails extends Component {
         {this.props.userId === this.props.project.authorId &&
           this.props.project.documents.length > 0 && (
             <div className="documents">
-              <div>Relevant Documents</div>
+              <div>
+                Relevant Documents&nbsp;&nbsp;
+                <button
+                  className="delete-button"
+                  onClick={() =>
+                    this.setState({ dropzoneOpen: !this.state.dropzoneOpen })
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={this.state.dropzoneOpen ? faTimes : faPlus}
+                    color="#00a1f8"
+                  />
+                </button>
+              </div>
               {this.props.project.documents.map((document, i) => (
-                <div key={`document_${i}`}>
+                <div className="document" key={`document_${i}`}>
                   {this.props.userId === this.props.project.authorId && (
                     <button
                       className="delete-button"
@@ -175,8 +193,64 @@ class ProjectDetails extends Component {
                   <div>{document.name}</div>
                 </div>
               ))}
+              {this.state.dropzoneOpen && (
+                <>
+                  <div className="dropzone-container">
+                    <Dropzone
+                      onDrop={files =>
+                        this.setState({
+                          files: uniqBy(prop('name'), [
+                            ...this.state.files,
+                            ...files
+                          ])
+                        })
+                      }
+                      text="Drag 'n' drop documents here, or click to select them"
+                    />
+                  </div>
+                  <div className="selected-files">
+                    <span>
+                      {this.state.files.length > 0 && `Selected files`}
+                    </span>
+                    <div className="file-list">
+                      {this.state.files.map((file, i) => (
+                        <div className="file" key={`file_${i}`}>
+                          <div>{file.name}</div>
+                          <div
+                            className="remove-icon"
+                            onClick={() =>
+                              this.setState({
+                                files: remove(i, 1, this.state.files)
+                              })
+                            }
+                          >
+                            <FontAwesomeIcon icon={faTimes} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           )}
+        {this.state.dropzoneOpen && (
+          <RoundedButton
+            onClick={() => {
+              this.props.uploadDocuments({
+                files: this.state.files,
+                id: this.props.project.id,
+                push: this.props.history.push
+              });
+              this.setState({
+                dropzoneOpen: !this.state.dropzoneOpen,
+                files: []
+              });
+            }}
+          >
+            Upload
+          </RoundedButton>
+        )}
         {this.props.userId === this.props.project.authorId ? (
           <div className="apply">
             <Link

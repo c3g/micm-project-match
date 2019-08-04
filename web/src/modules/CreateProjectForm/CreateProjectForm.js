@@ -118,7 +118,8 @@ class CreateProjectFormComponent extends Component {
       timeframe: PropTypes.isRequired,
       chosenId: PropTypes.number,
       tags: PropTypes.array,
-      tagId: PropTypes.array
+      tagId: PropTypes.array,
+      documents: PropTypes.array
     })
   };
 
@@ -130,6 +131,7 @@ class CreateProjectFormComponent extends Component {
         chosenId,
         tags,
         tagId,
+        documents,
         ...project
       } = this.props.project;
       this.props.initialize({

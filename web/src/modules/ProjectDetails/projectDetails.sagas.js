@@ -28,9 +28,24 @@ function* deleteDocument({ payload }) {
     );
 }
 
+function* createDocument({ payload }) {
+  const formData = new FormData();
+  payload.files.forEach(file => formData.append('files', file));
+  formData.append('data', JSON.stringify({ id: payload.id }));
+  const data = yield call(request, `/document/create`, formData, true);
+  if (data.success)
+    yield put(
+      action(PROJECT.FETCH.REQUEST, {
+        id: payload.id,
+        push: payload.push
+      })
+    );
+}
+
 function* setupFormSaga() {
   yield takeLatest(PROJECT.FETCH.REQUEST, fetchProject);
   yield takeLatest(DOCUMENT.DELETE.REQUEST, deleteDocument);
+  yield takeLatest(DOCUMENT.CREATE.REQUEST, createDocument);
 }
 
 export default setupFormSaga;

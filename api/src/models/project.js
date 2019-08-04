@@ -33,6 +33,13 @@ function findById(id) {
       `,
       { id }
     )
+    .then(data => ({
+      ...data,
+      documents: Array.from(
+        new Set(data.documents.map(document => document.id))
+      ).map(id => data.documents.find(document => document.id === id)),
+      tags: Array.from(new Set(data.tags))
+    }))
     .catch(err =>
       err.type === k.ROW_NOT_FOUND
         ? rejectMessage('Project not found', k.PROJECT_NOT_FOUND)

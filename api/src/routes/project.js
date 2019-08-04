@@ -1,6 +1,8 @@
 import { Project } from '../models';
 import { errorHandler, dataHandler, okHandler } from '../utils/handlers';
 import * as File from '../utils/file';
+import { rejectMessage } from '../utils/promise';
+import k from '../constants';
 
 function create(req, res) {
   function uploadFiles(project) {
@@ -46,14 +48,7 @@ function search(req, res) {
 
 function details(req, res) {
   Project.details(req.params.id, req.user.id)
-    .then(data =>
-      dataHandler(res)({
-        ...data,
-        documents: Array.from(
-          new Set(data.documents.map(document => document.id))
-        ).map(id => data.documents.find(document => document.id === id))
-      })
-    )
+    .then(dataHandler(res))
     .catch(errorHandler(res));
 }
 
@@ -70,6 +65,32 @@ function deleteDocument(req, res) {
     .catch(errorHandler(res));
 }
 
+function createDocument(req, res) {
+  function uploadFiles(project) {
+    return req.files.map(file =>
+      File.upload({
+        Key: `projects/${project.id}/documents/${file.originalname}`,
+        Body: file.buffer,
+        ContentType: file.mimetype
+      }).then(fileData =>
+        Project.addDocument(fileData, project.id, file.originalname)
+      )
+    );
+  }
+  Project.findById(req.body.id)
+    .then(project =>
+      project.authorId !== req.user.id
+        ? rejectMessage('Unauthorized', k.UNAUTHORIZED)
+        : project
+    )
+    .then(project => {
+      const fileUploads = uploadFiles(project);
+      Promise.all(fileUploads)
+        .then(() => dataHandler(res)(project))
+        .catch(errorHandler(res));
+    });
+}
+
 export default {
   create,
   update,
@@ -77,5 +98,6 @@ export default {
   search,
   details,
   listUserProjects,
-  deleteDocument
+  deleteDocument,
+  createDocument
 };

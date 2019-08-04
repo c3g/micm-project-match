@@ -69,10 +69,17 @@ const deleteDocument = Joi.object({
   }).required()
 });
 
+const createDocument = Joi.object({
+  body: Joi.object({
+    id: Joi.number().required()
+  })
+});
+
 export default {
   create,
   update,
   search,
   details,
-  deleteDocument
+  deleteDocument,
+  createDocument
 };

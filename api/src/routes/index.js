@@ -182,6 +182,21 @@ router.get(
   setupAccess,
   project.deleteDocument
 );
+router.post(
+  '/document/create',
+  upload.array('files'),
+  (req, res, next) => {
+    try {
+      req.body = JSON.parse(req.body.data);
+      next();
+    } catch (err) {
+      errorHandler(res)(err);
+    }
+  },
+  validator(schemas.project.createDocument),
+  setupAccess,
+  project.createDocument
+);
 
 export default passport => {
   router.get(
