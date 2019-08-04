@@ -177,6 +177,12 @@ router.get(
 );
 
 router.get(
+  '/document/:id',
+  validator(schemas.project.getDocument),
+  setupAccess,
+  project.getDocument
+);
+router.get(
   '/document/:id/delete',
   validator(schemas.project.deleteDocument),
   setupAccess,

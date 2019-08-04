@@ -236,6 +236,24 @@ function deleteDocument(id, userId) {
   );
 }
 
+function findDocumentById(id) {
+  if (!id) return Promise.resolve(null);
+  return db
+    .selectOne(
+      `
+      SELECT *
+        FROM project_document
+       WHERE id = @id
+      `,
+      { id }
+    )
+    .catch(err =>
+      err.type === k.ROW_NOT_FOUND
+        ? rejectMessage('Document not found', k.ACCOUNT_NOT_FOUND)
+        : Promise.reject(err)
+    );
+}
+
 export default {
   create,
   findById,
@@ -245,5 +263,7 @@ export default {
   listUserProjects,
   update,
   addDocument,
-  deleteDocument
+  deleteDocument,
+  findDocumentById,
+  projectId
 };

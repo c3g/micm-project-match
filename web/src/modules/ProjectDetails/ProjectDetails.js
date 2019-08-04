@@ -170,7 +170,7 @@ class ProjectDetails extends Component {
                 >
                   <FontAwesomeIcon
                     icon={this.state.dropzoneOpen ? faTimes : faPlus}
-                    color="#00a1f8"
+                    color={this.state.dropzoneOpen ? '#00a1f8' : '#00FF00'}
                   />
                 </button>
               </div>
@@ -187,10 +187,16 @@ class ProjectDetails extends Component {
                         })
                       }
                     >
-                      <FontAwesomeIcon icon={faTrash} color="#00a1f8" />
+                      <FontAwesomeIcon icon={faTrash} color="#e05454" />
                     </button>
                   )}
-                  <div>{document.name}</div>
+                  <a
+                    href={`/api/document/${document.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {document.name}
+                  </a>
                 </div>
               ))}
               {this.state.dropzoneOpen && (

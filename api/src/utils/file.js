@@ -21,3 +21,5 @@ export const deleteObject = params =>
       else res(data);
     })
   );
+
+export const getFile = params => s3.getObject({ ...defaultParams, ...params });

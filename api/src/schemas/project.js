@@ -75,11 +75,18 @@ const createDocument = Joi.object({
   })
 });
 
+const getDocument = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  })
+});
+
 export default {
   create,
   update,
   search,
   details,
   deleteDocument,
-  createDocument
+  createDocument,
+  getDocument
 };
