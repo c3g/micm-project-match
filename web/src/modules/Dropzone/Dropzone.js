@@ -6,7 +6,7 @@ import './dropzone.scss';
 const Dropzone = ({ onDrop, text }) => (
   <ReactDropzone onDrop={acceptedFiles => onDrop(acceptedFiles)}>
     {({ getRootProps, getInputProps }) => (
-      <div className="dropzone" {...getRootProps()}>
+      <div className="dropzone" role="button" {...getRootProps()}>
         <input {...getInputProps()} />
         <div>{text}</div>
       </div>

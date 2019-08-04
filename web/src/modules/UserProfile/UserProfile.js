@@ -76,9 +76,9 @@ class UserProfile extends Component {
           {(!this.props.public || user.cvUploaded) && (
             <div>
               <span>CV</span>
-              <span className="blue">
+              <button className="blue">
                 {user.cvUploaded ? 'View' : 'Upload'}
-              </span>
+              </button>
             </div>
           )}
         </div>
