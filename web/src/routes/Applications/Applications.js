@@ -6,7 +6,9 @@ import './applications.scss';
 const Applications = () => (
   <div className="applications-page">
     <Heading hideUnderline>Applications</Heading>
-    <ApplicationList />
+    <div className="application-list-container">
+      <ApplicationList />
+    </div>
   </div>
 );
 

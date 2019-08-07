@@ -1,7 +1,7 @@
 import React from 'react';
 import RoundedButton from 'Src/modules/RoundedButton';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import './applicationDetails.scss';
 
 const ApplicationDetails = ({
@@ -11,14 +11,21 @@ const ApplicationDetails = ({
   projectTitle,
   firstName,
   lastName,
-  history
+  history,
+  projectId,
+  applicantId
 }) => (
   <div className="application-details">
-    <div className="proposal">{application.proposal}</div>
-    <div className="name">
-      {firstName} {lastName}
+    <Link className="title" to={`/project/${projectId}`}>
+      {projectTitle}
+    </Link>
+    <div className="right-align">
+      <div>By</div>
+      <Link className="name" to={`/user/${applicantId}`}>
+        {firstName} {lastName}
+      </Link>
     </div>
-    <div className="title">{projectTitle}</div>
+    <div className="proposal">{application.proposal}</div>
     <div className="right-button">
       {application.approved ? (
         <div className="button-container">
@@ -64,7 +71,9 @@ ApplicationDetails.propTypes = {
   lastName: PropTypes.string.isRequired,
   approveApplication: PropTypes.func.isRequired,
   disapproveApplication: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  projectId: PropTypes.number.isRequired,
+  applicantId: PropTypes.number.isRequired
 };
 
 export default withRouter(ApplicationDetails);

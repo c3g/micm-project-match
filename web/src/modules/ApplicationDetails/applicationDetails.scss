@@ -1,4 +1,40 @@
+@import 'Src/core/common.scss';
+
 .application-details {
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
+
+  .title,
+  .name {
+    font-weight: 700;
+    font-size: 1.3rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  .name {
+    font-size: 1rem;
+    margin-left: 10px;
+  }
+
+  .proposal {
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 10px;
+    border: solid thin rgba(100, 100, 100, 0.15);
+  }
+
+  .right-align {
+    margin: 10px 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
   .right-button {
     text-align: right;
     padding: 40px 0;

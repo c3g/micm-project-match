@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import './applicationList.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import './applicationListItem.scss';
 
 const ApplicationListItem = ({
   application,
@@ -10,25 +12,34 @@ const ApplicationListItem = ({
   lastName
 }) => (
   <div className="application-list-item">
-    <div className="title">{projectTitle}</div>
-    <Link
-      to={{
-        pathname: '/application-letter',
-        state: {
-          application,
-          projectTitle,
-          firstName,
-          lastName
-        }
-      }}
-    >
-      <div className="view">VIEW</div>
-    </Link>
-    <div className="name">
-      {firstName} {lastName}
+    <div>
+      <Link to={`/user/${application.applicantId}`} className="name">
+        {firstName} {lastName}
+      </Link>
+      <Link to={`/project/${application.projectId}`} className="title">
+        {projectTitle}
+      </Link>
     </div>
-    <div className="approved">
-      {application.approved ? 'Approved' : 'Waiting'}
+    <div>
+      <div className="approved">
+        {application.approved ? 'Approved' : 'Waiting'}
+      </div>
+      <Link
+        to={{
+          pathname: '/application-letter',
+          state: {
+            application,
+            projectTitle,
+            firstName,
+            lastName,
+            projectId: application.projectId,
+            applicantId: application.applicantId
+          }
+        }}
+        className="view"
+      >
+        View &nbsp; <FontAwesomeIcon icon={faArrowRight} />
+      </Link>
     </div>
   </div>
 );
