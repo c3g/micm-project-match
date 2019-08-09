@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import RoundedButton from 'Src/modules/RoundedButton';
 import './appliedProjectsListItem.scss';
 
 const AppliedProjectListItem = ({
@@ -14,30 +13,46 @@ const AppliedProjectListItem = ({
   claimProject
 }) => (
   <div className="applied-projects-list-item">
-    <Link to={`/project/${projectId}`} className="title">
-      {projectTitle}
-    </Link>
-    <Link to={`/user/${authorId}`} className="name">
-      {firstName} {lastName}
-    </Link>
-    <Link
-      to={{
-        pathname: '/application',
-        state: {
-          project: {
-            id: projectId,
-            title: projectTitle
-          },
-          application: application
-        }
-      }}
-    >
-      <div className="view">Update Application</div>
-    </Link>
-    {application.approved ? 'Approved' : 'Waiting'}
-    {application.approved && (
-      <RoundedButton onClick={claimProject}>Claim</RoundedButton>
-    )}
+    <div>
+      <div>
+        <Link to={`/project/${projectId}`} className="title">
+          {projectTitle}
+        </Link>
+      </div>
+      <div>
+        By&nbsp;
+        <Link to={`/user/${authorId}`} className="name">
+          {firstName} {lastName}
+        </Link>
+      </div>
+    </div>
+    <div>
+      <div className="status">
+        {application.approved ? 'Approved' : 'Waiting'}
+      </div>
+      <div>
+        <Link
+          to={{
+            pathname: '/application',
+            state: {
+              project: {
+                id: projectId,
+                title: projectTitle
+              },
+              application: application
+            }
+          }}
+          className="button"
+        >
+          Update
+        </Link>
+        {application.approved && (
+          <button className="button" onClick={claimProject}>
+            Claim
+          </button>
+        )}
+      </div>
+    </div>
   </div>
 );
 
