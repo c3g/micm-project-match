@@ -13,7 +13,8 @@ const ApplicationDetails = ({
   lastName,
   history,
   projectId,
-  applicantId
+  applicantId,
+  chosenId
 }) => (
   <div className="application-details">
     <Link className="title" to={`/project/${projectId}`}>
@@ -27,7 +28,7 @@ const ApplicationDetails = ({
     </div>
     <div className="proposal">{application.proposal}</div>
     <div className="right-button">
-      {application.approved ? (
+      {chosenId ? null : application.approved ? (
         <div className="button-container">
           <RoundedButton
             onClick={() => {
@@ -73,7 +74,8 @@ ApplicationDetails.propTypes = {
   disapproveApplication: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   projectId: PropTypes.number.isRequired,
-  applicantId: PropTypes.number.isRequired
+  applicantId: PropTypes.number.isRequired,
+  chosenId: PropTypes.number
 };
 
 export default withRouter(ApplicationDetails);

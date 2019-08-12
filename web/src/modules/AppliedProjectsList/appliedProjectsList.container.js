@@ -10,7 +10,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  ...pick(['appliedProjectsList'], state.appliedProjectsList)
+  ...pick(['appliedProjectsList'], state.appliedProjectsList),
+  ...pick(['id'], state.app.user)
 });
 
 export default connect(

@@ -11,7 +11,8 @@ export const errorHandler = (res, status = 500) => err => {
     [k.TAG_NOT_FOUND]: 404,
     [k.APPLICATION_NOT_FOUND]: 404,
     [k.UNAUTHORIZED]: 401,
-    [k.DOCUMENT_NOT_FOUND]: 404
+    [k.DOCUMENT_NOT_FOUND]: 404,
+    [k.PROJECT_ALREADY_CLAIMED]: 409
   };
   let unknownErr = false;
   if (err.type && errStatus[err.type]) {

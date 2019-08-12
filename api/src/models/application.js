@@ -73,7 +73,8 @@ function selectApplications(userId) {
     SELECT row_to_json(application.*) AS "application",
            user_account.first_name,
            user_account.last_name,
-           project.title AS "projectTitle"
+           project.title AS "projectTitle",
+           project.chosen_id AS "chosenId"
       FROM application
            JOIN user_account
            ON application.applicant_id = user_account.id
@@ -127,7 +128,8 @@ function applied(userId) {
            user_account.last_name,
            project.author_id,
            project.title AS "projectTitle",
-           project.id AS "projectId"
+           project.id AS "projectId",
+           project.chosen_id AS "chosenId"
       FROM application
            JOIN project
            ON application.project_id = project.id
@@ -144,7 +146,8 @@ function claim(id, userId) {
     .selectOne(
       `
       SELECT application.*,
-             project.author_id AS "authorId"
+             project.author_id AS "authorId",
+             project.chosen_id AS "chosenId"
         FROM application
              JOIN project
              ON application.project_id = project.id
@@ -155,11 +158,16 @@ function claim(id, userId) {
       { id, userId }
     )
     .then(application =>
-      Project.update({
-        id: application.projectId,
-        chosenId: userId,
-        authorId: application.authorId
-      })
+      application.chosenId
+        ? rejectMessage(
+            'This project was claimed by someone else',
+            k.PROJECT_ALREADY_CLAIMED
+          )
+        : Project.update({
+            id: application.projectId,
+            chosenId: userId,
+            authorId: application.authorId
+          })
     )
     .catch(err =>
       err.type === k.ROW_NOT_FOUND

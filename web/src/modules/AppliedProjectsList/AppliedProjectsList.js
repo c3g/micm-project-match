@@ -16,12 +16,14 @@ class AppliedProjectsList extends Component {
         firstName: PropTypes.string.isRequired,
         lastName: PropTypes.string.isRequired,
         projectTitle: PropTypes.string.isRequired,
+        chosenId: PropTypes.number.isRequired,
         projectId: PropTypes.number.isRequired,
         authorId: PropTypes.number.isRequired
       }).isRequired
     ).isRequired,
     getAppliedProjects: PropTypes.func.isRequired,
-    claimProject: PropTypes.func.isRequired
+    claimProject: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired
   };
 
   componentDidMount() {
@@ -34,6 +36,7 @@ class AppliedProjectsList extends Component {
         {this.props.appliedProjectsList.map((project, i) => (
           <AppliedProjectsListItem
             {...project}
+            userId={this.props.id}
             claimProject={() => this.props.claimProject(project.application.id)}
             key={`project_${i}`}
           />

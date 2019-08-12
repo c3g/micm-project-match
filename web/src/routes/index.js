@@ -57,7 +57,7 @@ export default [
     name: 'Projects',
     pathname: '/projects',
     component: Projects,
-    access: [k.PROFESSOR, k.ADMIN],
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
     withAuth: true,
     withSidebar: 'My Projects'
   },

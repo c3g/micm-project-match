@@ -75,7 +75,7 @@ router.post(
 );
 router.post('/cv/update', upload.single('cv'), allAccess, user.updateCv);
 
-router.get('/user/project/list', professorAccess, project.listUserProjects);
+router.get('/user/project/list', setupAccess, project.listUserProjects);
 router.post(
   '/project/create',
   upload.array('files'),

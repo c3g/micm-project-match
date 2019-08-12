@@ -132,6 +132,7 @@ function listUserProjects(id) {
            project.author_id
       FROM project
      WHERE project.author_id = @id
+           OR project.chosen_id = @id
     `,
     { id }
   );

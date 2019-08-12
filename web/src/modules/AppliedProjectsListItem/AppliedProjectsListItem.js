@@ -10,7 +10,9 @@ const AppliedProjectListItem = ({
   lastName,
   projectId,
   projectTitle,
-  claimProject
+  claimProject,
+  chosenId,
+  userId
 }) => (
   <div className="applied-projects-list-item">
     <div>
@@ -31,25 +33,37 @@ const AppliedProjectListItem = ({
         {application.approved ? 'Approved' : 'Waiting'}
       </div>
       <div>
-        <Link
-          to={{
-            pathname: '/application',
-            state: {
-              project: {
-                id: projectId,
-                title: projectTitle
-              },
-              application: application
-            }
-          }}
-          className="button"
-        >
-          Update
-        </Link>
-        {application.approved && (
-          <button className="button" onClick={claimProject}>
-            Claim
+        {application.approved ? (
+          <button
+            disabled={chosenId}
+            style={{
+              ...(chosenId && { background: '#999999', cursor: 'auto' })
+            }}
+            className="button"
+            onClick={claimProject}
+          >
+            {!chosenId
+              ? 'Claim'
+              : userId === chosenId
+              ? 'Claimed'
+              : 'Unavailable'}
           </button>
+        ) : (
+          <Link
+            to={{
+              pathname: '/application',
+              state: {
+                project: {
+                  id: projectId,
+                  title: projectTitle
+                },
+                application: application
+              }
+            }}
+            className="button"
+          >
+            Update
+          </Link>
         )}
       </div>
     </div>
@@ -69,7 +83,9 @@ AppliedProjectListItem.propTypes = {
   projectTitle: PropTypes.string.isRequired,
   projectId: PropTypes.number.isRequired,
   authorId: PropTypes.number.isRequired,
-  claimProject: PropTypes.func.isRequired
+  chosenId: PropTypes.number.isRequired,
+  claimProject: PropTypes.func.isRequired,
+  userId: PropTypes.number.isRequired
 };
 
 export default AppliedProjectListItem;

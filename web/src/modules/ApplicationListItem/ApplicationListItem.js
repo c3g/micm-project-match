@@ -9,7 +9,8 @@ const ApplicationListItem = ({
   application,
   projectTitle,
   firstName,
-  lastName
+  lastName,
+  chosenId
 }) => (
   <div className="application-list-item">
     <div>
@@ -22,12 +23,13 @@ const ApplicationListItem = ({
     </div>
     <div>
       <div className="approved">
-        {application.approved ? 'Approved' : 'Waiting'}
+        {chosenId ? 'Claimed' : application.approved ? 'Approved' : 'Waiting'}
       </div>
       <Link
         to={{
           pathname: '/application-letter',
           state: {
+            chosenId,
             application,
             projectTitle,
             firstName,
@@ -46,6 +48,7 @@ const ApplicationListItem = ({
 
 ApplicationListItem.propTypes = {
   projectTitle: PropTypes.string.isRequired,
+  chosenId: PropTypes.number,
   application: PropTypes.shape({
     id: PropTypes.number.isRequired,
     applicantId: PropTypes.number.isRequired,

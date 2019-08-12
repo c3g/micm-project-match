@@ -157,89 +157,88 @@ class ProjectDetails extends Component {
             )}
           </div>
         )}
-        {this.props.userId === this.props.project.authorId &&
-          this.props.project.documents.length > 0 && (
-            <div className="documents">
-              <div>
-                Relevant Documents&nbsp;&nbsp;
-                <button
-                  className="delete-button"
-                  onClick={() =>
-                    this.setState({ dropzoneOpen: !this.state.dropzoneOpen })
-                  }
-                >
-                  <FontAwesomeIcon
-                    icon={this.state.dropzoneOpen ? faTimes : faPlus}
-                    color={this.state.dropzoneOpen ? '#00a1f8' : '#00FF00'}
-                  />
-                </button>
-              </div>
-              {this.props.project.documents.map((document, i) => (
-                <div className="document" key={`document_${i}`}>
-                  {this.props.userId === this.props.project.authorId && (
-                    <button
-                      className="delete-button"
-                      onClick={() =>
-                        this.props.deleteDocument({
-                          id: document.id,
-                          projectId: this.props.project.id,
-                          push: this.props.history.push
-                        })
-                      }
-                    >
-                      <FontAwesomeIcon icon={faTrash} color="#e05454" />
-                    </button>
-                  )}
-                  <a
-                    href={`/api/document/${document.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {document.name}
-                  </a>
-                </div>
-              ))}
-              {this.state.dropzoneOpen && (
-                <>
-                  <div className="dropzone-container">
-                    <Dropzone
-                      onDrop={files =>
-                        this.setState({
-                          files: uniqBy(prop('name'), [
-                            ...this.state.files,
-                            ...files
-                          ])
-                        })
-                      }
-                      text="Drag 'n' drop documents here, or click to select them"
-                    />
-                  </div>
-                  <div className="selected-files">
-                    <span>
-                      {this.state.files.length > 0 && `Selected files`}
-                    </span>
-                    <div className="file-list">
-                      {this.state.files.map((file, i) => (
-                        <div className="file" key={`file_${i}`}>
-                          <div>{file.name}</div>
-                          <button
-                            className="remove-icon"
-                            onClick={() =>
-                              this.setState({
-                                files: remove(i, 1, this.state.files)
-                              })
-                            }
-                          >
-                            <FontAwesomeIcon icon={faTimes} />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </>
-              )}
+        {this.props.userId === this.props.project.authorId && (
+          <div className="documents">
+            <div>
+              Relevant Documents&nbsp;&nbsp;
+              <button
+                className="delete-button"
+                onClick={() =>
+                  this.setState({ dropzoneOpen: !this.state.dropzoneOpen })
+                }
+              >
+                <FontAwesomeIcon
+                  icon={this.state.dropzoneOpen ? faTimes : faPlus}
+                  color={this.state.dropzoneOpen ? '#00a1f8' : '#00FF00'}
+                />
+              </button>
             </div>
-          )}
+            {this.props.project.documents.length === 0
+              ? 'None'
+              : this.props.project.documents.map((document, i) => (
+                  <div className="document" key={`document_${i}`}>
+                    {this.props.userId === this.props.project.authorId && (
+                      <button
+                        className="delete-button"
+                        onClick={() =>
+                          this.props.deleteDocument({
+                            id: document.id,
+                            projectId: this.props.project.id,
+                            push: this.props.history.push
+                          })
+                        }
+                      >
+                        <FontAwesomeIcon icon={faTrash} color="#e05454" />
+                      </button>
+                    )}
+                    <a
+                      href={`/api/document/${document.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {document.name}
+                    </a>
+                  </div>
+                ))}
+            {this.state.dropzoneOpen && (
+              <>
+                <div className="dropzone-container">
+                  <Dropzone
+                    onDrop={files =>
+                      this.setState({
+                        files: uniqBy(prop('name'), [
+                          ...this.state.files,
+                          ...files
+                        ])
+                      })
+                    }
+                    text="Drag 'n' drop documents here, or click to select them"
+                  />
+                </div>
+                <div className="selected-files">
+                  <span>{this.state.files.length > 0 && `Selected files`}</span>
+                  <div className="file-list">
+                    {this.state.files.map((file, i) => (
+                      <div className="file" key={`file_${i}`}>
+                        <div>{file.name}</div>
+                        <button
+                          className="remove-icon"
+                          onClick={() =>
+                            this.setState({
+                              files: remove(i, 1, this.state.files)
+                            })
+                          }
+                        >
+                          <FontAwesomeIcon icon={faTimes} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
         {this.state.dropzoneOpen && (
           <RoundedButton
             onClick={() => {
