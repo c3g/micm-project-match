@@ -42,7 +42,10 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html'
     }),
-    new CopyPlugin([{ from: './src/public/favicon.ico', to: 'images/' }])
+    new CopyPlugin([
+      { from: './src/public/favicon.ico', to: 'images/' },
+      { from: './src/public/landingBackground.png', to: 'images/' }
+    ])
   ],
   node: {
     fs: 'empty'

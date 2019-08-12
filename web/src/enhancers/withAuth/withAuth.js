@@ -4,7 +4,7 @@ import * as k from 'Src/constants/values';
 import Loader from 'Src/modules/Loader';
 
 const loggedInRedirect = '/';
-const loggedOutRedirect = '/signin';
+const loggedOutRedirect = '/home';
 
 const withAuth = (
   Component,
