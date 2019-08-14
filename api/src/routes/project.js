@@ -29,7 +29,7 @@ function create(req, res) {
 }
 
 function update(req, res) {
-  Project.update({ ...req.body, authorId: req.user.id })
+  Project.update({ ...req.body, userId: req.user.id })
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }
@@ -79,7 +79,7 @@ function createDocument(req, res) {
   }
   Project.findById(req.body.id)
     .then(project =>
-      project.authorId !== req.user.id
+      project.authorId !== req.user.id && project.chosenId !== req.user.id
         ? rejectMessage('Unauthorized', k.UNAUTHORIZED)
         : project
     )

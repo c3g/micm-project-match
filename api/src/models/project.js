@@ -57,6 +57,7 @@ function details(id, userId) {
              project.abstract,
              project.open_for_students,
              project.author_id,
+             project.chosen_id,
              user_account.first_name,
              user_account.last_name,
              user_account.email,
@@ -79,7 +80,9 @@ function details(id, userId) {
       { id }
     )
     .then(details =>
-      details.authorId == userId ? findById(details.id) : details
+      details.authorId === userId || details.chosenId === userId
+        ? findById(details.id)
+        : details
     )
     .catch(err =>
       err.type === k.ROW_NOT_FOUND
@@ -165,14 +168,17 @@ function search({ term, keywords }) {
 }
 
 function update(project) {
-  const { id, authorId, ...change } = project;
+  const { id, userId, ...change } = project;
   const mapping = Query.toMapping(change);
   return db
     .query(
       `
       UPDATE project
          SET ${mapping}
-       WHERE author_id = @authorId
+       WHERE (
+               author_id = @userId
+               OR chosen_id = @userId
+             )
              AND id = @id
    RETURNING id
     `,
@@ -212,7 +218,10 @@ function projectId(id, userId) {
            LEFT JOIN project_document
            ON project.id = project_document.project_id
      WHERE project_document.id = @id
-           AND project.author_id = @userId
+           AND (
+             project.author_id = @userId
+             OR project.chosen_id = @userId
+           )
     `,
       { id, userId }
     )

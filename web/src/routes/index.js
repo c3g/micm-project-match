@@ -49,7 +49,7 @@ export default [
     name: 'UpdateProject',
     pathname: '/update-project',
     component: UpdateProject,
-    access: [k.PROFESSOR, k.ADMIN],
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
     withAuth: true,
     withSidebar: true
   },

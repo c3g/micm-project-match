@@ -23,7 +23,13 @@ const ApplicationListItem = ({
     </div>
     <div>
       <div className="approved">
-        {chosenId ? 'Claimed' : application.approved ? 'Approved' : 'Waiting'}
+        {chosenId
+          ? chosenId === application.applicantId
+            ? 'Claimed'
+            : 'Approved'
+          : application.approved
+          ? 'Approved'
+          : 'Waiting'}
       </div>
       <Link
         to={{

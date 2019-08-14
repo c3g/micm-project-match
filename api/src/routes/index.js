@@ -103,7 +103,7 @@ router.post(
     }
   },
   validator(schemas.project.update),
-  professorAccess,
+  setupAccess,
   project.update
 );
 router.get('/project/list', setupAccess, project.list);

@@ -58,7 +58,8 @@ class ProjectDetails extends Component {
       <div className="project-details">
         <Heading hideUnderline>{this.props.project.title}</Heading>
         <div className="abstract">{this.props.project.abstract}</div>
-        {this.props.userId === this.props.project.authorId ? (
+        {this.props.userId === this.props.project.authorId ||
+        this.props.userId === this.props.project.chosenId ? (
           <div className="details">
             <div>
               <span>Prefered project start date</span>
@@ -128,7 +129,8 @@ class ProjectDetails extends Component {
               )
           )}
         </div>
-        {this.props.userId === this.props.project.authorId && (
+        {(this.props.userId === this.props.project.authorId ||
+          this.props.userId === this.props.project.chosenId) && (
           <div className="details-long">
             <div>
               <div>Project description</div>
@@ -157,7 +159,8 @@ class ProjectDetails extends Component {
             )}
           </div>
         )}
-        {this.props.userId === this.props.project.authorId && (
+        {(this.props.userId === this.props.project.authorId ||
+          this.props.userId === this.props.project.chosenId) && (
           <div className="documents">
             <div>
               Relevant Documents&nbsp;&nbsp;
@@ -177,7 +180,8 @@ class ProjectDetails extends Component {
               ? 'None'
               : this.props.project.documents.map((document, i) => (
                   <div className="document" key={`document_${i}`}>
-                    {this.props.userId === this.props.project.authorId && (
+                    {(this.props.userId === this.props.project.authorId ||
+                      this.props.userId === this.props.project.chosenId) && (
                       <button
                         className="delete-button"
                         onClick={() =>
@@ -256,7 +260,8 @@ class ProjectDetails extends Component {
             Upload
           </RoundedButton>
         )}
-        {this.props.userId === this.props.project.authorId ? (
+        {this.props.userId === this.props.project.authorId ||
+        this.props.userId === this.props.project.chosenId ? (
           <div className="apply">
             <Link
               to={{
