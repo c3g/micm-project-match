@@ -6,6 +6,8 @@
 
   .contact-us-field,
   .contact-us-text-area {
+    position: relative;
+
     input {
       margin: 20px 0;
       background: #ffffff;
@@ -20,7 +22,6 @@
       input,
       textarea {
         border: solid thin $color-danger;
-        margin: 14px 0;
       }
 
       .message {
@@ -28,7 +29,15 @@
         right: 0;
         color: $color-danger;
         font-size: 0.7rem;
-        bottom: -35px;
+        background: #ffffff;
+        padding: 0px 5px 2px;
+        border-radius: 5px;
+        bottom: 0px;
+        right: 1px;
+
+        &.textarea {
+          bottom: -40px;
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 import User from '../models/user';
 import { Professor } from '../models';
 import { dataHandler, errorHandler, okHandler } from '../utils/handlers';
-import { sendVerificationMail } from '../mail';
+import { sendVerificationMail, sendContactUsMail } from '../mail';
 import uuid from 'uuid';
 import * as File from '../utils/file';
 import { clean } from '../config/passport';
@@ -75,11 +75,16 @@ function details(req, res) {
     .catch(errorHandler(res));
 }
 
+function contactUs(req, res) {
+  sendContactUsMail(req.body).then(okHandler(res));
+}
+
 export default {
   userData,
   updateUser,
   updateProfessor,
   updateCv,
   oauthData,
-  details
+  details,
+  contactUs
 };

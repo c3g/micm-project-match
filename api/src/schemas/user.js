@@ -34,8 +34,17 @@ const details = Joi.object({
   }).required()
 });
 
+const contactUs = Joi.object({
+  body: Joi.object({
+    name: Joi.string(),
+    email: Joi.string().email(),
+    message: Joi.string()
+  })
+});
+
 export default {
   updateUser,
   updateProfessor,
-  details
+  details,
+  contactUs
 };

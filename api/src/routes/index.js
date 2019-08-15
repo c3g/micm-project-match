@@ -204,6 +204,8 @@ router.post(
   project.createDocument
 );
 
+router.post('/contact', validator(schemas.user.contactUs), user.contactUs);
+
 export default passport => {
   router.get(
     '/auth/facebook',

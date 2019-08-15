@@ -20,6 +20,7 @@ export const DISAPPROVE_APPLICATION = createNetworkConstants(
 );
 export const CLAIM_PROJECT = createNetworkConstants('CLAIM_PROJECT');
 export const APPLIED_PROJECTS = createNetworkConstants('APPLIED_PROJECTS');
+export const CONTACT_US = createNetworkConstants('CONTACT_US');
 
 export const PROJECT = createModelConstants('PROJECT');
 export const KEYWORD = createModelConstants('KEYWORD');

@@ -19,6 +19,7 @@ import { userProfileSaga } from 'Src/modules/UserProfile';
 import { keywordSelectorSaga } from 'Src/modules/KeywordSelector';
 import { applicationDetailsSaga } from 'Src/modules/ApplicationDetails';
 import { appliedProjectsListSaga } from 'Src/modules/AppliedProjectsList';
+import { contactUsFormSaga } from 'Src/modules/ContactUsForm';
 import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -51,7 +52,8 @@ export function* rootSaga() {
     applicationListSaga(),
     projectDetailsSaga(),
     applicationDetailsSaga(),
-    appliedProjectsListSaga()
+    appliedProjectsListSaga(),
+    contactUsFormSaga()
   ]);
 }
 

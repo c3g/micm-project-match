@@ -7,9 +7,9 @@ import './contactUsForm.scss';
 
 const contactUsFormValidate = values => {
   const errors = {};
-  if (!values.name) errors.proposal = 'Required';
-  if (!values.email) errors.proposal = 'Required';
-  if (!values.message) errors.proposal = 'Required';
+  if (!values.name) errors.name = 'Required';
+  if (!values.email) errors.email = 'Required';
+  if (!values.message) errors.message = 'Required';
   return errors;
 };
 
@@ -24,7 +24,7 @@ let ContactUsTextArea = ({
     className={`contact-us-text-area ${error && touched ? 'error' : ''}`}
   >
     <TextArea {...input} placeholder={label} />
-    <span className="message">{touched && (error && error)}</span>
+    <span className="message textarea">{touched && (error && error)}</span>
   </div>
 );
 
@@ -62,8 +62,18 @@ class ContactUsFormComponent extends Component {
     return (
       <div className="contact-form">
         <form onSubmit={props.handleSubmit}>
-          <Field name="name" label="Name" component={ContactUsField} />
-          <Field name="email" label="Email" component={ContactUsField} />
+          <Field
+            type="text"
+            name="name"
+            label="Name"
+            component={ContactUsField}
+          />
+          <Field
+            type="text"
+            name="email"
+            label="Email"
+            component={ContactUsField}
+          />
           <Field
             name="message"
             label="Message"

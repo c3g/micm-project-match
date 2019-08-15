@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer';
 import inlineBase64 from 'nodemailer-plugin-inline-base64';
 import setPasswordMail from './setPasswordMail';
 import verificationMail from './verificationMail';
+import contactUsMail from './contactUsMail';
 
 const transporter = nodemailer.createTransport({
   SES: new aws.SES()
@@ -13,6 +14,7 @@ const transporter = nodemailer.createTransport({
 transporter.use('compile', inlineBase64({ cidPrefix: 'micm_' }));
 
 const from = `MiCM Project Match <${process.env.FROM_EMAIL}>`;
+const contactEmail = process.env.CONTACT_EMAIL;
 
 export function sendSetPasswordMail({ email, token, firstName, lastName }) {
   if (!token) return rejectMessage('Password already set', k.TOKEN_NOT_FOUND);
@@ -41,4 +43,16 @@ export function sendVerificationMail(user) {
       html
     })
     .then(() => Promise.resolve(user));
+}
+
+export function sendContactUsMail(data) {
+  const { name, email, message } = data;
+  const html = contactUsMail(name, email, message);
+
+  return transporter.sendMail({
+    from,
+    to: contactEmail,
+    subject: 'Contact Form Submitted',
+    html
+  });
 }
