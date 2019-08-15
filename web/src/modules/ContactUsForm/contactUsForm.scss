@@ -1,0 +1,46 @@
+@import 'Src/core/common.scss';
+
+.contact-form {
+  margin: 30px auto;
+  width: 550px;
+
+  .contact-us-field,
+  .contact-us-text-area {
+    input {
+      margin: 20px 0;
+      background: #ffffff;
+    }
+
+    textarea {
+      margin: 20px 0;
+      background: #ffffff;
+    }
+
+    &.error {
+      input,
+      textarea {
+        border: solid thin $color-danger;
+        margin: 14px 0;
+      }
+
+      .message {
+        position: absolute;
+        right: 0;
+        color: $color-danger;
+        font-size: 0.7rem;
+        bottom: -35px;
+      }
+    }
+  }
+
+  .send-button {
+    margin-top: 60px;
+    background: #ffffff;
+    color: darken($color-primary, 10);
+    box-shadow: 0px 3px 15px -3px #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 60px;
+    font-size: inherit;
+  }
+}

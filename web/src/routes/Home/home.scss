@@ -82,22 +82,32 @@
 
     &.about {
       color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 0 10%;
+      padding: 150px 10% 0;
+      height: 100%;
 
       div {
         padding-top: 20vh;
-        font-weight: 700;
+        font-weight: 800;
         width: 100%;
-        font-size: 2.1rem;
+        font-size: 2.3rem;
       }
 
       p {
         font-weight: 300;
         font-size: 1.3rem;
+      }
+    }
+
+    &.contact {
+      color: #ffffff;
+      text-align: center;
+      padding-top: 30px;
+
+      .title {
+        margin-top: 40px;
+        font-weight: 800;
+        width: 100%;
+        font-size: 2.3rem;
       }
     }
   }

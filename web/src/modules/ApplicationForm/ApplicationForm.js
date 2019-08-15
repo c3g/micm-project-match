@@ -111,7 +111,7 @@ class ApplicationFormComponent extends Component {
 }
 
 const ApplicationForm = reduxForm({
-  form: 'createProject',
+  form: 'application',
   validate: createApplicationValidate
 })(ApplicationFormComponent);
 
