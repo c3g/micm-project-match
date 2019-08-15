@@ -76,17 +76,19 @@ class ProjectDetails extends Component {
               <span>Expected project timeframe</span>
               <span>{this.props.project.timeframe}</span>
             </div>
-            <div>
-              <span>Requested budget</span>
-              <span>
-                {this.props.project.budget ? (
-                  this.props.project.budget
-                ) : (
-                  <span className="danger">Unspecified</span>
-                )}
-              </span>
-            </div>
-            {!this.props.project.budget && (
+            {this.props.project.chosenId && (
+              <div>
+                <span>Requested budget</span>
+                <span>
+                  {this.props.project.budget ? (
+                    this.props.project.budget
+                  ) : (
+                    <span className="danger">Unspecified</span>
+                  )}
+                </span>
+              </div>
+            )}
+            {this.props.project.chosenId && !this.props.project.budget && (
               <div>
                 <span>
                   <Link
@@ -199,7 +201,7 @@ class ProjectDetails extends Component {
               >
                 <FontAwesomeIcon
                   icon={this.state.dropzoneOpen ? faTimes : faPlus}
-                  color={this.state.dropzoneOpen ? '#00a1f8' : '#00FF00'}
+                  color={this.state.dropzoneOpen ? '#00a1f8' : '#00CC00'}
                 />
               </button>
             </div>

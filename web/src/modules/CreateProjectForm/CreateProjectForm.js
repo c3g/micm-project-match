@@ -170,7 +170,7 @@ class CreateProjectFormComponent extends Component {
                   })
             )}
           >
-            {props.project.chosenId && (
+            {props.project && props.project.chosenId && (
               <div>
                 Budget
                 <Field
