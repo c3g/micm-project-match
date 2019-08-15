@@ -119,7 +119,8 @@ class CreateProjectFormComponent extends Component {
       chosenId: PropTypes.number,
       tags: PropTypes.array,
       tagId: PropTypes.array,
-      documents: PropTypes.array
+      documents: PropTypes.array,
+      budget: PropTypes.string
     })
   };
 
@@ -169,6 +170,16 @@ class CreateProjectFormComponent extends Component {
                   })
             )}
           >
+            {props.project.chosenId && (
+              <div>
+                Budget
+                <Field
+                  name="budget"
+                  component={CreateProjectField}
+                  type="text"
+                />
+              </div>
+            )}
             <div>
               Project Title
               <Field name="title" component={CreateProjectField} type="text" />

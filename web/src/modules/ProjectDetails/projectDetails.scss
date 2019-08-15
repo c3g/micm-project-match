@@ -59,6 +59,10 @@
       span {
         display: inline-block;
 
+        .danger {
+          color: $color-danger;
+        }
+
         &:first-child {
           min-width: 250px;
           font-weight: 300;

@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS project (
   timeframe         VARCHAR(20) NOT NULL,
   open_for_students BOOLEAN DEFAULT true NOT NULL,
   organizations     VARCHAR(100)[],
+  budget            VARCHAR(100),
   author_id         INT NOT NULL,
   chosen_id         INT,
   tag_id            INT[],
