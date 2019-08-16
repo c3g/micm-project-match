@@ -19,8 +19,17 @@ import UpdateProject from './UpdateProject';
 import Applications from './Applications';
 import ApplicationLetter from './ApplicationLetter';
 import AppliedProjects from './AppliedProjects';
+import Professors from './Professors';
 
 export default [
+  {
+    name: 'Professors',
+    pathname: '/professors',
+    component: Professors,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Professors'
+  },
   {
     name: 'AppliedProjects',
     pathname: '/applied-projects',

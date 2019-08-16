@@ -20,6 +20,7 @@ import { keywordSelectorSaga } from 'Src/modules/KeywordSelector';
 import { applicationDetailsSaga } from 'Src/modules/ApplicationDetails';
 import { appliedProjectsListSaga } from 'Src/modules/AppliedProjectsList';
 import { contactUsFormSaga } from 'Src/modules/ContactUsForm';
+import { professorListSaga } from 'Src/modules/ProfessorList';
 import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -53,6 +54,7 @@ export function* rootSaga() {
     projectDetailsSaga(),
     applicationDetailsSaga(),
     appliedProjectsListSaga(),
+    professorListSaga(),
     contactUsFormSaga()
   ]);
 }

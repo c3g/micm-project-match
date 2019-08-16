@@ -16,6 +16,7 @@ import { applicationFormReducer } from 'Src/modules/ApplicationForm';
 import { applicationListReducer } from 'Src/modules/ApplicationList';
 import { userProfileReducer } from 'Src/modules/UserProfile';
 import { appliedProjectsListReducer } from 'Src/modules/AppliedProjectsList';
+import { professorListReducer } from 'Src/modules/ProfessorList';
 import { appReducer } from 'Src/core/App';
 import { reducer as formReducer } from 'redux-form';
 
@@ -38,5 +39,6 @@ export default combineReducers({
   setPassword: setPasswordFormReducer,
   appliedProjectsList: appliedProjectsListReducer,
   login: loginFormReducer,
-  setup: setupFormReducer
+  setup: setupFormReducer,
+  professorList: professorListReducer
 });

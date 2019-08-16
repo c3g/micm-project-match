@@ -21,6 +21,11 @@ export const DISAPPROVE_APPLICATION = createNetworkConstants(
 export const CLAIM_PROJECT = createNetworkConstants('CLAIM_PROJECT');
 export const APPLIED_PROJECTS = createNetworkConstants('APPLIED_PROJECTS');
 export const CONTACT_US = createNetworkConstants('CONTACT_US');
+export const PROFESSOR_LIST = createNetworkConstants('PROFESSOR_LIST');
+export const APPROVE_PROFESSOR = createNetworkConstants('APPROVE_PROFESSOR');
+export const DISAPPROVE_PROFESSOR = createNetworkConstants(
+  'DISAPPROVE_PROFESSOR'
+);
 
 export const PROJECT = createModelConstants('PROJECT');
 export const KEYWORD = createModelConstants('KEYWORD');
