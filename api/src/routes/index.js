@@ -221,6 +221,7 @@ router.get(
   adminAccess,
   admin.disapproveProfessor
 );
+router.get('/admin/matches/list', adminAccess, admin.listMatches);
 
 export default passport => {
   router.get(

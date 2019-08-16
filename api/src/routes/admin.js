@@ -1,4 +1,4 @@
-import { User } from '../models';
+import { User, Project } from '../models';
 import { errorHandler, dataHandler, okHandler } from '../utils/handlers';
 
 function listProfessors(req, res) {
@@ -19,8 +19,15 @@ function disapproveProfessor(req, res) {
     .catch(errorHandler(res));
 }
 
+function listMatches(req, res) {
+  Project.listMatches()
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   listProfessors,
   approveProfessor,
-  disapproveProfessor
+  disapproveProfessor,
+  listMatches
 };

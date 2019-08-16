@@ -104,7 +104,7 @@ function create(project) {
     .then(findById);
 }
 
-function selectAll() {
+function selectAll(isAdmin = false) {
   return db.selectAll(
     `
     SELECT project.id,
@@ -113,6 +113,7 @@ function selectAll() {
            project.author_id,
            user_account.first_name,
            user_account.last_name,
+           user_account.approved,
            array_agg(tag.text) as tags
       FROM project
            JOIN user_account
@@ -121,7 +122,9 @@ function selectAll() {
            ON tag.id = ANY(project.tag_id)
      GROUP BY project.id,
            user_account.first_name,
-           user_account.last_name
+           user_account.last_name,
+           user_account.approved
+    ${isAdmin ? '' : `HAVING user_account.approved = true`}
     `
   );
 }
@@ -141,7 +144,7 @@ function listUserProjects(id) {
   );
 }
 
-function search({ term, keywords }) {
+function search({ term, keywords }, isAdmin = false) {
   console.log(keywords);
   return db.selectAll(
     `
@@ -151,6 +154,7 @@ function search({ term, keywords }) {
            project.author_id,
            user_account.first_name,
            user_account.last_name,
+           user_account.approved,
            array_agg(tag.text) as tags
       FROM project
            JOIN user_account
@@ -159,9 +163,11 @@ function search({ term, keywords }) {
            ON tag.id = ANY(project.tag_id)
      GROUP BY project.id,
            user_account.first_name,
-           user_account.last_name
+           user_account.last_name,
+           user_account.approved
     HAVING LOWER(project.title) LIKE LOWER(@term)
            AND project.tag_id @> @keywords
+           ${isAdmin ? '' : `AND user_account.approved = true`}
     `,
     { term: `%${term}%`, keywords }
   );
@@ -264,6 +270,33 @@ function findDocumentById(id) {
     );
 }
 
+function listMatches() {
+  return db.selectAll(
+    `
+    SELECT json_build_object(
+             'id', project.id,
+             'title', project.title
+           ) AS "project",
+           json_build_object(
+             'id', author.id,
+             'firstName', author.first_name,
+             'lastName', author.last_name
+           ) AS "author",
+           json_build_object(
+            'id', applicant.id,
+            'firstName', applicant.first_name,
+            'lastName', applicant.last_name
+           ) AS "chosen"
+      FROM project
+           LEFT JOIN user_account AS author
+           ON project.author_id = author.id
+           LEFT JOIN user_account AS applicant
+           ON project.chosen_id = applicant.id
+     WHERE project.chosen_id IS NOT NULL
+    `
+  );
+}
+
 export default {
   create,
   findById,
@@ -275,5 +308,6 @@ export default {
   addDocument,
   deleteDocument,
   findDocumentById,
-  projectId
+  projectId,
+  listMatches
 };

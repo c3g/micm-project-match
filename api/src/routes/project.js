@@ -35,13 +35,16 @@ function update(req, res) {
 }
 
 function list(req, res) {
-  Project.selectAll()
+  Project.selectAll(req.user.type === k.USER_TYPE.ADMIN)
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }
 
 function search(req, res) {
-  Project.search({ ...req.query, ...req.body })
+  Project.search(
+    { ...req.query, ...req.body },
+    req.user.type === k.USER_TYPE.ADMIN
+  )
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }
