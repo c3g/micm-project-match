@@ -248,6 +248,39 @@ function verifyEmail(token) {
   );
 }
 
+function listProfessors() {
+  return db.selectAll(`
+    SELECT first_name,
+           last_name,
+           approved,
+           id
+      FROM user_account
+     WHERE type = 'PROFESSOR'
+  `);
+}
+
+function approveProfessor(id) {
+  return db.query(
+    `
+    UPDATE user_account
+       SET approved = true
+     WHERE id = @id
+    `,
+    { id }
+  );
+}
+
+function disapproveProfessor(id) {
+  return db.query(
+    `
+    UPDATE user_account
+       SET approved = false
+     WHERE id = @id
+    `,
+    { id }
+  );
+}
+
 export default {
   create,
   findById,
@@ -260,5 +293,8 @@ export default {
   createOAuth,
   getOAuthData,
   verifyEmail,
-  findProfessorById
+  findProfessorById,
+  listProfessors,
+  approveProfessor,
+  disapproveProfessor
 };

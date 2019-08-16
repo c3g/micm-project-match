@@ -42,9 +42,23 @@ const contactUs = Joi.object({
   })
 });
 
+const approveProfessor = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
+const disapproveProfessor = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
 export default {
   updateUser,
   updateProfessor,
   details,
-  contactUs
+  contactUs,
+  approveProfessor,
+  disapproveProfessor
 };

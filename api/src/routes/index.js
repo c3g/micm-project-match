@@ -5,6 +5,7 @@ import multer from 'multer';
 import auth from './auth';
 import user from './user';
 import tag from './tag';
+import admin from './admin';
 import project from './project';
 import application from './application';
 import isAuthenticated from '../utils/isAuthenticated';
@@ -29,6 +30,7 @@ const professorAccess = isAuthenticated([
   k.USER_TYPE.PROFESSOR,
   k.USER_TYPE.ADMIN
 ]);
+const adminAccess = isAuthenticated([k.USER_TYPE.ADMIN]);
 
 router.post('/register', validator(schemas.auth.register), auth.register);
 router.get(
@@ -205,6 +207,20 @@ router.post(
 );
 
 router.post('/contact', validator(schemas.user.contactUs), user.contactUs);
+
+router.get('/admin/professors/list', adminAccess, admin.listProfessors);
+router.get(
+  '/admin/professors/:id/approve',
+  validator(schemas.user.approveProfessor),
+  adminAccess,
+  admin.approveProfessor
+);
+router.get(
+  '/admin/professors/:id/disapprove',
+  validator(schemas.user.disapproveProfessor),
+  adminAccess,
+  admin.disapproveProfessor
+);
 
 export default passport => {
   router.get(
