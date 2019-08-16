@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import './professorList.scss';
 
 class ProfessorList extends Component {
   static propTypes = {
@@ -22,10 +24,12 @@ class ProfessorList extends Component {
   render() {
     const { professors, approveProfessor, disapproveProfessor } = this.props;
     return (
-      <div>
+      <div className="professor-list">
         {professors.map((professor, i) => (
           <div key={`professor_${i}`}>
-            {professor.firstName} {professor.lastName}
+            <Link to={`/user/${professor.id}`}>
+              {professor.firstName} {professor.lastName}
+            </Link>
             {professor.approved ? (
               <button onClick={() => disapproveProfessor(professor.id)}>
                 Disapprove
