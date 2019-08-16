@@ -275,7 +275,8 @@ function listMatches() {
     `
     SELECT json_build_object(
              'id', project.id,
-             'title', project.title
+             'title', project.title,
+             'approved', project.approved
            ) AS "project",
            json_build_object(
              'id', author.id,
@@ -297,6 +298,27 @@ function listMatches() {
   );
 }
 
+function approveMatch(id) {
+  return db.query(
+    `
+    UPDATE project
+       SET approved = true
+     WHERE id = @id
+    `,
+    { id }
+  );
+}
+
+function disapproveMatch(id) {
+  return db.query(
+    `
+    UPDATE project
+       SET approved = false
+     WHERE id = @id
+    `,
+    { id }
+  );
+}
 export default {
   create,
   findById,
@@ -309,5 +331,7 @@ export default {
   deleteDocument,
   findDocumentById,
   projectId,
-  listMatches
+  listMatches,
+  approveMatch,
+  disapproveMatch
 };

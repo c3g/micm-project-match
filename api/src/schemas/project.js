@@ -82,6 +82,18 @@ const getDocument = Joi.object({
   })
 });
 
+const approveMatch = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
+const disapproveMatch = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
 export default {
   create,
   update,
@@ -89,5 +101,7 @@ export default {
   details,
   deleteDocument,
   createDocument,
-  getDocument
+  getDocument,
+  approveMatch,
+  disapproveMatch
 };

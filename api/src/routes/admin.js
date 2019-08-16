@@ -25,9 +25,23 @@ function listMatches(req, res) {
     .catch(errorHandler(res));
 }
 
+function approveMatch(req, res) {
+  Project.approveMatch(req.params.id)
+    .then(okHandler(res))
+    .catch(errorHandler(res));
+}
+
+function disapproveMatch(req, res) {
+  Project.disapproveMatch(req.params.id)
+    .then(okHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   listProfessors,
   approveProfessor,
   disapproveProfessor,
-  listMatches
+  listMatches,
+  approveMatch,
+  disapproveMatch
 };

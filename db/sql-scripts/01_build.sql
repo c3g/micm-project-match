@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS project (
   author_id         INT NOT NULL,
   chosen_id         INT,
   tag_id            INT[],
+  approved     BOOLEAN DEFAULT false NOT NULL,
 
   FOREIGN KEY (author_id) REFERENCES user_account (id),
   FOREIGN KEY (chosen_id) REFERENCES user_account (id)

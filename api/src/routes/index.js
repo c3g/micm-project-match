@@ -222,6 +222,18 @@ router.get(
   admin.disapproveProfessor
 );
 router.get('/admin/matches/list', adminAccess, admin.listMatches);
+router.get(
+  '/admin/match/:id/approve',
+  validator(schemas.project.approveMatch),
+  adminAccess,
+  admin.approveMatch
+);
+router.get(
+  '/admin/match/:id/disapprove',
+  validator(schemas.project.disapproveMatch),
+  adminAccess,
+  admin.disapproveMatch
+);
 
 export default passport => {
   router.get(
