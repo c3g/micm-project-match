@@ -21,6 +21,7 @@ import { applicationDetailsSaga } from 'Src/modules/ApplicationDetails';
 import { appliedProjectsListSaga } from 'Src/modules/AppliedProjectsList';
 import { contactUsFormSaga } from 'Src/modules/ContactUsForm';
 import { professorListSaga } from 'Src/modules/ProfessorList';
+import { matchListSaga } from 'Src/modules/MatchList';
 import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -55,6 +56,7 @@ export function* rootSaga() {
     applicationDetailsSaga(),
     appliedProjectsListSaga(),
     professorListSaga(),
+    matchListSaga(),
     contactUsFormSaga()
   ]);
 }
