@@ -176,6 +176,34 @@ function claim(id, userId) {
     );
 }
 
+function getUnnotified() {
+  return db.selectAll(
+    `
+    SELECT first_name,
+           last_name,
+           email,
+           COUNT(*) AS "applicationCount"
+      FROM project
+           JOIN application
+           ON project.id = application.project_id
+           JOIN user_account
+           ON project.author_id = user_account.id
+  GROUP BY user_account.id,
+           application.notified
+    HAVING notified = false
+    `
+  );
+}
+
+function setNotified() {
+  return db.query(
+    `
+    UPDATE application
+       SET notified = true
+    `
+  );
+}
+
 export default {
   create,
   findById,
@@ -185,5 +213,7 @@ export default {
   approve,
   disapprove,
   applied,
-  claim
+  claim,
+  getUnnotified,
+  setNotified
 };

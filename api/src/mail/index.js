@@ -1,11 +1,14 @@
 import { rejectMessage } from '../utils/promise';
 import k from '../constants';
+import schedule from 'node-schedule';
 import aws from 'aws-sdk';
 import nodemailer from 'nodemailer';
 import inlineBase64 from 'nodemailer-plugin-inline-base64';
 import setPasswordMail from './setPasswordMail';
 import verificationMail from './verificationMail';
+import updateMail from './updateMail';
 import contactUsMail from './contactUsMail';
+import { Application } from '../models';
 
 const transporter = nodemailer.createTransport({
   SES: new aws.SES()
@@ -55,4 +58,32 @@ export function sendContactUsMail(data) {
     subject: 'Contact Form Submitted',
     html
   });
+}
+
+function sendUpdateMail(data) {
+  const { firstName, lastName, email, applicationCount } = data;
+  const html = updateMail(firstName, lastName, email, applicationCount);
+
+  return transporter.sendMail({
+    from,
+    to: email,
+    subject: 'Weekly update',
+    html
+  });
+}
+
+function wait(n) {
+  return new Promise(res => setTimeout(() => res(), 1500 * n));
+}
+
+export function weeklyEmailUpdates() {
+  schedule.scheduleJob('0 0 * * 0', () =>
+    Application.getUnnotified()
+      .then(users =>
+        Promise.all(
+          users.map((user, i) => wait(i).then(() => sendUpdateMail(user)))
+        )
+      )
+      .then(() => Application.setNotified())
+  );
 }
