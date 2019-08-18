@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import * as jsPDF from 'jspdf';
 import { withRouter, Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
 import RoundedButton from 'Src/modules/RoundedButton';
@@ -7,12 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { remove, uniqBy, prop } from 'ramda';
 import Dropzone from 'Src/modules/Dropzone';
+import * as k from 'Src/constants/values';
 import './projectDetails.scss';
 
 class ProjectDetails extends Component {
   static propTypes = {
     fetchProject: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    userType: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
     history: PropTypes.object.isRequired,
     deleteDocument: PropTypes.func.isRequired,
@@ -54,10 +57,126 @@ class ProjectDetails extends Component {
     this.props.fetchProject({ push, id });
   }
 
+  extractAsPDF() {
+    const doc = new jsPDF();
+
+    const html = `
+    <div style="font-family: helvetica; line-height: 20px;">
+      <div style="font-size: 2rem; font-weight: bold;">
+      ${this.props.project.title}
+      </div>
+      <br />
+      <div>
+        ${doc
+          .splitTextToSize(this.props.project.abstract, 250)
+          .join(`</div><div>`)}
+      </div>
+      <br />
+      <div>
+        <b>Prefered project start date:</b>
+        <span>${this.props.project.startDate}</span>
+      </div>
+      <br />
+      <div>
+        <b>MiCM Axis:</b>
+        <span>${this.props.project.axis}</span>
+      </div>
+      <br />
+      <div>
+        <b>Expected project timeframe:</b>
+        <span>${this.props.project.timeframe}</span>
+      </div>
+      <br />
+      <div>
+        <b>Requested budget:</b>
+        <span>
+        ${this.props.project.budget ? this.props.project.budget : 'Unspecified'}
+        </span>
+      </div>
+      <br />
+      <div>
+        This project is&nbsp;
+        ${
+          this.props.project.openForStudents
+            ? 'open to both students and professors'
+            : 'only open to professors'
+        }
+      </div>
+      <br />
+      <br />
+      <div>
+        <div><b>Tags</b></div>
+        <br />
+        <div className="tags">
+            ${this.props.project.tags
+              .map(tag => tag && `<div>${tag}</div>`)
+              .join('')}
+        </div>
+      </div>
+      <br />
+      <br />
+      <div>
+        <div><b>Project description</b></div>
+        <br />
+        <div>
+          ${doc
+            .splitTextToSize(this.props.project.description, 250)
+            .join(`</div><div>`)}
+        </div>
+      </div>
+      <br />
+      <br />
+      <div>
+        <div><b>Description of datasets to be used or generated</b></div>
+        <br />
+        <div>
+        ${doc
+          .splitTextToSize(this.props.project.datasets, 250)
+          .join(`</div><div>`)}
+        </div>
+      </div>
+      <br />
+      <br />
+      <div>
+        <div>
+          <b>Why you see this as a collaborative research project and what
+          you hope to gain from the <br />collaboration</b>
+        </div>
+        <br />
+        <div>
+          ${doc
+            .splitTextToSize(this.props.project.motive, 250)
+            .join(`</div><div>`)}
+        </div>
+      </div>
+      <br />
+      <br />
+      ${this.props.project.organizations.length > 0 &&
+        `<div>
+          <div><b>Relevant to the following organization/initiatives</b></div>
+          <br />
+          <div>
+            ${this.props.project.organizations
+              .map(organization => `<div>${organization}</div>`)
+              .join('')}
+          </div>
+        </div>
+        <br />`}
+    </div>
+    `;
+    doc.fromHTML(html, 10, 10);
+    doc.save(`${this.props.project.title}.pdf`);
+  }
+
   render() {
     return (
       <div className="project-details">
         <Heading hideUnderline>{this.props.project.title}</Heading>
+        {this.props.userType === k.ADMIN && (
+          <div className="extract-button">
+            <button onClick={() => this.extractAsPDF()}>Download as PDF</button>
+          </div>
+        )}
         <div className="abstract">{this.props.project.abstract}</div>
         {this.props.userId === this.props.project.authorId ||
         this.props.userId === this.props.project.chosenId ? (

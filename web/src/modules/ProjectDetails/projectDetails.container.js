@@ -12,7 +12,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   ...pick(['isLoading', 'project', 'application'], state.projectDetails),
-  userId: state.app.user.id
+  userId: state.app.user.id,
+  userType: state.app.user.type
 });
 
 export default connect(

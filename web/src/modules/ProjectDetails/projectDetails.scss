@@ -3,6 +3,19 @@
 .project-details {
   font-weight: 300;
 
+  .extract-button {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      background: $color-primary;
+      border: none;
+      border-radius: 5px;
+      color: #ffffff;
+      padding: 5px 10px;
+    }
+  }
+
   .abstract {
     padding: 20px 0;
     font-weight: 300;

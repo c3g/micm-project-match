@@ -120,7 +120,8 @@ class CreateProjectFormComponent extends Component {
       tags: PropTypes.array,
       tagId: PropTypes.array,
       documents: PropTypes.array,
-      budget: PropTypes.string
+      budget: PropTypes.string,
+      approved: PropTypes.bool
     })
   };
 
@@ -133,6 +134,7 @@ class CreateProjectFormComponent extends Component {
         tags,
         tagId,
         documents,
+        approved,
         ...project
       } = this.props.project;
       this.props.initialize({
