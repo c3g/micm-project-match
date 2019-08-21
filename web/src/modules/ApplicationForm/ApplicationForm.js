@@ -92,7 +92,7 @@ class ApplicationFormComponent extends Component {
             )}
           >
             <div>
-              Submit your applicaion letter
+              Submit your application letter
               <Field
                 name="proposal"
                 label="Type it out here..."
