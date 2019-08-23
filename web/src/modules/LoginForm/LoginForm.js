@@ -8,6 +8,7 @@ import { facebookLogin, googleLogin } from 'Src/config/endpoints';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const LoginField = ({ input, type, placeholder }) => (
   <InputField {...input} type={type} placeholder={placeholder} />
@@ -52,6 +53,9 @@ let LoginForm = props => (
           type="email"
           placeholder="Email"
         />
+        <Link className="forgot" to="/forgot-password">
+          Forgot password?
+        </Link>
         <Field
           name="password"
           component={LoginField}

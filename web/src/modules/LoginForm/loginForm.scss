@@ -5,6 +5,16 @@
   width: 100%;
   padding: 15px;
 
+  .forgot {
+    color: $color-primary;
+    font-weight: 600;
+    text-align: right;
+    display: block;
+    font-size: 0.7rem;
+    text-decoration: none;
+    margin-bottom: -10px;
+  }
+
   .facebook-auth-button,
   .google-auth-button {
     display: block;
