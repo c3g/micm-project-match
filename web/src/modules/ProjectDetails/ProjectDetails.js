@@ -41,7 +41,8 @@ class ProjectDetails extends Component {
       tags: PropTypes.array,
       tagId: PropTypes.array,
       documents: PropTypes.array,
-      budget: PropTypes.string
+      budget: PropTypes.string,
+      approved: PropTypes.bool.isRequired
     }).isRequired,
     application: PropTypes.object,
     isLoading: PropTypes.bool.isRequired
@@ -171,14 +172,20 @@ class ProjectDetails extends Component {
   render() {
     return (
       <div className="project-details">
-        <Heading hideUnderline>{this.props.project.title}</Heading>
+        <div>
+          <Heading hideUnderline>{this.props.project.title}</Heading>
+          <div className="approved">
+            {this.props.project.approved && 'Approved'}
+          </div>
+        </div>
         {this.props.userType === k.ADMIN && (
           <div className="extract-button">
             <button onClick={() => this.extractAsPDF()}>Download as PDF</button>
           </div>
         )}
         <div className="abstract">{this.props.project.abstract}</div>
-        {this.props.userId === this.props.project.authorId ||
+        {this.props.userType === k.ADMIN ||
+        this.props.userId === this.props.project.authorId ||
         this.props.userId === this.props.project.chosenId ? (
           <div className="details">
             <div>
@@ -207,22 +214,24 @@ class ProjectDetails extends Component {
                 </span>
               </div>
             )}
-            {this.props.project.chosenId && !this.props.project.budget && (
-              <div>
-                <span>
-                  <Link
-                    to={{
-                      pathname: '/update-project',
-                      state: {
-                        project: this.props.project
-                      }
-                    }}
-                  >
-                    Set a budget
-                  </Link>
-                </span>
-              </div>
-            )}
+            {this.props.userType !== k.ADMIN &&
+              this.props.project.chosenId &&
+              !this.props.project.budget && (
+                <div>
+                  <span>
+                    <Link
+                      to={{
+                        pathname: '/update-project',
+                        state: {
+                          project: this.props.project
+                        }
+                      }}
+                    >
+                      Set a budget
+                    </Link>
+                  </span>
+                </div>
+              )}
           </div>
         ) : (
           <>
@@ -277,7 +286,8 @@ class ProjectDetails extends Component {
               )
           )}
         </div>
-        {(this.props.userId === this.props.project.authorId ||
+        {(this.props.userType === k.ADMIN ||
+          this.props.userId === this.props.project.authorId ||
           this.props.userId === this.props.project.chosenId) && (
           <div className="details-long">
             <div>
@@ -307,22 +317,25 @@ class ProjectDetails extends Component {
             )}
           </div>
         )}
-        {(this.props.userId === this.props.project.authorId ||
+        {(this.props.userType === k.ADMIN ||
+          this.props.userId === this.props.project.authorId ||
           this.props.userId === this.props.project.chosenId) && (
           <div className="documents">
             <div>
               Relevant Documents&nbsp;&nbsp;
-              <button
-                className="delete-button"
-                onClick={() =>
-                  this.setState({ dropzoneOpen: !this.state.dropzoneOpen })
-                }
-              >
-                <FontAwesomeIcon
-                  icon={this.state.dropzoneOpen ? faTimes : faPlus}
-                  color={this.state.dropzoneOpen ? '#00a1f8' : '#00CC00'}
-                />
-              </button>
+              {this.props.userType !== k.ADMIN && (
+                <button
+                  className="delete-button"
+                  onClick={() =>
+                    this.setState({ dropzoneOpen: !this.state.dropzoneOpen })
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={this.state.dropzoneOpen ? faTimes : faPlus}
+                    color={this.state.dropzoneOpen ? '#00a1f8' : '#00CC00'}
+                  />
+                </button>
+              )}
             </div>
             {this.props.project.documents.length === 0
               ? 'None'
@@ -408,8 +421,9 @@ class ProjectDetails extends Component {
             Upload
           </RoundedButton>
         )}
-        {this.props.userId === this.props.project.authorId ||
-        this.props.userId === this.props.project.chosenId ? (
+        {this.props.userType === k.ADMIN ? null : this.props.userId ===
+            this.props.project.authorId ||
+          this.props.userId === this.props.project.chosenId ? (
           <div className="apply">
             <Link
               to={{

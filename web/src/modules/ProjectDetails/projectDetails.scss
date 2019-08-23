@@ -3,6 +3,12 @@
 .project-details {
   font-weight: 300;
 
+  .approved {
+    color: $color-success;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
   .extract-button {
     display: flex;
     justify-content: flex-end;

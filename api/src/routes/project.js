@@ -50,7 +50,11 @@ function search(req, res) {
 }
 
 function details(req, res) {
-  Project.details(req.params.id, req.user.id)
+  Project.details(
+    req.params.id,
+    req.user.id,
+    req.user.type === k.USER_TYPE.ADMIN
+  )
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }
@@ -99,7 +103,15 @@ function getDocument(req, res) {
     .then(() => Project.findDocumentById(req.params.id))
     .then(document => File.getFile({ Key: document.key }))
     .then(file => file.createReadStream().pipe(res))
-    .catch(errorHandler(res));
+    .catch(
+      err =>
+        (err.type =
+          k.PROJECT_NOT_FOUND && req.user.type === k.USER_TYPE.ADMIN
+            ? Project.findDocumentById(req.params.id)
+                .then(document => File.getFile({ Key: document.key }))
+                .then(file => file.createReadStream().pipe(res))
+            : errorHandler(res)(err))
+    );
 }
 
 export default {

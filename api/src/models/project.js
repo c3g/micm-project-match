@@ -47,7 +47,7 @@ function findById(id) {
     );
 }
 
-function details(id, userId) {
+function details(id, userId, isAdmin = false) {
   if (!id) return Promise.resolve(null);
   return db
     .selectOne(
@@ -80,7 +80,7 @@ function details(id, userId) {
       { id }
     )
     .then(details =>
-      details.authorId === userId || details.chosenId === userId
+      details.authorId === userId || details.chosenId === userId || isAdmin
         ? findById(details.id)
         : details
     )
@@ -135,7 +135,8 @@ function listUserProjects(id) {
     SELECT project.id,
            project.title,
            project.abstract,
-           project.author_id
+           project.author_id,
+           project.approved
       FROM project
      WHERE project.author_id = @id
            OR project.chosen_id = @id

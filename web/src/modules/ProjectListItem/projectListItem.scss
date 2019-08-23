@@ -1,7 +1,8 @@
 @import 'Src/core/common.scss';
 
 .project-list-item {
-  padding: 35px 0 0 0;
+  padding: 25px 0 15px;
+  border-bottom: solid thin rgba(0, 0, 0, 0.1);
 
   .details {
     color: #000000;
@@ -11,6 +12,13 @@
       color: #103d61;
       font-size: 1.2rem;
       font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+
+      .approved {
+        font-size: 0.8rem;
+        color: $color-success;
+      }
     }
 
     .abstract {

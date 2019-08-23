@@ -14,11 +14,23 @@ const name = (firstName, lastName) =>
     : '';
 
 const ProjectListItem = ({
-  project: { firstName, lastName, title, abstract, id, authorId, tags }
+  project: {
+    firstName,
+    lastName,
+    title,
+    abstract,
+    id,
+    authorId,
+    tags,
+    approved
+  }
 }) => (
   <div className="project-list-item">
     <Link to={`/project/${id}`} className="details">
-      <div className="title">{title}</div>
+      <div className="title">
+        <div>{title}</div>
+        <div className="approved">{approved && 'Approved'}</div>
+      </div>
       <div className="abstract">
         {abstract.substring(0, 335)}
         {abstract.length > 335 ? '...' : ''}
@@ -47,7 +59,8 @@ ProjectListItem.propTypes = {
     abstract: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     authorId: PropTypes.number.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string)
+    tags: PropTypes.arrayOf(PropTypes.string),
+    approved: PropTypes.bool.isRequired
   }).isRequired
 };
 

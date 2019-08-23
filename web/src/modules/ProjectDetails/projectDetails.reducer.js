@@ -27,7 +27,10 @@ const initialState = {
     email: '',
     tags: [],
     tagId: [],
-    documents: []
+    documents: [],
+    organizations: [],
+    files: [],
+    approved: false
   }
 };
 
