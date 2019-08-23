@@ -152,8 +152,8 @@ function claim(id, userId) {
              JOIN project
              ON application.project_id = project.id
        WHERE application.id = @id
-             AND approved = true
-             AND applicant_id = @userId
+             AND application.approved = true
+             AND application.applicant_id = @userId
     `,
       { id, userId }
     )
@@ -163,11 +163,14 @@ function claim(id, userId) {
             'This project was claimed by someone else',
             k.PROJECT_ALREADY_CLAIMED
           )
-        : Project.update({
-            id: application.projectId,
-            chosenId: userId,
-            authorId: application.authorId
-          })
+        : db.query(
+            `
+          UPDATE project
+             SET chosen_id = @userId
+           WHERE id = @id
+          `,
+            { userId, id: application.projectId }
+          )
     )
     .catch(err =>
       err.type === k.ROW_NOT_FOUND

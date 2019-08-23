@@ -16,7 +16,7 @@ class AppliedProjectsList extends Component {
         firstName: PropTypes.string.isRequired,
         lastName: PropTypes.string.isRequired,
         projectTitle: PropTypes.string.isRequired,
-        chosenId: PropTypes.number.isRequired,
+        chosenId: PropTypes.number,
         projectId: PropTypes.number.isRequired,
         authorId: PropTypes.number.isRequired
       }).isRequired

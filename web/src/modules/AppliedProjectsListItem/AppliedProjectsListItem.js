@@ -83,7 +83,7 @@ AppliedProjectListItem.propTypes = {
   projectTitle: PropTypes.string.isRequired,
   projectId: PropTypes.number.isRequired,
   authorId: PropTypes.number.isRequired,
-  chosenId: PropTypes.number.isRequired,
+  chosenId: PropTypes.number,
   claimProject: PropTypes.func.isRequired,
   userId: PropTypes.number.isRequired
 };
