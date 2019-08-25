@@ -53,3 +53,24 @@
     font-size: inherit;
   }
 }
+
+@media only screen and (max-width: 850px) {
+  .contact-form {
+    width: 100%;
+
+    .contact-us-field,
+    .contact-us-text-area {
+      input {
+        border: solid thin #eeeeee;
+      }
+
+      textarea {
+        border: solid thin #eeeeee;
+      }
+    }
+    .send-button {
+      background: $color-primary;
+      color: #ffffff;
+    }
+  }
+}

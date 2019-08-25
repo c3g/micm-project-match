@@ -3,15 +3,21 @@ import './home.scss';
 import { Link } from 'react-router-dom';
 import ContactUsForm from 'Src/modules/ContactUsForm';
 import MiCMLogo from 'Src/modules/MiCMLogo';
+import Object1 from 'Src/public/obj1.png';
+import Object2 from 'Src/public/obj2.png';
 
 class Home extends Component {
   render() {
     return (
       <div className="home-page">
+        <img className="obj1" src={Object1} />
+        <img className="obj2" src={Object2} />
         <section className="hero">
           <div className="left">
             <nav>
-              <MiCMLogo />
+              <div className="logo">
+                <MiCMLogo />
+              </div>
               <div>
                 <button
                   onClick={() =>
