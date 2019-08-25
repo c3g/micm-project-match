@@ -11,6 +11,7 @@
     .row {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
     }
 
     select {
@@ -128,6 +129,18 @@
     .right-button {
       text-align: right;
       padding: 40px 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .create-project-form {
+    .form {
+      width: 100%;
+
+      .half-width {
+        width: 100%;
+      }
     }
   }
 }

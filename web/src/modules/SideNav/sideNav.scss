@@ -14,3 +14,15 @@
     bottom: 25px;
   }
 }
+
+@media only screen and (max-height: 670px) {
+  .side-nav {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .logout-container {
+      padding-top: 40px;
+      position: relative;
+    }
+  }
+}

@@ -36,3 +36,11 @@
     }
   }
 }
+
+@media only screen and (max-width: 850px) {
+  .application-form {
+    .form {
+      width: 100%;
+    }
+  }
+}

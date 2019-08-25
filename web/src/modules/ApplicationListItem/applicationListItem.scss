@@ -4,7 +4,6 @@
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  width: 80%;
   border-bottom: solid thin rgba(100, 100, 100, 0.2);
   transition: background 0.2s ease;
 
@@ -40,5 +39,11 @@
     padding: 5px 10px;
     border-radius: 7px;
     margin: 10px 0;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .application-list-item {
+    padding: 20px 0;
   }
 }

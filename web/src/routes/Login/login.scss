@@ -13,3 +13,11 @@
     margin: 0 auto;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .login-page {
+    .form-container {
+      width: 100%;
+    }
+  }
+}

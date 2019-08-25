@@ -25,3 +25,11 @@
     margin: 0 auto;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .professor-setup-page {
+    .form-container {
+      width: 100%;
+    }
+  }
+}

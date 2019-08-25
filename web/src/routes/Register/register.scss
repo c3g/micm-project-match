@@ -15,3 +15,11 @@
     margin: 0 auto;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .register-page {
+    .form-container {
+      width: 100%;
+    }
+  }
+}

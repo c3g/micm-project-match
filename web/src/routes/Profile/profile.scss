@@ -1,3 +1,9 @@
-.profile {
+.profile-page {
   padding: 60px;
+}
+
+@media only screen and (max-width: 600px) {
+  .profile-page {
+    padding: 60px 30px;
+  }
 }

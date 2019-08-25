@@ -28,3 +28,10 @@
     }
   }
 }
+
+@media only screen and (max-height: 670px) {
+  .side-nav-link {
+    padding: 5px 30px;
+    margin: 10px 0;
+  }
+}

@@ -1,3 +1,5 @@
+@import 'Src/core/common.scss';
+
 .with-sidebar {
   height: 100vh;
   display: flex;
@@ -5,6 +7,8 @@
   overflow: hidden;
 
   .sidebar-container {
+    width: 250px;
+
     .logo {
       margin: 20px 0;
       height: 70px;
@@ -14,6 +18,90 @@
   .component-container {
     overflow: auto;
     width: 100%;
+    padding-left: 20px;
     height: 100%;
+  }
+
+  .nav-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    display: none;
+    padding: 5px;
+
+    div {
+      border-radius: 5px;
+      height: 3px;
+      margin: 5px 0 0 0;
+      width: 25px;
+      background: $color-primary;
+      transition: all ease 0.2s;
+    }
+  }
+
+  .header {
+    display: none;
+    background: #ffffff;
+    width: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    background: #ffffff;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .with-sidebar {
+    .header {
+      display: block;
+    }
+
+    .nav-toggle {
+      display: block;
+
+      &.cross {
+        div:nth-child(1) {
+          transform: translate(0, 8px) rotate(-45deg);
+        }
+        div:nth-child(2) {
+          opacity: 0;
+        }
+        div:nth-child(3) {
+          transform: translate(0, -8px) rotate(45deg);
+        }
+      }
+    }
+
+    .logo {
+      transform: translate(-30px, 25px) scale(0.8);
+    }
+
+    .component-container {
+      min-width: 100vw;
+      transition: all 0.2s ease;
+
+      &.open {
+        transform: translateX(250px);
+      }
+    }
+
+    .sidebar-container {
+      transition: all 0.2s ease;
+    }
+
+    &:not(.open) {
+      .sidebar-container {
+        transform: translateX(-250px);
+        width: 0;
+      }
+
+      .component-container {
+        padding: 0;
+      }
+    }
   }
 }

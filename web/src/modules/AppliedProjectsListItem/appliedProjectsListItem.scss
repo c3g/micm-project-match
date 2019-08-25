@@ -3,7 +3,6 @@
 .applied-projects-list-item {
   display: flex;
   justify-content: space-between;
-  max-width: 80%;
   padding: 20px;
   border-bottom: solid thin rgba(100, 100, 100, 0.2);
   transition: background 0.2s ease;
@@ -44,5 +43,11 @@
     font-size: 0.9rem;
     text-decoration: none;
     border: none;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .applied-projects-list-item {
+    padding: 20px 0;
   }
 }

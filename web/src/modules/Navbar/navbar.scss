@@ -25,3 +25,13 @@
     font-size: 0.9rem;
   }
 }
+
+@media only screen and (max-width: 670px) {
+  .navbar {
+    justify-content: flex-end;
+
+    .logo {
+      display: none;
+    }
+  }
+}

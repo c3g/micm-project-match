@@ -1,3 +1,9 @@
 .application-letter-page {
   padding: 60px;
 }
+
+@media only screen and (max-width: 600px) {
+  .application-letter-page {
+    padding: 60px 30px;
+  }
+}
