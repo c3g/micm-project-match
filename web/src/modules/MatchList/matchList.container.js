@@ -11,11 +11,12 @@ import {
 const mapDispatchToProps = dispatch => ({
   listMatches: () => dispatch(action(MATCH_LIST.REQUEST)),
   approveMatch: data => dispatch(action(APPROVE_MATCH.REQUEST, data)),
-  disapproveMatch: data => dispatch(action(DISAPPROVE_MATCH.REQUEST, data))
+  disapproveMatch: data => dispatch(action(DISAPPROVE_MATCH.REQUEST, data)),
+  clearMatches: () => dispatch(action(MATCH_LIST.RECEIVE, []))
 });
 
 const mapStateToProps = state => ({
-  ...pick(['matches'], state.matchList)
+  ...pick(['matches', 'isLoading'], state.matchList)
 });
 
 export default connect(

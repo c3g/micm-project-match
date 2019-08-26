@@ -5,11 +5,12 @@ import { pick } from 'ramda';
 import ApplicationList from './ApplicationList';
 
 const mapDispatchToProps = dispatch => ({
-  fetchApplications: () => dispatch(action(APPLICATION.LIST.REQUEST))
+  fetchApplications: () => dispatch(action(APPLICATION.LIST.REQUEST)),
+  clearApplications: () => dispatch(action(APPLICATION.LIST.RECEIVE, []))
 });
 
 const mapStateToProps = state => ({
-  ...pick(['applications'], state.applicationList)
+  ...pick(['applications', 'isLoading'], state.applicationList)
 });
 
 export default connect(

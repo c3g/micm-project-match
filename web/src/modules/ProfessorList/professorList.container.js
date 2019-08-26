@@ -11,12 +11,13 @@ import {
 const mapDispatchToProps = dispatch => ({
   listProfessors: () => dispatch(action(PROFESSOR_LIST.REQUEST)),
   approveProfessor: data => dispatch(action(APPROVE_PROFESSOR.REQUEST, data)),
+  clearProfessors: () => dispatch(action(PROFESSOR_LIST.RECEIVE, [])),
   disapproveProfessor: data =>
     dispatch(action(DISAPPROVE_PROFESSOR.REQUEST, data))
 });
 
 const mapStateToProps = state => ({
-  ...pick(['professors'], state.professorList)
+  ...pick(['professors', 'isLoading'], state.professorList)
 });
 
 export default connect(

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Loader from 'Src/modules/Loader';
 
 const asyncComponent = importComponent =>
   class asyncComponentHOC extends Component {
@@ -19,7 +20,13 @@ const asyncComponent = importComponent =>
 
     render() {
       const C = this.state.component;
-      return C ? <C {...this.props} /> : null;
+      return C ? (
+        <C {...this.props} />
+      ) : (
+        <div className="load-indicator">
+          <Loader />
+        </div>
+      );
     }
   };
 

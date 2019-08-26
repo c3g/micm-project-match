@@ -1,8 +1,13 @@
 import reducer from 'Src/utils/reducer';
-import { PROJECT, PROJECT_SEARCH } from 'Src/constants/actionTypes';
+import {
+  PROJECT,
+  PROJECT_SEARCH,
+  USER_PROJECT
+} from 'Src/constants/actionTypes';
 
 const actionHandlers = {
   [PROJECT.LIST.REQUEST]: s => ({ ...s, isLoading: true }),
+  [USER_PROJECT.LIST.REQUEST]: s => ({ ...s, isLoading: true }),
   [PROJECT_SEARCH.REQUEST]: s => ({ ...s, isLoading: true }),
   [PROJECT_SEARCH.ERROR]: s => ({ ...s, isLoading: true }),
   [PROJECT.LIST.RECEIVE]: (s, a) => ({

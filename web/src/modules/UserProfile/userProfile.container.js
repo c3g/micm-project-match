@@ -5,7 +5,19 @@ import { pick } from 'ramda';
 import { USER } from 'Src/constants/actionTypes';
 
 const mapDispatchToProps = dispatch => ({
-  fetchUser: data => dispatch(action(USER.FETCH.REQUEST, data))
+  fetchUser: data => dispatch(action(USER.FETCH.REQUEST, data)),
+  clearUser: () =>
+    dispatch(
+      action(USER.FETCH.RECEIVE, {
+        firstName: '',
+        lastName: '',
+        email: '',
+        tel: '',
+        type: '',
+        cvUploaded: false,
+        professor: null
+      })
+    )
 });
 
 const mapStateToProps = state => ({

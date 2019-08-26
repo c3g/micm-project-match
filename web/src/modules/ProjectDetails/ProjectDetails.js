@@ -10,6 +10,7 @@ import { remove, uniqBy, prop } from 'ramda';
 import Dropzone from 'Src/modules/Dropzone';
 import * as k from 'Src/constants/values';
 import './projectDetails.scss';
+import Loader from 'Src/modules/Loader';
 
 class ProjectDetails extends Component {
   static propTypes = {
@@ -45,7 +46,8 @@ class ProjectDetails extends Component {
       approved: PropTypes.bool.isRequired
     }).isRequired,
     application: PropTypes.object,
-    isLoading: PropTypes.bool.isRequired
+    isLoading: PropTypes.bool.isRequired,
+    clearProject: PropTypes.func.isRequired
   };
 
   state = { dropzoneOpen: false, files: [] };
@@ -56,6 +58,10 @@ class ProjectDetails extends Component {
       id
     } = this.props;
     this.props.fetchProject({ push, id });
+  }
+
+  componentWillUnmount() {
+    this.props.clearProject();
   }
 
   extractAsPDF() {
@@ -170,7 +176,9 @@ class ProjectDetails extends Component {
   }
 
   render() {
-    return (
+    return this.props.isLoading ? (
+      <Loader />
+    ) : (
       <div className="project-details">
         <div>
           <Heading hideUnderline>{this.props.project.title}</Heading>

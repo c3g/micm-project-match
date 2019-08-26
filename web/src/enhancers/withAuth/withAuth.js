@@ -67,7 +67,13 @@ const withAuth = (
     }
 
     render = () =>
-      this.state.start ? <Component {...this.props} /> : <Loader />;
+      this.state.start ? (
+        <Component {...this.props} />
+      ) : (
+        <div className="load-indicator">
+          <Loader />
+        </div>
+      );
   };
 
 export default withAuth;

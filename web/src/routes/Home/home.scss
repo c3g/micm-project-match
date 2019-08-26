@@ -11,10 +11,6 @@
   }
 
   nav {
-    .logo {
-      display: inline-block;
-    }
-
     height: 80px;
     position: absolute;
     top: 0;
@@ -22,26 +18,32 @@
     padding-top: 10px;
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    padding-right: 40px;
+    width: 100vw;
+    overflow: hidden;
 
-    a,
-    button {
-      text-decoration: none;
-      color: white;
-      font-size: inherit;
-      background: none;
-      border: none;
-      padding: 25px;
-      margin: 0 5px;
+    .nav-links {
+      position: absolute;
+      top: 0;
+      right: 40px;
 
-      &.sign-in {
-        background: #ffffff;
-        border-radius: 20px;
-        padding: 4px 25px;
-        color: $color-primary;
-        box-shadow: 0px 0px 15px -2px #ffffff;
-        margin: 0 10px;
+      a,
+      button {
+        text-decoration: none;
+        color: white;
+        font-size: inherit;
+        background: none;
+        border: none;
+        padding: 25px;
+        margin: 0 5px;
+
+        &.sign-in {
+          background: #ffffff;
+          border-radius: 20px;
+          padding: 4px 25px;
+          color: $color-primary;
+          box-shadow: 0px 0px 15px -2px #ffffff;
+          margin: 0 10px;
+        }
       }
     }
   }
@@ -150,13 +152,15 @@
     }
 
     nav {
-      a,
-      button {
-        color: #000000;
-        padding: 25px 10px;
+      .nav-links {
+        a,
+        button {
+          color: #000000;
+          padding: 25px 10px;
 
-        &.sign-in {
-          padding: inherit;
+          &.sign-in {
+            padding: inherit;
+          }
         }
       }
     }

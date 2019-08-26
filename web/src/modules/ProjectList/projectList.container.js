@@ -6,7 +6,8 @@ import { action } from 'Src/utils';
 
 const mapDispatchToProps = dispatch => ({
   fetchProjects: () => dispatch(action(PROJECT.LIST.REQUEST)),
-  fetchUserProjects: () => dispatch(action(USER_PROJECT.LIST.REQUEST))
+  fetchUserProjects: () => dispatch(action(USER_PROJECT.LIST.REQUEST)),
+  clearProjects: () => dispatch(action(PROJECT.LIST.RECEIVE, []))
 });
 
 const mapStateToProps = state => ({

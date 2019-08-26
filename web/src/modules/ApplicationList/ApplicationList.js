@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ApplicationListItem from 'Src/modules/ApplicationListItem';
+import Loader from 'Src/modules/Loader';
 
 class ApplicationList extends Component {
   static propTypes = {
     fetchApplications: PropTypes.func.isRequired,
+    clearApplications: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     applications: PropTypes.arrayOf(
       PropTypes.shape({
         projectTitle: PropTypes.string.isRequired,
@@ -25,14 +28,22 @@ class ApplicationList extends Component {
     this.props.fetchApplications();
   }
 
+  componentWillUnmount() {
+    this.props.clearApplications();
+  }
+
   render() {
     return (
       <div className="application-list">
-        {this.props.applications.map((application, i) => (
-          <div key={`application_${i}`}>
-            <ApplicationListItem {...application} />
-          </div>
-        ))}
+        {this.props.isLoading ? (
+          <Loader />
+        ) : (
+          this.props.applications.map((application, i) => (
+            <div key={`application_${i}`}>
+              <ApplicationListItem {...application} />
+            </div>
+          ))
+        )}
       </div>
     );
   }

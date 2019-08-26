@@ -15,3 +15,11 @@ body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
 }
+
+.load-indicator {
+  width: 100%;
+
+  .loader-container {
+    min-height: 100vh;
+  }
+}

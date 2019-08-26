@@ -13,31 +13,31 @@ class Home extends Component {
         <img className="obj1" src={Object1} />
         <img className="obj2" src={Object2} />
         <section className="hero">
+          <nav>
+            <div className="logo">
+              <MiCMLogo />
+            </div>
+            <div className="nav-links">
+              <button
+                onClick={() =>
+                  this.about.scrollIntoView({ behavior: 'smooth' })
+                }
+              >
+                About
+              </button>
+              <button
+                onClick={() =>
+                  this.contact.scrollIntoView({ behavior: 'smooth' })
+                }
+              >
+                Contact Us
+              </button>
+              <Link className="sign-in" to="/signin">
+                Sign In
+              </Link>
+            </div>
+          </nav>
           <div className="left">
-            <nav>
-              <div className="logo">
-                <MiCMLogo />
-              </div>
-              <div>
-                <button
-                  onClick={() =>
-                    this.about.scrollIntoView({ behavior: 'smooth' })
-                  }
-                >
-                  About
-                </button>
-                <button
-                  onClick={() =>
-                    this.contact.scrollIntoView({ behavior: 'smooth' })
-                  }
-                >
-                  Contact Us
-                </button>
-                <Link className="sign-in" to="/signin">
-                  Sign In
-                </Link>
-              </div>
-            </nav>
             <div className="title">Project Match</div>
             <div className="sub-title">
               McGill Initiative in Computational Medicine

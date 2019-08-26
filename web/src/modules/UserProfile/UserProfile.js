@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Heading from 'Src/modules/Heading';
 import { withRouter } from 'react-router-dom';
+import Loader from 'Src/modules/Loader';
 import './userProfile.scss';
 
 class UserProfile extends Component {
@@ -33,7 +34,9 @@ class UserProfile extends Component {
     }),
     id: PropTypes.string,
     history: PropTypes.object.isRequired,
-    fetchUser: PropTypes.func.isRequired
+    fetchUser: PropTypes.func.isRequired,
+    clearUser: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired
   };
 
   componentDidMount() {
@@ -44,9 +47,15 @@ class UserProfile extends Component {
       });
   }
 
+  componentWillUnmount() {
+    this.props.clearUser();
+  }
+
   render() {
     const user = this.props.public ? this.props.publicUser : this.props.user;
-    return (
+    return this.props.isLoading ? (
+      <Loader />
+    ) : (
       <div className="user-profile">
         <Heading hideUnderline>{`${user.firstName} ${user.lastName}`}</Heading>
         <div className="type">{user.type.toLowerCase()}</div>
