@@ -1,0 +1,47 @@
+@import 'Src/core/common.scss';
+
+.user-list {
+  padding: 20px 0;
+
+  .user {
+    padding: 15px 0;
+    border-bottom: solid thin rgba(100, 100, 100, 0.2);
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      color: #000000;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    button {
+      padding: 5px 10px;
+      border: none;
+      color: #ffffff;
+      border-radius: 5px;
+      background: $color-primary;
+    }
+
+    .user-type {
+      text-transform: capitalize;
+      font-size: 0.8rem;
+      font-weight: 400;
+      margin-top: 5px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+
+      button:first-child {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

@@ -32,7 +32,6 @@ function* approveProfessor({ payload }) {
 }
 
 function* disapproveProfessor({ payload }) {
-  console.log(payload);
   const data = yield call(request, `/admin/professors/${payload}/disapprove`);
   if (data.success) {
     yield put(action(PROFESSOR_LIST.REQUEST));

@@ -54,11 +54,32 @@ const disapproveProfessor = Joi.object({
   }).required()
 });
 
+const makeAdmin = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
+const makeProfessor = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
+const makeStudent = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
 export default {
   updateUser,
   updateProfessor,
   details,
   contactUs,
   approveProfessor,
-  disapproveProfessor
+  disapproveProfessor,
+  makeAdmin,
+  makeProfessor,
+  makeStudent
 };

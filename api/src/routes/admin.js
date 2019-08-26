@@ -37,11 +37,39 @@ function disapproveMatch(req, res) {
     .catch(errorHandler(res));
 }
 
+function listUsers(req, res) {
+  User.listUsers()
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
+function makeAdmin(req, res) {
+  User.makeAdmin(req.params.id)
+    .then(okHandler(res))
+    .catch(errorHandler(res));
+}
+
+function makeProfessor(req, res) {
+  User.makeProfessor(req.params.id)
+    .then(okHandler(res))
+    .catch(errorHandler(res));
+}
+
+function makeStudent(req, res) {
+  User.makeProfessor(req.params.id)
+    .then(okHandler(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   listProfessors,
   approveProfessor,
   disapproveProfessor,
   listMatches,
   approveMatch,
-  disapproveMatch
+  disapproveMatch,
+  makeAdmin,
+  makeProfessor,
+  listUsers,
+  makeStudent
 };

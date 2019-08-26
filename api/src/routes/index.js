@@ -208,6 +208,25 @@ router.post(
 
 router.post('/contact', validator(schemas.user.contactUs), user.contactUs);
 
+router.get('/admin/users/list', adminAccess, admin.listUsers);
+router.get(
+  '/admin/users/:id/make-admin',
+  validator(schemas.user.makeAdmin),
+  adminAccess,
+  admin.makeAdmin
+);
+router.get(
+  '/admin/users/:id/make-professor',
+  validator(schemas.user.makeProfessor),
+  adminAccess,
+  admin.makeProfessor
+);
+router.get(
+  '/admin/users/:id/make-student',
+  validator(schemas.user.makeStudent),
+  adminAccess,
+  admin.makeStudent
+);
 router.get('/admin/professors/list', adminAccess, admin.listProfessors);
 router.get(
   '/admin/professors/:id/approve',

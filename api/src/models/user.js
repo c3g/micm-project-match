@@ -300,6 +300,50 @@ function disapproveProfessor(id) {
   );
 }
 
+function makeAdmin(id) {
+  return db.query(
+    `
+    UPDATE user_account
+       SET type = 'ADMIN'
+     WHERE id = @id
+    `,
+    { id }
+  );
+}
+
+function makeProfessor(id) {
+  return db.query(
+    `
+    UPDATE user_account
+       SET type = 'PROFESSOR'
+     WHERE id = @id
+    `,
+    { id }
+  );
+}
+
+function makeStudent(id) {
+  return db.query(
+    `
+    UPDATE user_account
+       SET type = 'STUDENT'
+     WHERE id = @id
+    `,
+    { id }
+  );
+}
+
+function listUsers() {
+  return db.selectAll(`
+    SELECT first_name,
+           last_name,
+           type,
+           approved,
+           id
+      FROM user_account
+  `);
+}
+
 export default {
   create,
   findById,
@@ -317,5 +361,9 @@ export default {
   approveProfessor,
   disapproveProfessor,
   unapprovedProfessorCount,
-  listAdmins
+  listAdmins,
+  listUsers,
+  makeProfessor,
+  makeAdmin,
+  makeStudent
 };

@@ -21,6 +21,7 @@ import { applicationDetailsSaga } from 'Src/modules/ApplicationDetails';
 import { appliedProjectsListSaga } from 'Src/modules/AppliedProjectsList';
 import { contactUsFormSaga } from 'Src/modules/ContactUsForm';
 import { professorListSaga } from 'Src/modules/ProfessorList';
+import { userListSaga } from 'Src/modules/UserList';
 import { matchListSaga } from 'Src/modules/MatchList';
 import { LOGIN } from 'Src/constants/actionTypes';
 
@@ -57,7 +58,8 @@ export function* rootSaga() {
     appliedProjectsListSaga(),
     professorListSaga(),
     matchListSaga(),
-    contactUsFormSaga()
+    contactUsFormSaga(),
+    userListSaga()
   ]);
 }
 

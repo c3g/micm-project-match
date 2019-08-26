@@ -1,0 +1,9 @@
+.users-page {
+  padding: 60px;
+}
+
+@media only screen and (max-width: 600px) {
+  .users-page {
+    padding: 60px 30px;
+  }
+}

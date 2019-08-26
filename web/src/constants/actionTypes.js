@@ -29,6 +29,10 @@ export const DISAPPROVE_PROFESSOR = createNetworkConstants(
 export const MATCH_LIST = createNetworkConstants('MATCH_LIST');
 export const APPROVE_MATCH = createNetworkConstants('APPROVE_MATCH');
 export const DISAPPROVE_MATCH = createNetworkConstants('DISAPPROVE_MATCH');
+export const USER_LIST = createNetworkConstants('USER_LIST');
+export const MAKE_ADMIN = createNetworkConstants('MAKE_ADMIN');
+export const MAKE_PROFESSOR = createNetworkConstants('MAKE_PROFESSOR');
+export const MAKE_STUDENT = createNetworkConstants('MAKE_STUDENT');
 
 export const PROJECT = createModelConstants('PROJECT');
 export const KEYWORD = createModelConstants('KEYWORD');

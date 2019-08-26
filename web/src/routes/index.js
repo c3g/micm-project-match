@@ -21,8 +21,17 @@ import ApplicationLetter from './ApplicationLetter';
 import AppliedProjects from './AppliedProjects';
 import Professors from './Professors';
 import Matches from './Matches';
+import Users from './Users';
 
 export default [
+  {
+    name: 'Users',
+    pathname: '/Users',
+    component: Users,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Users'
+  },
   {
     name: 'Matches',
     pathname: '/matches',
