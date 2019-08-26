@@ -72,6 +72,12 @@ const makeStudent = Joi.object({
   }).required()
 });
 
+const getCv = Joi.object({
+  params: Joi.object({
+    id: Joi.string().required()
+  }).required()
+});
+
 export default {
   updateUser,
   updateProfessor,
@@ -81,5 +87,6 @@ export default {
   disapproveProfessor,
   makeAdmin,
   makeProfessor,
-  makeStudent
+  makeStudent,
+  getCv
 };

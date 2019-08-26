@@ -132,7 +132,7 @@ export default [
     name: 'CVSetup',
     pathname: '/cv-setup',
     component: CVSetup,
-    access: [k.PROFESSOR, k.STUDENT],
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
     withAuth: true
   },
   {

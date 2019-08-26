@@ -76,6 +76,7 @@ router.post(
   user.updateProfessor
 );
 router.post('/cv/update', upload.single('cv'), allAccess, user.updateCv);
+router.get('/cv/:id', validator(schemas.user.getCv), allAccess, user.getCv);
 
 router.get('/user/project/list', setupAccess, project.listUserProjects);
 router.post(

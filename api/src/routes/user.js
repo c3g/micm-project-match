@@ -79,6 +79,13 @@ function contactUs(req, res) {
   sendContactUsMail(req.body).then(okHandler(res));
 }
 
+function getCv(req, res) {
+  User.findById(req.params.id)
+    .then(user => File.getFile({ Key: user.cvKey }))
+    .then(file => file.createReadStream().pipe(res))
+    .catch(errorHandler(res));
+}
+
 export default {
   userData,
   updateUser,
@@ -86,5 +93,6 @@ export default {
   updateCv,
   oauthData,
   details,
-  contactUs
+  contactUs,
+  getCv
 };

@@ -24,17 +24,24 @@
         &:last-child {
           font-weight: 400;
         }
+      }
 
-        &.blue {
-          background: none;
-          font-size: inherit;
-          border: none;
-          cursor: pointer;
-          color: $color-primary;
-          font-weight: 700;
-          font-weight: 1rem;
-          text-decoration: none;
-        }
+      .view-cv {
+        background: $color-primary;
+        border: none;
+        border-radius: 5px;
+        color: #ffffff;
+        font-size: 0.9rem;
+        margin-right: 20px;
+        padding: 4px 20px;
+        text-decoration: none;
+      }
+
+      .blue {
+        font-size: inherit;
+        color: $color-primary;
+        font-weight: 700;
+        text-decoration: none;
       }
     }
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Heading from 'Src/modules/Heading';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import Loader from 'Src/modules/Loader';
 import './userProfile.scss';
 
@@ -84,10 +84,28 @@ class UserProfile extends Component {
           )}
           {(!this.props.public || user.cvUploaded) && (
             <div>
-              <span>CV</span>
-              <button className="blue">
-                {user.cvUploaded ? 'View' : 'Upload'}
-              </button>
+              <span>Resume</span>
+              {user.cvUploaded ? (
+                <>
+                  <a
+                    href={`/api/cv/${user.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="view-cv"
+                  >
+                    View
+                  </a>
+                  {!this.props.public && (
+                    <Link to="/cv-setup" className="blue">
+                      Update
+                    </Link>
+                  )}
+                </>
+              ) : (
+                <Link to="/cv-setup" className="blue">
+                  Upload
+                </Link>
+              )}
             </div>
           )}
         </div>
