@@ -52,7 +52,7 @@ export default [
     name: 'AppliedProjects',
     pathname: '/applied-projects',
     component: AppliedProjects,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    access: [k.PROFESSOR, k.STUDENT],
     withAuth: true,
     withSidebar: 'Applied Projects'
   },
@@ -60,7 +60,7 @@ export default [
     name: 'ApplicationLetter',
     pathname: '/application-letter',
     component: ApplicationLetter,
-    access: [k.PROFESSOR, k.ADMIN],
+    access: [k.PROFESSOR],
     withAuth: true,
     withSidebar: true
   },
@@ -68,7 +68,7 @@ export default [
     name: 'Applications',
     pathname: '/applications',
     component: Applications,
-    access: [k.PROFESSOR, k.ADMIN],
+    access: [k.PROFESSOR],
     withAuth: true,
     withSidebar: 'Applications'
   },
@@ -76,7 +76,7 @@ export default [
     name: 'UpdateProject',
     pathname: '/update-project',
     component: UpdateProject,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    access: [k.PROFESSOR, k.STUDENT],
     withAuth: true,
     withSidebar: true
   },
@@ -84,7 +84,7 @@ export default [
     name: 'Projects',
     pathname: '/projects',
     component: Projects,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    access: [k.PROFESSOR, k.STUDENT],
     withAuth: true,
     withSidebar: 'My Projects'
   },
@@ -100,7 +100,7 @@ export default [
     name: 'Application',
     pathname: '/application',
     component: Application,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    access: [k.PROFESSOR, k.STUDENT],
     withAuth: true,
     withSidebar: true
   },
@@ -124,7 +124,7 @@ export default [
     name: 'CreateProject',
     pathname: '/create-project',
     component: CreateProject,
-    access: [k.PROFESSOR, k.ADMIN],
+    access: [k.PROFESSOR],
     withAuth: true,
     withSidebar: 'Create Project'
   },
@@ -132,7 +132,7 @@ export default [
     name: 'CVSetup',
     pathname: '/cv-setup',
     component: CVSetup,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    access: [k.PROFESSOR, k.STUDENT],
     withAuth: true
   },
   {

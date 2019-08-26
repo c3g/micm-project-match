@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Heading from 'Src/modules/Heading';
 import { withRouter, Link } from 'react-router-dom';
 import Loader from 'Src/modules/Loader';
+import * as k from 'Src/constants/values';
 import './userProfile.scss';
 
 class UserProfile extends Component {
@@ -82,7 +83,7 @@ class UserProfile extends Component {
               </div>
             </>
           )}
-          {(!this.props.public || user.cvUploaded) && (
+          {(!this.props.public || user.cvUploaded) && user.type !== k.ADMIN && (
             <div>
               <span>Resume</span>
               {user.cvUploaded ? (

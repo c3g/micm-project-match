@@ -11,7 +11,6 @@ class ProjectList extends Component {
     fetchUserProjects: PropTypes.func.isRequired,
     userProjects: PropTypes.bool,
     clearProjects: PropTypes.func.isRequired,
-    clearUserProjects: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired
   };
 
