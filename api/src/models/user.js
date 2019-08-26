@@ -259,6 +259,25 @@ function listProfessors() {
   `);
 }
 
+function unapprovedProfessorCount() {
+  return db.selectOne(`
+    SELECT COUNT(*)
+      FROM user_account
+     WHERE type = 'PROFESSOR'
+           AND approved = false
+  `);
+}
+
+function listAdmins() {
+  return db.selectAll(`
+    SELECT first_name,
+           last_name,
+           email
+      FROM user_account
+     WHERE type = 'ADMIN'
+  `);
+}
+
 function approveProfessor(id) {
   return db.query(
     `
@@ -296,5 +315,7 @@ export default {
   findProfessorById,
   listProfessors,
   approveProfessor,
-  disapproveProfessor
+  disapproveProfessor,
+  unapprovedProfessorCount,
+  listAdmins
 };

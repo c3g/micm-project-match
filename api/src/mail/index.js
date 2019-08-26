@@ -8,7 +8,8 @@ import setPasswordMail from './setPasswordMail';
 import verificationMail from './verificationMail';
 import updateMail from './updateMail';
 import contactUsMail from './contactUsMail';
-import { Application } from '../models';
+import adminUpdateMail from './adminUpdateMail';
+import { Application, User } from '../models';
 
 const transporter = nodemailer.createTransport({
   SES: new aws.SES()
@@ -72,6 +73,18 @@ function sendUpdateMail(data) {
   });
 }
 
+function sendAdminUpdateMail(count, admin) {
+  const { firstName, lastName, email } = admin;
+  const html = adminUpdateMail(firstName, lastName, email, count.count);
+
+  return transporter.sendMail({
+    from,
+    to: email,
+    subject: 'Professors waiting approval',
+    html
+  });
+}
+
 function wait(n) {
   return new Promise(res => setTimeout(() => res(), 1500 * n));
 }
@@ -85,5 +98,17 @@ export function weeklyEmailUpdates() {
         )
       )
       .then(() => Application.setNotified())
+      .then(() => {
+        const count = User.unapprovedProfessorCount();
+        const admins = User.listAdmins();
+        return Promise.all([count, admins]);
+      })
+      .then(([count, admins]) =>
+        Promise.all(
+          admins.map((admin, i) =>
+            wait(i).then(() => sendAdminUpdateMail(count, admin))
+          )
+        )
+      )
   );
 }
