@@ -41,3 +41,12 @@ From the project root follow this to run the project with docker:
 ```
 docker-compose up
 ```
+
+## Google Summer of Code 2019
+This repository was made for [Google Summer of Code](https://summerofcode.withgoogle.com/ "Google Summer of Code - Home") 2019 for the project [MiCM Project Match](https://summerofcode.withgoogle.com/projects/#6634545296703488 "Project Description") under [Canadian Center for Computational Genomics](https://summerofcode.withgoogle.com/organizations/5303751997390848/ "Organization page").
+
+### Work Done
+The final commit as part of the Google Summer of Code 2019 program is [30e1e2a](https://github.com/pranavtharoor/micm-project-match/commit/30e1e2aebbb49c78bcbf830e4d27f279c6a591f0). All commits done before this (on and before Aug 26, 2019) was done as part of the program.
+
+### Work Left
+Any remaining work has been detailed in the [issues page](https://github.com/pranavtharoor/micm-project-match/issues "Issues Page") of this repository. Remaining work mainly comprises of small bug fixes.
