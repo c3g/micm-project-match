@@ -1,10 +1,12 @@
-export const axis = ['Axis 1', 'Axis 2', 'Axis 3'];
+export const axis = [
+  'Life science research',
+  'Clinical research',
+  'Population health research'
+];
 export const organizations = [
-  'Organization 1',
-  'Organization 2',
-  'Organization 3',
-  'Organization 4',
-  'Organization 5',
-  'Organization 6',
-  'Organization 7'
+  'McGill Interdisciplinary Initiative in Infection and Immunity (MI4)',
+  'Healthy Brains & Healthy Lives (HBHL)',
+  'McGill Cancer Consortium (MC2)',
+  'MUHC-RI',
+  'Jewish General Hospital'
 ];

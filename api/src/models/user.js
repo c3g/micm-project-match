@@ -341,6 +341,7 @@ function listUsers() {
            approved,
            id
       FROM user_account
+     WHERE user_account.type != 'UNSET'
   `);
 }
 
