@@ -111,6 +111,7 @@ function selectAll(isAdmin = false) {
            project.title,
            project.abstract,
            project.author_id,
+           project.approved as "projectApproved",
            user_account.first_name,
            user_account.last_name,
            user_account.approved,
@@ -136,7 +137,8 @@ function listUserProjects(id) {
            project.title,
            project.abstract,
            project.author_id,
-           project.approved
+           project.approved,
+           project.approved as "projectApproved"
       FROM project
      WHERE project.author_id = @id
            OR project.chosen_id = @id

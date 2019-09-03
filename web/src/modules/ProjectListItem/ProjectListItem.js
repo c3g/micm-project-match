@@ -22,14 +22,14 @@ const ProjectListItem = ({
     id,
     authorId,
     tags,
-    approved
+    projectApproved
   }
 }) => (
   <div className="project-list-item">
     <Link to={`/project/${id}`} className="details">
       <div className="title">
         <div>{title}</div>
-        <div className="approved">{approved && 'Approved'}</div>
+        <div className="approved">{projectApproved && 'Approved'}</div>
       </div>
       <div className="abstract">
         {abstract.substring(0, 335)}
@@ -60,7 +60,8 @@ ProjectListItem.propTypes = {
     id: PropTypes.number.isRequired,
     authorId: PropTypes.number.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string),
-    approved: PropTypes.bool.isRequired
+    approved: PropTypes.bool,
+    projectApproved: PropTypes.bool.isRequired
   }).isRequired
 };
 
