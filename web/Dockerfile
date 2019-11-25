@@ -2,6 +2,7 @@ FROM node:10-alpine AS build
 WORKDIR /usr/src/web
 COPY ./web/package*.json ./
 ENV SASS_BINARY_NAME linux-x64-64
+RUN apk add --update git
 RUN npm install --silent
 COPY ./web/ .
 RUN npm run build
