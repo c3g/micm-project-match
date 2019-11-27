@@ -89,8 +89,12 @@ function wait(n) {
   return new Promise(res => setTimeout(() => res(), 1500 * n));
 }
 
-export function weeklyEmailUpdates() {
-  schedule.scheduleJob('0 0 * * 0', () =>
+export function scheduledEmailUpdates() {
+
+  /* everyday at 8am */
+  const interval = '0 8 * * *'
+
+  schedule.scheduleJob(interval, () =>
     Application.getUnnotified()
       .then(users =>
         Promise.all(

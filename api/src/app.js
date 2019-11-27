@@ -6,7 +6,7 @@ import passport from 'passport';
 import session from './config/session';
 import routes from './routes';
 import passportConfig from './config/passport';
-import { weeklyEmailUpdates } from './mail';
+import { scheduledEmailUpdates } from './mail';
 
 const app = express();
 
@@ -21,6 +21,6 @@ passportConfig(passport);
 
 app.use('/api', routes(passport));
 
-weeklyEmailUpdates();
+scheduledEmailUpdates();
 
 export default app;
