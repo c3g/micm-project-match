@@ -5,6 +5,7 @@ const actionHandlers = {
   [SNACKBAR.INFO]: (s, a) => ({ ...s, message: a.payload, type: 'info' }),
   [SNACKBAR.SUCCESS]: (s, a) => ({ ...s, message: a.payload, type: 'success' }),
   [SNACKBAR.DANGER]: (s, a) => ({ ...s, message: a.payload, type: 'danger' }),
+  [SNACKBAR.WARNING]: (s, a) => ({ ...s, message: a.payload, type: 'warning' }),
   [SNACKBAR.CLEAR]: s => ({ ...s, ...initialState })
 };
 

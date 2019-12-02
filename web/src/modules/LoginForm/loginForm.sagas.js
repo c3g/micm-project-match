@@ -12,7 +12,7 @@ function* login({ payload }) {
       if (data.data.type === 'PROFESSOR' && data.data.approved === false)
         yield put(
           action(
-            SNACKBAR.INFO,
+            SNACKBAR.WARNING,
             'Your account has not been approved yet. Your projects will not be visible.'
           )
         );
