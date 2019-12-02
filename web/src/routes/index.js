@@ -26,7 +26,7 @@ import Users from './Users';
 export default [
   {
     name: 'Users',
-    pathname: '/Users',
+    pathname: '/users',
     component: Users,
     access: [k.ADMIN],
     withAuth: true,
