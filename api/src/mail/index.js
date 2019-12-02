@@ -74,12 +74,11 @@ function sendUpdateMail(data) {
 }
 
 function sendAdminUpdateMail(count, admin) {
-  const { firstName, lastName, email } = admin;
-  const html = adminUpdateMail(firstName, lastName, email, count.count);
+  const html = adminUpdateMail(admin, count.count);
 
   return transporter.sendMail({
     from,
-    to: email,
+    to: admin.email,
     subject: 'Professors waiting approval',
     html
   });

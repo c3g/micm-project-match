@@ -9,7 +9,7 @@ const name = (firstName, lastName) =>
     ? ` ${lastName}`
     : '';
 
-export default (firstName, lastName, email, count) => `
+export default (user, count) => `
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" type="text/css">
 <table
   width="600px"
@@ -28,12 +28,16 @@ export default (firstName, lastName, email, count) => `
 
   <tr>
     <td align="left" style="padding: 30px 0; padding-top: 50px;">
-      <span style="font-weight: 400;">Hey${name(firstName, lastName)},</span>
-      <br />There are ${count} professor(s) requesting for approval.
+      <span style="font-weight: 400;">Hey${name(user.firstName, user.lastName)},</span><br />
+      <br />
+      There are ${count} professor(s) waiting for approval.
     </td>
   </tr>
   <tr>
-    <td style="padding: 20px 0;">Regards,<br />MiCM Project Match</td>
+    <td style="padding: 20px 0;">
+      Regards,<br />
+      MiCM Project Match
+    </td>
   </tr>
 </table>
 `;
