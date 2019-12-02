@@ -9,12 +9,19 @@ function* login({ payload }) {
     const data = yield call(request, '/login', payload);
     if (data.success) {
       yield put(action(LOGIN.RECEIVE, data.data));
+      if (data.data.type === 'PROFESSOR' && data.data.approved === false)
+        yield put(
+          action(
+            SNACKBAR.INFO,
+            'Your account has not been approved yet. Your projects will not be visible.'
+          )
+        );
     } else {
       yield put(action(LOGIN.ERROR));
       yield put(action(SNACKBAR.DANGER, data.message));
     }
   }
-  yield delay(3000);
+  yield delay(10000);
   yield put(action(SNACKBAR.CLEAR));
 }
 
