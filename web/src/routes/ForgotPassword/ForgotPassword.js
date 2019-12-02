@@ -11,7 +11,7 @@ const ForgotPassword = () => (
     <Navbar>
       <Link to="/">Home</Link>
       <Link to="/signin">
-        <RoundedButton>Sign In</RoundedButton>
+        <RoundedButton>Log In</RoundedButton>
       </Link>
       <Link to="/signup">
         <RoundedButton>Sign Up</RoundedButton>

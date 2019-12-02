@@ -33,7 +33,7 @@ class Home extends Component {
                 Contact Us
               </button>
               <Link className="sign-in" to="/signin">
-                Sign In
+                Log In
               </Link>
             </div>
           </nav>

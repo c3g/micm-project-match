@@ -15,7 +15,7 @@ const Login = () => (
       </Link>
     </Navbar>
     <div className="heading-container">
-      <Heading>Sign In</Heading>
+      <Heading>Log In</Heading>
     </div>
     <div className="form-container">
       <LoginForm />

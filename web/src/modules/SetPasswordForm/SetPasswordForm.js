@@ -44,7 +44,7 @@ let SetPasswordForm = props => (
         <div>Your password has been updated successfully.</div>
         <div className="centered-button">
           <Link to="/signin">
-            <RoundedButton>Sign In</RoundedButton>
+            <RoundedButton>Log In</RoundedButton>
           </Link>
         </div>
       </div>

@@ -11,7 +11,7 @@ const Register = () => (
     <Navbar>
       <Link to="/">Home</Link>
       <Link to="/signin">
-        <RoundedButton>Sign In</RoundedButton>
+        <RoundedButton>Log In</RoundedButton>
       </Link>
     </Navbar>
     <div className="heading-container">
