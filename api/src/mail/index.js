@@ -94,25 +94,35 @@ export function scheduledEmailUpdates() {
   /* everyday at 8am */
   const interval = '0 8 * * *'
 
-  schedule.scheduleJob(interval, () =>
-    Application.getUnnotified()
-      .then(users =>
-        Promise.all(
-          users.map((user, i) => wait(i).then(() => sendUpdateMail(user)))
-        )
+  schedule.scheduleJob(interval, sendEmailUpdate);
+}
+
+function sendEmailUpdate() {
+
+  // Application notifications
+  Application.getUnnotified()
+  .then(users =>
+    Promise.all(
+      users.map((user, i) => wait(i).then(() => sendUpdateMail(user)))
+    )
+  )
+  .then(() => Application.setNotified())
+
+  // Pending-approval professors
+  Promise.resolve()
+  .then(() => {
+    const count = User.unapprovedProfessorCount();
+    const admins = User.listAdmins();
+    return Promise.all([count, admins]);
+  })
+  .then(([count, admins]) => {
+    if (count === 0)
+      return Promise.resolve()
+
+    return Promise.all(
+      admins.map((admin, i) =>
+        wait(i).then(() => sendAdminUpdateMail(count, admin))
       )
-      .then(() => Application.setNotified())
-      .then(() => {
-        const count = User.unapprovedProfessorCount();
-        const admins = User.listAdmins();
-        return Promise.all([count, admins]);
-      })
-      .then(([count, admins]) =>
-        Promise.all(
-          admins.map((admin, i) =>
-            wait(i).then(() => sendAdminUpdateMail(count, admin))
-          )
-        )
-      )
-  );
+    )
+  })
 }
