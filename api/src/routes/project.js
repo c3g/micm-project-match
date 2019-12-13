@@ -5,24 +5,12 @@ import { rejectMessage } from '../utils/promise';
 import k from '../constants';
 
 function create(req, res) {
-  function uploadFiles(project) {
-    return req.files.map(file =>
-      File.upload({
-        Key: `projects/${project.id}/documents/${file.originalname}`,
-        Body: file.buffer,
-        ContentType: file.mimetype
-      }).then(fileData =>
-        Project.addDocument(fileData, project.id, file.originalname)
-      )
-    );
-  }
-
   Project.create({
     ...req.body,
     authorId: req.user.id
-  }).then(project => {
-    const fileUploads = uploadFiles(project);
-    Promise.all(fileUploads)
+  })
+  .then(project => {
+    uploadFiles(req.files, project)
       .then(() => dataHandler(res)(project))
       .catch(errorHandler(res));
   });
@@ -73,29 +61,14 @@ function deleteDocument(req, res) {
 }
 
 function createDocument(req, res) {
-  function uploadFiles(project) {
-    return req.files.map(file =>
-      File.upload({
-        Key: `projects/${project.id}/documents/${file.originalname}`,
-        Body: file.buffer,
-        ContentType: file.mimetype
-      }).then(fileData =>
-        Project.addDocument(fileData, project.id, file.originalname)
-      )
-    );
-  }
   Project.findById(req.body.id)
-    .then(project =>
-      project.authorId !== req.user.id && project.chosenId !== req.user.id
-        ? rejectMessage('Unauthorized', k.UNAUTHORIZED)
-        : project
-    )
-    .then(project => {
-      const fileUploads = uploadFiles(project);
-      Promise.all(fileUploads)
+  .then(project =>
+    hasAccess(req.user.id, project) === false ?
+      rejectMessage('Unauthorized', k.UNAUTHORIZED) :
+      uploadFiles(req.files, project)
         .then(() => dataHandler(res)(project))
-        .catch(errorHandler(res));
-    });
+        .catch(errorHandler(res))
+  );
 }
 
 function getDocument(req, res) {
@@ -125,3 +98,21 @@ export default {
   createDocument,
   getDocument
 };
+
+// Helpers
+
+function uploadFiles(files, project) {
+  return Promise.all(files.map(file =>
+    File.upload({
+      Key: `projects/${project.id}/documents/${file.originalname}`,
+      Body: file.buffer,
+      ContentType: file.mimetype
+    }).then(fileData =>
+      Project.addDocument(fileData, project.id, file.originalname)
+    )
+  ));
+}
+
+function hasAccess(userId, project) {
+  return project.authorId === userId || project.chosenId === userId;
+}
