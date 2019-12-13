@@ -20,7 +20,7 @@ const config = {
   }
 };
 
-export const clean = ({ cvLocation, ...data }) => ({
+export const clean = (data) => ({
   ...pick(
     [
       'id',
@@ -33,11 +33,11 @@ export const clean = ({ cvLocation, ...data }) => ({
       'approved',
       'verified',
       'professor',
-      'cvLocation'
+      'cvKey'
     ],
     data
   ),
-  cvUploaded: !!cvLocation
+  cvUploaded: !!data.cvKey
 });
 
 function localAuth(email, password, done) {

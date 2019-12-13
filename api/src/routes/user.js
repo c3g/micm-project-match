@@ -53,9 +53,7 @@ function updateCv(req, res) {
   File.upload(params)
     .then(file =>
       User.update({
-        cvLocation: file.Location,
         cvKey: file.Key,
-        cvBucket: file.Bucket,
         id: req.user.id
       })
     )

@@ -18,9 +18,7 @@ CREATE TABLE IF NOT EXISTS user_account (
   strategy     STRATEGY_TYPE DEFAULT 'LOCAL' NOT NULL,
   approved     BOOLEAN DEFAULT false NOT NULL,
   verified     BOOLEAN DEFAULT false NOT NULL,
-  cv_location  VARCHAR(400),
-  cv_key       VARCHAR(340),
-  cv_bucket    VARCHAR(64)
+  cv_key       VARCHAR(340)
 );
 
 
