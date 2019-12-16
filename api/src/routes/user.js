@@ -43,22 +43,20 @@ function updateProfessor(req, res) {
 }
 
 function updateCv(req, res) {
-  const params = {
-    Key: `users/${req.user.id}/cv/${req.user.firstName} ${
-      req.user.lastName
-    } - CV`,
-    Body: req.file.buffer,
-    ContentType: req.file.mimetype
-  };
-  File.upload(params)
-    .then(file =>
-      User.update({
-        cvKey: file.Key,
-        id: req.user.id
-      })
-    )
-    .then(okHandler(res))
-    .catch(errorHandler(res));
+  const { firstName, lastName } = req.user
+  File.upload(
+    `users/${req.user.id}/cv/${firstName} ${lastName} - CV`,
+    req.file.mimetype,
+    req.file.buffer,
+  )
+  .then(file =>
+    User.update({
+      id: req.user.id,
+      cvKey: file.Key,
+    })
+  )
+  .then(okHandler(res))
+  .catch(errorHandler(res));
 }
 
 function oauthData(req, res) {
@@ -79,7 +77,7 @@ function contactUs(req, res) {
 
 function getCv(req, res) {
   User.findById(req.params.id)
-    .then(user => File.getFile({ Key: user.cvKey }))
+    .then(user => File.getFile(user.cvKey))
     .then(file => file.createReadStream().pipe(res))
     .catch(errorHandler(res));
 }

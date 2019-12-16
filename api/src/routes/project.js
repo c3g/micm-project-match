@@ -55,7 +55,7 @@ function listUserProjects(req, res) {
 
 function deleteDocument(req, res) {
   Project.deleteDocument(req.params.id, req.user.id)
-    .then(doc => File.deleteObject({ Key: doc.key }))
+    .then(doc => File.deleteObject(doc.key))
     .then(okHandler(res))
     .catch(errorHandler(res));
 }
@@ -74,14 +74,14 @@ function createDocument(req, res) {
 function getDocument(req, res) {
   Project.projectId(req.params.id, req.user.id)
     .then(() => Project.findDocumentById(req.params.id))
-    .then(document => File.getFile({ Key: document.key }))
+    .then(document => File.getFile(document.key))
     .then(file => file.createReadStream().pipe(res))
     .catch(
       err =>
         (err.type =
           k.PROJECT_NOT_FOUND && req.user.type === k.USER_TYPE.ADMIN
             ? Project.findDocumentById(req.params.id)
-                .then(document => File.getFile({ Key: document.key }))
+                .then(document => File.getFile(document.key))
                 .then(file => file.createReadStream().pipe(res))
             : errorHandler(res)(err))
     );
@@ -103,11 +103,12 @@ export default {
 
 function uploadFiles(files, project) {
   return Promise.all(files.map(file =>
-    File.upload({
-      Key: `projects/${project.id}/documents/${file.originalname}`,
-      Body: file.buffer,
-      ContentType: file.mimetype
-    }).then(fileData =>
+    File.upload(
+      `projects/${project.id}/documents/${file.originalname}`,
+      file.mimetype,
+      file.buffer,
+    )
+    .then(fileData =>
       Project.addDocument(fileData, project.id, file.originalname)
     )
   ));
