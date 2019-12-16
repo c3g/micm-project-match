@@ -200,9 +200,9 @@ function update(project) {
     );
 }
 
-function addDocument(document, id, name) {
+function addDocument(location, id, name) {
   const data = {
-    key: document.Key,
+    key: location,
     projectId: id,
     name
   };

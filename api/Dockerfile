@@ -1,4 +1,5 @@
-FROM node:10-alpine
+FROM node:12-alpine
+RUN mkdir -p /var/micm/files
 WORKDIR /usr/src/api
 COPY ./api/package*.json ./
 RUN npm install --silent

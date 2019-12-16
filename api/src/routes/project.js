@@ -74,15 +74,15 @@ function createDocument(req, res) {
 function getDocument(req, res) {
   Project.projectId(req.params.id, req.user.id)
     .then(() => Project.findDocumentById(req.params.id))
-    .then(document => File.getFile(document.key))
-    .then(file => file.createReadStream().pipe(res))
+    .then(document => File.getFileStream(document.key))
+    .then(stream => stream.pipe(res))
     .catch(
       err =>
         (err.type =
           k.PROJECT_NOT_FOUND && req.user.type === k.USER_TYPE.ADMIN
             ? Project.findDocumentById(req.params.id)
-                .then(document => File.getFile(document.key))
-                .then(file => file.createReadStream().pipe(res))
+                .then(document => File.getFileStream(document.key))
+                .then(stream => stream.pipe(res))
             : errorHandler(res)(err))
     );
 }
@@ -102,16 +102,18 @@ export default {
 // Helpers
 
 function uploadFiles(files, project) {
-  return Promise.all(files.map(file =>
-    File.upload(
-      `projects/${project.id}/documents/${file.originalname}`,
+  return Promise.all(files.map(file => {
+    const location =
+      `projects/${project.id}/documents/${file.originalname}`
+    return File.upload(
+      location,
       file.mimetype,
       file.buffer,
     )
-    .then(fileData =>
-      Project.addDocument(fileData, project.id, file.originalname)
+    .then(() =>
+      Project.addDocument(location, project.id, file.originalname)
     )
-  ));
+  }));
 }
 
 function hasAccess(userId, project) {

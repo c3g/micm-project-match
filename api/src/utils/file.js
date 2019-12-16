@@ -1,31 +1,22 @@
-import aws from 'aws-sdk';
+import path from 'path';
+import fs, { promises as fsPromises } from 'fs';
 
-const s3 = new aws.S3();
-
-const defaultParams = {
-  Bucket: process.env.S3_BUCKET_NAME
-};
+const basePath = process.env.STORAGE_PATH
+const makeParentDir = filepath => fsPromises.mkdir(path.dirname(filepath), { recursive: true })
 
 export const upload = (location, mimeType, content) =>
-  new Promise((res, rej) =>
-    s3.upload({
-      ...defaultParams,
-      Key: location,
-      Body: content,
-      ContentType: mimeType
-    }, (err, data) => {
-      if (err) rej(err);
-      else res(data);
-    })
+  makeParentDir(path.join(basePath, location))
+  .then(() =>
+    fsPromises.writeFile(path.join(basePath, location), content)
   );
 
 export const deleteObject = location =>
-  new Promise((res, rej) =>
-    s3.deleteObject({ ...defaultParams, Key: location }, (err, data) => {
-      if (err) rej(err);
-      else res(data);
-    })
-  );
+  fsPromises.unlink(path.join(basePath, location));
 
 export const getFile = location =>
-  s3.getObject({ ...defaultParams, Key: location });
+  fsPromises.readFile(path.join(basePath, location));
+
+export const getFileStream = location =>
+  new Promise((resolve) => {
+    resolve(fs.createReadStream(path.join(basePath, location)));
+  });

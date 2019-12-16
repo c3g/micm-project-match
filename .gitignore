@@ -1,3 +1,6 @@
+# Project runtime files
+data
+
 # Logs
 logs
 *.log
