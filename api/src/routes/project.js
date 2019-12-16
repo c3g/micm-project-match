@@ -74,8 +74,8 @@ function createDocument(req, res) {
 function getDocument(req, res) {
   Project.projectId(req.params.id, req.user.id)
     .then(() => Project.findDocumentById(req.params.id))
-    .then(document => File.getFileStream(document.key))
-    .then(stream => stream.pipe(res))
+    .then(document => File.getFileLocation(document.key))
+    .then(filepath => res.download(filepath))
     .catch(
       err =>
         (err.type =
@@ -105,10 +105,14 @@ function uploadFiles(files, project) {
   return Promise.all(files.map(file => {
     const location =
       `projects/${project.id}/documents/${file.originalname}`
-    return File.upload(
-      location,
-      file.mimetype,
-      file.buffer,
+
+    return File.checkSize(file, 8)
+    .then(() =>
+      File.upload(
+        location,
+        file.mimetype,
+        file.buffer,
+      )
     )
     .then(() =>
       Project.addDocument(location, project.id, file.originalname)

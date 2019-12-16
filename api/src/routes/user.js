@@ -1,3 +1,4 @@
+import path from 'path';
 import User from '../models/user';
 import { Professor } from '../models';
 import { dataHandler, errorHandler, okHandler } from '../utils/handlers';
@@ -43,16 +44,22 @@ function updateProfessor(req, res) {
 }
 
 function updateCv(req, res) {
-  const { id, firstName, lastName } = req.user
-  const location = `users/${req.user.id}/cv/${id}_${firstName}_${lastName}`
-  File.upload(
-    location,
-    req.file.mimetype,
-    req.file.buffer,
+  const { file, user } = req
+  const { id, firstName, lastName } = user
+  const ext = path.extname(file.originalname)
+  const location = `users/${id}/cv/${firstName}_${lastName}${ext}`
+
+  return File.checkSize(file, 8)
+  .then(() =>
+    File.upload(
+      location,
+      file.mimetype,
+      file.buffer,
+    )
   )
   .then(() =>
     User.update({
-      id: req.user.id,
+      id: user.id,
       cvKey: location,
     })
   )
@@ -78,8 +85,10 @@ function contactUs(req, res) {
 
 function getCv(req, res) {
   User.findById(req.params.id)
-    .then(user => File.getFileStream(user.cvKey))
-    .then(stream => stream.pipe(res))
+    .then(user => File.getFileLocation(user.cvKey))
+    .then(filepath => {
+      res.download(filepath)
+    })
     .catch(errorHandler(res));
 }
 
