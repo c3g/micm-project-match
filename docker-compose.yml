@@ -9,6 +9,8 @@ services:
     networks:
       - micm-project-match-network
     container_name: micm-project-match-api
+    volumes:
+      - file-data:/var/micm/files
     depends_on:
       - db
       - redis
@@ -31,7 +33,7 @@ services:
       - GOOGLE_CALLBACK_URL=/api/auth/google/callback
       - OAUTH_SUCCESS_REDIRECT=/
       - OAUTH_FAILURE_REDIRECT=/signin
-      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - STORAGE_PATH=/var/micm/files
 
   db:
     build:
@@ -76,5 +78,6 @@ networks:
     name: micm-project-match-network
 
 volumes:
+  file-data:
   db-data:
   redis-data:
