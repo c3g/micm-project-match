@@ -202,9 +202,7 @@ function update(project) {
 
 function addDocument(document, id, name) {
   const data = {
-    location: document.Location,
     key: document.Key,
-    bucket: document.Bucket,
     projectId: id,
     name
   };
@@ -243,7 +241,7 @@ function projectId(id, userId) {
 
 function deleteDocument(id, userId) {
   return projectId(id, userId).then(() =>
-    db.query(
+    db.selectOne(
       `
         DELETE
           FROM project_document

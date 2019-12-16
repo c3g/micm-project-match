@@ -55,7 +55,7 @@ function listUserProjects(req, res) {
 
 function deleteDocument(req, res) {
   Project.deleteDocument(req.params.id, req.user.id)
-    .then(data => File.deleteObject({ Key: data.rows[0].key }))
+    .then(doc => File.deleteObject({ Key: doc.key }))
     .then(okHandler(res))
     .catch(errorHandler(res));
 }

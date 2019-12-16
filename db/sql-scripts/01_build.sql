@@ -77,9 +77,7 @@ CREATE TABLE IF NOT EXISTS project (
 
 CREATE TABLE IF NOT EXISTS project_document (
   id                SERIAL PRIMARY KEY,
-  location          VARCHAR(400),
   key               VARCHAR(340),
-  bucket            VARCHAR(64),
   name              VARCHAR(261),
   project_id        INT NOT NULL,
 
