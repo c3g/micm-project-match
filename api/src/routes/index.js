@@ -8,7 +8,11 @@ import tag from './tag';
 import admin from './admin';
 import project from './project';
 import application from './application';
-import isAuthenticated from '../utils/isAuthenticated';
+import Project from '../models/project';
+import {
+  isAuthenticated,
+  isAuthenticatedOrCondition
+} from '../utils/authentication';
 import k from '../constants';
 import { errorHandler } from '../utils/handlers';
 
@@ -31,6 +35,15 @@ const professorAccess = isAuthenticated([
   k.USER_TYPE.ADMIN
 ]);
 const adminAccess = isAuthenticated([k.USER_TYPE.ADMIN]);
+const adminOrProjectCreatorAccess = isAuthenticatedOrCondition(
+  [k.USER_TYPE.ADMIN],
+  async req => {
+    if (!req.user || !req.params.id) return false;
+    const project = await Project.findById(req.params.id);
+    if (req.user.id !== project.authorId) return false;
+    return true;
+  }
+);
 
 router.post('/register', validator(schemas.auth.register), auth.register);
 router.get(
@@ -94,6 +107,19 @@ router.post(
   professorAccess,
   project.create
 );
+router.get('/project/list', setupAccess, project.list);
+router.post(
+  '/project/search',
+  validator(schemas.project.search),
+  setupAccess,
+  project.search
+);
+router.get(
+  '/project/:id',
+  validator(schemas.project.details),
+  setupAccess,
+  project.details
+);
 router.post(
   '/project/update',
   upload.array('files'),
@@ -109,18 +135,10 @@ router.post(
   setupAccess,
   project.update
 );
-router.get('/project/list', setupAccess, project.list);
 router.post(
-  '/project/search',
-  validator(schemas.project.search),
-  setupAccess,
-  project.search
-);
-router.get(
-  '/project/:id',
-  validator(schemas.project.details),
-  setupAccess,
-  project.details
+  '/project/:id/delete',
+  adminOrProjectCreatorAccess,
+  project.deleteProject
 );
 
 router.post(

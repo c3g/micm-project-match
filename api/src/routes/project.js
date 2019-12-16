@@ -22,6 +22,12 @@ function update(req, res) {
     .catch(errorHandler(res));
 }
 
+function deleteProject(req, res) {
+  Project.deleteProject(req.params.id)
+    .then(dataHandler(res))
+    .catch(errorHandler(res));
+}
+
 function list(req, res) {
   Project.selectAll(req.user.type === k.USER_TYPE.ADMIN)
     .then(dataHandler(res))
@@ -90,6 +96,7 @@ function getDocument(req, res) {
 export default {
   create,
   update,
+  deleteProject,
   list,
   search,
   details,

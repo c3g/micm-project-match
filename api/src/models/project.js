@@ -200,6 +200,26 @@ function update(project) {
     );
 }
 
+function deleteProject(id) {
+  return db.query(
+    `
+      DELETE FROM project
+         SET ${mapping}
+       WHERE (
+               author_id = @userId
+               OR chosen_id = @userId
+             )
+             AND id = @id
+   RETURNING id
+    `, { id }
+  )
+  .then(res =>
+    res.rowCount === 0
+      ? rejectMessage('Project not found', k.PROJECT_NOT_FOUND)
+      : findById(id)
+  );
+}
+
 function addDocument(location, id, name) {
   const data = {
     key: location,
@@ -328,6 +348,7 @@ export default {
   details,
   listUserProjects,
   update,
+  deleteProject,
   addDocument,
   deleteDocument,
   findDocumentById,
