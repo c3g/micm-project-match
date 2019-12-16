@@ -1,14 +1,18 @@
 import 'whatwg-fetch';
 import { api } from 'Src/config/endpoints';
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 export default (route, data = null, file = false, endpoint = api) => {
-  process.env.NODE_ENV === 'development' &&
+  isDevelopment &&
     console.log(
       `Fetch: %c ${route} %c ${endpoint}`,
       'color: #66CC66',
       'color: #66FFFF'
     );
-  process.env.NODE_ENV === 'development' && console.log(data);
+
+  isDevelopment && console.log(data);
+
   return fetch(endpoint + route, {
     method: data ? 'POST' : 'GET',
     mode: 'cors',
@@ -24,7 +28,7 @@ export default (route, data = null, file = false, endpoint = api) => {
   })
     .then(res => res.json())
     .then(data => {
-      process.env.NODE_ENV === 'development' && console.table(data);
+      isDevelopment && console.table(data);
       if (data.success === undefined) data.success = false;
       return data;
     })
