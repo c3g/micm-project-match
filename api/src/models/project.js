@@ -201,22 +201,13 @@ function update(project) {
 }
 
 function deleteProject(id) {
-  return db.query(
-    `
-      DELETE FROM project
-         SET ${mapping}
-       WHERE (
-               author_id = @userId
-               OR chosen_id = @userId
-             )
-             AND id = @id
-   RETURNING id
-    `, { id }
-  )
+  return db.query(`DELETE FROM project_document WHERE project_id = @id`, { id })
+  .then(() => db.query(`DELETE FROM application WHERE project_id = @id`, { id }))
+  .then(() => db.query(`DELETE FROM project WHERE id = @id`, { id }))
   .then(res =>
     res.rowCount === 0
       ? rejectMessage('Project not found', k.PROJECT_NOT_FOUND)
-      : findById(id)
+      : true
   );
 }
 
