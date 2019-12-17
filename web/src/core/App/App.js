@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import routes from 'Src/routes';
 import Snackbar from 'Src/modules/Snackbar';
 import Favicon from 'react-favicon';
@@ -20,21 +20,19 @@ function getComponent(route) {
 const App = () => (
   <div>
     <Favicon url="/images/favicon.ico" />
-    <Router>
-      <div>
-        <Switch>
-          {routes.map(route => (
-            <Route
-              exact
-              key={route.pathname}
-              path={route.pathname}
-              component={getComponent(route)}
-            />
-          ))}
-        </Switch>
-        <Snackbar />
-      </div>
-    </Router>
+    <div>
+      <Switch>
+        {routes.map(route => (
+          <Route
+            exact
+            key={route.pathname}
+            path={route.pathname}
+            component={getComponent(route)}
+          />
+        ))}
+      </Switch>
+      <Snackbar />
+    </div>
   </div>
 );
 

@@ -2,13 +2,20 @@ import '@babel/polyfill';
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'Src/core/App';
 import { Provider } from 'react-redux';
-import store from 'Src/store';
+import { ConnectedRouter } from 'connected-react-router';
+import App from 'Src/core/App';
+import configureRootReducer from 'Src/core/rootReducer';
+import configureStore, { history } from 'Src/store';
+
+const rootReducer = configureRootReducer(history);
+const store = configureStore(rootReducer);
 
 let Root = () => (
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>
 );
 

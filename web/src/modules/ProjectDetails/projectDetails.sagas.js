@@ -1,6 +1,7 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
 import { PROJECT, DOCUMENT } from 'Src/constants/actionTypes';
+import { push } from 'connected-react-router';
 
 function* fetchProject({ payload }) {
   const [projectData, applicationData] = yield all([
@@ -14,7 +15,7 @@ function* fetchProject({ payload }) {
         application: applicationData.data
       })
     );
-  else yield payload.push('/');
+  else yield put(push('/'));
 }
 
 function* deleteProject({ payload }) {
@@ -32,7 +33,7 @@ function* deleteProject({ payload }) {
       })
     );
 
-  window.location.href = '/projects';
+  yield put(push('/projects'));
 }
 
 function* deleteDocument({ payload }) {
@@ -40,8 +41,7 @@ function* deleteDocument({ payload }) {
   if (data.success)
     yield put(
       action(PROJECT.FETCH.REQUEST, {
-        id: payload.projectId,
-        push: payload.push
+        id: payload.projectId
       })
     );
 }
@@ -54,8 +54,7 @@ function* createDocument({ payload }) {
   if (data.success)
     yield put(
       action(PROJECT.FETCH.REQUEST, {
-        id: payload.id,
-        push: payload.push
+        id: payload.id
       })
     );
 }

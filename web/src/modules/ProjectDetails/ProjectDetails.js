@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as jsPDF from 'jspdf';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
 import RoundedButton from 'Src/modules/RoundedButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,7 +19,6 @@ class ProjectDetails extends Component {
     id: PropTypes.string.isRequired,
     userType: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
-    history: PropTypes.object.isRequired,
     deleteDocument: PropTypes.func.isRequired,
     uploadDocuments: PropTypes.func.isRequired,
     project: PropTypes.shape({
@@ -54,11 +53,8 @@ class ProjectDetails extends Component {
   state = { dropzoneOpen: false, files: [] };
 
   componentDidMount() {
-    const {
-      history: { push },
-      id
-    } = this.props;
-    this.props.fetchProject({ push, id });
+    const { id } = this.props;
+    this.props.fetchProject({ id });
   }
 
   componentWillUnmount() {
@@ -360,8 +356,7 @@ class ProjectDetails extends Component {
                         onClick={() =>
                           this.props.deleteDocument({
                             id: document.id,
-                            projectId: this.props.project.id,
-                            push: this.props.history.push
+                            projectId: this.props.project.id
                           })
                         }
                       >
@@ -421,8 +416,7 @@ class ProjectDetails extends Component {
             onClick={() => {
               this.props.uploadDocuments({
                 files: this.state.files,
-                id: this.props.project.id,
-                push: this.props.history.push
+                id: this.props.project.id
               });
               this.setState({
                 dropzoneOpen: !this.state.dropzoneOpen,
@@ -494,4 +488,4 @@ class ProjectDetails extends Component {
   }
 }
 
-export default withRouter(ProjectDetails);
+export default ProjectDetails;
