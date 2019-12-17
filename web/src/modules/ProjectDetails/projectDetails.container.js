@@ -6,6 +6,7 @@ import ProjectDetails from './ProjectDetails';
 
 const mapDispatchToProps = dispatch => ({
   fetchProject: data => dispatch(action(PROJECT.FETCH.REQUEST, data)),
+  deleteProject: data => dispatch(action(PROJECT.DELETE.REQUEST, data)),
   deleteDocument: data => dispatch(action(DOCUMENT.DELETE.REQUEST, data)),
   uploadDocuments: data => dispatch(action(DOCUMENT.CREATE.REQUEST, data)),
   clearProject: () =>

@@ -1,16 +1,25 @@
 @import 'Src/core/common.scss';
 
 .rounded-button {
-  background: $color-primary;
   border-radius: 20px;
-  color: $text-color-primary;
   border: none;
   padding: 7px 25px;
   font-size: 1rem;
   outline: none;
 
+  color: $text-color-primary;
+  background: $color-primary;
+
   &:focus {
     border: solid 1px darken($color-primary, 20);
     margin: -1px;
   }
+
+  &.danger { background-color: $color-danger; }
+  &.primary { background-color: $color-primary; }
+  &.info { background-color: $color-info; }
+  &.success { background-color: $color-success; }
+  &.warning { background-color: $color-warning; }
+  &.disabled { background-color: $color-disabled; }
+  &.light { background-color: $color-light; }
 }

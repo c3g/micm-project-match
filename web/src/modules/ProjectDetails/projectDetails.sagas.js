@@ -17,6 +17,22 @@ function* fetchProject({ payload }) {
   else yield payload.push('/');
 }
 
+function* deleteProject({ payload }) {
+  const result = yield call(request, `/project/${payload.id}/delete`, true);
+  if (result.success)
+    yield put(
+      action(PROJECT.DELETE.RECEIVE, {
+        id: payload.id
+      })
+    );
+  else
+    yield put(
+      action(PROJECT.DELETE.ERROR, {
+        id: payload.id
+      })
+    );
+}
+
 function* deleteDocument({ payload }) {
   const data = yield call(request, `/document/${payload.id}/delete`);
   if (data.success)
@@ -44,6 +60,7 @@ function* createDocument({ payload }) {
 
 function* setupFormSaga() {
   yield takeLatest(PROJECT.FETCH.REQUEST, fetchProject);
+  yield takeLatest(PROJECT.DELETE.REQUEST, deleteProject);
   yield takeLatest(DOCUMENT.DELETE.REQUEST, deleteDocument);
   yield takeLatest(DOCUMENT.CREATE.REQUEST, createDocument);
 }

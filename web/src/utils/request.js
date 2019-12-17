@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import isObject from 'is-object';
 import { api } from 'Src/config/endpoints';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -24,7 +25,7 @@ export default (route, data = null, file = false, endpoint = api) => {
     },
     redirect: 'follow',
     referrer: 'no-referrer',
-    ...(data && { body: file ? data : JSON.stringify(data) })
+    ...(isObject(data) && { body: file ? data : JSON.stringify(data) })
   })
     .then(res => res.json())
     .then(data => {

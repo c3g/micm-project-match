@@ -15,6 +15,7 @@ import Loader from 'Src/modules/Loader';
 class ProjectDetails extends Component {
   static propTypes = {
     fetchProject: PropTypes.func.isRequired,
+    deleteProject: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     userType: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
@@ -64,7 +65,7 @@ class ProjectDetails extends Component {
     this.props.clearProject();
   }
 
-  extractAsPDF() {
+  extractAsPDF = () => {
     const doc = new jsPDF();
 
     const html = `
@@ -173,12 +174,17 @@ class ProjectDetails extends Component {
     `;
     doc.fromHTML(html, 10, 10);
     doc.save(`${this.props.project.title}.pdf`);
-  }
+  };
 
   render() {
-    return this.props.isLoading ? (
-      <Loader />
-    ) : (
+    if (this.props.isLoading) return <Loader />;
+
+    const canSeeDetails =
+      this.props.userType === k.ADMIN ||
+      this.props.userId === this.props.project.authorId ||
+      this.props.userId === this.props.project.chosenId;
+
+    return (
       <div className="project-details">
         <div>
           <Heading hideUnderline>{this.props.project.title}</Heading>
@@ -188,13 +194,11 @@ class ProjectDetails extends Component {
         </div>
         {this.props.userType === k.ADMIN && (
           <div className="extract-button">
-            <button onClick={() => this.extractAsPDF()}>Download as PDF</button>
+            <button onClick={this.extractAsPDF}>Download as PDF</button>
           </div>
         )}
         <div className="abstract">{this.props.project.abstract}</div>
-        {this.props.userType === k.ADMIN ||
-        this.props.userId === this.props.project.authorId ||
-        this.props.userId === this.props.project.chosenId ? (
+        {canSeeDetails ? (
           <div className="details">
             <div>
               <span>Prefered project start date</span>
@@ -242,7 +246,7 @@ class ProjectDetails extends Component {
               )}
           </div>
         ) : (
-          <>
+          <React.Fragment>
             <div className="sub-heading">Professor Details</div>
             <div className="details">
               {(this.props.project.firstName ||
@@ -273,7 +277,7 @@ class ProjectDetails extends Component {
                 </div>
               )}
             </div>
-          </>
+          </React.Fragment>
         )}
         {this.props.userId !== this.props.project.authorId && (
           <div className="sub-heading">Other Details</div>
@@ -374,7 +378,7 @@ class ProjectDetails extends Component {
                   </div>
                 ))}
             {this.state.dropzoneOpen && (
-              <>
+              <React.Fragment>
                 <div className="dropzone-container">
                   <Dropzone
                     onDrop={files =>
@@ -408,7 +412,7 @@ class ProjectDetails extends Component {
                     ))}
                   </div>
                 </div>
-              </>
+              </React.Fragment>
             )}
           </div>
         )}
@@ -429,10 +433,23 @@ class ProjectDetails extends Component {
             Upload
           </RoundedButton>
         )}
-        {this.props.userType === k.ADMIN ? null : this.props.userId ===
-            this.props.project.authorId ||
-          this.props.userId === this.props.project.chosenId ? (
-          <div className="apply">
+        <div className="apply flex-row">
+          {(this.props.userType === k.ADMIN ||
+            this.props.userId === this.props.project.authorId) && (
+            <RoundedButton
+              type="danger"
+              onClick={() => {
+                if (confirm('Are you sure you want to delete this project?'))
+                  this.props.deleteProject(this.props.project);
+              }}
+            >
+              Delete
+            </RoundedButton>
+          )}
+          <div className="flex-fill" />
+          {this.props.userType === k.ADMIN ? null : this.props.userId ===
+              this.props.project.authorId ||
+            this.props.userId === this.props.project.chosenId ? (
             <Link
               to={{
                 pathname: '/update-project',
@@ -443,35 +460,35 @@ class ProjectDetails extends Component {
             >
               <RoundedButton>Update</RoundedButton>
             </Link>
-          </div>
-        ) : this.props.application ? (
-          <div className="apply">
-            <Link
-              to={{
-                pathname: '/application',
-                state: {
-                  project: this.props.project,
-                  application: this.props.application
-                }
-              }}
-            >
-              <RoundedButton>Update Application</RoundedButton>
-            </Link>
-          </div>
-        ) : (
-          <div className="apply">
-            <Link
-              to={{
-                pathname: '/application',
-                state: {
-                  project: this.props.project
-                }
-              }}
-            >
-              <RoundedButton>Apply</RoundedButton>
-            </Link>
-          </div>
-        )}
+          ) : this.props.application ? (
+            <div className="apply">
+              <Link
+                to={{
+                  pathname: '/application',
+                  state: {
+                    project: this.props.project,
+                    application: this.props.application
+                  }
+                }}
+              >
+                <RoundedButton>Update Application</RoundedButton>
+              </Link>
+            </div>
+          ) : (
+            <div className="apply">
+              <Link
+                to={{
+                  pathname: '/application',
+                  state: {
+                    project: this.props.project
+                  }
+                }}
+              >
+                <RoundedButton>Apply</RoundedButton>
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
