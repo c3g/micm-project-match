@@ -24,3 +24,21 @@ $input-color: #e6e6e6;
     background-color: $color-primary;
   }
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row > *, .flex-column > * {
+  flex: 0 0 auto;
+}
+
+.flex-fill {
+  flex: 1 1;
+}
