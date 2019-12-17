@@ -31,6 +31,8 @@ function* deleteProject({ payload }) {
         id: payload.id
       })
     );
+
+  window.location.href = '/projects';
 }
 
 function* deleteDocument({ payload }) {
