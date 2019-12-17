@@ -18,7 +18,6 @@ import Projects from './Projects';
 import UpdateProject from './UpdateProject';
 import Applications from './Applications';
 import ApplicationLetter from './ApplicationLetter';
-import AppliedProjects from './AppliedProjects';
 import Professors from './Professors';
 import Matches from './Matches';
 import Users from './Users';
@@ -49,14 +48,6 @@ export default [
     withSidebar: 'Professors'
   },
   {
-    name: 'AppliedProjects',
-    pathname: '/applied-projects',
-    component: AppliedProjects,
-    access: [k.PROFESSOR, k.STUDENT],
-    withAuth: true,
-    withSidebar: 'Applied Projects'
-  },
-  {
     name: 'ApplicationLetter',
     pathname: '/application-letter',
     component: ApplicationLetter,
@@ -68,7 +59,7 @@ export default [
     name: 'Applications',
     pathname: '/applications',
     component: Applications,
-    access: [k.PROFESSOR],
+    access: [k.ADMIN],
     withAuth: true,
     withSidebar: 'Applications'
   },
@@ -116,7 +107,7 @@ export default [
     name: 'Discover',
     pathname: '/discover',
     component: Discover,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    access: [k.ADMIN],
     withAuth: true,
     withSidebar: 'Discover'
   },
