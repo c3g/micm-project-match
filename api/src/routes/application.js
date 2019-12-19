@@ -8,11 +8,8 @@ function create(req, res) {
     .catch(errorHandler(res));
 }
 
-function findByApplicantProject(req, res) {
-  Application.findByApplicantProject({
-    projectId: req.params.projectId,
-    applicantId: req.user.id
-  })
+function findByApplicant(req, res) {
+  Application.findByApplicant(req.user.id)
     .then(dataHandler(res))
     .catch(err =>
       err.type === k.APPLICATION_NOT_FOUND
@@ -32,8 +29,8 @@ function update(req, res) {
     .catch(errorHandler(res));
 }
 
-function selectApplications(req, res) {
-  Application.selectApplications(req.user.id)
+function list(req, res) {
+  Application.list()
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }
@@ -64,9 +61,9 @@ function claim(req, res) {
 
 export default {
   create,
-  findByApplicantProject,
+  findByApplicant,
   update,
-  selectApplications,
+  list,
   approve,
   disapprove,
   applied,

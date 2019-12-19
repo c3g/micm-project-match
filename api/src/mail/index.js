@@ -6,7 +6,6 @@ import nodemailer from 'nodemailer';
 import inlineBase64 from 'nodemailer-plugin-inline-base64';
 import setPasswordMail from './setPasswordMail';
 import verificationMail from './verificationMail';
-import updateMail from './updateMail';
 import contactUsMail from './contactUsMail';
 import adminUpdateMail from './adminUpdateMail';
 import { Application, User } from '../models';
@@ -61,18 +60,6 @@ export function sendContactUsMail(data) {
   });
 }
 
-function sendUpdateMail(data) {
-  const { firstName, lastName, email, applicationCount } = data;
-  const html = updateMail(firstName, lastName, email, applicationCount);
-
-  return transporter.sendMail({
-    from,
-    to: email,
-    subject: 'Weekly update',
-    html
-  });
-}
-
 function sendAdminUpdateMail(count, admin) {
   const html = adminUpdateMail(admin, count.count);
 
@@ -97,15 +84,6 @@ export function scheduledEmailUpdates() {
 }
 
 function sendEmailUpdate() {
-
-  // Application notifications
-  Application.getUnnotified()
-  .then(users =>
-    Promise.all(
-      users.map((user, i) => wait(i).then(() => sendUpdateMail(user)))
-    )
-  )
-  .then(() => Application.setNotified())
 
   // Pending-approval professors
   Promise.resolve()

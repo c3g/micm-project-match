@@ -19,12 +19,6 @@ function disapproveProfessor(req, res) {
     .catch(errorHandler(res));
 }
 
-function listMatches(req, res) {
-  Project.listMatches()
-    .then(dataHandler(res))
-    .catch(errorHandler(res));
-}
-
 function approveMatch(req, res) {
   Project.approveMatch(req.params.id)
     .then(okHandler(res))
@@ -65,7 +59,6 @@ export default {
   listProfessors,
   approveProfessor,
   disapproveProfessor,
-  listMatches,
   approveMatch,
   disapproveMatch,
   makeAdmin,

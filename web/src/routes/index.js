@@ -75,7 +75,7 @@ export default [
     name: 'Projects',
     pathname: '/projects',
     component: Projects,
-    access: [k.PROFESSOR, k.STUDENT],
+    access: [k.PROFESSOR],
     withAuth: true,
     withSidebar: 'My Projects'
   },
@@ -83,7 +83,7 @@ export default [
     name: 'User',
     pathname: '/user/:id',
     component: User,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
+    access: [k.ADMIN],
     withAuth: true,
     withSidebar: true
   },
@@ -91,9 +91,9 @@ export default [
     name: 'Application',
     pathname: '/application',
     component: Application,
-    access: [k.PROFESSOR, k.STUDENT],
+    access: [k.STUDENT],
     withAuth: true,
-    withSidebar: true
+    withSidebar: 'Application'
   },
   {
     name: 'Project',

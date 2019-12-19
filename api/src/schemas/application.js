@@ -3,16 +3,11 @@ import Joi from '@hapi/joi';
 const create = Joi.object({
   body: Joi.object({
     applicantId: Joi.number().required(),
-    projectId: Joi.number().required(),
     proposal: Joi.string().required()
   }).required()
 });
 
-const findByApplicantProject = Joi.object({
-  params: Joi.object({
-    projectId: Joi.number().required()
-  }).required()
-});
+const findByApplicant = Joi.object({});
 
 const update = Joi.object({
   body: Joi.object({
@@ -41,7 +36,7 @@ const claim = Joi.object({
 
 export default {
   create,
-  findByApplicantProject,
+  findByApplicant,
   update,
   approve,
   disapprove,

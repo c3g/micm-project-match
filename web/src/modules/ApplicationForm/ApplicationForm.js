@@ -43,13 +43,8 @@ CreateApplicationTextArea.propTypes = {
 
 class ApplicationFormComponent extends Component {
   static propTypes = {
-    project: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired
-    }).isRequired,
     application: PropTypes.shape({
       id: PropTypes.number.isRequired,
-      proposal: PropTypes.string.isRequired
     }),
     id: PropTypes.number.isRequired,
     handleSubmit: PropTypes.func.isRequired,
@@ -69,22 +64,17 @@ class ApplicationFormComponent extends Component {
     const props = this.props;
     return (
       <div className="application-form">
-        {props.project.title && (
-          <Heading hideUnderline>{props.project.title}</Heading>
-        )}
         <div className="form">
           <form
             onSubmit={props.handleSubmit(data =>
               props.application
                 ? props.updateApplication({
                     data: { ...data, applicationId: props.application.id },
-                    projectId: props.project.id,
                     push: props.history.push
                   })
                 : props.createApplication({
                     data: {
                       ...data,
-                      projectId: props.project.id,
                       applicantId: props.id
                     },
                     push: props.history.push

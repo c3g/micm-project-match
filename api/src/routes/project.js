@@ -69,7 +69,7 @@ function deleteDocument(req, res) {
 function createDocument(req, res) {
   Project.findById(req.body.id)
   .then(project =>
-    hasAccess(req.user.id, project) === false ?
+    hasAccess(req.user, project) === false ?
       rejectMessage('Unauthorized', k.UNAUTHORIZED) :
       uploadFiles(req.files, project)
         .then(() => dataHandler(res)(project))
@@ -127,6 +127,6 @@ function uploadFiles(files, project) {
   }));
 }
 
-function hasAccess(userId, project) {
-  return project.authorId === userId || project.chosenId === userId;
+function hasAccess(user, project) {
+  return user.type === k.USER_TYPE.ADMIN || project.authorId === user.id
 }

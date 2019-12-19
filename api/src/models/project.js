@@ -57,7 +57,6 @@ function details(id, userId, isAdmin = false) {
              project.abstract,
              project.open_for_students,
              project.author_id,
-             project.chosen_id,
              user_account.first_name,
              user_account.last_name,
              user_account.email,
@@ -80,7 +79,7 @@ function details(id, userId, isAdmin = false) {
       { id }
     )
     .then(details =>
-      details.authorId === userId || details.chosenId === userId || isAdmin
+      details.authorId === userId || isAdmin
         ? findById(details.id)
         : details
     )
@@ -141,7 +140,6 @@ function listUserProjects(id) {
            project.approved as "projectApproved"
       FROM project
      WHERE project.author_id = @id
-           OR project.chosen_id = @id
     `,
     { id }
   );
@@ -184,10 +182,7 @@ function update(project) {
       `
       UPDATE project
          SET ${mapping}
-       WHERE (
-               author_id = @userId
-               OR chosen_id = @userId
-             )
+       WHERE author_id = @userId
              AND id = @id
    RETURNING id
     `,
@@ -236,10 +231,7 @@ function projectId(id, userId) {
            LEFT JOIN project_document
            ON project.id = project_document.project_id
      WHERE project_document.id = @id
-           AND (
-             project.author_id = @userId
-             OR project.chosen_id = @userId
-           )
+           AND project.author_id = @userId
     `,
       { id, userId }
     )
@@ -282,34 +274,6 @@ function findDocumentById(id) {
     );
 }
 
-function listMatches() {
-  return db.selectAll(
-    `
-    SELECT json_build_object(
-             'id', project.id,
-             'title', project.title,
-             'approved', project.approved
-           ) AS "project",
-           json_build_object(
-             'id', author.id,
-             'firstName', author.first_name,
-             'lastName', author.last_name
-           ) AS "author",
-           json_build_object(
-            'id', applicant.id,
-            'firstName', applicant.first_name,
-            'lastName', applicant.last_name
-           ) AS "chosen"
-      FROM project
-           LEFT JOIN user_account AS author
-           ON project.author_id = author.id
-           LEFT JOIN user_account AS applicant
-           ON project.chosen_id = applicant.id
-     WHERE project.chosen_id IS NOT NULL
-    `
-  );
-}
-
 function approveMatch(id) {
   return db.query(
     `
@@ -344,7 +308,6 @@ export default {
   deleteDocument,
   findDocumentById,
   projectId,
-  listMatches,
   approveMatch,
   disapproveMatch
 };

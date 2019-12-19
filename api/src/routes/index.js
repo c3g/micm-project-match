@@ -156,8 +156,8 @@ router.get(
 
 router.get(
   '/application/list',
-  professorAccess,
-  application.selectApplications
+  adminAccess,
+  application.list
 );
 router.post(
   '/application/create',
@@ -172,10 +172,10 @@ router.post(
   application.update
 );
 router.get(
-  '/application/:projectId/project',
-  validator(schemas.application.findByApplicantProject),
+  '/application',
+  validator(schemas.application.findByApplicant),
   setupAccess,
-  application.findByApplicantProject
+  application.findByApplicant
 );
 router.get(
   '/application/:id/approve',
@@ -259,7 +259,6 @@ router.get(
   adminAccess,
   admin.disapproveProfessor
 );
-router.get('/admin/matches/list', adminAccess, admin.listMatches);
 router.get(
   '/admin/match/:id/approve',
   validator(schemas.project.approveMatch),

@@ -1,18 +1,14 @@
-import { call, put, all, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
 import { PROJECT, DOCUMENT } from 'Src/constants/actionTypes';
 import { push } from 'connected-react-router';
 
 function* fetchProject({ payload }) {
-  const [projectData, applicationData] = yield all([
-    call(request, `/project/${payload.id}`),
-    call(request, `/application/${payload.id}/project`)
-  ]);
-  if (projectData.success && applicationData)
+  const projectData = yield call(request, `/project/${payload.id}`);
+  if (projectData.success)
     yield put(
       action(PROJECT.FETCH.RECEIVE, {
-        project: projectData.data,
-        application: applicationData.data
+        project: projectData.data
       })
     );
   else yield put(push('/'));

@@ -38,14 +38,12 @@ class ProjectDetails extends Component {
       organizations: PropTypes.array,
       startDate: PropTypes.string,
       timeframe: PropTypes.string,
-      chosenId: PropTypes.number,
       tags: PropTypes.array,
       tagId: PropTypes.array,
       documents: PropTypes.array,
       budget: PropTypes.string,
       approved: PropTypes.bool.isRequired
     }).isRequired,
-    application: PropTypes.object,
     isLoading: PropTypes.bool.isRequired,
     clearProject: PropTypes.func.isRequired
   };
@@ -177,8 +175,7 @@ class ProjectDetails extends Component {
 
     const canSeeDetails =
       this.props.userType === k.ADMIN ||
-      this.props.userId === this.props.project.authorId ||
-      this.props.userId === this.props.project.chosenId;
+      this.props.userId === this.props.project.authorId;
 
     return (
       <div className="project-details">
@@ -210,21 +207,17 @@ class ProjectDetails extends Component {
               <span>Expected project timeframe</span>
               <span>{this.props.project.timeframe}</span>
             </div>
-            {this.props.project.chosenId && (
-              <div>
-                <span>Requested budget</span>
-                <span>
-                  {this.props.project.budget ? (
-                    this.props.project.budget
-                  ) : (
-                    <span className="danger">Unspecified</span>
-                  )}
-                </span>
-              </div>
-            )}
-            {this.props.userType !== k.ADMIN &&
-              this.props.project.chosenId &&
-              !this.props.project.budget && (
+            <div>
+              <span>Requested budget</span>
+              <span>
+                {this.props.project.budget ? (
+                  this.props.project.budget
+                ) : (
+                  <span className="danger">Unspecified</span>
+                )}
+              </span>
+            </div>
+            {!this.props.project.budget && (
                 <div>
                   <span>
                     <Link
@@ -295,8 +288,7 @@ class ProjectDetails extends Component {
           )}
         </div>
         {(this.props.userType === k.ADMIN ||
-          this.props.userId === this.props.project.authorId ||
-          this.props.userId === this.props.project.chosenId) && (
+          this.props.userId === this.props.project.authorId) && (
           <div className="details-long">
             <div>
               <div>Project description</div>
@@ -326,8 +318,7 @@ class ProjectDetails extends Component {
           </div>
         )}
         {(this.props.userType === k.ADMIN ||
-          this.props.userId === this.props.project.authorId ||
-          this.props.userId === this.props.project.chosenId) && (
+          this.props.userId === this.props.project.authorId) && (
           <div className="documents">
             <div>
               Relevant Documents&nbsp;&nbsp;
@@ -349,8 +340,7 @@ class ProjectDetails extends Component {
               ? 'None'
               : this.props.project.documents.map((document, i) => (
                   <div className="document" key={`document_${i}`}>
-                    {(this.props.userId === this.props.project.authorId ||
-                      this.props.userId === this.props.project.chosenId) && (
+                    {(this.props.userId === this.props.project.authorId) && (
                       <button
                         className="delete-button"
                         onClick={() =>
@@ -441,9 +431,8 @@ class ProjectDetails extends Component {
             </RoundedButton>
           )}
           <div className="flex-fill" />
-          {this.props.userType === k.ADMIN ? null : this.props.userId ===
-              this.props.project.authorId ||
-            this.props.userId === this.props.project.chosenId ? (
+          {this.props.userType === k.ADMIN ||
+          this.props.userId === this.props.project.authorId ? (
             <Link
               to={{
                 pathname: '/update-project',
@@ -454,34 +443,7 @@ class ProjectDetails extends Component {
             >
               <RoundedButton>Update</RoundedButton>
             </Link>
-          ) : this.props.application ? (
-            <div className="apply">
-              <Link
-                to={{
-                  pathname: '/application',
-                  state: {
-                    project: this.props.project,
-                    application: this.props.application
-                  }
-                }}
-              >
-                <RoundedButton>Update Application</RoundedButton>
-              </Link>
-            </div>
-          ) : (
-            <div className="apply">
-              <Link
-                to={{
-                  pathname: '/application',
-                  state: {
-                    project: this.props.project
-                  }
-                }}
-              >
-                <RoundedButton>Apply</RoundedButton>
-              </Link>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
     );
