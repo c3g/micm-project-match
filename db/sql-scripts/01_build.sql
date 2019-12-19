@@ -64,12 +64,10 @@ CREATE TABLE IF NOT EXISTS project (
   organizations     VARCHAR(100)[],
   budget            VARCHAR(100),
   author_id         INT NOT NULL,
-  chosen_id         INT,
   tag_id            INT[],
   approved     BOOLEAN DEFAULT false NOT NULL,
 
-  FOREIGN KEY (author_id) REFERENCES user_account (id),
-  FOREIGN KEY (chosen_id) REFERENCES user_account (id)
+  FOREIGN KEY (author_id) REFERENCES user_account (id)
 );
 
 
@@ -89,15 +87,16 @@ CREATE TABLE IF NOT EXISTS project_document (
 
 CREATE TABLE IF NOT EXISTS application
 (
-  id            SERIAL PRIMARY KEY,
-  applicant_id  INT NOT NULL,
-  project_id    INT NOT NULL,
-  proposal      TEXT NOT NULL,
-  approved      BOOLEAN DEFAULT false NOT NULL,
-  notified      BOOLEAN DEFAULT false NOT NULL,
+  id                SERIAL PRIMARY KEY,
+  applicant_id      INT NOT NULL,
+  is_mcgill_student BOOLEAN DEFAULT true NOT NULL,
+  program           VARCHAR(100) NOT NULL,
+  year              VARCHAR(100) NOT NULL,
+  transcript_key    VARCHAR(340),
+  other_internships BOOLEAN DEFAULT false NOT NULL,
+  approved          BOOLEAN DEFAULT false NOT NULL
 
-  FOREIGN KEY (applicant_id) REFERENCES user_account (id),
-  FOREIGN KEY (project_id) REFERENCES project (id)
+  FOREIGN KEY (applicant_id) REFERENCES user_account (id)
 );
 
 
