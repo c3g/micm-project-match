@@ -205,7 +205,7 @@ class ApplicationFormComponent extends Component {
                           {getFilename(user.cvKey)}
                         </span>
                       }
-                      Drag transcript here, or click to select
+                      Drag file here, or click to select
                       {this.state.cvMessage &&
                         <React.Fragment>
                           <br/>
@@ -270,7 +270,7 @@ class ApplicationFormComponent extends Component {
                           {this.state.transcript.name}
                         </span>
                       }
-                      Drag transcript here, or click to select
+                      Drag file here, or click to select
                       {this.state.transcriptMessage &&
                         <React.Fragment>
                           <br/>
