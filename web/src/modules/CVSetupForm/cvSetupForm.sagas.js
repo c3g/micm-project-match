@@ -1,6 +1,7 @@
 import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import { request, action } from 'Src/utils';
 import { SNACKBAR, CV_UPLOAD } from 'Src/constants/actionTypes';
+import { push } from 'connected-react-router';
 
 function* uploadCV({ payload }) {
   if (!payload.cv) {
@@ -12,7 +13,7 @@ function* uploadCV({ payload }) {
     if (data.success) {
       yield put(action(CV_UPLOAD.RECEIVE, data.data));
       yield put(action(SNACKBAR.SUCCESS, 'CV Uploaded'));
-      yield payload.push('/');
+      yield put(push('/'));
     } else {
       yield put(action(SNACKBAR.DANGER, data.message));
     }
