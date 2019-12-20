@@ -13,8 +13,7 @@ function* uploadCV({ payload }) {
     if (data.success) {
       yield put(action(CV_UPLOAD.RECEIVE, data.data));
       yield put(action(SNACKBAR.SUCCESS, 'CV Uploaded'));
-      if (payload.redirect)
-        yield put(push(payload.redirect));
+      if (payload.redirect) yield put(push(payload.redirect));
     } else {
       yield put(action(SNACKBAR.DANGER, data.message));
     }

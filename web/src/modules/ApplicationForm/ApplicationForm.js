@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import * as path from 'path-browserify';
 import getFilename from '@lukeboyle/get-filename-from-path';
 import { checkSizeInMB } from 'Src/utils/file';
 import Dropzone from 'Src/modules/Dropzone';
@@ -10,7 +9,6 @@ import RoundedButton from 'Src/modules/RoundedButton';
 import Heading from 'Src/modules/Heading';
 import Checkbox from 'Src/modules/Checkbox';
 import Input from 'Src/modules/InputField';
-import TextArea from 'Src/modules/TextArea';
 import './applicationForm.scss';
 
 const createApplicationValidate = values => {
@@ -24,43 +22,19 @@ const createApplicationValidate = values => {
   return errors;
 };
 
-let CreateApplicationTextArea = ({
-  input,
-  height,
-  label,
-  meta: { touched, error }
-}) => (
-  <div
-    style={{ height: height || 150 }}
-    className={`create-application-text-area ${
-      error && touched ? 'error' : ''
-    }`}
-  >
-    <TextArea {...input} placeholder={label} />
-    <span className="message">{touched && (error && error)}</span>
-  </div>
-);
-
-CreateApplicationTextArea.propTypes = {
-  height: PropTypes.number,
+const fieldPropTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string,
-  application: PropTypes.object,
   meta: PropTypes.shape({
     touched: PropTypes.bool.isRequired,
     error: PropTypes.string
   })
 };
 
-let CheckboxField = ({
-  input,
-  label,
-  meta: { touched, error }
-}) => (
+const CheckboxField = ({ input, label, meta: { touched, error } }) => (
   <div
     style={{ height: 100 }}
-    className={
-      `create-application__checkbox flex-row flex-align-center ${
+    className={`create-application__checkbox flex-row flex-align-center ${
       error && touched ? 'error' : ''
     }`}
   >
@@ -69,11 +43,9 @@ let CheckboxField = ({
   </div>
 );
 
-let InputTextField = ({
-  input,
-  label,
-  meta: { touched, error }
-}) => (
+CheckboxField.propTypes = fieldPropTypes;
+
+const InputTextField = ({ input, label, meta: { touched, error } }) => (
   <div
     style={{ height: 100 }}
     className={`create-application__input-field ${
@@ -88,11 +60,9 @@ let InputTextField = ({
   </div>
 );
 
-let InputNumberField = ({
-  input,
-  label,
-  meta: { touched, error }
-}) => (
+InputTextField.propTypes = fieldPropTypes;
+
+const InputNumberField = ({ input, label, meta: { touched, error } }) => (
   <div
     style={{ height: 100 }}
     className={`create-application__year-field ${
@@ -107,11 +77,9 @@ let InputNumberField = ({
   </div>
 );
 
-let FileField = ({
-  input,
-  label,
-  meta: { touched, error }
-}) => (
+InputNumberField.propTypes = fieldPropTypes;
+
+let FileField = ({ input, label, meta: { touched, error } }) => (
   <div
     style={{ height: 100 }}
     className={`create-application__year-field ${
@@ -126,6 +94,8 @@ let FileField = ({
   </div>
 );
 
+FileField.propTypes = fieldPropTypes;
+
 class ApplicationFormComponent extends Component {
   static propTypes = {
     application: PropTypes.shape({
@@ -137,7 +107,8 @@ class ApplicationFormComponent extends Component {
     createApplication: PropTypes.func.isRequired,
     updateApplication: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
-    initialize: PropTypes.func.isRequired
+    initialize: PropTypes.func.isRequired,
+    onSubmitCV: PropTypes.func.isRequired
   };
 
   state = {
@@ -147,6 +118,7 @@ class ApplicationFormComponent extends Component {
   };
 
   componentDidMount() {
+    // TODO(fix application initialization & state handling)
     if (this.props.application)
       this.props.initialize({ proposal: this.props.application.proposal });
   }
@@ -184,42 +156,39 @@ class ApplicationFormComponent extends Component {
               <Input className="flex-fill" value={user.lastName} disabled />
             </div>
             <div className="application-form__transcript flex-row">
-              <div className="flex-fill">
-                CV and cover letter
-              </div>
+              <div className="flex-fill">CV and cover letter</div>
               <div className="dropzone-container flex-fill">
                 <Dropzone
                   onDrop={files => {
-                    const file = files[0]
+                    const file = files[0];
                     if (checkSizeInMB(file, 8)) {
-                      this.props.onSubmitCV({ cv: file })
-                      this.setState({ cvMessage: undefined })
+                      this.props.onSubmitCV({ cv: file });
+                      this.setState({ cvMessage: undefined });
+                    } else {
+                      this.setState({ cvMessage: 'File size over 8 MB' });
                     }
-                    else
-                      this.setState({ cvMessage: 'File size over 8 MB' })
                   }}
                   text={
                     <div>
-                      {user.cvKey  &&
+                      {user.cvKey && (
                         <span className="dropzone__selected-file">
                           {getFilename(user.cvKey)}
                         </span>
-                      }
+                      )}
                       Drag file here, or click to select
-                      {this.state.cvMessage &&
+                      {this.state.cvMessage && (
                         <React.Fragment>
-                          <br/>
+                          <br />
                           <span className="text-danger">
                             {this.state.cvMessage}
                           </span>
                         </React.Fragment>
-                      }
+                      )}
                     </div>
                   }
                 />
               </div>
             </div>
-
 
             <Field
               name="isMcgillStudent"
@@ -252,33 +221,33 @@ class ApplicationFormComponent extends Component {
               <div className="dropzone-container flex-fill">
                 <Dropzone
                   onDrop={files => {
-                    const file = files[0]
+                    const file = files[0];
                     if (checkSizeInMB(file, 2))
                       this.setState({
                         transcript: file,
                         transcriptMessage: undefined
-                      })
+                      });
                     else
                       this.setState({
                         transcriptMessage: 'File size is over 2 MB'
-                      })
+                      });
                   }}
                   text={
                     <div>
-                      { this.state.transcript &&
+                      {this.state.transcript && (
                         <span className="dropzone__selected-file">
                           {this.state.transcript.name}
                         </span>
-                      }
+                      )}
                       Drag file here, or click to select
-                      {this.state.transcriptMessage &&
+                      {this.state.transcriptMessage && (
                         <React.Fragment>
-                          <br/>
+                          <br />
                           <span className="text-danger">
                             {this.state.transcriptMessage}
                           </span>
                         </React.Fragment>
-                      }
+                      )}
                     </div>
                   }
                 />
