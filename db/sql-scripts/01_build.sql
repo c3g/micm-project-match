@@ -90,8 +90,9 @@ CREATE TABLE IF NOT EXISTS application
   id                SERIAL PRIMARY KEY,
   applicant_id      INT NOT NULL,
   is_mcgill_student BOOLEAN DEFAULT true NOT NULL,
-  program           VARCHAR(100) NOT NULL,
-  year              VARCHAR(100) NOT NULL,
+  study_program     VARCHAR(100) NOT NULL,
+  study_year        VARCHAR(100) NOT NULL,
+  graduation_year   INT NOT NULL,
   transcript_key    VARCHAR(340),
   other_internships BOOLEAN DEFAULT false NOT NULL,
   approved          BOOLEAN DEFAULT false NOT NULL
