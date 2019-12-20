@@ -9,7 +9,7 @@ const CVSetupForm = props => (
     <Dropzone
       onDrop={acceptedFiles =>
         props.onSubmitCV({
-          push: props.history.push,
+          redirect: '/',
           cv: acceptedFiles && acceptedFiles[0]
         })
       }
