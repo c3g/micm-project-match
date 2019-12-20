@@ -46,7 +46,7 @@ function updateProfessor(req, res) {
 function updateCv(req, res) {
   const { file, user } = req
   const { id, firstName, lastName } = user
-  const location = `users/${id}/cv/${file.originalname}`
+  const location = `users/${id}/cv/${file.originalname || 'file'}`
 
   return File.checkSize(file, 8)
   .then(() =>
