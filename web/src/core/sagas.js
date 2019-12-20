@@ -18,11 +18,9 @@ import { applicationListSaga } from 'Src/modules/ApplicationList';
 import { userProfileSaga } from 'Src/modules/UserProfile';
 import { keywordSelectorSaga } from 'Src/modules/KeywordSelector';
 import { applicationDetailsSaga } from 'Src/modules/ApplicationDetails';
-import { appliedProjectsListSaga } from 'Src/modules/AppliedProjectsList';
 import { contactUsFormSaga } from 'Src/modules/ContactUsForm';
 import { professorListSaga } from 'Src/modules/ProfessorList';
 import { userListSaga } from 'Src/modules/UserList';
-import { matchListSaga } from 'Src/modules/MatchList';
 import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
@@ -55,9 +53,7 @@ export function* rootSaga() {
     applicationListSaga(),
     projectDetailsSaga(),
     applicationDetailsSaga(),
-    appliedProjectsListSaga(),
     professorListSaga(),
-    matchListSaga(),
     contactUsFormSaga(),
     userListSaga()
   ]);
