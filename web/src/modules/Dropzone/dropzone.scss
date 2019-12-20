@@ -4,9 +4,18 @@
   width: 100%;
   padding: 20px;
   text-align: center;
-  color: #555555;
+  color: #666666;
   font-size: 0.9rem;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.dropzone__selected-file {
+  color: #323232;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  padding: 0 5px;
+  margin-right: 5px;
 }

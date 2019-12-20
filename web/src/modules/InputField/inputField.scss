@@ -18,4 +18,8 @@
       appearance: none;
     }
   }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
 }

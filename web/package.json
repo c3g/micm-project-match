@@ -9,6 +9,7 @@
     "@fortawesome/free-brands-svg-icons": "5.9.0",
     "@fortawesome/free-solid-svg-icons": "5.9.0",
     "@fortawesome/react-fontawesome": "0.1.4",
+    "@lukeboyle/get-filename-from-path": "1.0.3",
     "classname": "0.0.0",
     "connected-react-router": "6.6.1",
     "history": "4.9.0",

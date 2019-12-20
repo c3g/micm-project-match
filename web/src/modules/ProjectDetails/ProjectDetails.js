@@ -218,21 +218,21 @@ class ProjectDetails extends Component {
               </span>
             </div>
             {!this.props.project.budget && (
-                <div>
-                  <span>
-                    <Link
-                      to={{
-                        pathname: '/update-project',
-                        state: {
-                          project: this.props.project
-                        }
-                      }}
-                    >
-                      Set a budget
-                    </Link>
-                  </span>
-                </div>
-              )}
+              <div>
+                <span>
+                  <Link
+                    to={{
+                      pathname: '/update-project',
+                      state: {
+                        project: this.props.project
+                      }
+                    }}
+                  >
+                    Set a budget
+                  </Link>
+                </span>
+              </div>
+            )}
           </div>
         ) : (
           <React.Fragment>
@@ -340,7 +340,7 @@ class ProjectDetails extends Component {
               ? 'None'
               : this.props.project.documents.map((document, i) => (
                   <div className="document" key={`document_${i}`}>
-                    {(this.props.userId === this.props.project.authorId) && (
+                    {this.props.userId === this.props.project.authorId && (
                       <button
                         className="delete-button"
                         onClick={() =>

@@ -29,9 +29,9 @@ const actionHandlers = {
     ...s,
     user: { ...s.user, verified: true }
   }),
-  [CV_UPLOAD.RECEIVE]: s => ({
+  [CV_UPLOAD.RECEIVE]: (s, a) => ({
     ...s,
-    user: { ...s.user, cvUploaded: true }
+    user: a.payload
   })
 };
 
