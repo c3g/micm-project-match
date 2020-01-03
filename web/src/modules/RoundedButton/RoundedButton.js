@@ -15,4 +15,8 @@ RoundedButton.propTypes = {
   className: PropTypes.string
 };
 
+RoundedButton.defaultProps = {
+  color: 'primary'
+};
+
 export default RoundedButton;
