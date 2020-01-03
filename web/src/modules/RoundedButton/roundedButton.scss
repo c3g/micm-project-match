@@ -22,4 +22,15 @@
   &.warning { background-color: $color-warning; }
   &.disabled { background-color: $color-disabled; }
   &.light { background-color: $color-light; }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+  &[disabled].danger   { background-color: lighten($color-danger, 20%); }
+  &[disabled].primary  { background-color: lighten($color-primary, 20%); }
+  &[disabled].info     { background-color: lighten($color-info, 20%); }
+  &[disabled].success  { background-color: lighten($color-success, 20%); }
+  &[disabled].warning  { background-color: lighten($color-warning, 20%); }
+  &[disabled].disabled { background-color: lighten($color-disabled, 20%); }
+  &[disabled].light    { background-color: lighten($color-light, 20%); }
 }
