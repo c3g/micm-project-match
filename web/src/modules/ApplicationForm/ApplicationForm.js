@@ -259,6 +259,12 @@ class ApplicationFormComponent extends Component {
               height={50}
               component={CheckboxField}
             />
+            <Alert color="info">
+              Thank you for your interest in the Summer Scholars Program. Only
+              ONE online submission is required. Due to the volume of
+              applications, only those candidates being considered for the
+              internship will be contacted.
+            </Alert>
             <div className="right-button">
               <RoundedButton>Submit Application</RoundedButton>
             </div>

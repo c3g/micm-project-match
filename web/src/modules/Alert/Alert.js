@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import cx from 'classname';
 import './alert.scss';
 
-const Alert = ({ type, children }) => {
-  const alertClassName = cx('Alert', type ? `Alert--${type}` : undefined);
+const Alert = ({ color, children }) => {
+  const alertClassName = cx('Alert', color ? `Alert--${color}` : undefined);
 
   return <div className={alertClassName}>{children}</div>;
 };
 
 Alert.propTypes = {
-  type: PropTypes.string,
+  color: PropTypes.string,
   children: PropTypes.node
 };
 
