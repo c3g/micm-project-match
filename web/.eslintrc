@@ -4,7 +4,7 @@
     "no-console": "off",
     "curly": ["error", "multi", "consistent"],
     "prettier/prettier": "error",
-    "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+    "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
     "no-underscore-dangle": [
       "error",
       { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }
