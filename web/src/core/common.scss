@@ -1,12 +1,21 @@
-$color-primary: #00a1f8;
-$color-info: #47bfdb;
-$color-success: #4eb662;
-$color-danger: #e05454;
-$color-warning: #e0c354;
-$color-disabled: #666666;
-$color-light: rgba(245, 245, 245, 1);
+$color-primary:      #00a1f8;
+$color-info:         #289EB9;
+$color-success:      #4eb662;
+$color-danger:       #e05454;
+$color-warning:      #e0c354;
+$color-disabled:     #666666;
+$color-light:        rgba(245, 245, 245, 1);
+
+$background-primary:      #00a1f8;
+$background-info:         #cbf5ff;
+$background-success:      #4eb662;
+$background-danger:       #e05454;
+$background-warning:      #e0c354;
+$background-disabled:     #666666;
+$background-light:        rgba(245, 245, 245, 1);
+
 $text-color-primary: #ffffff;
-$input-color: #e6e6e6;
+$input-color:        #e6e6e6;
 
 @mixin scrollbar() {
   &::-webkit-scrollbar-track {
