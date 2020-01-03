@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CreateProjectForm from './ApplicationForm';
+import ApplicationForm from './ApplicationForm';
 import { pick } from 'ramda';
 import { CV_UPLOAD, APPLICATION } from 'Src/constants/actionTypes';
 import { action } from 'Src/utils';
@@ -11,11 +11,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  ...pick(['isLoading'], state.createProject),
+  ...pick(['isLoading'], state.applicationForm),
   user: state.app.user
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateProjectForm);
+)(ApplicationForm);
