@@ -421,7 +421,7 @@ class ProjectDetails extends Component {
           {(this.props.userType === k.ADMIN ||
             this.props.userId === this.props.project.authorId) && (
             <RoundedButton
-              type="danger"
+              color="danger"
               onClick={() => {
                 if (confirm('Are you sure you want to delete this project?'))
                   this.props.deleteProject(this.props.project);
