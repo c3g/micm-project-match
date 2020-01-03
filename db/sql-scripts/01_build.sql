@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS application
   graduation_year   INT NOT NULL,
   transcript_key    VARCHAR(340),
   other_internships BOOLEAN DEFAULT false NOT NULL,
-  approved          BOOLEAN DEFAULT false NOT NULL
+  approved          BOOLEAN DEFAULT false NOT NULL,
 
   FOREIGN KEY (applicant_id) REFERENCES user_account (id)
 );
