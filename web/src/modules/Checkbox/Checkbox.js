@@ -12,9 +12,11 @@ class Checkbox extends Component {
   }
 
   render() {
+    const { onChange, text, ...rest } = this.props;
+
     return (
       <div
-        onClick={() => this.props.onChange(!this.state.checked)}
+        onClick={() => onChange(!this.state.checked)}
         role="checkbox"
         className={`checkbox`}
       >
@@ -22,8 +24,8 @@ class Checkbox extends Component {
           <div />
           <div />
         </div>
-        <input {...this.props.input} type="checkbox" />
-        <div>{this.props.text}</div>
+        <input {...rest} type="checkbox" />
+        <div>{text}</div>
       </div>
     );
   }
