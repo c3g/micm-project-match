@@ -25,7 +25,7 @@ import { LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
   process.env.NODE_ENV === 'development' &&
-    console.log('🍪🍪🍪 cookies:', document.cookie || 'none');
+    console.log('Cookies:', document.cookie || 'none');
   const data = yield call(request, `/user`);
   if (data.data && data.data.loggedIn)
     yield put(action(LOGIN.RECEIVE, data.data.user));
