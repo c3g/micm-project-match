@@ -64,12 +64,14 @@ function create(application) {
 }
 
 function update(application) {
+  const { id, ...change } = application;
+  const mapping = Query.toMapping(change);
   return db
     .insert(
       `
       UPDATE application
-         SET proposal = @proposal
-       WHERE id = @applicationId
+         SET ${mapping}
+       WHERE id = @id
              AND applicant_id = @applicantId
       `,
       application,

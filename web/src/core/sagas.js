@@ -21,15 +21,27 @@ import { applicationDetailsSaga } from 'Src/modules/ApplicationDetails';
 import { contactUsFormSaga } from 'Src/modules/ContactUsForm';
 import { professorListSaga } from 'Src/modules/ProfessorList';
 import { userListSaga } from 'Src/modules/UserList';
-import { LOGIN } from 'Src/constants/actionTypes';
+import { APPLICATION, LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
   process.env.NODE_ENV === 'development' &&
     console.log('Cookies:', document.cookie || 'none');
+
   const data = yield call(request, `/user`);
-  if (data.data && data.data.loggedIn)
-    yield put(action(LOGIN.RECEIVE, data.data.user));
-  else yield put(action(LOGIN.ERROR));
+  const apiData = data.data;
+
+  if (apiData && apiData.loggedIn) {
+    yield put(action(LOGIN.RECEIVE, apiData.user));
+
+    if (apiData.user.type === 'STUDENT') {
+      const applicationData = yield call(request, '/application/get');
+
+      if (applicationData.success && applicationData.data)
+        yield put(action(APPLICATION.CREATE.RECEIVE, applicationData.data));
+    }
+  } else {
+    yield put(action(LOGIN.ERROR));
+  }
 }
 
 export function* rootSaga() {

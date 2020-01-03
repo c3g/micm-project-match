@@ -1,11 +1,60 @@
+import path from 'path';
+import * as File from '../utils/file';
 import { Application } from '../models';
 import { errorHandler, dataHandler } from '../utils/handlers';
 import k from '../constants';
 
 function create(req, res) {
-  Application.create(req.body)
-    .then(dataHandler(res))
-    .catch(errorHandler(res));
+  const { user, file } = req
+
+  const location =
+    `users/${user.id}/transcript${path.extname(file.originalname)}` 
+
+  uploadFile(user, location, file)
+  .then(() => {
+    const application = {
+      applicantId: user.id,
+      transcriptKey: location,
+
+      isMcgillStudent: req.body.isMcgillStudent,
+      studyProgram: req.body.studyProgram,
+      studyYear: req.body.studyYear,
+      graduationYear: req.body.graduationYear,
+      otherInternships: req.body.otherInternships,
+    }
+
+    Application.create(application)
+     .then(dataHandler(res))
+     .catch(errorHandler(res)); 
+  });
+}
+
+function update(req, res) {
+  const { user, file } = req
+
+  let location = undefined;
+  let filePromise = Promise.resolve();
+
+  if (file) {
+    location = `users/${user.id}/transcript${path.extname(file.originalname)}`;
+    filePromise = uploadFile(user, location, file);
+  }
+
+  filePromise
+  .then(() => {
+
+    const application = req.body;
+    application.applicantId = req.user.id;
+    delete application.transcript;
+
+    if (file) {
+      application.transcriptKey = location;
+    }
+
+    Application.update(application)
+     .then(dataHandler(res))
+     .catch(errorHandler(res));
+  });
 }
 
 function findByApplicant(req, res) {
@@ -16,17 +65,6 @@ function findByApplicant(req, res) {
         ? dataHandler(res)(null)
         : errorHandler(res)(err)
     );
-}
-
-function update(req, res) {
-  const application = {
-    proposal: req.body.proposal,
-    applicationId: req.body.applicationId,
-    applicantId: req.user.id
-  };
-  Application.update(application)
-    .then(dataHandler(res))
-    .catch(errorHandler(res));
 }
 
 function list(req, res) {
@@ -69,3 +107,16 @@ export default {
   applied,
   claim
 };
+
+// Helpers
+
+function uploadFile(user, location, file) {
+  return File.checkSize(file, 2)
+  .then(() =>
+    File.upload(
+      location,
+      file.mimetype,
+      file.buffer,
+    )
+  );
+}

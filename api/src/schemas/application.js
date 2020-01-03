@@ -1,19 +1,15 @@
 import Joi from '@hapi/joi';
 
 const create = Joi.object({
-  body: Joi.object({
-    applicantId: Joi.number().required(),
-    proposal: Joi.string().required()
-  }).required()
+  body: Joi.object().required() 
 });
 
 const findByApplicant = Joi.object({});
 
 const update = Joi.object({
   body: Joi.object({
-    proposal: Joi.string().required(),
-    applicationId: Joi.number().required()
-  }).required()
+    id: Joi.number().required()
+  }).unknown().required()
 }).required();
 
 const approve = Joi.object({

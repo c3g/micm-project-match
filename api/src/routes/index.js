@@ -45,6 +45,15 @@ const adminOrProjectCreatorAccess = isAuthenticatedOrCondition(
   }
 );
 
+const parseBodyData = (req, res, next) => {
+  try {
+    req.body = JSON.parse(req.body.data);
+    next();
+  } catch (err) {
+    errorHandler(res)(err);
+  }
+};
+
 router.post('/register', validator(schemas.auth.register), auth.register);
 router.get(
   '/register/resend/:email',
@@ -95,14 +104,7 @@ router.get('/user/project/list', setupAccess, project.listUserProjects);
 router.post(
   '/project/create',
   upload.array('files'),
-  (req, res, next) => {
-    try {
-      req.body = JSON.parse(req.body.data);
-      next();
-    } catch (err) {
-      errorHandler(res)(err);
-    }
-  },
+  parseBodyData,
   validator(schemas.project.create),
   professorAccess,
   project.create
@@ -123,14 +125,7 @@ router.get(
 router.post(
   '/project/update',
   upload.array('files'),
-  (req, res, next) => {
-    try {
-      req.body = JSON.parse(req.body.data);
-      next();
-    } catch (err) {
-      errorHandler(res)(err);
-    }
-  },
+  parseBodyData,
   validator(schemas.project.update),
   setupAccess,
   project.update
@@ -161,18 +156,22 @@ router.get(
 );
 router.post(
   '/application/create',
+  upload.single('transcript'),
+  parseBodyData,
   validator(schemas.application.create),
   setupAccess,
   application.create
 );
 router.post(
   '/application/update',
+  upload.single('transcript'),
+  parseBodyData,
   validator(schemas.application.update),
   setupAccess,
   application.update
 );
 router.get(
-  '/application',
+  '/application/get',
   validator(schemas.application.findByApplicant),
   setupAccess,
   application.findByApplicant
