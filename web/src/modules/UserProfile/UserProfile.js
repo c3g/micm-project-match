@@ -55,7 +55,7 @@ class UserProfile extends Component {
 
   render() {
     const user = this.props.public ? this.props.publicUser : this.props.user;
-    const isApplicationSubmitted = !this.props.public && Boolean(this.props.application)
+    const isApplicationSubmitted = Boolean(this.props.application)
 
     return this.props.isLoading ? (
       <Loader />
@@ -112,7 +112,7 @@ class UserProfile extends Component {
               )}
             </div>
           )}
-          {user.type === k.STUDENT &&
+          {!this.props.public && user.type === k.STUDENT &&
             <div>
                 <span>Application</span>
                 {
