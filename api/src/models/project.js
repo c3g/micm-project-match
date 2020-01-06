@@ -197,7 +197,6 @@ function update(project) {
 
 function deleteProject(id) {
   return db.query(`DELETE FROM project_document WHERE project_id = @id`, { id })
-  .then(() => db.query(`DELETE FROM application WHERE project_id = @id`, { id }))
   .then(() => db.query(`DELETE FROM project WHERE id = @id`, { id }))
   .then(res =>
     res.rowCount === 0
