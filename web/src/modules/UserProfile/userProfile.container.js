@@ -22,7 +22,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   ...pick(['user'], state.app),
-  ...pick(['publicUser', 'isLoading'], state.userProfile)
+  ...pick(['publicUser', 'isLoading'], state.userProfile),
+  application: state.applicationForm.data
 });
 
 export default connect(

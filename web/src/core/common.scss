@@ -8,7 +8,7 @@ $color-light:        rgba(245, 245, 245, 1);
 
 $text-color-primary:      #00a1f8;
 $text-color-info:         #289EB9;
-$text-color-success:      #4eb662;
+$text-color-success:      #155724;
 $text-color-danger:       #e05454;
 $text-color-warning:      #856404;
 $text-color-disabled:     #666666;
@@ -16,11 +16,20 @@ $text-color-light:        rgba(245, 245, 245, 1);
 
 $background-primary:      #B2DDF5;
 $background-info:         #cbf5ff;
-$background-success:      #AEEDBA;
-$background-danger:       #F8BFBF;
+$background-success:      #d4edda;
+$background-danger:       #f8d7da;
 $background-warning:      #fff3cd;
 $background-disabled:     #DFDFDF;
 $background-light:        rgba(245, 245, 245, 1);
+
+$border-primary:      #b8daff;
+$border-info:         #B8E9F5;
+$border-success:      #c3e6cb;
+$border-danger:       #f5c6cb;
+$border-warning:      #ffeeba;
+$border-disabled:     #DFDFDF;
+$border-light:        rgba(245, 245, 245, 1);
+
 
 $text-color-primary: #ffffff;
 $input-color:        #e6e6e6;
@@ -54,6 +63,7 @@ $input-color:        #e6e6e6;
 .text-warning  { color: $color-warning; }
 .text-disabled { color: $color-disabled; }
 .text-light    { color: $color-light; }
+.text-muted    { color: $color-disabled; }
 
 
 /*

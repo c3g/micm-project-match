@@ -33,6 +33,7 @@ class UserProfile extends Component {
         position: PropTypes.string.isRequired
       })
     }),
+    application: PropTypes.object,
     id: PropTypes.string,
     history: PropTypes.object.isRequired,
     fetchUser: PropTypes.func.isRequired,
@@ -54,6 +55,8 @@ class UserProfile extends Component {
 
   render() {
     const user = this.props.public ? this.props.publicUser : this.props.user;
+    const isApplicationSubmitted = !this.props.public && Boolean(this.props.application)
+
     return this.props.isLoading ? (
       <Loader />
     ) : (
@@ -109,6 +112,16 @@ class UserProfile extends Component {
               )}
             </div>
           )}
+          {user.type === k.STUDENT &&
+            <div>
+                <span>Application</span>
+                {
+                  isApplicationSubmitted ?
+                    <span className="text-success">Submitted</span> :
+                    <span className="text-muted">Not submitted</span>
+                }
+            </div>
+          }
         </div>
       </div>
     );

@@ -3,11 +3,12 @@
 .Alert {
   display: inline-block;
   padding: 1em 2em;
+  border: 1px solid white;
 }
-.Alert--danger   { color: $text-color-danger;   background-color: $background-danger; }
-.Alert--primary  { color: $text-color-primary;  background-color: $background-primary; }
-.Alert--info     { color: $text-color-info;     background-color: $background-info; }
-.Alert--success  { color: $text-color-success;  background-color: $background-success; }
-.Alert--warning  { color: $text-color-warning;  background-color: $background-warning; }
-.Alert--disabled { color: $text-color-disabled; background-color: $background-disabled; }
-.Alert--light    { color: $text-color-light;    background-color: $background-light; }
+.Alert--danger   { color: $text-color-danger;   border-color: $border-danger;   background-color: $background-danger; }
+.Alert--primary  { color: $text-color-primary;  border-color: $border-primary;  background-color: $background-primary; }
+.Alert--info     { color: $text-color-info;     border-color: $border-info;     background-color: $background-info; }
+.Alert--success  { color: $text-color-success;  border-color: $border-success;  background-color: $background-success; }
+.Alert--warning  { color: $text-color-warning;  border-color: $border-warning;  background-color: $background-warning; }
+.Alert--disabled { color: $text-color-disabled; border-color: $border-disabled; background-color: $background-disabled; }
+.Alert--light    { color: $text-color-light;    border-color: $border-light;    background-color: $background-light; }

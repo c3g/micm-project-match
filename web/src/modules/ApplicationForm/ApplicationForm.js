@@ -216,7 +216,7 @@ class ApplicationFormComponent extends Component {
         <Heading>Summer Scholars Application</Heading>
 
         {hasSubmittedApplication && (
-          <Alert color="warning">
+          <Alert color="success">
             Your application has already been submitted. You can still modify it
             by submitting this form again.
           </Alert>
