@@ -11,12 +11,15 @@ const ApplicationListItem = ({ data }) => {
 
   return (
     <div className="application-list-item">
-      <div>
+      <div className="flex-row flex-align-center">
         <Link to={`/user/${application.applicantId}`} className="name">
           {user.firstName} {user.lastName}
         </Link>
       </div>
-      <div>
+      <div className="flex-row flex-align-center">
+        <span className="text-muted flex-item-rmargin">
+          {application.approved ? 'Approved' : 'Not approved'}
+        </span>
         <Link
           className="rounded-button primary"
           to={`/application/${application.id}`}

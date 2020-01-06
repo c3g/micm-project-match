@@ -99,3 +99,23 @@ $input-color:        #e6e6e6;
 .flex-align-center {
   align-items: center;
 }
+
+.flex-item-rmargin {
+  margin-right: 5px;
+}
+
+
+/*
+ * Elements
+ */
+
+.rounded-button-link {
+  background: #00a1f8;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  margin-right: 20px;
+  padding: 4px 20px;
+  text-decoration: none;
+}

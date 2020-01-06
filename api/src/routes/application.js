@@ -8,7 +8,7 @@ function create(req, res) {
   const { user, file } = req
 
   const location =
-    `users/${user.id}/transcript${path.extname(file.originalname)}` 
+    `users/${user.id}/transcript/${file.originalname}`
 
   uploadFile(user, location, file)
   .then(() => {
@@ -36,7 +36,7 @@ function update(req, res) {
   let filePromise = Promise.resolve();
 
   if (file) {
-    location = `users/${user.id}/transcript${path.extname(file.originalname)}`;
+    location = `users/${user.id}/transcript/${file.originalname}`;
     filePromise = uploadFile(user, location, file);
   }
 
@@ -97,6 +97,15 @@ function claim(req, res) {
     .catch(errorHandler(res));
 }
 
+function getTranscript(req, res) {
+  Application.findById(req.params.id)
+    .then(application => File.getFileLocation(application.transcriptKey))
+    .then(filepath => {
+      res.download(filepath)
+    })
+    .catch(errorHandler(res));
+}
+
 export default {
   create,
   findByApplicant,
@@ -105,7 +114,8 @@ export default {
   approve,
   disapprove,
   applied,
-  claim
+  claim,
+  getTranscript
 };
 
 // Helpers

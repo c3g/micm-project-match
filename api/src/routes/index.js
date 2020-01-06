@@ -177,6 +177,11 @@ router.get(
   application.findByApplicant
 );
 router.get(
+  '/application/:id/transcript',
+  setupAccess,
+  application.getTranscript
+);
+router.get(
   '/application/:id/approve',
   validator(schemas.application.approve),
   professorAccess,
