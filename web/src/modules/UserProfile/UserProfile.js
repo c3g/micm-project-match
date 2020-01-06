@@ -23,10 +23,12 @@ class UserProfile extends Component {
 
   componentDidMount() {
     if (this.props.public)
-      this.props.fetchUser({
-        id: this.props.id,
-        push: this.props.history.push
-      });
+      this.props.fetchUser(this.props.id);
+  }
+
+  componentDidUpdate() {
+    if (this.props.public && !this.props.publicUser && !this.props.isLoading)
+      this.props.fetchUser(this.props.id);
   }
 
   componentWillUnmount() {
@@ -37,9 +39,18 @@ class UserProfile extends Component {
     const user = this.props.public ? this.props.publicUser : this.props.user;
     const isApplicationSubmitted = Boolean(this.props.application);
 
-    return this.props.isLoading ? (
-      <Loader />
-    ) : (
+    if (this.props.isLoading)
+      return <Loader />;
+
+    if (!user)
+      return (
+        <div className="user-profile">
+          <Heading hideUnderline>User {this.props.id}</Heading>
+          <div className="text-muted">Loading</div>
+        </div>
+      );
+
+    return (
       <div className="user-profile">
         <Heading hideUnderline>{`${user.firstName} ${user.lastName}`}</Heading>
         <div className="type">{user.type.toLowerCase()}</div>

@@ -4,7 +4,7 @@ import * as jsPDF from 'jspdf';
 import { Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
 import RoundedButton from 'Src/modules/RoundedButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Icon from 'Src/modules/Icon';
 import { faTrash, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { remove, uniqBy, prop } from 'ramda';
 import Dropzone from 'Src/modules/Dropzone';
@@ -329,8 +329,8 @@ class ProjectDetails extends Component {
                     this.setState({ dropzoneOpen: !this.state.dropzoneOpen })
                   }
                 >
-                  <FontAwesomeIcon
-                    icon={this.state.dropzoneOpen ? faTimes : faPlus}
+                  <Icon
+                    name={this.state.dropzoneOpen ? 'times' : 'plus'}
                     color={this.state.dropzoneOpen ? '#00a1f8' : '#00CC00'}
                   />
                 </button>
@@ -350,7 +350,7 @@ class ProjectDetails extends Component {
                           })
                         }
                       >
-                        <FontAwesomeIcon icon={faTrash} color="#e05454" />
+                        <Icon name="trash" color="#e05454" />
                       </button>
                     )}
                     <a
@@ -391,7 +391,7 @@ class ProjectDetails extends Component {
                             })
                           }
                         >
-                          <FontAwesomeIcon icon={faTimes} />
+                          <Icon name="times" />
                         </button>
                       </div>
                     ))}

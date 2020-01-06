@@ -1,0 +1,9 @@
+.application-details {
+  padding: 60px;
+}
+
+@media only screen and (max-width: 600px) {
+  .application-details {
+    padding: 60px 30px;
+  }
+}

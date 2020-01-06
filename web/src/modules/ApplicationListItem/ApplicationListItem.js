@@ -1,69 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ApplicationPropType from 'Src/propTypes/Application';
+import UserPropType from 'Src/propTypes/User';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import Icon from 'react-fontawesome';
 import './applicationListItem.scss';
 
-const ApplicationListItem = ({
-  application,
-  projectTitle,
-  firstName,
-  lastName,
-  chosenId
-}) => (
-  <div className="application-list-item">
-    <div>
-      <Link to={`/user/${application.applicantId}`} className="name">
-        {firstName} {lastName}
-      </Link>
-      <Link to={`/project/${application.projectId}`} className="title">
-        {projectTitle}
-      </Link>
-    </div>
-    <div>
-      <div className="approved">
-        {chosenId
-          ? chosenId === application.applicantId
-            ? 'Claimed'
-            : 'Approved'
-          : application.approved
-          ? 'Approved'
-          : 'Waiting'}
+const ApplicationListItem = ({ data }) => {
+  const { application, user } = data;
+
+  return (
+    <div className="application-list-item">
+      <div>
+        <Link to={`/user/${application.applicantId}`} className="name">
+          {user.firstName} {user.lastName}
+        </Link>
       </div>
-      <Link
-        to={{
-          pathname: '/application-letter',
-          state: {
-            chosenId,
-            application,
-            projectTitle,
-            firstName,
-            lastName,
-            projectId: application.projectId,
-            applicantId: application.applicantId
-          }
-        }}
-        className="view"
-      >
-        View &nbsp; <FontAwesomeIcon icon={faArrowRight} />
-      </Link>
+      <div>
+        <Link
+          className="rounded-button primary"
+          to={`/application/${application.id}`}
+        >
+          View <Icon name="arrow-right" />
+        </Link>
+      </div>
     </div>
-  </div>
-);
+  )
+};
 
 ApplicationListItem.propTypes = {
-  projectTitle: PropTypes.string.isRequired,
-  chosenId: PropTypes.number,
-  application: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    applicantId: PropTypes.number.isRequired,
-    projectId: PropTypes.number.isRequired,
-    proposal: PropTypes.string.isRequired,
-    approved: PropTypes.bool.isRequired
-  }).isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired
+  data: PropTypes.shape({
+    application: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      applicantId: PropTypes.number.isRequired,
+      projectId: PropTypes.number.isRequired,
+      proposal: PropTypes.string.isRequired,
+      approved: PropTypes.bool.isRequired
+    }).isRequired,
+    user: UserPropType.isRequired
+  })
 };
 
 export default ApplicationListItem;

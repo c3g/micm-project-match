@@ -1,15 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Icon from 'Src/modules/Icon';
 import './sideNavLink.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const SideNavLink = ({ text, link }) => (
   <NavLink activeClassName="active" className="side-nav-link" to={link} exact>
     {text}
     <span>
-      <FontAwesomeIcon icon={faChevronRight} />
+      <Icon name="chevron-right" />
     </span>
   </NavLink>
 );

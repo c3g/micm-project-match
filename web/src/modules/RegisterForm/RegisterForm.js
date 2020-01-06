@@ -7,9 +7,7 @@ import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
 import RadioButton from 'Src/modules/RadioButton';
 import { facebookLogin, googleLogin } from 'Src/config/endpoints';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
+import Icon from 'Src/modules/Icon';
 import './registerForm.scss';
 
 const registerValidate = values => {
@@ -51,29 +49,29 @@ let RegisterForm = props => (
     {!props.complete ? (
       <div>
         <a className="facebook-auth-button" href={facebookLogin}>
-          <FontAwesomeIcon
+          <Icon
             size="1x"
             transform="down-3 grow-10"
-            icon={faFacebookF}
+            name="facebook"
           />
           Continue with Facebook
-          <FontAwesomeIcon
+          <Icon
             size="1x"
             transform="down-3 grow-10"
-            icon={faArrowCircleRight}
+            name="arrow-circle-right"
           />
         </a>
         <a className="google-auth-button" href={googleLogin}>
-          <FontAwesomeIcon
+          <Icon
             size="1x"
             transform="down-3 grow-10"
-            icon={faGoogle}
+            name="google"
           />
           Continue with Google
-          <FontAwesomeIcon
+          <Icon
             size="1x"
             transform="down-3 grow-10"
-            icon={faArrowCircleRight}
+            name="arrow-circle-right"
           />
         </a>
         <div className="separator">or</div>

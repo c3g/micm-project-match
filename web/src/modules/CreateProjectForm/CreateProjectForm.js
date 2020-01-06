@@ -12,8 +12,7 @@ import Dropzone from 'Src/modules/Dropzone';
 import UserPropTypes from 'Src/propTypes/User';
 import './createProjectForm.scss';
 import { axis, organizations } from 'Src/config/data';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import Icon from 'Src/modules/Icon';
 import { remove, uniqBy, prop } from 'ramda';
 import KeywordSelector from 'Src/modules/KeywordSelector';
 import { formatDate } from 'Src/utils';
@@ -318,7 +317,7 @@ class CreateProjectFormComponent extends Component {
                         })
                       }
                     >
-                      <FontAwesomeIcon icon={faTimes} />
+                      <Icon name="times" />
                     </button>
                   </div>
                 ))}

@@ -21,6 +21,7 @@
     "react-dom": "16.8.6",
     "react-dropzone": "10.1.5",
     "react-favicon": "0.0.16",
+    "react-fontawesome": "1.7.1",
     "react-google-recaptcha": "1.0.5",
     "react-redux": "7.0.3",
     "react-router-dom": "5.0.0",

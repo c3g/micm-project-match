@@ -4,10 +4,9 @@ import Heading from 'Src/modules/Heading';
 import ProjectSearchbar from 'Src/modules/ProjectSearchbar';
 import ProjectList from 'Src/modules/ProjectList';
 import KeywordSelector from 'Src/modules/KeywordSelector';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import Icon from 'Src/modules/Icon';
 
-class ProfessorSetup extends Component {
+class Discover extends Component {
   state = { filterOpen: false };
 
   render() {
@@ -19,7 +18,7 @@ class ProfessorSetup extends Component {
         <button
           onClick={() => this.setState({ filterOpen: !this.state.filterOpen })}
         >
-          <FontAwesomeIcon icon={faFilter} color="#00a1f8" />
+          <Icon name="filter" color="#00a1f8" />
           &nbsp;&nbsp; Filter
         </button>
         <ProjectList />
@@ -28,4 +27,4 @@ class ProfessorSetup extends Component {
   }
 }
 
-export default ProfessorSetup;
+export default Discover;

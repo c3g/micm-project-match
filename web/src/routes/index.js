@@ -13,6 +13,7 @@ import CreateProject from './CreateProject';
 import Discover from './Discover';
 import Project from './Project';
 import Application from './Application';
+import ApplicationDetails from './ApplicationDetails';
 import User from './User';
 import Projects from './Projects';
 import UpdateProject from './UpdateProject';
@@ -44,6 +45,14 @@ export default [
     access: [k.ADMIN],
     withAuth: true,
     withSidebar: 'Applications'
+  },
+  {
+    name: 'Application',
+    pathname: '/application/:id',
+    component: ApplicationDetails,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: true
   },
   {
     name: 'User',

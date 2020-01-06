@@ -13,7 +13,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(action(DISAPPROVE_APPLICATION.REQUEST, data))
 });
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  applications: state.applicationList.applications
+});
 
 export default connect(
   mapStateToProps,

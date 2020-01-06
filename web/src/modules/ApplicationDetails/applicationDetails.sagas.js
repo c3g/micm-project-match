@@ -1,4 +1,5 @@
 import { call, put, takeLatest, delay } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import { request, action } from 'Src/utils';
 import {
   SNACKBAR,
@@ -9,12 +10,12 @@ import {
 function* approveApplication({ payload }) {
   const data = yield call(
     request,
-    `/application/${payload.applicationId}/approve/`
+    `/application/${payload}/approve/`
   );
   if (data.success) {
     yield put(action(APPROVE_APPLICATION.RECEIVE));
     yield put(action(SNACKBAR.SUCCESS, 'Application approved'));
-    yield payload.push('/applications');
+    yield put(push('/applications'));
   } else {
     yield put(action(APPROVE_APPLICATION.ERROR));
     yield put(action(SNACKBAR.DANGER, data.message));
@@ -26,12 +27,12 @@ function* approveApplication({ payload }) {
 function* disapproveApplication({ payload }) {
   const data = yield call(
     request,
-    `/application/${payload.applicationId}/disapprove/`
+    `/application/${payload}/disapprove/`
   );
   if (data.success) {
     yield put(action(APPROVE_APPLICATION.RECEIVE));
     yield put(action(SNACKBAR.SUCCESS, 'Application disapproved'));
-    yield payload.push('/applications');
+    yield put(push('/applications'));
   } else {
     yield put(action(APPROVE_APPLICATION.ERROR));
     yield put(action(SNACKBAR.DANGER, data.message));

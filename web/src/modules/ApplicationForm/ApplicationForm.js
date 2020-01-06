@@ -82,9 +82,6 @@ InputNumberField.propTypes = fieldPropTypes;
 
 class ApplicationFormComponent extends Component {
   static propTypes = {
-    application: PropTypes.shape({
-      id: PropTypes.number.isRequired
-    }),
     user: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     applicationForm: PropTypes.shape({

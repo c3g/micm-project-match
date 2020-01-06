@@ -5,7 +5,7 @@ import './loginForm.scss';
 import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
 import { facebookLogin, googleLogin } from 'Src/config/endpoints';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Icon from 'Src/modules/Icon';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -23,25 +23,25 @@ LoginField.propTypes = {
 let LoginForm = props => (
   <div className="login-form">
     <a className="facebook-auth-button" href={facebookLogin}>
-      <FontAwesomeIcon
+      <Icon
         size="1x"
         transform="down-3 grow-10"
-        icon={faFacebookF}
+        name="facebook"
       />
       Continue with Facebook
-      <FontAwesomeIcon
+      <Icon
         size="1x"
         transform="down-3 grow-10"
-        icon={faArrowCircleRight}
+        name="arrow-circle-right"
       />
     </a>
     <a className="google-auth-button" href={googleLogin}>
-      <FontAwesomeIcon size="1x" transform="down-3 grow-10" icon={faGoogle} />
+      <Icon size="1x" transform="down-3 grow-10" name="google" />
       Continue with Google
-      <FontAwesomeIcon
+      <Icon
         size="1x"
         transform="down-3 grow-10"
-        icon={faArrowCircleRight}
+        name="arrow-circle-right"
       />
     </a>
     <div className="separator">or</div>
