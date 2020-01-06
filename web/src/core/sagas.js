@@ -30,7 +30,7 @@ function* init() {
   const data = yield call(request, `/user`);
   const apiData = data.data;
 
-  if (apiData && apiData.loggedIn) {
+  if (data.success && apiData && apiData.loggedIn) {
     yield put(action(LOGIN.RECEIVE, apiData.user));
 
     if (apiData.user.type === 'STUDENT') {
