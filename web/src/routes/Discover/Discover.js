@@ -13,7 +13,7 @@ class ProfessorSetup extends Component {
   render() {
     return (
       <div className="discover-page">
-        <Heading hideUnderline>Discover Projects</Heading>
+        <Heading hideUnderline>Projects</Heading>
         <ProjectSearchbar />
         {this.state.filterOpen && <KeywordSelector preventAddition />}
         <button

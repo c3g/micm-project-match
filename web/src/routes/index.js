@@ -19,7 +19,6 @@ import UpdateProject from './UpdateProject';
 import Applications from './Applications';
 import ApplicationLetter from './ApplicationLetter';
 import Professors from './Professors';
-import Matches from './Matches';
 import Users from './Users';
 
 export default [
@@ -32,14 +31,6 @@ export default [
     withSidebar: 'Users'
   },
   {
-    name: 'Matches',
-    pathname: '/matches',
-    component: Matches,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: 'Matches'
-  },
-  {
     name: 'Professors',
     pathname: '/professors',
     component: Professors,
@@ -48,20 +39,28 @@ export default [
     withSidebar: 'Professors'
   },
   {
-    name: 'ApplicationLetter',
-    pathname: '/application-letter',
-    component: ApplicationLetter,
-    access: [k.PROFESSOR],
-    withAuth: true,
-    withSidebar: true
-  },
-  {
     name: 'Applications',
     pathname: '/applications',
     component: Applications,
     access: [k.ADMIN],
     withAuth: true,
     withSidebar: 'Applications'
+  },
+  {
+    name: 'User',
+    pathname: '/user/:id',
+    component: User,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: true
+  },
+  {
+    name: 'Projects',
+    pathname: '/projects',
+    component: Discover,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Projects'
   },
   {
     name: 'UpdateProject',
@@ -80,14 +79,6 @@ export default [
     withSidebar: 'My Projects'
   },
   {
-    name: 'User',
-    pathname: '/user/:id',
-    component: User,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: true
-  },
-  {
     name: 'Application',
     pathname: '/application',
     component: Application,
@@ -102,14 +93,6 @@ export default [
     access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
     withAuth: true,
     withSidebar: true
-  },
-  {
-    name: 'Discover',
-    pathname: '/discover',
-    component: Discover,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: 'Discover'
   },
   {
     name: 'CreateProject',
