@@ -12,10 +12,7 @@ function userData(req, res) {
     return dataHandler(res)({ loggedIn: false, user: null });
 
   User.findProfessorById(req.user.id)
-  .then(user => {
-    console.log(user)
-    return { loggedIn: true, user }
-  })
+  .then(user => { return { loggedIn: true, user } })
   .then(dataHandler(res))
   .catch(errorHandler(res));
 }
