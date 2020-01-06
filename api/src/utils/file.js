@@ -1,13 +1,18 @@
 import path from 'path';
 import exists from 'path-exists';
-import fs, { promises as fsPromises } from 'fs';
+import fs from 'fs';
+import util from 'util';
+
+const mkdir = util.promisify(fs.mkdir)
+const unlink = util.promisify(fs.unlink)
+const readFile = util.promisify(fs.readFile)
 
 const basePath = process.env.STORAGE_PATH
 const makeParentDir = async filepath => {
   const dirname = path.dirname(filepath)
   const dirExists = await exists(dirname)
   if (!dirExists)
-    await fsPromises.mkdir(dirname, { recursive: true })
+    await mkdir(dirname, { recursive: true })
 }
 
 const writeFile = (filepath, content) => {
@@ -34,10 +39,10 @@ export const upload = (location, mimeType, content) =>
     .then(() => writeFile(path.join(basePath, location), content))
 
 export const deleteObject = location =>
-  fsPromises.unlink(path.join(basePath, location));
+  unlink(path.join(basePath, location));
 
 export const getFile = location =>
-  fsPromises.readFile(path.join(basePath, location));
+  readFile(path.join(basePath, location));
 
 export const getFileStream = location =>
   new Promise((resolve) => {

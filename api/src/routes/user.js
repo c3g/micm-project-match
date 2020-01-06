@@ -8,7 +8,16 @@ import * as File from '../utils/file';
 import { clean } from '../config/passport';
 
 function userData(req, res) {
-  dataHandler(res)({ loggedIn: !!req.user, user: req.user });
+  if (!req.user)
+    return dataHandler(res)({ loggedIn: false, user: null });
+
+  User.findProfessorById(req.user.id)
+  .then(user => {
+    console.log(user)
+    return { loggedIn: true, user }
+  })
+  .then(dataHandler(res))
+  .catch(errorHandler(res));
 }
 
 function updateUser(req, res) {

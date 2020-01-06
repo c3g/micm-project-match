@@ -8,15 +8,7 @@ const mapDispatchToProps = dispatch => ({
   fetchUser: data => dispatch(action(USER.FETCH.REQUEST, data)),
   clearUser: () =>
     dispatch(
-      action(USER.FETCH.RECEIVE, {
-        firstName: '',
-        lastName: '',
-        email: '',
-        tel: '',
-        type: '',
-        cvUploaded: false,
-        professor: null
-      })
+      action(USER.FETCH.RECEIVE, undefined)
     )
 });
 

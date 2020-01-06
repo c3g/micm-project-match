@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import { request, action } from 'Src/utils';
 import { SNACKBAR, PROJECT } from 'Src/constants/actionTypes';
 import { organizations } from 'Src/config/data';
@@ -21,7 +22,7 @@ function* createProject({ payload }) {
   if (data.success) {
     yield put(action(PROJECT.CREATE.RECEIVE, data.data));
     yield put(action(SNACKBAR.SUCCESS, 'Project Created'));
-    yield payload.push(`/project/${data.data.id}`);
+    yield put(push(`/project/${data.data.id}`));
   } else {
     yield put(action(SNACKBAR.DANGER, data.message));
   }
@@ -45,7 +46,7 @@ function* updateProject({ payload }) {
   if (data.success) {
     yield put(action(PROJECT.UPDATE.RECEIVE, data.data));
     yield put(action(SNACKBAR.SUCCESS, 'Project Updated'));
-    yield payload.push(`/project/${data.data.id}`);
+    yield put(push(`/project/${data.data.id}`));
   } else {
     yield put(action(SNACKBAR.DANGER, data.message));
   }

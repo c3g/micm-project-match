@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import UserPropTypes from 'Src/propTypes/User';
 import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
 import RadioButton from 'Src/modules/RadioButton';
@@ -162,14 +163,7 @@ SetupFormComponent.propTypes = {
     lastName: PropTypes.string,
     email: PropTypes.string
   }).isRequired,
-  userData: PropTypes.shape({
-    verified: PropTypes.bool.isRequired,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-    tel: PropTypes.string,
-    type: PropTypes.string
-  }).isRequired
+  userData: UserPropTypes.isRequired
 };
 
 const SetupForm = reduxForm({

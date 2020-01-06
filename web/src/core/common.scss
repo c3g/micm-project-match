@@ -74,6 +74,14 @@ $input-color:        #e6e6e6;
   display: flex;
   flex-direction: row;
 }
+.flex-row--vmargin {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.flex-row--hmargin {
+  margin-left: 15px;
+  margin-right: 15px;
+}
 
 .flex-column {
   display: flex;

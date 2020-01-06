@@ -13,24 +13,8 @@ const actionHandlers = {
 
 const initialState = {
   isLoading: false,
-  publicUser: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    tel: '',
-    type: '',
-    cvUploaded: false,
-    professor: null
-  },
-  user: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    tel: '',
-    type: '',
-    cvUploaded: false,
-    professor: null
-  }
+  publicUser: undefined,
+  user: undefined
 };
 
 export default reducer(initialState, actionHandlers);

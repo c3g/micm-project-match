@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import getFilename from '@lukeboyle/get-filename-from-path';
+import UserPropTypes from 'Src/propTypes/User';
 import Heading from 'Src/modules/Heading';
 import { withRouter, Link } from 'react-router-dom';
 import Loader from 'Src/modules/Loader';
@@ -9,30 +11,8 @@ import './userProfile.scss';
 class UserProfile extends Component {
   static propTypes = {
     public: PropTypes.bool,
-    user: PropTypes.shape({
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      tel: PropTypes.string,
-      type: PropTypes.string.isRequired,
-      cvUploaded: PropTypes.bool.isRequired,
-      professor: PropTypes.shape({
-        department: PropTypes.string.isRequired,
-        position: PropTypes.string.isRequired
-      })
-    }),
-    publicUser: PropTypes.shape({
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      tel: PropTypes.string,
-      type: PropTypes.string.isRequired,
-      cvUploaded: PropTypes.bool.isRequired,
-      professor: PropTypes.shape({
-        department: PropTypes.string.isRequired,
-        position: PropTypes.string.isRequired
-      })
-    }),
+    user: UserPropTypes,
+    publicUser: UserPropTypes,
     application: PropTypes.object,
     id: PropTypes.string,
     history: PropTypes.object.isRequired,
@@ -86,10 +66,10 @@ class UserProfile extends Component {
               </div>
             </>
           )}
-          {(!this.props.public || user.cvUploaded) && user.type !== k.ADMIN && (
+          {(!this.props.public || user.cvKey) && user.type !== k.ADMIN && (
             <div>
               <span>Resume</span>
-              {user.cvUploaded ? (
+              {user.cvKey ? (
                 <>
                   <a
                     href={`/api/cv/${user.id}`}
@@ -97,7 +77,7 @@ class UserProfile extends Component {
                     rel="noopener noreferrer"
                     className="view-cv"
                   >
-                    View
+                    View {getFilename(user.cvKey)}
                   </a>
                   {!this.props.public && (
                     <Link to="/cv-setup" className="blue">

@@ -5,15 +5,21 @@ import { rejectMessage } from '../utils/promise';
 import k from '../constants';
 
 function create(req, res) {
-  Project.create({
-    ...req.body,
-    authorId: req.user.id
-  })
+  Project.listUserProjects(req.user.id)
+  .then(projects =>
+    projects.length >= 2 ?
+      Promise.reject(new Error('Maximum reached: user already has 2 projects')) :
+      Promise.resolve())
+  .then(() =>
+    Project.create({
+      ...req.body,
+      authorId: req.user.id
+    }))
   .then(project => {
     uploadFiles(req.files, project)
-      .then(() => dataHandler(res)(project))
-      .catch(errorHandler(res));
-  });
+      .then(() => dataHandler(res)(project));
+  })
+  .catch(errorHandler(res));
 }
 
 function update(req, res) {

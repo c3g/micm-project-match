@@ -34,7 +34,8 @@ function findProfessorById(id) {
     .selectOne(
       `
       SELECT user_account.*,
-             row_to_json(professor.*) AS "professor"
+             row_to_json(professor.*) AS "professor",
+             (SELECT COUNT(*) FROM project WHERE author_id = @id) AS "project_count"
         FROM user_account
              LEFT JOIN professor
              ON user_account.id = professor.user_id
@@ -81,7 +82,7 @@ function update(user) {
       `,
       user
     )
-    .then(() => findById(id))
+    .then(() => findProfessorById(id))
     .catch(err =>
       err.code === k.POSTGRES_UNIQUE_VIOLATION
         ? rejectMessage('Email already in use', k.EMAIL_EXISTS)
