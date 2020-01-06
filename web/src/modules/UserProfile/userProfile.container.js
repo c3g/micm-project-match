@@ -6,10 +6,7 @@ import { USER } from 'Src/constants/actionTypes';
 
 const mapDispatchToProps = dispatch => ({
   fetchUser: data => dispatch(action(USER.FETCH.REQUEST, data)),
-  clearUser: () =>
-    dispatch(
-      action(USER.FETCH.RECEIVE, undefined)
-    )
+  clearUser: () => dispatch(action(USER.FETCH.RECEIVE, undefined))
 });
 
 const mapStateToProps = state => ({

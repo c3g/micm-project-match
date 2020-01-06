@@ -17,7 +17,6 @@ import User from './User';
 import Projects from './Projects';
 import UpdateProject from './UpdateProject';
 import Applications from './Applications';
-import ApplicationLetter from './ApplicationLetter';
 import Professors from './Professors';
 import Users from './Users';
 
