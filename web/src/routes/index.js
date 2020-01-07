@@ -63,10 +63,26 @@ export default [
     withSidebar: true
   },
   {
+    name: 'CreateProject',
+    pathname: '/create-project',
+    component: CreateProject,
+    access: [k.PROFESSOR],
+    withAuth: true,
+    withSidebar: 'Create Project'
+  },
+  {
+    name: 'UserProjects',
+    pathname: '/project/for-user',
+    component: Projects,
+    access: [k.PROFESSOR],
+    withAuth: true,
+    withSidebar: 'My Projects'
+  },
+  {
     name: 'Projects',
-    pathname: '/projects',
+    pathname: '/project/list',
     component: Discover,
-    access: [k.ADMIN],
+    access: [k.PROFESSOR, k.ADMIN],
     withAuth: true,
     withSidebar: 'Projects'
   },
@@ -77,14 +93,6 @@ export default [
     access: [k.PROFESSOR, k.STUDENT],
     withAuth: true,
     withSidebar: true
-  },
-  {
-    name: 'Projects',
-    pathname: '/projects',
-    component: Projects,
-    access: [k.PROFESSOR],
-    withAuth: true,
-    withSidebar: 'My Projects'
   },
   {
     name: 'Application',
@@ -101,14 +109,6 @@ export default [
     access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
     withAuth: true,
     withSidebar: true
-  },
-  {
-    name: 'CreateProject',
-    pathname: '/create-project',
-    component: CreateProject,
-    access: [k.PROFESSOR],
-    withAuth: true,
-    withSidebar: 'Create Project'
   },
   {
     name: 'CVSetup',
@@ -137,6 +137,20 @@ export default [
     withAuth: true
   },
   {
+    name: 'Home',
+    pathname: '/home',
+    component: Home
+  },
+  {
+    name: 'Profile',
+    pathname: '/',
+    component: Profile,
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN, k.UNSET],
+    withAuth: true,
+    withSidebar: 'Profile'
+  },
+
+  {
     name: 'Login',
     pathname: '/signin',
     component: Login,
@@ -159,18 +173,5 @@ export default [
     pathname: '/forgot-password',
     component: ForgotPassword,
     withAuth: false
-  },
-  {
-    name: 'Home',
-    pathname: '/home',
-    component: Home
-  },
-  {
-    name: 'Profile',
-    pathname: '/',
-    component: Profile,
-    access: [k.PROFESSOR, k.STUDENT, k.ADMIN, k.UNSET],
-    withAuth: true,
-    withSidebar: 'Profile'
   }
 ];
