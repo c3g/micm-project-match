@@ -16,7 +16,7 @@ const CVSetupForm = props => (
       text={
         props.isLoading
           ? 'Uploading...'
-          : "Drag 'n' drop your CV here, or click to select it"
+          : 'Drag and drop your CV here, or click to select it (8 MB max)'
       }
     />
   </div>
