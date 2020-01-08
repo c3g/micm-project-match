@@ -115,7 +115,9 @@ const ApplicationDetails = ({
 
 ApplicationDetails.propTypes = {
   id: PropTypes.number.isRequired,
-  applications: PropTypes.arrayOf(ApplicationPropType)
+  applications: PropTypes.arrayOf(ApplicationPropType),
+  approveApplication: PropTypes.func.isRequired,
+  disapproveApplication: PropTypes.func.isRequired
 };
 
 export default withRouter(ApplicationDetails);

@@ -6,8 +6,6 @@ import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
 import { facebookLogin, googleLogin } from 'Src/config/endpoints';
 import Icon from 'Src/modules/Icon';
-import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 const LoginField = ({ input, type, placeholder }) => (

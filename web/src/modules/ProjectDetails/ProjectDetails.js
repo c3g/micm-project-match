@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
 import RoundedButton from 'Src/modules/RoundedButton';
 import Icon from 'Src/modules/Icon';
-import { faTrash, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { remove, uniqBy, prop } from 'ramda';
 import Dropzone from 'Src/modules/Dropzone';
 import * as k from 'Src/constants/values';

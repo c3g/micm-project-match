@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FontAwesomeIcon from 'react-fontawesome';
 
 export default function Icon({ color, ...rest }) {
@@ -11,3 +12,7 @@ export default function Icon({ color, ...rest }) {
 
   return <FontAwesomeIcon {...rest} />;
 }
+
+Icon.propTypes = {
+  color: PropTypes.string
+};
