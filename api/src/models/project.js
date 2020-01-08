@@ -9,7 +9,8 @@ function findById(id) {
     .selectOne(
       `
       SELECT project.*,
-             array_agg(tag.text) as tags,
+             array_agg(tag.text) AS tags,
+             row_to_json(user_account.*) AS author,
              COALESCE(
                json_agg(
                  json_build_object(
@@ -28,7 +29,9 @@ function findById(id) {
              ON tag.id = ANY(project.tag_id)
              LEFT JOIN project_document
              ON project.id = project_document.project_id
-       GROUP BY project.id
+             LEFT JOIN user_account
+             ON user_account.id = project.author_id
+       GROUP BY project.id, user_account.id
       HAVING project.id = @id
       `,
       { id }
@@ -146,7 +149,6 @@ function listUserProjects(id) {
 }
 
 function search({ term, keywords }, isAdmin = false) {
-  console.log(keywords);
   return db.selectAll(
     `
     SELECT project.id,
