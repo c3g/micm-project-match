@@ -35,7 +35,7 @@ function deleteProject(req, res) {
 }
 
 function list(req, res) {
-  Project.selectAll(req.user.type === k.USER_TYPE.ADMIN)
+  Project.list(req.user.type === k.USER_TYPE.ADMIN)
     .then(dataHandler(res))
     .catch(errorHandler(res));
 }
