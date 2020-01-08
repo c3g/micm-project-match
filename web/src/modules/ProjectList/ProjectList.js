@@ -41,11 +41,9 @@ class ProjectList extends Component {
                 Export as CSV
               </RoundedButton>
             </div>
-            {
-              projects.map((project, i) => (
-                <ProjectListItem key={`project_${i}`} project={project} />
-              ))
-            }
+            {projects.map((project, i) => (
+              <ProjectListItem key={`project_${i}`} project={project} />
+            ))}
           </>
         )}
       </div>
@@ -66,12 +64,12 @@ function exportAsCSV(projects) {
     'Author',
     'Tags',
     'Approved',
-    'Abstract',
+    'Abstract'
   ];
 
   const options = {
     header: true,
-    columns: headers,
+    columns: headers
   };
 
   const records = projects.map(p => [
@@ -86,8 +84,8 @@ function exportAsCSV(projects) {
     [p.author.firstName, p.author.lastName].join(' '),
     p.tags.join(', '),
     p.approved ? 'yes' : 'no',
-    p.abstract,
-  ])
+    p.abstract
+  ]);
 
   csvStringify(records, options, (err, content) => {
     if (err) {
@@ -97,7 +95,7 @@ function exportAsCSV(projects) {
 
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     saveAs(blob, 'project-list.csv');
-  })
+  });
 }
 
 export default ProjectList;

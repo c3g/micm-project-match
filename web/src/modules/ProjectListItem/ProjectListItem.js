@@ -14,15 +14,7 @@ const name = (firstName, lastName) =>
     : '';
 
 const ProjectListItem = ({
-  project: {
-    author,
-    title,
-    abstract,
-    id,
-    authorId,
-    tags,
-    approved
-  }
+  project: { author, title, abstract, id, authorId, tags, approved }
 }) => (
   <div className="project-list-item">
     <Link to={`/project/${id}`} className="details">
@@ -37,7 +29,9 @@ const ProjectListItem = ({
     </Link>
     <div className="by">
       <span>Project by</span>
-      <Link to={`/user/${authorId}`}>{name(author.firstName, author.lastName)}</Link>
+      <Link to={`/user/${authorId}`}>
+        {name(author.firstName, author.lastName)}
+      </Link>
     </div>
     <div className="tags">
       {tags &&
