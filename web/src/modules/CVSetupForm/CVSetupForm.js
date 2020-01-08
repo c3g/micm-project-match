@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import MIME_TYPES from 'Src/constants/mimeTypes';
 import './cvSetupForm.scss';
 import Dropzone from 'Src/modules/Dropzone';
 
 const CVSetupForm = props => (
   <div className="cv-setup-form">
     <Dropzone
+      multiple={false}
+      accept={MIME_TYPES.DOCUMENT}
       onDrop={acceptedFiles =>
         props.onSubmitCV({
           redirect: '/',

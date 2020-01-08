@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import getFilename from '@lukeboyle/get-filename-from-path';
 import cx from 'classname';
+import MIME_TYPES from 'Src/constants/mimeTypes';
 import { checkSizeInMB } from 'Src/utils/file';
 import Dropzone from 'Src/modules/Dropzone';
 import RoundedButton from 'Src/modules/RoundedButton';
@@ -231,9 +232,13 @@ class ApplicationFormComponent extends Component {
                 <Input className="flex-fill" value={user.lastName} disabled />
               </div>
               <div className="application-form__transcript flex-row">
-                <div className="flex-fill">CV and cover letter (8 MB max)</div>
+                <div className="flex-fill">
+                  CV and cover letter (8 MB max)
+                </div>
                 <div className="dropzone-container flex-fill">
                   <Dropzone
+                    multiple={false}
+                    accept={MIME_TYPES.DOCUMENT}
                     onDrop={this.onDropCV}
                     text={
                       <div>
