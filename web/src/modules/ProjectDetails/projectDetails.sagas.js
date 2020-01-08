@@ -29,7 +29,7 @@ function* deleteProject({ payload }) {
       })
     );
 
-  yield put(push('/projects'));
+  yield put(push('/project/list'));
 }
 
 function* deleteDocument({ payload }) {
