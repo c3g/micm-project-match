@@ -60,9 +60,12 @@ function details(id, userId, isAdmin = false) {
              project.abstract,
              project.open_for_students,
              project.author_id,
-             user_account.first_name,
-             user_account.last_name,
-             user_account.email,
+             row_to_json((SELECT d FROM (SELECT
+               user_account.first_name as first_name,
+               user_account.last_name,
+               user_account.approved,
+               user_account.email
+             ) d)) as "author",
              professor.department,
              array_agg(tag.text) as tags
         FROM project
@@ -106,17 +109,26 @@ function create(project) {
     .then(findById);
 }
 
-function selectAll(isAdmin = false) {
+function list(isAdmin = false) {
   return db.selectAll(
     `
     SELECT project.id,
            project.title,
            project.abstract,
            project.author_id,
+           project.start_date,
+           project.timeframe,
+           project.budget,
+           project.axis,
+           project.organizations,
+           project.open_for_students,
            project.approved as "projectApproved",
-           user_account.first_name,
-           user_account.last_name,
-           user_account.approved,
+           row_to_json((SELECT d FROM (SELECT
+             user_account.first_name as first_name,
+             user_account.last_name,
+             user_account.approved,
+             user_account.email
+           ) d)) as "author",
            array_agg(tag.text) as tags
       FROM project
            JOIN user_account
@@ -124,6 +136,7 @@ function selectAll(isAdmin = false) {
            LEFT JOIN tag
            ON tag.id = ANY(project.tag_id)
      GROUP BY project.id,
+           user_account.email,
            user_account.first_name,
            user_account.last_name,
            user_account.approved
@@ -299,7 +312,7 @@ function disapproveMatch(id) {
 export default {
   create,
   findById,
-  selectAll,
+  list,
   search,
   details,
   listUserProjects,
