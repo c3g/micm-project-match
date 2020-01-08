@@ -79,6 +79,7 @@ function details(id, userId, isAdmin = false) {
              user_account.first_name,
              user_account.last_name,
              user_account.email,
+             user_account.approved,
              professor.department
       HAVING project.id = @id
       `,
@@ -122,7 +123,7 @@ function list(isAdmin = false) {
            project.axis,
            project.organizations,
            project.open_for_students,
-           project.approved as "projectApproved",
+           project.approved,
            row_to_json((SELECT d FROM (SELECT
              user_account.first_name as first_name,
              user_account.last_name,
@@ -139,7 +140,8 @@ function list(isAdmin = false) {
            user_account.email,
            user_account.first_name,
            user_account.last_name,
-           user_account.approved
+           user_account.approved,
+           project.approved
     ${isAdmin ? '' : `HAVING user_account.approved = true`}
     `
   );
@@ -152,8 +154,7 @@ function listUserProjects(id) {
            project.title,
            project.abstract,
            project.author_id,
-           project.approved,
-           project.approved as "projectApproved"
+           project.approved
       FROM project
      WHERE project.author_id = @id
     `,
@@ -180,7 +181,8 @@ function search({ term, keywords }, isAdmin = false) {
      GROUP BY project.id,
            user_account.first_name,
            user_account.last_name,
-           user_account.approved
+           user_account.approved,
+           project.approved
     HAVING LOWER(project.title) LIKE LOWER(@term)
            AND project.tag_id @> @keywords
            ${isAdmin ? '' : `AND user_account.approved = true`}
