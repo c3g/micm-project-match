@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as jsPDF from 'jspdf';
 import { Link } from 'react-router-dom';
+import { pdfFromProject } from 'Src/utils/pdf';
 import Heading from 'Src/modules/Heading';
 import RoundedButton from 'Src/modules/RoundedButton';
 import Icon from 'Src/modules/Icon';
@@ -59,114 +59,11 @@ class ProjectDetails extends Component {
   }
 
   extractAsPDF = () => {
-    const doc = new jsPDF();
+    const project = this.props.project;
 
-    const html = `
-    <div style="font-family: helvetica; line-height: 20px;">
-      <div style="font-size: 2rem; font-weight: bold;">
-      ${this.props.project.title}
-      </div>
-      <br />
-      <div>
-        ${doc
-          .splitTextToSize(this.props.project.abstract, 250)
-          .join(`</div><div>`)}
-      </div>
-      <br />
-      <div>
-        <b>Prefered project start date:</b>
-        <span>${this.props.project.startDate}</span>
-      </div>
-      <br />
-      <div>
-        <b>MiCM Axis:</b>
-        <span>${this.props.project.axis}</span>
-      </div>
-      <br />
-      <div>
-        <b>Expected project timeframe:</b>
-        <span>${this.props.project.timeframe}</span>
-      </div>
-      <br />
-      <div>
-        <b>Requested budget:</b>
-        <span>
-        ${this.props.project.budget ? this.props.project.budget : 'Unspecified'}
-        </span>
-      </div>
-      <br />
-      <div>
-        This project is&nbsp;
-        ${
-          this.props.project.openForStudents
-            ? 'open to both students and professors'
-            : 'only open to professors'
-        }
-      </div>
-      <br />
-      <br />
-      <div>
-        <div><b>Tags</b></div>
-        <br />
-        <div className="tags">
-            ${this.props.project.tags
-              .map(tag => tag && `<div>${tag}</div>`)
-              .join('')}
-        </div>
-      </div>
-      <br />
-      <br />
-      <div>
-        <div><b>Project description</b></div>
-        <br />
-        <div>
-          ${doc
-            .splitTextToSize(this.props.project.description, 250)
-            .join(`</div><div>`)}
-        </div>
-      </div>
-      <br />
-      <br />
-      <div>
-        <div><b>Description of datasets to be used or generated</b></div>
-        <br />
-        <div>
-        ${doc
-          .splitTextToSize(this.props.project.datasets, 250)
-          .join(`</div><div>`)}
-        </div>
-      </div>
-      <br />
-      <br />
-      <div>
-        <div>
-          <b>Why you see this as a collaborative research project and what
-          you hope to gain from the <br />collaboration</b>
-        </div>
-        <br />
-        <div>
-          ${doc
-            .splitTextToSize(this.props.project.motive, 250)
-            .join(`</div><div>`)}
-        </div>
-      </div>
-      <br />
-      <br />
-      ${this.props.project.organizations.length > 0 &&
-        `<div>
-          <div><b>Relevant to the following organization/initiatives</b></div>
-          <br />
-          <div>
-            ${this.props.project.organizations
-              .map(organization => `<div>${organization}</div>`)
-              .join('')}
-          </div>
-        </div>
-        <br />`}
-    </div>
-    `;
-    doc.fromHTML(html, 10, 10);
-    doc.save(`${this.props.project.title}.pdf`);
+    const filename = `project-${project.title}.pdf`;
+    const pdf = pdfFromProject(project);
+    pdf.set({ filename }).save();
   };
 
   render() {

@@ -2,29 +2,47 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ApplicationPropType from 'Src/propTypes/Application';
 import getFilename from '@lukeboyle/get-filename-from-path';
+import { pdfFromApplication } from 'Src/utils/pdf';
+import Loader from 'Src/modules/Loader';
 import Icon from 'Src/modules/Icon';
 import RoundedButton from 'Src/modules/RoundedButton';
-import { withRouter, Link, Redirect } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import './applicationDetails.scss';
+
+const saveAsPDF = a => {
+  const filename = `application-${a.user.firstName}_${a.user.lastName}.pdf`;
+  const pdf = pdfFromApplication(a);
+  pdf.set({ filename }).save();
+};
 
 const ApplicationDetails = ({
   id,
+  isLoading,
   applications,
+  fetchApplications,
   approveApplication,
   disapproveApplication
 }) => {
   const a = applications.find(a => +a.application.id === +id);
 
-  if (!a) return <Redirect to="/applications" />;
+  if (!a && applications.length === 0) {
+    if (!isLoading) fetchApplications();
+
+    return <Loader />;
+  }
 
   const { application, user } = a;
 
   return (
     <div className="application-details">
-      <div>
+      <div className="flex-row">
         <Link to="/applications" className="application-details-link">
           <Icon name="arrow-left" /> Back to applications
         </Link>
+        <div className="flex-fill" />
+        <RoundedButton onClick={() => saveAsPDF(a)}>
+          Export as PDF
+        </RoundedButton>
       </div>
 
       <div className="right-align">
@@ -115,7 +133,9 @@ const ApplicationDetails = ({
 
 ApplicationDetails.propTypes = {
   id: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   applications: PropTypes.arrayOf(ApplicationPropType),
+  fetchApplications: PropTypes.func.isRequired,
   approveApplication: PropTypes.func.isRequired,
   disapproveApplication: PropTypes.func.isRequired
 };
