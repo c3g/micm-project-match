@@ -12,6 +12,8 @@
     "@lukeboyle/get-filename-from-path": "1.0.3",
     "classname": "0.0.0",
     "connected-react-router": "6.6.1",
+    "csv-stringify": "5.3.6",
+    "file-saver": "2.0.2",
     "history": "4.9.0",
     "html2canvas": "1.0.0-rc.5",
     "html2pdf.js": "0.9.1",

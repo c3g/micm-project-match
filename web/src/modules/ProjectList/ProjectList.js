@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import csvStringify from 'csv-stringify';
+import { saveAs } from 'file-saver';
 import ProjectListItem from 'Src/modules/ProjectListItem';
 import Loader from 'Src/modules/Loader';
+import RoundedButton from 'Src/modules/RoundedButton';
 import './projectList.scss';
 
 class ProjectList extends Component {
@@ -24,18 +27,77 @@ class ProjectList extends Component {
   }
 
   render() {
+    const projects = this.props.projects;
+
     return (
       <div>
         {this.props.isLoading ? (
           <Loader />
         ) : (
-          this.props.projects.map((project, i) => (
-            <ProjectListItem key={`project_${i}`} project={project} />
-          ))
+          <>
+            <div className="flex-row">
+              <div className="flex-fill" />
+              <RoundedButton onClick={() => exportAsCSV(projects)}>
+                Export as CSV
+              </RoundedButton>
+            </div>
+            {
+              projects.map((project, i) => (
+                <ProjectListItem key={`project_${i}`} project={project} />
+              ))
+            }
+          </>
         )}
       </div>
     );
   }
+}
+
+function exportAsCSV(projects) {
+  const headers = [
+    'ID',
+    'Title',
+    'Start Date',
+    'Timeframe',
+    'Budget',
+    'Axis',
+    'Organizations',
+    'Open for students',
+    'Author',
+    'Tags',
+    'Approved',
+    'Abstract',
+  ];
+
+  const options = {
+    header: true,
+    columns: headers,
+  };
+
+  const records = projects.map(p => [
+    p.id,
+    p.title,
+    p.startDate,
+    p.timeframe,
+    p.budget,
+    p.axis,
+    p.organizations.join(', '),
+    p.openForStudents ? 'yes' : 'no',
+    [p.author.firstName, p.author.lastName].join(' '),
+    p.tags.join(', '),
+    p.approved ? 'yes' : 'no',
+    p.abstract,
+  ])
+
+  csvStringify(records, options, (err, content) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, 'project-list.csv');
+  })
 }
 
 export default ProjectList;

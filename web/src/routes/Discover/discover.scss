@@ -4,11 +4,15 @@
   padding: 60px;
 
   button {
-    color: $color-primary;
-    font-family: 1rem;
-    background: none;
     border: none;
   }
+}
+
+.discover-page__filter {
+  color: $color-primary;
+  font-family: 1rem;
+  background: none;
+  border: none;
 }
 
 @media only screen and (max-width: 600px) {

@@ -16,10 +16,10 @@ class Discover extends Component {
         <ProjectSearchbar />
         {this.state.filterOpen && <KeywordSelector preventAddition />}
         <button
+          className="discover-page__filter"
           onClick={() => this.setState({ filterOpen: !this.state.filterOpen })}
         >
-          <Icon name="filter" color="#00a1f8" />
-          &nbsp;&nbsp; Filter
+          <Icon name="filter" color="#00a1f8" /> Filter
         </button>
         <ProjectList />
       </div>
