@@ -15,8 +15,7 @@ const ApplicationDetails = ({
 }) => {
   const a = applications.find(a => +a.application.id === +id);
 
-  if (!a)
-    return <Redirect to="/applications" />;
+  if (!a) return <Redirect to="/applications" />;
 
   const { application, user } = a;
 
@@ -30,12 +29,15 @@ const ApplicationDetails = ({
 
       <div className="right-align">
         <div>By</div>
-        <Link  className="name application-details-link" to={`/user/${application.applicantId}`}>
+        <Link
+          className="name application-details-link"
+          to={`/user/${application.applicantId}`}
+        >
           {user.firstName} {user.lastName}
         </Link>
       </div>
 
-      <div className='detail-list'>
+      <div className="detail-list">
         <div>
           <span>C.V.</span>
           <span>
@@ -108,7 +110,7 @@ const ApplicationDetails = ({
         )}
       </div>
     </div>
-  )
+  );
 };
 
 ApplicationDetails.propTypes = {

@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import ApplicationDetails from 'Src/modules/ApplicationDetails';
 import './applicationDetails.scss';
 
-const ApplicationDetailsContainer = ({ match: { params: { id } } }) => (
+const ApplicationDetailsContainer = ({
+  match: {
+    params: { id }
+  }
+}) => (
   <div className="application-details">
     <ApplicationDetails id={id} />
   </div>

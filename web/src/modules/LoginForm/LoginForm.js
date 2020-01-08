@@ -23,26 +23,14 @@ LoginField.propTypes = {
 let LoginForm = props => (
   <div className="login-form">
     <a className="facebook-auth-button" href={facebookLogin}>
-      <Icon
-        size="1x"
-        transform="down-3 grow-10"
-        name="facebook"
-      />
+      <Icon size="1x" transform="down-3 grow-10" name="facebook" />
       Continue with Facebook
-      <Icon
-        size="1x"
-        transform="down-3 grow-10"
-        name="arrow-circle-right"
-      />
+      <Icon size="1x" transform="down-3 grow-10" name="arrow-circle-right" />
     </a>
     <a className="google-auth-button" href={googleLogin}>
       <Icon size="1x" transform="down-3 grow-10" name="google" />
       Continue with Google
-      <Icon
-        size="1x"
-        transform="down-3 grow-10"
-        name="arrow-circle-right"
-      />
+      <Icon size="1x" transform="down-3 grow-10" name="arrow-circle-right" />
     </a>
     <div className="separator">or</div>
     <div className="form">

@@ -7,9 +7,7 @@ export default function Icon({ color, ...rest }) {
       <span style={{ color }}>
         <FontAwesomeIcon {...rest} />
       </span>
-    )
+    );
 
-  return (
-    <FontAwesomeIcon {...rest} />
-  )
+  return <FontAwesomeIcon {...rest} />;
 }

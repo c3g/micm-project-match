@@ -22,8 +22,7 @@ class UserProfile extends Component {
   };
 
   componentDidMount() {
-    if (this.props.public)
-      this.props.fetchUser(this.props.id);
+    if (this.props.public) this.props.fetchUser(this.props.id);
   }
 
   componentDidUpdate() {
@@ -39,8 +38,7 @@ class UserProfile extends Component {
     const user = this.props.public ? this.props.publicUser : this.props.user;
     const isApplicationSubmitted = Boolean(this.props.application);
 
-    if (this.props.isLoading)
-      return <Loader />;
+    if (this.props.isLoading) return <Loader />;
 
     if (!user)
       return (

@@ -8,10 +8,7 @@ import {
 } from 'Src/constants/actionTypes';
 
 function* approveApplication({ payload }) {
-  const data = yield call(
-    request,
-    `/application/${payload}/approve/`
-  );
+  const data = yield call(request, `/application/${payload}/approve/`);
   if (data.success) {
     yield put(action(APPROVE_APPLICATION.RECEIVE));
     yield put(action(SNACKBAR.SUCCESS, 'Application approved'));
@@ -25,10 +22,7 @@ function* approveApplication({ payload }) {
 }
 
 function* disapproveApplication({ payload }) {
-  const data = yield call(
-    request,
-    `/application/${payload}/disapprove/`
-  );
+  const data = yield call(request, `/application/${payload}/disapprove/`);
   if (data.success) {
     yield put(action(APPROVE_APPLICATION.RECEIVE));
     yield put(action(SNACKBAR.SUCCESS, 'Application disapproved'));

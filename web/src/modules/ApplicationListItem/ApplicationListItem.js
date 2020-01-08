@@ -28,7 +28,7 @@ const ApplicationListItem = ({ data }) => {
         </Link>
       </div>
     </div>
-  )
+  );
 };
 
 ApplicationListItem.propTypes = {
