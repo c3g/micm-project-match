@@ -9,7 +9,7 @@ const ApplicationDetailsContainer = ({
   }
 }) => (
   <div className="application-details">
-    <ApplicationDetails id={id} />
+    <ApplicationDetails id={parseInt(id) || undefined} />
   </div>
 );
 
