@@ -63,8 +63,6 @@ export function sendContactUsMail(data) {
 }
 
 export function sendApplicationSubmissionMail(application, student) {
-  console.log(application)
-  console.log(student)
   User.listAdmins()
   .then(admins => {
     return Promise.all(
@@ -91,8 +89,6 @@ export function sendApplicationSubmissionMail(application, student) {
 }
 
 export function sendProjectCreationMail(project, author) {
-  console.log(project)
-  console.log(author)
   User.listAdmins()
   .then(admins => {
     return Promise.all(
