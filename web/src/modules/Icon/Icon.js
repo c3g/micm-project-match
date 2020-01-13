@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from 'react-fontawesome';
+import cx from 'classname';
 
-export default function Icon({ color, ...rest }) {
+export default function Icon({ color, className, ...rest }) {
   if (color)
     return (
       <span style={{ color }}>
-        <FontAwesomeIcon {...rest} />
+        <FontAwesomeIcon className={cx('Icon', className)} {...rest} />
       </span>
     );
 
-  return <FontAwesomeIcon {...rest} />;
+  return <FontAwesomeIcon className={cx('Icon', className)} {...rest} />;
 }
 
 Icon.propTypes = {
