@@ -15,5 +15,6 @@ export default function Icon({ color, className, ...rest }) {
 }
 
 Icon.propTypes = {
-  color: PropTypes.string
+  color: PropTypes.string,
+  className: PropTypes.string
 };
