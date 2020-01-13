@@ -17,7 +17,7 @@ const ProjectListItem = ({
   project: { author, title, abstract, id, authorId, tags, approved }
 }) => (
   <div className="project-list-item">
-    <Link to={`/project/${id}`} className="details">
+    <Link to={`/projects/${id}`} className="details">
       <div className="title">
         <div>{title}</div>
         <div className="approved">{approved && 'Approved'}</div>

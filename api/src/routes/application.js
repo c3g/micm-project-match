@@ -2,6 +2,7 @@ import path from 'path';
 import * as File from '../utils/file';
 import { Application } from '../models';
 import { errorHandler, dataHandler } from '../utils/handlers';
+import { sendApplicationSubmissionMail } from '../mail'
 import k from '../constants';
 
 function create(req, res) {
@@ -24,8 +25,11 @@ function create(req, res) {
     }
 
     Application.create(application)
-     .then(dataHandler(res))
-     .catch(errorHandler(res)); 
+    .then(application => {
+      dataHandler(res)(application);
+      return sendApplicationSubmissionMail(application, user);
+    })
+    .catch(errorHandler(res)); 
   });
 }
 

@@ -2,6 +2,7 @@ import { Project } from '../models';
 import { errorHandler, dataHandler, okHandler } from '../utils/handlers';
 import * as File from '../utils/file';
 import { rejectMessage } from '../utils/promise';
+import { sendProjectCreationMail } from '../mail';
 import k from '../constants';
 
 function create(req, res) {
@@ -15,10 +16,11 @@ function create(req, res) {
       ...req.body,
       authorId: req.user.id
     }))
-  .then(project => {
+  .then(project =>
     uploadFiles(req.files, project)
-      .then(() => dataHandler(res)(project));
-  })
+      .then(() => dataHandler(res)(project))
+      .then(() => sendProjectCreationMail(project, req.user))
+  )
   .catch(errorHandler(res));
 }
 

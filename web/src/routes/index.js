@@ -72,7 +72,7 @@ export default [
   },
   {
     name: 'UserProjects',
-    pathname: '/project/for-user',
+    pathname: '/user-projects',
     component: Projects,
     access: [k.PROFESSOR],
     withAuth: true,
@@ -104,7 +104,7 @@ export default [
   },
   {
     name: 'Project',
-    pathname: '/project/:id',
+    pathname: '/projects/:id',
     component: Project,
     access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
     withAuth: true,

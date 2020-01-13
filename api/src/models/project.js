@@ -154,9 +154,32 @@ function listUserProjects(id) {
            project.title,
            project.abstract,
            project.author_id,
-           project.approved
+           project.start_date,
+           project.timeframe,
+           project.budget,
+           project.axis,
+           project.organizations,
+           project.open_for_students,
+           project.approved,
+           row_to_json((SELECT d FROM (SELECT
+             user_account.first_name as first_name,
+             user_account.last_name,
+             user_account.approved,
+             user_account.email
+           ) d)) as "author",
+           array_agg(tag.text) as tags
       FROM project
+           JOIN user_account
+           ON project.author_id = user_account.id
+           LEFT JOIN tag
+           ON tag.id = ANY(project.tag_id)
      WHERE project.author_id = @id
+     GROUP BY project.id,
+           user_account.email,
+           user_account.first_name,
+           user_account.last_name,
+           user_account.approved,
+           project.approved
     `,
     { id }
   );
