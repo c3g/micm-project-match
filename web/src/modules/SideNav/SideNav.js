@@ -17,15 +17,13 @@ const SideNav = ({ user }) => (
         />
       ) : null
     )}
-    <div className='flex-fill' />
+    <div className="flex-fill" />
     <LogoutButton />
     <div className="user-info">
       <div className="user-info__name">
         {user.firstName} {user.lastName}
       </div>
-      <div className="user-info__type">
-        {user.type}
-      </div>
+      <div className="user-info__type">{user.type}</div>
     </div>
   </div>
 );
