@@ -20,7 +20,7 @@ const ApplicationListItem = ({ data }) => {
         </span>
         <Link
           className="rounded-button primary"
-          to={`/application/${application.id}`}
+          to={`/applications/${application.id}`}
         >
           View <Icon name="arrow-right" />
         </Link>

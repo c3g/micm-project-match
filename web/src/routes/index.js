@@ -47,8 +47,8 @@ export default [
     withSidebar: 'Applications'
   },
   {
-    name: 'Application',
-    pathname: '/application/:id',
+    name: 'Application details',
+    pathname: '/applications/:id',
     component: ApplicationDetails,
     access: [k.ADMIN],
     withAuth: true,
@@ -63,7 +63,7 @@ export default [
     withSidebar: true
   },
   {
-    name: 'CreateProject',
+    name: 'Create project',
     pathname: '/create-project',
     component: CreateProject,
     access: [k.PROFESSOR],
