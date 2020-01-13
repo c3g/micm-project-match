@@ -5,7 +5,7 @@ import { pick } from 'ramda';
 const mapDispatchToProps = () => ({});
 
 const mapStateToProps = state => ({
-  ...pick(['type'], state.app.user)
+  user: state.app.user
 });
 
 export default connect(
