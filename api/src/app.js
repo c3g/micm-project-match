@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import path from 'path';
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
@@ -19,6 +20,7 @@ app.use(passport.session());
 
 passportConfig(passport);
 
+app.use(express.static(path.join(__dirname, '../../web/dist')));
 app.use('/api', routes(passport));
 
 scheduledEmailUpdates();
