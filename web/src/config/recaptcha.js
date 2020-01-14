@@ -1,3 +1,3 @@
 export default {
-  sitekey: '6LcPKHMUAAAAACOLSo_B2XglLKYipk76eZ8DENKy'
+  sitekey: '6LcPa88UAAAAAJNuYxq87JaR4MszSmugXq28l7mw'
 };
