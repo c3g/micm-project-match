@@ -69,12 +69,12 @@ class ProjectDetails extends Component {
   render() {
     if (this.props.isLoading) return <Loader />;
 
-    const canSeeDetails =
-      this.props.userType === k.ADMIN ||
-      this.props.userId === this.props.project.authorId;
-
     const { project } = this.props;
     const { author } = project;
+
+    const isAuthor = this.props.userId === project.authorId;
+
+    const canSeeDetails = this.props.userType === k.ADMIN || isAuthor;
 
     return (
       <div className="project-details">
@@ -100,7 +100,7 @@ class ProjectDetails extends Component {
               )
           )}
         </div>
-        {canSeeDetails ? (
+        {canSeeDetails && (
           <div className="details">
             <div>
               <span>Prefered project start date</span>
@@ -143,7 +143,8 @@ class ProjectDetails extends Component {
               </div>
             )}
           </div>
-        ) : (
+        )}
+        {!isAuthor && (
           <React.Fragment>
             <div className="sub-heading">Professor Details</div>
             <div className="details">
