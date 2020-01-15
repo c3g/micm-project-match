@@ -38,7 +38,7 @@ class Home extends Component {
             </div>
           </nav>
           <div className="left">
-            <div className="title">Project Match</div>
+            <div className="title">ResearchMatch & Summer Scholars</div>
             <div className="sub-title">
               McGill Initiative in Computational Medicine
             </div>
