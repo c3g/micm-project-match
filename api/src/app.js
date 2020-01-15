@@ -23,7 +23,7 @@ passportConfig(passport);
 app.use(express.static(path.join(__dirname, '../../web/dist')));
 app.use('/api', routes(passport));
 app.use((req, res) => {
-  res.send(path.join(__dirname, '../../web/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../../web/dist/index.html'));
 });
 
 scheduledEmailUpdates();
