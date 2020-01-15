@@ -81,6 +81,12 @@ function renderProject(project) {
           <h2>Details</h2>
           <div class="fields">
             <div class="fields__item">
+              <span class="fields__label">Author</span>
+              <span class="fields__value">
+                ${project.author.firstName} ${project.author.lastName}
+              </span>
+            </div>
+            <div class="fields__item">
               <span class="fields__label">Start date</span>
               <span class="fields__value">${project.startDate}</span>
             </div>
@@ -103,27 +109,27 @@ function renderProject(project) {
               <span class="fields__value">${project.budget}</span>
             </div>
             <div class="fields__item">
-              <span class="fields__label">Tags</span>
+              <span class="fields__label">Keywords</span>
               <span class="fields__value">${project.tags.join(', ')}</span>
             </div>
           </div>
 
           <div class="avoid">
-            <h2>Description</h2>
+            <h2>Project description</h2>
             <p>
               ${project.description}
             </p>
           </div>
 
           <div class="avoid">
-            <h2>Datasets</h2>
+            <h2>Description of datasets</h2>
             <p>
               ${project.datasets}
             </p>
           </div>
 
           <div class="avoid">
-            <h2>Motive</h2>
+            <h2>Motive of collaboration</h2>
             <p>
               ${project.motive}
             </p>
