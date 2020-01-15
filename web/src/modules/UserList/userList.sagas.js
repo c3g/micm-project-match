@@ -31,6 +31,18 @@ function* makeAdmin({ payload }) {
   yield put(action(SNACKBAR.CLEAR));
 }
 
+function* makeStudent({ payload }) {
+  const data = yield call(request, `/admin/users/${payload}/make-student`);
+  if (data.success) {
+    yield put(action(USER_LIST.REQUEST));
+  } else {
+    yield put(action(MAKE_STUDENT.ERROR));
+    yield put(action(SNACKBAR.DANGER, data.message));
+  }
+  yield delay(3000);
+  yield put(action(SNACKBAR.CLEAR));
+}
+
 function* makeProfessor({ payload }) {
   const data = yield call(request, `/admin/users/${payload}/make-professor`);
   if (data.success) {
@@ -46,6 +58,7 @@ function* makeProfessor({ payload }) {
 function* userListSaga() {
   yield takeLatest(USER_LIST.REQUEST, listUsers);
   yield takeLatest(MAKE_ADMIN.REQUEST, makeAdmin);
+  yield takeLatest(MAKE_STUDENT.REQUEST, makeStudent);
   yield takeLatest(MAKE_PROFESSOR.REQUEST, makeProfessor);
 }
 

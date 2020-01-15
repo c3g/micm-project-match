@@ -44,29 +44,23 @@ class UserList extends Component {
                 </Link>
                 <div className="user-type">{user.type}</div>
               </div>
-              {user.type === k.UNSET ? null : user.type === k.ADMIN ? (
-                <div className="button-group">
+              <div className="button-group">
+                {user.type !== k.ADMIN &&
+                  <button onClick={() => makeAdmin(user.id)}>
+                    Make Admin
+                  </button>
+                }
+                {user.type !== k.PROFESSOR &&
                   <button onClick={() => makeProfessor(user.id)}>
                     Make Professor
                   </button>
+                }
+                {user.type !== k.STUDENT &&
                   <button onClick={() => makeStudent(user.id)}>
                     Make Student
                   </button>
-                </div>
-              ) : (
-                <div className="button-group">
-                  <button onClick={() => makeAdmin(user.id)}>Make Admin</button>
-                  {user.type === k.PROFESSOR ? (
-                    <button onClick={() => makeStudent(user.id)}>
-                      Make Student
-                    </button>
-                  ) : (
-                    <button onClick={() => makeProfessor(user.id)}>
-                      Make Professor
-                    </button>
-                  )}
-                </div>
-              )}
+                }
+              </div>
             </div>
           ))
         )}

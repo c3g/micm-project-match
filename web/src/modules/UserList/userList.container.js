@@ -11,8 +11,8 @@ import {
 
 const mapDispatchToProps = dispatch => ({
   listUsers: () => dispatch(action(USER_LIST.REQUEST)),
-  makeAdmin: data => dispatch(action(MAKE_ADMIN.REQUEST, data)),
   clearUsers: () => dispatch(action(USER_LIST.RECEIVE, [])),
+  makeAdmin: data => dispatch(action(MAKE_ADMIN.REQUEST, data)),
   makeProfessor: data => dispatch(action(MAKE_PROFESSOR.REQUEST, data)),
   makeStudent: data => dispatch(action(MAKE_STUDENT.REQUEST, data))
 });
