@@ -7,6 +7,8 @@ const MiCMLogo = () => (
     className="micm-logo"
     src={Logo}
     alt="McGill initiative in Computational Medicine"
+    width="290.055"
+    height="70"
   />
 );
 

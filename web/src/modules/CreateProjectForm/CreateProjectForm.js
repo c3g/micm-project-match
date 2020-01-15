@@ -224,8 +224,8 @@ class CreateProjectFormComponent extends Component {
           />
         </div>
         <div>
-          Description of datasets to be used (collaborations for
-          study design are also encouraged)
+          Description of datasets to be used (collaborations for study design
+          are also encouraged)
           <Field name="datasets" component={CreateProjectTextArea} />
         </div>
         <div>
