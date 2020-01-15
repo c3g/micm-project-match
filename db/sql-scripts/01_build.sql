@@ -87,15 +87,17 @@ CREATE TABLE IF NOT EXISTS project_document (
 
 CREATE TABLE IF NOT EXISTS application
 (
-  id                SERIAL PRIMARY KEY,
-  applicant_id      INT NOT NULL,
-  is_mcgill_student BOOLEAN DEFAULT true NOT NULL,
-  study_program     VARCHAR(100) NOT NULL,
-  study_year        VARCHAR(100) NOT NULL,
-  graduation_year   INT NOT NULL,
-  transcript_key    VARCHAR(340),
-  other_internships BOOLEAN DEFAULT false NOT NULL,
-  approved          BOOLEAN DEFAULT false NOT NULL,
+  id                        SERIAL PRIMARY KEY,
+  applicant_id              INT NOT NULL,
+  is_mcgill_student         BOOLEAN DEFAULT true NOT NULL,
+  university                VARCHAR(100) DEFAULT '' NOT NULL,
+  study_program             VARCHAR(100) NOT NULL,
+  study_year                VARCHAR(100) NOT NULL,
+  graduation_year           INT NOT NULL,
+  transcript_key            VARCHAR(340),
+  other_internships         BOOLEAN DEFAULT false NOT NULL,
+  other_internships_details VARCHAR(200) DEFAULT '' NOT NULL,
+  approved                  BOOLEAN DEFAULT false NOT NULL,
 
   FOREIGN KEY (applicant_id) REFERENCES user_account (id)
 );

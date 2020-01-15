@@ -17,12 +17,16 @@ import './applicationForm.scss';
 const createApplicationValidate = (values, props) => {
   const errors = {};
   if (values.isMcgillStudent === undefined) errors.isMcgillStudent = 'Required';
+  if (values.isMcgillStudent === false && values.university === '')
+    errors.university = 'Required';
   if (values.studyProgram === undefined) errors.studyProgram = 'Required';
   if (values.studyYear === undefined) errors.studyYear = 'Required';
   if (values.graduationYear === undefined) errors.graduationYear = 'Required';
   if (values.transcript === undefined) errors.transcript = 'Required';
   if (values.otherInternships === undefined)
     errors.otherInternships = 'Required';
+  if (values.otherInternships === true && values.otherInternshipsDetails === '')
+    errors.otherInternshipsDetails = 'Required';
   return errors;
 };
 
@@ -118,10 +122,12 @@ class ApplicationFormComponent extends Component {
   /* Application properties:
    * - applicantId
    * - isMcgillStudent: from
+   * - university: from
    * - studyProgram: from
    * - studyYear: from
    * - graduationYear: from
    * - otherInternships: from
+   * - otherInternshipsDetails: from
    * - transcript
    */
 
@@ -131,10 +137,12 @@ class ApplicationFormComponent extends Component {
     if (application)
       this.props.initialize({
         isMcgillStudent: application.isMcgillStudent,
+        university: application.university,
         studyProgram: application.studyProgram,
         studyYear: application.studyYear,
         graduationYear: application.graduationYear,
         otherInternships: application.otherInternships,
+        otherInternshipsDetails: application.otherInternshipsDetails,
         transcript: application.transcriptKey
       });
   }
@@ -145,10 +153,12 @@ class ApplicationFormComponent extends Component {
     if (this.state.applicationFormChanged && application) {
       this.props.initialize({
         isMcgillStudent: application.isMcgillStudent,
+        university: application.university,
         studyProgram: application.studyProgram,
         studyYear: application.studyYear,
         graduationYear: application.graduationYear,
         otherInternships: application.otherInternships,
+        otherInternshipsDetails: application.otherInternshipsDetails,
         transcript: application.transcriptKey
       });
       this.setState({ applicationFormChanged: false });
@@ -267,6 +277,12 @@ class ApplicationFormComponent extends Component {
                 component={CheckboxField}
               />
               <Field
+                name="university"
+                label="If not, which university are you from?"
+                height={150}
+                component={InputTextField}
+              />
+              <Field
                 name="studyProgram"
                 label="Program of study"
                 height={150}
@@ -330,6 +346,12 @@ class ApplicationFormComponent extends Component {
                 height={50}
                 component={CheckboxField}
               />
+              <Field
+                name="otherInternshipsDetails"
+                label="If yes which ones, and when will you receive the notice of decision?"
+                height={150}
+                component={InputTextField}
+              />
             </div>
             <Alert color="info">
               Thank you for your interest in the Summer Scholars Program. Only
@@ -356,7 +378,9 @@ const ApplicationForm = reduxForm({
   validate: createApplicationValidate,
   initialValues: {
     isMcgillStudent: false,
-    otherInternships: false
+    university: '',
+    otherInternships: false,
+    otherInternshipsDetails: ''
   }
 })(ApplicationFormComponent);
 

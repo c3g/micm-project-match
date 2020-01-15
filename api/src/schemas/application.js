@@ -3,12 +3,14 @@ import Joi from '@hapi/joi';
 const create = Joi.object({
   body: Joi.object({
     isMcgillStudent: Joi.boolean(),
+    university: Joi.string(),
     studyProgram: Joi.string(),
     studyYear: Joi.string(),
     graduationYear: Joi.string(),
     otherInternships: Joi.boolean(),
-    transcript: Joi.any(),
-  }).required() 
+    otherInternshipsDetails: Joi.string(),
+    transcript: Joi.any()
+  }).required()
 });
 
 const findByApplicant = Joi.object({});

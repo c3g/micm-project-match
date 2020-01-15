@@ -18,10 +18,12 @@ function create(req, res) {
       transcriptKey: location,
 
       isMcgillStudent: req.body.isMcgillStudent,
+      university: req.body.university,
       studyProgram: req.body.studyProgram,
       studyYear: req.body.studyYear,
       graduationYear: req.body.graduationYear,
       otherInternships: req.body.otherInternships,
+      otherInternshipsDetails: req.body.otherInternshipsDetails,
     }
 
     Application.create(application)

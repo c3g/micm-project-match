@@ -1,7 +1,5 @@
 import getFilename from '@lukeboyle/get-filename-from-path';
 
-const html2pdf = window.html2pdf;
-
 export const pdfFromApplication = a => pdfFromHTML(renderApplication(a));
 export const pdfFromProject = a => pdfFromHTML(renderProject(a));
 
@@ -166,9 +164,7 @@ function renderApplication({ user, application }) {
           <div class="fields">
             <div class="fields__item">
               <span class="fields__label">Name</span>
-              <span class="fields__value">${user.firstName} ${
-    user.lastName
-  }</span>
+              <span class="fields__value">${user.firstName} ${user.lastName}</span>
             </div>
             <div class="fields__item">
               <span class="fields__label">C.V.</span>
@@ -201,10 +197,18 @@ function renderApplication({ user, application }) {
               }</span>
             </div>
             <div class="fields__item">
+              <span class="fields__label">University (if not McGill)</span>
+              <span class="fields__value">${application.university}</span>
+            </div>
+            <div class="fields__item">
               <span class="fields__label">Has applied to other internships?</span>
               <span class="fields__value">${
                 application.otherInternships ? 'Yes' : 'No'
               }</span>
+            </div>
+            <div class="fields__item">
+              <span class="fields__label">Other internships details</span><br/>
+              <span class="fields__value">${application.otherInternshipsDetails}</span>
             </div>
           </div>
         </div>
@@ -214,5 +218,5 @@ function renderApplication({ user, application }) {
 }
 
 function pdfFromHTML(html) {
-  return html2pdf().from(html);
+  return window.html2pdf().from(html);
 }
