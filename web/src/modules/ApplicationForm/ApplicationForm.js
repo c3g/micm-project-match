@@ -245,7 +245,9 @@ class ApplicationFormComponent extends Component {
                 <div className="flex-fill">
                   <div>CV and cover letter (8 MB max)</div>
                   <small>
-                    (1 document) In the cover letter indicate why does your past experience make you a good fit for this scholars program. How will this project advance your academic/career goals.
+                    (1 document) In the cover letter indicate why does your past
+                    experience make you a good fit for this scholars program.
+                    How will this project advance your academic/career goals.
                   </small>
                 </div>
                 <div className="dropzone-container flex-fill">
