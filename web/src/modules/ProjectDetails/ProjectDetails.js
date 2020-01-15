@@ -73,6 +73,9 @@ class ProjectDetails extends Component {
       this.props.userType === k.ADMIN ||
       this.props.userId === this.props.project.authorId;
 
+    const { project } = this.props;
+    const { author } = project;
+
     return (
       <div className="project-details">
         <div>
@@ -87,6 +90,16 @@ class ProjectDetails extends Component {
           </div>
         )}
         <div className="abstract">{this.props.project.abstract}</div>
+        <div className="tags">
+          {this.props.project.tags.map(
+            (tag, i) =>
+              tag && (
+                <div className="tag" key={`tag_${i}`}>
+                  {tag}
+                </div>
+              )
+          )}
+        </div>
         {canSeeDetails ? (
           <div className="details">
             <div>
@@ -134,55 +147,26 @@ class ProjectDetails extends Component {
           <React.Fragment>
             <div className="sub-heading">Professor Details</div>
             <div className="details">
-              {(this.props.project.firstName ||
-                this.props.project.lastName) && (
-                <div>
-                  <span>Name</span>
-                  <span className="blue">
-                    <Link to={`/user/${this.props.project.authorId}`}>
-                      {this.props.project.firstName}
-                      &nbsp;
-                      {this.props.project.lastName}
-                    </Link>
-                  </span>
-                </div>
-              )}
-              {this.props.project.email && (
-                <div>
-                  <span>Email</span>
-                  <span>{this.props.project.email}</span>
-                </div>
-              )}
-              {this.props.project.department && (
-                <div>
-                  <span>Department</span>
-                  {this.props.project.department && (
-                    <span>{this.props.project.department}</span>
-                  )}
-                </div>
-              )}
+              <div>
+                <span>Name</span>
+                <span className="blue">
+                  <Link to={`/user/${this.props.project.authorId}`}>
+                    {author.firstName} {author.lastName}
+                  </Link>
+                </span>
+              </div>
+              <div>
+                <span>Email</span>
+                <span>{author.email}</span>
+              </div>
+              <div>
+                <span>Department</span>
+                <span>{author.department}</span>
+              </div>
             </div>
           </React.Fragment>
         )}
-        {this.props.userId !== this.props.project.authorId && (
-          <div className="sub-heading">Other Details</div>
-        )}
-        <div className="open-for-students">
-          This project is&nbsp;
-          {this.props.project.openForStudents
-            ? 'open to both students and professors'
-            : 'only open to professors'}
-        </div>
-        <div className="tags">
-          {this.props.project.tags.map(
-            (tag, i) =>
-              tag && (
-                <div className="tag" key={`tag_${i}`}>
-                  {tag}
-                </div>
-              )
-          )}
-        </div>
+        <div className="sub-heading">Other Details</div>
         {(this.props.userType === k.ADMIN ||
           this.props.userId === this.props.project.authorId) && (
           <div className="details-long">

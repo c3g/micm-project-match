@@ -19,10 +19,12 @@ const mapDispatchToProps = dispatch => ({
           abstract: '',
           openForStudents: true,
           authorId: 0,
-          firstName: '',
-          lastName: '',
-          department: '',
-          email: '',
+          author: {
+            firstName: '',
+            lastName: '',
+            department: '',
+            email: ''
+          },
           tags: [],
           tagId: [],
           documents: [],
