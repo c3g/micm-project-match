@@ -164,7 +164,9 @@ function renderApplication({ user, application }) {
           <div class="fields">
             <div class="fields__item">
               <span class="fields__label">Name</span>
-              <span class="fields__value">${user.firstName} ${user.lastName}</span>
+              <span class="fields__value">${user.firstName} ${
+    user.lastName
+  }</span>
             </div>
             <div class="fields__item">
               <span class="fields__label">C.V.</span>
@@ -208,7 +210,9 @@ function renderApplication({ user, application }) {
             </div>
             <div class="fields__item">
               <span class="fields__label">Other internships details</span><br/>
-              <span class="fields__value">${application.otherInternshipsDetails}</span>
+              <span class="fields__value">${
+                application.otherInternshipsDetails
+              }</span>
             </div>
           </div>
         </div>
