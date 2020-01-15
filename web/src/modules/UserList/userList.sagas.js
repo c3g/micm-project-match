@@ -3,6 +3,7 @@ import { request, action } from 'Src/utils';
 import {
   USER_LIST,
   MAKE_ADMIN,
+  MAKE_STUDENT,
   MAKE_PROFESSOR,
   SNACKBAR
 } from 'Src/constants/actionTypes';
