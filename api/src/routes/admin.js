@@ -50,7 +50,7 @@ function makeProfessor(req, res) {
 }
 
 function makeStudent(req, res) {
-  User.makeProfessor(req.params.id)
+  User.makeStudent(req.params.id)
     .then(okHandler(res))
     .catch(errorHandler(res));
 }
