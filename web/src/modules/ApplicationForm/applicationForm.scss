@@ -15,6 +15,10 @@
   }
 }
 
+.ApplicationForm__fields .flex-row > *:first-child {
+  padding-right: 2em;
+}
+
 .isLoading .ApplicationForm__fields {
   opacity: 0.6;
 }

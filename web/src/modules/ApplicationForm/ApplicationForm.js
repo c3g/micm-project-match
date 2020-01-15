@@ -241,8 +241,13 @@ class ApplicationFormComponent extends Component {
                 <div className="flex-fill">Last name</div>
                 <Input className="flex-fill" value={user.lastName} disabled />
               </div>
-              <div className="application-form__transcript flex-row">
-                <div className="flex-fill">CV and cover letter (8 MB max)</div>
+              <div className="application-form__cv flex-row">
+                <div className="flex-fill">
+                  <div>CV and cover letter (8 MB max)</div>
+                  <small>
+                    (1 document) In the cover letter indicate why does your past experience make you a good fit for this scholars program. How will this project advance your academic/career goals.
+                  </small>
+                </div>
                 <div className="dropzone-container flex-fill">
                   <Dropzone
                     multiple={false}
