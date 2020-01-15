@@ -18,6 +18,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
+  currentUser: state.app.user,
   ...pick(['users', 'isLoading'], state.userList)
 });
 
