@@ -301,9 +301,8 @@ class CreateProjectFormComponent extends Component {
                     File.checkSizeInMB(f, 5)
                   );
 
-                  if (acceptedFiles.length !== files.length) {
+                  if (acceptedFiles.length !== files.length)
                     alert('Max file size: 5MB. Some file(s) were rejected.');
-                  }
 
                   this.setState({
                     files: uniqBy(prop('name'), [
