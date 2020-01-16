@@ -35,7 +35,36 @@ export const getHTMLContainer = content =>
       <tr>
         <td style="padding: 20px 0;">
           Regards,<br />
-          MiCM Project Match
+          MiCM Team
+        </td>
+      </tr>
+    </table>
+  `;
+
+export const getHTMLTable = content =>
+  `
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" type="text/css">
+    <table
+      width="600px"
+      align="center"
+      border="0"
+      cellspacing="0"
+      cellpadding="0"
+      style="font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 1rem;"
+    >
+      <tr>
+        <td align="right">
+          ${logo}
+        </td>
+        <td></td>
+      </tr>
+
+      ${content}
+
+      <tr>
+        <td style="padding: 20px 0;">
+          Regards,<br />
+          MiCM Team
         </td>
       </tr>
     </table>
