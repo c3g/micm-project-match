@@ -296,17 +296,22 @@ class CreateProjectFormComponent extends Component {
             Add any documents wich are relevant to the project
             <div className="dropzone-container">
               <Dropzone
-                onDrop={files =>
-                  const acceptedFiles = files.filter(f => File.checkSizeInMB(f, 5))
+                onDrop={files => {
+                  const acceptedFiles = files.filter(f =>
+                    File.checkSizeInMB(f, 5)
+                  );
 
                   if (acceptedFiles.length !== files.length) {
-                    alert('Max file size: 5MB. Some file(s) were rejected.')
+                    alert('Max file size: 5MB. Some file(s) were rejected.');
                   }
 
                   this.setState({
-                    files: uniqBy(prop('name'), [...this.state.files, ...acceptedFiles])
-                  })
-                }
+                    files: uniqBy(prop('name'), [
+                      ...this.state.files,
+                      ...acceptedFiles
+                    ])
+                  });
+                }}
                 text="Drag 'n' drop documents here, or click to select them"
               />
             </div>
