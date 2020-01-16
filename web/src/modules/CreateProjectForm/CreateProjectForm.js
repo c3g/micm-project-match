@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import File from 'Src/utils/file';
 import Alert from 'Src/modules/Alert';
 import RoundedButton from 'Src/modules/RoundedButton';
 import InputField from 'Src/modules/InputField';
@@ -296,8 +297,14 @@ class CreateProjectFormComponent extends Component {
             <div className="dropzone-container">
               <Dropzone
                 onDrop={files =>
+                  const acceptedFiles = files.filter(f => File.checkSizeInMB(f, 5))
+
+                  if (acceptedFiles.length !== files.length) {
+                    alert('Max file size: 5MB. Some file(s) were rejected.')
+                  }
+
                   this.setState({
-                    files: uniqBy(prop('name'), [...this.state.files, ...files])
+                    files: uniqBy(prop('name'), [...this.state.files, ...acceptedFiles])
                   })
                 }
                 text="Drag 'n' drop documents here, or click to select them"
