@@ -1,5 +1,6 @@
 # Project runtime files
 data
+api/src/config/nodemailer.js
 
 # Logs
 logs
