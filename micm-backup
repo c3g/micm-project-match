@@ -1,0 +1,15 @@
+#!/bin/bash
+
+BACKUP_DIRECTORY=/var/micm/backups
+DATE="$(date +%Y-%m-%d)"
+
+cd $BACKUP_DIRECTORY
+pg_dump -U postgres micm > $DATE.sql
+tar -cvf $DATE.tar.gz $DATE.sql
+rm $DATE.sql
+
+OLD_FILES="$(ls -1htr /var/micm/backups/ | tail -n +31)"
+echo "Removing: $OLD_FILES"
+if [ ! -z "$OLD_FILES" ]; then
+  rm $OLD_FILES
+fi
