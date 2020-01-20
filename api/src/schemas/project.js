@@ -23,7 +23,9 @@ const create = Joi.object({
     openForStudents: Joi.bool().required(),
     organizations: Joi.array().items(Joi.string()),
     tagId: Joi.array().items(Joi.number())
-  }).required()
+  })
+    .unknown()
+    .required()
 });
 
 const update = Joi.object({
@@ -47,7 +49,9 @@ const update = Joi.object({
     openForStudents: Joi.bool().required(),
     organizations: Joi.array().items(Joi.string()),
     tagId: Joi.array().items(Joi.number())
-  }).required()
+  })
+    .unknown()
+    .required()
 });
 
 const search = Joi.object({
