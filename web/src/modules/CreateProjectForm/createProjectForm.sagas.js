@@ -46,7 +46,7 @@ function* updateProject({ payload }) {
   if (data.success) {
     yield put(action(PROJECT.UPDATE.RECEIVE, data.data));
     yield put(action(SNACKBAR.SUCCESS, 'Project Updated'));
-    yield put(push(`/project/${data.data.id}`));
+    yield put(push(`/projects/${data.data.id}`));
   } else {
     yield put(action(SNACKBAR.DANGER, data.message));
   }
