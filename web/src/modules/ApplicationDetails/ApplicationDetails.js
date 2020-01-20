@@ -74,6 +74,12 @@ const ApplicationDetails = ({
           <span>{application.isMcgillStudent ? 'Yes' : 'No'}</span>
         </div>
         <div>
+          <span>University</span>
+          <span>
+            {application.isMcgillStudent ? 'McGill' : application.university}
+          </span>
+        </div>
+        <div>
           <span>Study program</span>
           <span>{application.studyProgram}</span>
         </div>
@@ -101,6 +107,10 @@ const ApplicationDetails = ({
         <div>
           <span>Has applied to other internships?</span>
           <span>{application.otherInternships ? 'Yes' : 'No'}</span>
+        </div>
+        <div>
+          <span>Other internships details</span>
+          <span>{application.otherInternshipsDetails}</span>
         </div>
       </div>
 
