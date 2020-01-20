@@ -11,24 +11,26 @@
     color: #ffffff;
     text-decoration: none;
     margin: 15px 0;
-    font-weight: 400;
+    font-size: 0.9rem;
+    font-weight: bold;
     padding: 15px;
     font-size: inherit;
     font-family: inherit;
     border: none;
     border-radius: 5px;
     width: 100%;
-    font-size: 0.9rem;
     display: flex;
+    align-items: center;
 
-    svg:first-child {
+    .Icon:first-child {
       margin: 0 25px 0 10px;
     }
 
-    svg:last-child {
+    .Icon:last-child {
       margin: 0 10px 0 auto;
     }
   }
+
 
   .separator {
     text-align: center;
