@@ -99,6 +99,7 @@ CreateProjectField.propTypes = {
 function normalizeData(data) {
   const result = { ...data };
   result.openForStudents = result.openForStudents === 'yes' ? true : false;
+  delete result.author;
   return result;
 }
 
