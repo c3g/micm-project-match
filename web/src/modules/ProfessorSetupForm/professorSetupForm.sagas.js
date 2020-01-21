@@ -8,7 +8,7 @@ function* setProfessorDetails({ payload }) {
   } else if (payload.data.department > 150 || payload.data.position > 150) {
     yield put(action(SNACKBAR.DANGER, 'Maximum length allowed is 150'));
   } else {
-    const data = yield call(request, '/professor/update', payload.data);
+    const data = yield call(request, '/user/professor/update', payload.data);
     if (data.success) {
       yield put(action(PROFESSOR_SETUP.RECEIVE, data.data));
       yield payload.push('/cv-setup');

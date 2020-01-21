@@ -34,7 +34,7 @@ describe('Validator Util', () => {
     process.env.NODE_ENV = nodeEnv;
     const data = res._getJSONData();
     expect(data.success).toBe(false);
-    expect(data.message).toBe('Invalid input');
+    expect(typeof data.message).toBe('string');
   });
 
   it('should call the next function for valid structure', () => {

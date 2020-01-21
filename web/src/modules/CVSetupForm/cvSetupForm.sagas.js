@@ -9,7 +9,7 @@ function* uploadCV({ payload }) {
   } else {
     const body = new FormData();
     body.append('cv', payload.cv);
-    const data = yield call(request, '/cv/update', body, true);
+    const data = yield call(request, '/user/cv/update', body, true);
     if (data.success) {
       yield put(action(CV_UPLOAD.RECEIVE, data.data));
       yield put(action(SNACKBAR.SUCCESS, 'CV Uploaded'));

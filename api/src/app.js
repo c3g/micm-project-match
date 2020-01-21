@@ -7,6 +7,7 @@ import passport from 'passport';
 import session from './config/session';
 import routes from './routes';
 import adminRoute from './routes/admin';
+import userRoute from './routes/user';
 import passportConfig from './config/passport';
 import { scheduledEmailUpdates } from './mail';
 import { adminAccess } from './utils/express';
@@ -25,8 +26,12 @@ passportConfig(passport);
 app.use(express.static(path.join(__dirname, '../../web/dist')));
 
 // API
-app.use('/api', routes(passport));
-app.use('/api/admin', adminAccess, adminRoute);
+// prettier-ignore
+{
+  app.use('/api', routes(passport));
+  app.use('/api/user',               userRoute);
+  app.use('/api/admin', adminAccess, adminRoute);
+}
 
 // Send index.html by default
 app.use((req, res) => {

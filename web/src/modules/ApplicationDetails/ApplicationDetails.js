@@ -60,7 +60,7 @@ const ApplicationDetails = ({
           <span>C.V.</span>
           <span>
             <a
-              href={`/api/cv/${user.id}`}
+              href={`/api/user/cv/${user.id}`}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-button-link"

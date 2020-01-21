@@ -2,14 +2,13 @@ import express from 'express';
 import validator from '../utils/validator';
 import schemas from '../schemas';
 import auth from './auth';
-import user from './user';
 import tag from './tag';
 import project from './project';
 import application from './application';
-import { errorHandler } from '../utils/handlers';
+import { okHandler, errorHandler } from '../utils/handlers';
+import { sendContactUsMail } from '../mail';
 import {
   upload,
-  allAccess,
   setupAccess,
   professorAccess,
   adminAccess,
@@ -41,29 +40,6 @@ router.get(
   validator(schemas.auth.verifyEmail),
   auth.verifyEmail
 );
-
-router.get('/user', user.userData);
-router.get('/user/oauth', allAccess, user.oauthData);
-router.get(
-  '/user/:id',
-  validator(schemas.user.details),
-  setupAccess,
-  user.details
-);
-router.post(
-  '/user/update',
-  validator(schemas.user.updateUser),
-  allAccess,
-  user.updateUser
-);
-router.post(
-  '/professor/update',
-  validator(schemas.user.updateProfessor),
-  professorAccess,
-  user.updateProfessor
-);
-router.post('/cv/update', upload.single('cv'), allAccess, user.updateCv);
-router.get('/cv/:id', validator(schemas.user.getCv), allAccess, user.getCv);
 
 router.get('/user/project/list', setupAccess, project.listUserProjects);
 router.post(
@@ -114,11 +90,7 @@ router.get(
   tag.search
 );
 
-router.get(
-  '/application/list',
-  adminAccess,
-  application.list
-);
+router.get('/application/list', adminAccess, application.list);
 router.post(
   '/application/create',
   upload.single('transcript'),
@@ -194,7 +166,9 @@ router.post(
   project.createDocument
 );
 
-router.post('/contact', validator(schemas.user.contactUs), user.contactUs);
+router.post('/contact', validator(schemas.user.contactUs), (req, res) => {
+  sendContactUsMail(req.body).then(okHandler(res));
+});
 
 export default passport => {
   router.get(

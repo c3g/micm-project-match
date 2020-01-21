@@ -81,7 +81,7 @@ class UserProfile extends Component {
               {user.cvKey ? (
                 <>
                   <a
-                    href={`/api/cv/${user.id}`}
+                    href={`/api/user/cv/${user.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="view-cv"
