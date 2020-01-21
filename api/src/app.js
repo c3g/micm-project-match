@@ -6,8 +6,10 @@ import bodyParser from 'body-parser';
 import passport from 'passport';
 import session from './config/session';
 import routes from './routes';
+import adminRoute from './routes/admin';
 import passportConfig from './config/passport';
 import { scheduledEmailUpdates } from './mail';
+import { adminAccess } from './utils/express';
 
 const app = express();
 
@@ -21,7 +23,12 @@ app.use(passport.session());
 passportConfig(passport);
 
 app.use(express.static(path.join(__dirname, '../../web/dist')));
+
+// API
 app.use('/api', routes(passport));
+app.use('/api/admin', adminAccess, adminRoute);
+
+// Send index.html by default
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../../web/dist/index.html'));
 });

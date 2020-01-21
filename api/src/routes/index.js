@@ -1,58 +1,23 @@
 import express from 'express';
 import validator from '../utils/validator';
 import schemas from '../schemas';
-import multer from 'multer';
 import auth from './auth';
 import user from './user';
 import tag from './tag';
-import admin from './admin';
 import project from './project';
 import application from './application';
-import Project from '../models/project';
-import {
-  isAuthenticated,
-  isAuthenticatedOrCondition
-} from '../utils/authentication';
-import k from '../constants';
 import { errorHandler } from '../utils/handlers';
+import {
+  upload,
+  allAccess,
+  setupAccess,
+  professorAccess,
+  adminAccess,
+  adminOrProjectCreatorAccess,
+  parseBodyData
+} from '../utils/express';
 
 const router = express.Router();
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-const allAccess = isAuthenticated([
-  k.USER_TYPE.PROFESSOR,
-  k.USER_TYPE.STUDENT,
-  k.USER_TYPE.ADMIN,
-  k.USER_TYPE.UNSET
-]);
-const setupAccess = isAuthenticated([
-  k.USER_TYPE.PROFESSOR,
-  k.USER_TYPE.STUDENT,
-  k.USER_TYPE.ADMIN
-]);
-const professorAccess = isAuthenticated([
-  k.USER_TYPE.PROFESSOR,
-  k.USER_TYPE.ADMIN
-]);
-const adminAccess = isAuthenticated([k.USER_TYPE.ADMIN]);
-const adminOrProjectCreatorAccess = isAuthenticatedOrCondition(
-  [k.USER_TYPE.ADMIN],
-  async req => {
-    if (!req.user || !req.params.id) return false;
-    const project = await Project.findById(req.params.id);
-    if (req.user.id !== project.authorId) return false;
-    return true;
-  }
-);
-
-const parseBodyData = (req, res, next) => {
-  try {
-    req.body = JSON.parse(req.body.data);
-    next();
-  } catch (err) {
-    errorHandler(res)(err);
-  }
-};
 
 router.post('/register', validator(schemas.auth.register), auth.register);
 router.get(
@@ -230,51 +195,6 @@ router.post(
 );
 
 router.post('/contact', validator(schemas.user.contactUs), user.contactUs);
-
-router.get('/admin/users/list', adminAccess, admin.listUsers);
-router.get(
-  '/admin/users/:id/make-admin',
-  validator(schemas.user.makeAdmin),
-  adminAccess,
-  admin.makeAdmin
-);
-router.get(
-  '/admin/users/:id/make-professor',
-  validator(schemas.user.makeProfessor),
-  adminAccess,
-  admin.makeProfessor
-);
-router.get(
-  '/admin/users/:id/make-student',
-  validator(schemas.user.makeStudent),
-  adminAccess,
-  admin.makeStudent
-);
-router.get('/admin/professors/list', adminAccess, admin.listProfessors);
-router.get(
-  '/admin/professors/:id/approve',
-  validator(schemas.user.approveProfessor),
-  adminAccess,
-  admin.approveProfessor
-);
-router.get(
-  '/admin/professors/:id/disapprove',
-  validator(schemas.user.disapproveProfessor),
-  adminAccess,
-  admin.disapproveProfessor
-);
-router.get(
-  '/admin/match/:id/approve',
-  validator(schemas.project.approveMatch),
-  adminAccess,
-  admin.approveMatch
-);
-router.get(
-  '/admin/match/:id/disapprove',
-  validator(schemas.project.disapproveMatch),
-  adminAccess,
-  admin.disapproveMatch
-);
 
 export default passport => {
   router.get(

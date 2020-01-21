@@ -1,68 +1,91 @@
+import express from 'express';
+import validator from '../utils/validator';
+import schemas from '../schemas';
 import { User, Project } from '../models';
 import { errorHandler, dataHandler, okHandler } from '../utils/handlers';
 
-function listProfessors(req, res) {
-  User.listProfessors()
-    .then(dataHandler(res))
-    .catch(errorHandler(res));
-}
+const router = express.Router();
 
-function approveProfessor(req, res) {
-  User.approveProfessor(req.params.id)
-    .then(okHandler(res))
-    .catch(errorHandler(res));
-}
-
-function disapproveProfessor(req, res) {
-  User.disapproveProfessor(req.params.id)
-    .then(okHandler(res))
-    .catch(errorHandler(res));
-}
-
-function approveMatch(req, res) {
-  Project.approveMatch(req.params.id)
-    .then(okHandler(res))
-    .catch(errorHandler(res));
-}
-
-function disapproveMatch(req, res) {
-  Project.disapproveMatch(req.params.id)
-    .then(okHandler(res))
-    .catch(errorHandler(res));
-}
-
-function listUsers(req, res) {
+router.get('/users/list', (req, res) => {
   User.listUsers()
     .then(dataHandler(res))
     .catch(errorHandler(res));
-}
+});
 
-function makeAdmin(req, res) {
-  User.makeAdmin(req.params.id)
-    .then(okHandler(res))
+router.get(
+  '/users/:id/make-admin',
+  validator(schemas.user.makeAdmin),
+  (req, res) => {
+    User.makeAdmin(req.params.id)
+      .then(okHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+router.get(
+  '/users/:id/make-professor',
+  validator(schemas.user.makeProfessor),
+  (req, res) => {
+    User.makeProfessor(req.params.id)
+      .then(okHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+router.get(
+  '/users/:id/make-student',
+  validator(schemas.user.makeStudent),
+  (req, res) => {
+    User.makeStudent(req.params.id)
+      .then(okHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+router.get('/professors/list', (req, res) => {
+  User.listProfessors()
+    .then(dataHandler(res))
     .catch(errorHandler(res));
-}
+});
 
-function makeProfessor(req, res) {
-  User.makeProfessor(req.params.id)
-    .then(okHandler(res))
-    .catch(errorHandler(res));
-}
+router.get(
+  '/professors/:id/approve',
+  validator(schemas.user.approveProfessor),
+  (req, res) => {
+    User.approveProfessor(req.params.id)
+      .then(okHandler(res))
+      .catch(errorHandler(res));
+  }
+);
 
-function makeStudent(req, res) {
-  User.makeStudent(req.params.id)
-    .then(okHandler(res))
-    .catch(errorHandler(res));
-}
+router.get(
+  '/professors/:id/disapprove',
+  validator(schemas.user.disapproveProfessor),
+  (req, res) => {
+    User.disapproveProfessor(req.params.id)
+      .then(okHandler(res))
+      .catch(errorHandler(res));
+  }
+);
 
-export default {
-  listProfessors,
-  approveProfessor,
-  disapproveProfessor,
-  approveMatch,
-  disapproveMatch,
-  makeAdmin,
-  makeProfessor,
-  listUsers,
-  makeStudent
-};
+router.get(
+  '/match/:id/approve',
+  validator(schemas.project.approveMatch),
+  (req, res) => {
+    Project.approveMatch(req.params.id)
+      .then(okHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+router.get(
+  '/match/:id/disapprove',
+  validator(schemas.project.disapproveMatch),
+  (req, res) => {
+    Project.disapproveMatch(req.params.id)
+      .then(okHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+export default router;
