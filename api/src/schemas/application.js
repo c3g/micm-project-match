@@ -3,7 +3,7 @@ import Joi from '@hapi/joi';
 const create = Joi.object({
   body: Joi.object({
     isMcgillStudent: Joi.boolean(),
-    university: Joi.string(),
+    university: Joi.string().allow('', null),
     studyProgram: Joi.string(),
     studyYear: Joi.string(),
     graduationYear: Joi.string(),
