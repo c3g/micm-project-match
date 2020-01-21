@@ -1,47 +1,77 @@
 @import 'Src/core/common.scss';
 
-.user-list {
+.UserList {
   padding: 20px 0;
+}
 
-  .user {
-    padding: 15px 0;
-    border-bottom: solid thin rgba(100, 100, 100, 0.2);
-    display: flex;
-    justify-content: space-between;
+.UserList__item {
+  padding: 15px 0;
+  border-bottom: solid thin rgba(100, 100, 100, 0.2);
+  display: flex;
+  justify-content: space-between;
 
-    a {
-      color: #000000;
-      font-weight: 700;
-      text-decoration: none;
-      transition: color 0.2s ease;
+  a {
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
 
-      &:hover {
-        color: $color-primary;
-      }
-    }
-
-    button {
-      padding: 5px 10px;
-      border: none;
-      color: #ffffff;
-      border-radius: 5px;
-      background: $color-primary;
-    }
-
-    .user-type {
-      text-transform: capitalize;
-      font-size: 0.8rem;
-      font-weight: 400;
-      margin-top: 5px;
-    }
-
-    .button-group {
-      display: flex;
-      flex-direction: column;
-
-      button:first-child {
-        margin-bottom: 10px;
-      }
+    &:hover {
+      color: $color-primary;
     }
   }
+
+  .button-group {
+    display: flex;
+    flex-direction: row;
+  }
+
+  button {
+    width: 130px;
+    padding: 5px 10px;
+    border: none;
+    color: #ffffff;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: $color-primary;
+    transition: all .15s ease;
+  }
+  button:hover{
+    background-color: lighten($color-primary, 10%);
+  }
+  .button-group button:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid rgba(black, 0.1);
+  }
+  .button-group button:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
+
+.UserList__header {
+  font-weight: bold;
+  border-bottom: solid thin rgba(100, 100, 100, 0.2);
+}
+
+.UserList__name {
+  width: 250px;
+  flex: 0 0 auto;
+  margin-right: 1em;
+}
+
+.UserList__type {
+  width: 90px;
+  flex: 0 0 auto;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+}
+
+.UserList__approved {
+  width: 80px;
+  flex: 0 0 auto;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+}
+
