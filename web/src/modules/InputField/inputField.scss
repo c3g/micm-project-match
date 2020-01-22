@@ -1,14 +1,16 @@
 @import 'Src/core/common.scss';
 
-.input-field {
+.InputField {
   margin: 15px 0;
-  font-weight: 300;
   padding: 14px;
   font-size: inherit;
   font-family: inherit;
+  font-weight: 300;
+
   background: $input-color;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+
   width: 100%;
 
   &[type='date'] {
@@ -23,3 +25,11 @@
     cursor: not-allowed;
   }
 }
+
+.InputField--small {
+  margin: 5px 0;
+  padding: 7px 14px;
+  font-size: 15px;
+}
+.InputField--medium { /* default */ }
+.InputField--large {}

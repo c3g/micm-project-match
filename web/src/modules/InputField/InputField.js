@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 import cx from 'classname';
 import './inputField.scss';
 
-const InputField = ({ className, ...rest }) => (
-  <input className={cx(className, 'input-field')} {...rest} />
+const InputField = ({ className, size, ...rest }) => (
+  <input
+    className={cx(
+      className,
+      'InputField',
+      size ? `InputField--${size}` : undefined
+    )}
+    {...rest}
+  />
 );
 
 InputField.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  size: PropTypes.string
 };
 
 export default InputField;
