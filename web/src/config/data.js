@@ -8,5 +8,6 @@ export const organizations = [
   'Healthy Brains & Healthy Lives (HBHL)',
   'McGill Cancer Consortium (MC2)',
   'MUHC-RI',
+  'Mila',
   'Jewish General Hospital'
 ];
