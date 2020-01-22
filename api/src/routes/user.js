@@ -1,4 +1,5 @@
 import express from 'express';
+import { pick } from 'ramda';
 import validator from '../utils/validator';
 import schemas from '../schemas';
 import { User } from '../models';
@@ -16,6 +17,22 @@ import {
 } from '../utils/express';
 
 const router = express.Router();
+
+const pickUpdatableProps = pick([
+  'id',
+  'firstName',
+  'lastName',
+  'password',
+  'tel',
+  'email',
+  'password',
+  'type',
+  'token',
+  'strategy',
+  'approved',
+  'verified',
+  'cvKey'
+]);
 
 router.get('/', (req, res) => {
   if (!req.user) return dataHandler(res)({ loggedIn: false, user: null });
@@ -45,18 +62,26 @@ router.post(
   validator(schemas.user.updateUser),
   allAccess,
   (req, res) => {
-    const { email, ...userData } = req.body;
+    const { email, professor, ...userData } = req.body;
     const emailShouldUpdate = email && !req.user.verified;
+
     const updateData = {
-      ...userData,
-      id: req.user.id
+      id: req.user.id,
+      ...pickUpdatableProps(userData)
     };
+
     if (emailShouldUpdate) {
       updateData.email = email;
       updateData.token = uuid();
     }
+
     User.update(updateData)
       .then(emailShouldUpdate ? sendVerificationMail : Promise.resolve())
+      .then(() =>
+        professor
+          ? Professor.updateOrCreate({ ...professor, userId: req.user.id })
+          : Promise.resolve()
+      )
       .then(
         user =>
           new Promise((res, rej) =>
@@ -66,6 +91,7 @@ router.post(
             })
           )
       )
+      .then(() => User.findProfessorById(userData.id))
       .then(dataHandler(res))
       .catch(errorHandler(res));
   }

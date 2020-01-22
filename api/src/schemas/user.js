@@ -3,6 +3,7 @@ import k from '../constants';
 
 const updateUser = Joi.object({
   body: Joi.object({
+    id: Joi.number().required(),
     firstName: Joi.string()
       .max(50)
       .required(),
@@ -14,7 +15,9 @@ const updateUser = Joi.object({
     type: Joi.string()
       .valid(k.USER_TYPE.PROFESSOR, k.USER_TYPE.STUDENT)
       .required()
-  }).required()
+  })
+    .unknown()
+    .required()
 });
 
 const updateProfessor = Joi.object({
