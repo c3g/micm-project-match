@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { assocPath as set } from 'rambda';
 import getFilename from '@lukeboyle/get-filename-from-path';
 import UserPropTypes from 'Src/propTypes/User';
 import Heading from 'Src/modules/Heading';
+import InputField from 'Src/modules/InputField';
 import { withRouter, Link } from 'react-router-dom';
 import Loader from 'Src/modules/Loader';
+import RoundedButton from 'Src/modules/RoundedButton';
 import * as k from 'Src/constants/values';
 import './userProfile.scss';
 
 class UserProfile extends Component {
   static propTypes = {
+    isLoading: PropTypes.bool.isRequired,
     public: PropTypes.bool,
     user: UserPropTypes,
     publicUser: UserPropTypes,
@@ -17,8 +21,13 @@ class UserProfile extends Component {
     id: PropTypes.string,
     history: PropTypes.object.isRequired,
     fetchUser: PropTypes.func.isRequired,
-    clearUser: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool.isRequired
+    updateUser: PropTypes.func.isRequired,
+    clearUser: PropTypes.func.isRequired
+  };
+
+  state = {
+    isEditing: false,
+    user: {}
   };
 
   componentDidMount() {
@@ -34,11 +43,30 @@ class UserProfile extends Component {
     this.props.clearUser();
   }
 
+  handleChange = propName => {
+    return ev => {
+      const user = set(propName, ev.target.value, this.state.user);
+      this.setState({ user });
+    };
+  };
+
+  onClickEdit = ev => {
+    this.setState({ isEditing: true, user: this.props.user });
+  };
+
+  onSubmit = ev => {
+    ev.preventDefault();
+    this.props.updateUser(this.state.user);
+    this.setState({ isEditing: false });
+  };
+
   render() {
+    const { isLoading } = this.props;
+    const { isEditing, user: editUser } = this.state;
     const user = this.props.public ? this.props.publicUser : this.props.user;
     const isApplicationSubmitted = Boolean(this.props.application);
 
-    if (this.props.isLoading) return <Loader />;
+    if (isLoading) return <Loader />;
 
     if (!user)
       return (
@@ -49,69 +77,141 @@ class UserProfile extends Component {
       );
 
     return (
-      <div className="user-profile">
+      <div className="UserProfile">
         <Heading hideUnderline>{`${user.firstName} ${user.lastName}`}</Heading>
-        <div className="type">{user.type.toLowerCase()}</div>
-        <div className="details">
-          <div>
-            <span>Email</span>
-            <span>{user.email}</span>
-          </div>
-          {user.tel && (
+
+        <div className="UserProfile__type">{user.type.toLowerCase()}</div>
+
+        {isEditing && (
+          <form className="UserProfile__details" onSubmit={this.onSubmit}>
+            <div>
+              <div>First Name</div>
+              <div>
+                <InputField
+                  size="small"
+                  value={editUser.firstName}
+                  onChange={this.handleChange('firstName')}
+                />
+              </div>
+            </div>
+            <div>
+              <div>Last Name</div>
+              <div>
+                <InputField
+                  size="small"
+                  value={editUser.lastName}
+                  onChange={this.handleChange('lastName')}
+                />
+              </div>
+            </div>
+            <div>
+              <div>Contact Number</div>
+              <div>
+                <InputField
+                  size="small"
+                  value={editUser.tel}
+                  onChange={this.handleChange('tel')}
+                />
+              </div>
+            </div>
+
+            {editUser.professor && (
+              <>
+                <div>
+                  <div>Department</div>
+                  <div>
+                    <InputField
+                      size="small"
+                      value={editUser.professor.department}
+                      onChange={this.handleChange('professor.department')}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div>Position</div>
+                  <div>
+                    <InputField
+                      size="small"
+                      value={editUser.professor.position}
+                      onChange={this.handleChange('professor.position')}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+            <div>
+              <RoundedButton color="success">Save</RoundedButton>
+            </div>
+          </form>
+        )}
+
+        {!isEditing && (
+          <div className="UserProfile__details">
+            <div>
+              <div>Email</div>
+              <div>{user.email}</div>
+            </div>
             <div>
               <span>Contact Number</span>
               <span>{user.tel}</span>
             </div>
-          )}
-          {user.professor && (
-            <>
+            {user.professor && (
+              <>
+                <div>
+                  <span>Department</span>
+                  <span>{user.professor.department}</span>
+                </div>
+                <div>
+                  <span>Position</span>
+                  <span>{user.professor.position}</span>
+                </div>
+              </>
+            )}
+            {(!this.props.public || user.cvKey) && user.type !== k.ADMIN && (
               <div>
-                <span>Department</span>
-                <span>{user.professor.department}</span>
+                <span>Resume</span>
+                {user.cvKey ? (
+                  <>
+                    <a
+                      href={`/api/user/cv/${user.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-button-link"
+                    >
+                      View {getFilename(user.cvKey)}
+                    </a>
+                    {!this.props.public && (
+                      <Link to="/cv-setup" className="rounded-button-link">
+                        Update
+                      </Link>
+                    )}
+                  </>
+                ) : (
+                  <Link to="/cv-setup" className="rounded-button-link">
+                    Upload
+                  </Link>
+                )}
               </div>
+            )}
+            {!this.props.public && user.type === k.STUDENT && (
               <div>
-                <span>Position</span>
-                <span>{user.professor.position}</span>
+                <span>Application</span>
+                {isApplicationSubmitted ? (
+                  <span className="text-success">Submitted</span>
+                ) : (
+                  <span className="text-muted">Not submitted</span>
+                )}
               </div>
-            </>
-          )}
-          {(!this.props.public || user.cvKey) && user.type !== k.ADMIN && (
-            <div>
-              <span>Resume</span>
-              {user.cvKey ? (
-                <>
-                  <a
-                    href={`/api/user/cv/${user.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="view-cv"
-                  >
-                    View {getFilename(user.cvKey)}
-                  </a>
-                  {!this.props.public && (
-                    <Link to="/cv-setup" className="blue">
-                      Update
-                    </Link>
-                  )}
-                </>
-              ) : (
-                <Link to="/cv-setup" className="blue">
-                  Upload
-                </Link>
-              )}
-            </div>
-          )}
-          {!this.props.public && user.type === k.STUDENT && (
-            <div>
-              <span>Application</span>
-              {isApplicationSubmitted ? (
-                <span className="text-success">Submitted</span>
-              ) : (
-                <span className="text-muted">Not submitted</span>
-              )}
-            </div>
-          )}
-        </div>
+            )}
+            {!this.props.public && (
+              <div>
+                <RoundedButton onClick={this.onClickEdit}>
+                  Edit Details
+                </RoundedButton>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }

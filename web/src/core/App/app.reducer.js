@@ -5,6 +5,7 @@ import {
   LOGIN,
   SETUP,
   LOGOUT,
+  USER,
   VERIFY_EMAIL
 } from 'Src/constants/actionTypes';
 
@@ -30,6 +31,10 @@ const actionHandlers = {
     user: { ...s.user, verified: true }
   }),
   [CV_UPLOAD.RECEIVE]: (s, a) => ({
+    ...s,
+    user: a.payload
+  }),
+  [USER.UPDATE.RECEIVE]: (s, a) => ({
     ...s,
     user: a.payload
   })

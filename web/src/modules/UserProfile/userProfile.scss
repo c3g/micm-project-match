@@ -1,47 +1,28 @@
 @import 'Src/core/common.scss';
 
-.user-profile {
+.UserProfile {
   font-size: 1.2rem;
+}
 
-  .type {
-    text-transform: capitalize;
-    margin: 40px 0 30px;
-    font-weight: 700;
-  }
+.UserProfile__type {
+  text-transform: capitalize;
+  margin: 40px 0 30px;
+  font-weight: 700;
+}
 
-  .details {
-    div {
-      margin: 30px 0;
+.UserProfile__details {
+  & > div {
+    margin: 30px 0;
 
-      span,
-      button {
-        display: inline-block;
+    & > * {
+      display: inline-block;
 
-        &:first-child {
-          min-width: 200px;
-          font-weight: 300;
-        }
-        &:last-child {
-          font-weight: 400;
-        }
+      &:first-child {
+        min-width: 200px;
+        font-weight: 300;
       }
-
-      .view-cv {
-        background: $color-primary;
-        border: none;
-        border-radius: 5px;
-        color: #ffffff;
-        font-size: 0.9rem;
-        margin-right: 20px;
-        padding: 4px 20px;
-        text-decoration: none;
-      }
-
-      .blue {
-        font-size: inherit;
-        color: $color-primary;
-        font-weight: 700;
-        text-decoration: none;
+      &:last-child {
+        font-weight: 400;
       }
     }
   }

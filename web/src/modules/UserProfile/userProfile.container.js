@@ -6,6 +6,7 @@ import { USER } from 'Src/constants/actionTypes';
 
 const mapDispatchToProps = dispatch => ({
   fetchUser: data => dispatch(action(USER.FETCH.REQUEST, data)),
+  updateUser: data => dispatch(action(USER.UPDATE.REQUEST, data)),
   clearUser: () => dispatch(action(USER.FETCH.RECEIVE, undefined))
 });
 
