@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS professor (
   user_id        INT UNIQUE NOT NULL,
   department     VARCHAR(150) NOT NULL,
   position       VARCHAR(150) NOT NULL,
+  mila           BOOLEAN DEFAULT FALSE NOT NULL,
+  university     VARCHAR(150) NULL,
 
   FOREIGN KEY (user_id) REFERENCES user_account (id)
 );
