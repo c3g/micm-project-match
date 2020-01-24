@@ -1,4 +1,5 @@
 import { call, put, takeLatest, delay } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import { request, action } from 'Src/utils';
 import { SNACKBAR, PROFESSOR_SETUP } from 'Src/constants/actionTypes';
 
@@ -11,7 +12,7 @@ function* setProfessorDetails({ payload }) {
     const data = yield call(request, '/user/professor/update', payload.data);
     if (data.success) {
       yield put(action(PROFESSOR_SETUP.RECEIVE, data.data));
-      yield payload.push('/cv-setup');
+      yield put(push('/cv-setup'));
     } else {
       yield put(action(SNACKBAR.DANGER, data.message));
     }

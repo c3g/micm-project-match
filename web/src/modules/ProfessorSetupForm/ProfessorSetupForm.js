@@ -1,43 +1,82 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import './professorSetupForm.scss';
 import RoundedButton from 'Src/modules/RoundedButton';
+import Checkbox from 'Src/modules/Checkbox';
 import InputField from 'Src/modules/InputField';
 
-const ProfessorSetupField = ({ input, type, placeholder }) => (
-  <InputField {...input} type={type} placeholder={placeholder} />
+const InputFormField = ({ input, type, placeholder, disabled }) => (
+  <InputField
+    {...input}
+    type={type}
+    placeholder={placeholder}
+    disabled={disabled}
+  />
 );
 
-ProfessorSetupField.propTypes = {
+const CheckboxFormField = ({ input, label, meta: { touched, error } }) => (
+  <div
+    className={`flex-row flex-align-center ${error && touched ? 'error' : ''}`}
+  >
+    <Checkbox {...input} text={label} />
+    <span className="text-danger">{touched && (error && error)}</span>
+  </div>
+);
+
+const fieldPropTypes = {
   input: PropTypes.object.isRequired,
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired
+  label: PropTypes.string,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool.isRequired,
+    error: PropTypes.string
+  })
 };
 
-let ProfessorSetupForm = props => (
+CheckboxFormField.propTypes = fieldPropTypes;
+
+InputFormField.propTypes = fieldPropTypes;
+
+const mapStateToProps = state => ({
+  formData: state.form.professorSetup
+});
+
+const ProfessorSetupForm = props => (
   <div className="professor-setup-form">
     <div className="form">
       <form
         onSubmit={props.handleSubmit(data =>
-          props.onSetProfessorDetails({
-            data,
-            push: props.history.push
-          })
+          props.onSetProfessorDetails({ data })
         )}
       >
         <Field
           name="department"
-          component={ProfessorSetupField}
+          component={InputFormField}
           type="text"
           placeholder="Department"
         />
         <Field
           name="position"
-          component={ProfessorSetupField}
+          component={InputFormField}
           type="text"
           placeholder="Position"
+        />
+        <Field
+          name="mila"
+          component={CheckboxFormField}
+          type="checkbox"
+          label="Are you affiliated with Mila?"
+        />
+        <Field
+          name="university"
+          component={InputFormField}
+          type="text"
+          placeholder="University"
+          disabled={props.formData ? !props.formData.values.mila : false}
         />
         <div className="centered-button">
           <RoundedButton>Continue</RoundedButton>
@@ -50,11 +89,12 @@ let ProfessorSetupForm = props => (
 ProfessorSetupForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onSetProfessorDetails: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  formData: PropTypes.object.isRequired
 };
 
-ProfessorSetupForm = reduxForm({
-  form: 'professorSetup'
-})(ProfessorSetupForm);
-
-export default withRouter(ProfessorSetupForm);
+export default reduxForm({
+  form: 'professorSetup',
+  initialValues: {
+    mila: false
+  }
+})(connect(mapStateToProps)(ProfessorSetupForm));

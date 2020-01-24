@@ -27,7 +27,9 @@ const updateProfessor = Joi.object({
       .required(),
     position: Joi.string()
       .max(150)
-      .required()
+      .required(),
+    mila: Joi.bool(),
+    university: Joi.string().max(150)
   }).required()
 });
 

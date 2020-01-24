@@ -4,6 +4,7 @@ import { assocPath as set } from 'rambda';
 import getFilename from '@lukeboyle/get-filename-from-path';
 import UserPropTypes from 'Src/propTypes/User';
 import Heading from 'Src/modules/Heading';
+import Checkbox from 'Src/modules/Checkbox';
 import InputField from 'Src/modules/InputField';
 import { withRouter, Link } from 'react-router-dom';
 import Loader from 'Src/modules/Loader';
@@ -43,9 +44,9 @@ class UserProfile extends Component {
     this.props.clearUser();
   }
 
-  handleChange = propName => {
+  handleChange = (propName, selector = ev => ev.target.value) => {
     return ev => {
-      const user = set(propName, ev.target.value, this.state.user);
+      const user = set(propName, selector(ev), this.state.user);
       this.setState({ user });
     };
   };
@@ -137,6 +138,27 @@ class UserProfile extends Component {
                     />
                   </div>
                 </div>
+                <div>
+                  <div>Affiliated with Mila?</div>
+                  <div>
+                    <Checkbox
+                      size="small"
+                      value={editUser.professor.mila}
+                      onChange={this.handleChange('professor.mila', x => x)}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div>University</div>
+                  <div>
+                    <InputField
+                      size="small"
+                      value={editUser.professor.university}
+                      onChange={this.handleChange('professor.university')}
+                      disabled={editUser.professor.mila === false}
+                    />
+                  </div>
+                </div>
               </>
             )}
             <div>
@@ -165,6 +187,16 @@ class UserProfile extends Component {
                   <span>Position</span>
                   <span>{user.professor.position}</span>
                 </div>
+                <div>
+                  <span>Affiliated with Mila?</span>
+                  <span>{user.professor.mila ? 'Yes' : 'No'}</span>
+                </div>
+                {user.professor.mila && (
+                  <div>
+                    <span>University</span>
+                    <span>{user.professor.university}</span>
+                  </div>
+                )}
               </>
             )}
             {(!this.props.public || user.cvKey) && user.type !== k.ADMIN && (
