@@ -40,6 +40,7 @@ export const APPLICATION = createModelConstants('APPLICATION');
 export const USER = createModelConstants('USER');
 export const USER_PROJECT = createModelConstants('USER_PROJECT');
 export const DOCUMENT = createModelConstants('DOCUMENT');
+export const EMAIL = createModelConstants('EMAIL');
 
 export const SETUP_REFILL = 'SETUP_REFILL';
 export const SETUP_FILLED = 'SETUP_FILLED';

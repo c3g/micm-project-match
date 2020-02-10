@@ -1,7 +1,7 @@
 import express from 'express';
 import validator from '../utils/validator';
 import schemas from '../schemas';
-import { User, Project } from '../models';
+import { User, Project, Email } from '../models';
 import { errorHandler, dataHandler, okHandler } from '../utils/handlers';
 
 const router = express.Router();
@@ -83,6 +83,44 @@ router.get(
   validator(schemas.project.disapproveMatch),
   (req, res) => {
     Project.disapproveMatch(req.params.id)
+      .then(okHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+/* Emails */
+
+router.get(
+  '/email/list',
+  (req, res) => {
+    Email.list()
+      .then(dataHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+router.post(
+  '/email/create',
+  (req, res) => {
+    Email.create(req.body)
+      .then(dataHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+router.post(
+  '/email/update',
+  (req, res) => {
+    Email.update(req.body)
+      .then(dataHandler(res))
+      .catch(errorHandler(res));
+  }
+);
+
+router.post(
+  '/email/delete',
+  (req, res) => {
+    Email.deleteEmail(req.body.id)
       .then(okHandler(res))
       .catch(errorHandler(res));
   }

@@ -2,9 +2,10 @@
   "parser": "babel-eslint",
   "rules": {
     "no-console": "off",
+    "no-debugger": "warn",
     "curly": ["error", "multi", "consistent"],
-    "prettier/prettier": "error",
-    "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
+    "prettier/prettier": "warn",
+    "no-unused-vars": ["warn", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
     "no-underscore-dangle": [
       "error",
       { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }

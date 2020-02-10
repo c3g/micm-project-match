@@ -27,7 +27,7 @@ export default [
     name: 'Emails',
     exact: false,
     link: '/emails',
-    pathname: ['/emails', '/emails/list', '/emails/:id'],
+    pathname: ['/emails', '/emails/:subroute'],
     component: Emails,
     access: [k.ADMIN],
     withAuth: true,

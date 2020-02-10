@@ -24,7 +24,7 @@ const App = () => (
       <Switch>
         {routes.map(route => (
           <Route
-            exact
+            exact={route.exact !== undefined ? route.exact : true}
             key={route.pathname}
             path={route.pathname}
             component={getComponent(route)}

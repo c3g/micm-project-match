@@ -10,7 +10,7 @@ function findById(id) {
     .selectOne(
       `
       SELECT email.*
-           , row_to_json(user_account.*) AS "account"
+           , row_to_json(user_account.*) AS "author"
         FROM email
         JOIN user_account u ON u.id = e.author_id
        WHERE id = @id
@@ -50,7 +50,7 @@ function update(email) {
 function list() {
   return db.selectAll(`
     SELECT e.*
-         , row_to_json(u.*) AS "account"
+         , row_to_json(u.*) AS "author"
       FROM email e
       JOIN user_account u ON u.id = e.author_id
   `);
@@ -59,7 +59,7 @@ function list() {
 function listOverdue() {
   return db.selectAll(`
     SELECT e.*
-         , row_to_json(u.*) AS "account"
+         , row_to_json(u.*) AS "author"
       FROM email e
       JOIN user_account u ON u.id = e.author_id
      WHERE e.send_date < current_timestamp
@@ -79,6 +79,10 @@ function markAsSent(email) {
   .then(() => findById(email.id));
 }
 
+function deleteEmail(id) {
+  return db.query(`DELETE FROM email WHERE id = @id`, id);
+}
+
 export default {
   findById,
   create,
@@ -86,4 +90,5 @@ export default {
   list,
   listOverdue,
   markAsSent,
+  deleteEmail,
 };

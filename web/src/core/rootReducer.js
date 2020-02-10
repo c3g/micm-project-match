@@ -18,6 +18,7 @@ import { applicationListReducer } from 'Src/modules/ApplicationList';
 import { userProfileReducer } from 'Src/modules/UserProfile';
 import { professorListReducer } from 'Src/modules/ProfessorList';
 import { userListReducer } from 'Src/modules/UserList';
+import { emailsReducer } from 'Src/modules/Emails';
 import { appReducer } from 'Src/core/App';
 import { reducer as formReducer } from 'redux-form';
 
@@ -43,6 +44,7 @@ export default function configureRootReducer(history) {
     login: loginFormReducer,
     setup: setupFormReducer,
     professorList: professorListReducer,
-    userList: userListReducer
+    userList: userListReducer,
+    emails: emailsReducer
   });
 }
