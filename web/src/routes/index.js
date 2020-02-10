@@ -25,8 +25,9 @@ import Emails from 'Src/modules/Emails';
 export default [
   {
     name: 'Emails',
+    exact: false,
     link: '/emails',
-    pathname: '/emails/:subroute',
+    pathname: ['/emails', '/emails/list', '/emails/:id'],
     component: Emails,
     access: [k.ADMIN],
     withAuth: true,
