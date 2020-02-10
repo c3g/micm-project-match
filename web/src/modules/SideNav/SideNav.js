@@ -13,7 +13,7 @@ const SideNav = ({ user }) => (
         <SideNavLink
           key={`side_nav_link_${i}`}
           text={route.withSidebar}
-          link={route.pathname}
+          link={route.link || route.pathname}
         />
       ) : null
     )}

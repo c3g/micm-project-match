@@ -20,8 +20,18 @@ import UpdateProject from './UpdateProject';
 import Applications from './Applications';
 import Professors from './Professors';
 import Users from './Users';
+import Emails from 'Src/modules/Emails';
 
 export default [
+  {
+    name: 'Emails',
+    link: '/emails',
+    pathname: '/emails/:subroute',
+    component: Emails,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Emails'
+  },
   {
     name: 'Users',
     pathname: '/users',
