@@ -24,7 +24,7 @@ export async function sendScheduledEmail(email) {
         from,
         to: user.email,
         subject: email.title,
-        html: email.content,
+        html: interpolateUser(email.content, user),
       })
     )
   ));
@@ -35,6 +35,10 @@ async function getUsersForTarget(target) {
     case k.EMAIL_TARGET.INCOMPLETE_USERS: return await User.listIncompleteUsers();
   }
   throw new Error('unreachable');
+}
+
+function interpolateUser(content, user) {
+  return content.replace(/\{\{\s*([^}\s]+)\s*}}/g, (match, value, index, input) => user[value])
 }
 
 export function sendSetPasswordMail({ email, token, firstName, lastName }) {
