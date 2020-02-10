@@ -160,7 +160,8 @@ function sendEmailTick() {
     const admins = User.listAdmins();
     return Promise.all([count, admins]);
   })
-  .then(([{ count }, admins]) => {
+  .then(([countResult, admins]) => {
+    const count = +countResult.count
     if (count === 0)
       return Promise.resolve()
 
