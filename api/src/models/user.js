@@ -350,6 +350,42 @@ function listUsers() {
   `);
 }
 
+function listIncompleteStudents() {
+  return db.selectAll(`
+       SELECT u.*
+         FROM user_account u
+    LEFT JOIN application a ON a.applicant_id = u.id
+        WHERE u.type = 'STUDENT'
+          AND a.id IS NULL
+  `)
+  .then(users => {
+    users.forEach(user => { delete user.password })
+    return users
+  });
+}
+
+function listIncompleteProfessors() {
+  return db.selectAll(`
+       SELECT u.*
+            , (SELECT COUNT(*) FROM project p WHERE p.author_id = u.id) as project_count
+         FROM user_account u
+        WHERE u.type = 'PROFESSOR'
+          AND (SELECT COUNT(*) FROM project p WHERE p.author_id = u.id) = 0
+  `)
+  .then(users => {
+    users.forEach(user => { delete user.password })
+    return users
+  });
+}
+
+function listIncompleteUsers() {
+  return Promise.all([
+    listIncompleteStudents(),
+    listIncompleteProfessors(),
+  ])
+  .then(([students, professors]) => [...students, ...professors]);
+}
+
 export default {
   create,
   findById,
@@ -371,5 +407,6 @@ export default {
   listUsers,
   makeProfessor,
   makeAdmin,
-  makeStudent
+  makeStudent,
+  listIncompleteUsers,
 };

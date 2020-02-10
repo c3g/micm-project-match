@@ -24,6 +24,9 @@ const k = {
     GOOGLE: 'GOOGLE',
     FACEBOOK: 'FACEBOOK',
     OPENID: 'OPENID'
+  },
+  EMAIL_TARGET: {
+    INCOMPLETE_USERS: 'INCOMPLETE_USERS',
   }
 };
 

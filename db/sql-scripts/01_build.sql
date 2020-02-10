@@ -2,6 +2,7 @@
 
 CREATE TYPE USER_TYPE AS ENUM ('ADMIN', 'PROFESSOR', 'STUDENT', 'UNSET');
 CREATE TYPE STRATEGY_TYPE AS ENUM ('LOCAL', 'GOOGLE', 'FACEBOOK', 'OPENID');
+CREATE TYPE EMAIL_TARGET AS ENUM ('INCOMPLETE_USERS');
 
 
 -- ************************************** user
@@ -111,4 +112,20 @@ CREATE TABLE IF NOT EXISTS tag
 (
   id          SERIAL PRIMARY KEY,
   text        VARCHAR(50) UNIQUE NOT NULL
+);
+
+
+-- ************************************** email
+
+CREATE TABLE IF NOT EXISTS email
+(
+  id         SERIAL PRIMARY KEY,
+  target     EMAIL_TARGET NOT NULL,
+  author_id  INT NOT NULL,
+  send_date  TIMESTAMP NOT NULL,
+  title      VARCHAR(100) UNIQUE NOT NULL,
+  content    TEXT UNIQUE NOT NULL,
+  sent       BOOLEAN DEFAULT false NOT NULL,
+
+  FOREIGN KEY (author_id) REFERENCES user_account (id)
 );

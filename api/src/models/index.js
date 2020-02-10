@@ -3,3 +3,4 @@ export { default as Professor } from './professor';
 export { default as Project } from './project';
 export { default as Tag } from './tag';
 export { default as Application } from './application';
+export { default as Email } from './email';

@@ -8,10 +8,34 @@ import contactUsMail from './contactUsMail';
 import adminUpdateMail from './adminUpdateMail';
 import applicationMail from './applicationMail';
 import projectCreationMail from './projectCreationMail';
-import { Application, User } from '../models';
+import { Email, User } from '../models';
 
 const from = `MiCM Project Match <${process.env.FROM_EMAIL}>`;
 const contactEmail = process.env.CONTACT_EMAIL;
+
+export async function sendScheduledEmail(email) {
+
+  const users = await getUsersForTarget(email.target);
+
+  return Promise.all(users.map((user, i) =>
+    wait(i)
+    .then(() =>
+      sendMail({
+        from,
+        to: user.email,
+        subject: email.title,
+        html: email.content,
+      })
+    )
+  ));
+}
+
+async function getUsersForTarget(target) {
+  switch(target) {
+    case k.EMAIL_TARGET.INCOMPLETE_USERS: return await User.listIncompleteUsers();
+  }
+  throw new Error('unreachable');
+}
 
 export function sendSetPasswordMail({ email, token, firstName, lastName }) {
   if (!token) return rejectMessage('Password already set', k.TOKEN_NOT_FOUND);
@@ -103,6 +127,7 @@ export function sendProjectCreationMail(project, author) {
     })
   });
 }
+
 function sendAdminUpdateMail(count, admin) {
   const html = adminUpdateMail(admin, count.count);
 
@@ -120,10 +145,13 @@ export function scheduledEmailUpdates() {
   /* everyday at 8am */
   const interval = '0 8 * * *'
 
-  schedule.scheduleJob(interval, sendEmailUpdate);
+  schedule.scheduleJob(interval, sendEmailTick);
+
+  sendEmailTick()
 }
 
-function sendEmailUpdate() {
+function sendEmailTick() {
+  console.log('[email tick] start')
 
   // Pending-approval professors
   Promise.resolve()
@@ -142,6 +170,20 @@ function sendEmailUpdate() {
       )
     )
   })
+  .catch(err => { console.error(err) });
+
+  // Scheduled emails
+  Promise.resolve()
+  .then(async () => {
+    const emails = await Email.listOverdue();
+    console.log(`[email tick] ${emails.length} pending emails`)
+
+    for (let email of emails) {
+      await sendScheduledEmail(email)
+      await Email.markAsSent(email)
+    }
+  })
+  .catch(err => { console.error(err) });
 }
 
 
