@@ -1,34 +1,47 @@
 @import 'Src/core/common.scss';
 
-.snackbar {
+.Snackbar {
   color: $color-light;
   position: fixed;
   bottom: -50px;
   left: 50%;
-  transform: translateX(-50%);
   padding: 10px 30px;
+  padding-right: 50px;
   border-radius: 1px;
   font-weight: 400;
   text-align: center;
+  box-shadow: 0px 2px 3px 1px #00000085;
+  border: 1px solid black;
+
+  transform: translateX(-50%);
+  transition: transform 0.2s ease;
+
+  &.shown {
+    transform: translate(-50%, -70px);
+  }
 
   &.info {
     background: $color-info;
+    border-color: darken($color-info, 15%);
   }
-
   &.danger {
     background: $color-danger;
+    border-color: darken($color-danger, 15%);
   }
-
   &.warning {
     background: $color-warning;
+    border-color: darken($color-warning, 15%);
   }
-
   &.success {
     background: $color-success;
+    border-color: darken($color-success, 15%);
   }
+}
 
-  &.shown {
-    transition: transform 0.2s ease;
-    transform: translate(-50%, -70px);
-  }
+.Snackbar__hide {
+  position: absolute;
+  right: 15px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(white, 0.2);
 }
