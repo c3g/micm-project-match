@@ -11,6 +11,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
+  currentUser: state.app.user,
   isLoading: state.emails.isLoading,
   message: state.emails.message,
   emails: state.emails.list

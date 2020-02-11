@@ -120,8 +120,8 @@ router.post(
 router.post(
   '/email/delete',
   (req, res) => {
-    Email.deleteEmail(req.body.id)
-      .then(okHandler(res))
+    Email.deleteEmail(req.body)
+      .then(dataHandler(res))
       .catch(errorHandler(res));
   }
 );

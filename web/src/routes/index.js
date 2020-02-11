@@ -25,7 +25,7 @@ import Emails from 'Src/modules/Emails';
 export default [
   {
     name: 'Emails',
-    exact: false,
+    exact: true,
     link: '/emails',
     pathname: ['/emails', '/emails/:subroute'],
     component: Emails,

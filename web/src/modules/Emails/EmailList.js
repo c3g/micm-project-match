@@ -40,7 +40,7 @@ class EmailList extends Component {
             className="EmailList__item flex-row flex-align-center"
           >
             <div className="EmailList__title">{email.title}</div>
-            <Link className="EmailList__author" to={`/user/${email.author.id}`}>
+            <Link className="EmailList__author link" to={`/user/${email.author.id}`}>
               {email.author.firstName} {email.author.lastName}
             </Link>
             <div className="EmailList__sendDate">
@@ -49,8 +49,8 @@ class EmailList extends Component {
             <div className="EmailList__sent">{email.sent ? 'yes' : 'no'}</div>
             <div className="flex-fill" />
             <div className="button-group">
-              <button onClick={() => editEmail(email.id)}>Edit</button>
-              <button onClick={() => deleteEmail(email.id)}>Delete</button>
+              <Link className="button" to={`/emails/${email.id}`}>Edit</Link>
+              <button className="button" onClick={() => deleteEmail(email.id)}>Delete</button>
             </div>
           </div>
         ))}

@@ -4,11 +4,17 @@ import { Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
 import Loader from 'Src/modules/Loader';
 import Icon from 'Src/modules/Icon';
+import EmailEditor from './EmailEditor';
 import EmailList from './EmailList';
 import './emails.scss';
 
 class Emails extends Component {
   static propTypes = {
+    currentUser: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired
+    }),
     emails: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -30,35 +36,78 @@ class Emails extends Component {
     deleteEmail: PropTypes.func.isRequired
   };
 
+  state = {
+    confirmDelete: false
+  }
+
   componentDidMount() {
     this.props.listEmails();
   }
 
-  editEmail = id => {};
+  deleteEmail = id => {
+    if (!window.confirm('Are you sure you want to delete this email?'))
+      return;
 
-  deleteEmail = id => {};
+    this.props.deleteEmail({ id })
+  };
+
+  createEmail = email => {
+    const id = this.props.currentUser.id;
+    const data = { ...email, id: undefined, author: undefined, authorId: id };
+    this.props.createEmail(data)
+  };
+
+  updateEmail = email => {
+    const id = this.props.currentUser.id;
+    const data = { ...email, id: undefined, author: undefined, authorId: id };
+    this.props.createEmail(data)
+  };
 
   render() {
     const { isLoading, message, emails, match: { params: { subroute } } } = this.props;
 
     const view = subroute === 'create' ? 'create' :
-                 /\d+/.test(subroute) ? 'edit' : 'list'
+                 /\d+/.test(subroute) ? 'edit' : 'list';
+
     return (
       <div className="Emails">
         <Heading>Emails</Heading>
 
-        {isLoading && <Loader />}
+        {isLoading && view === 'list' && <Loader />}
 
         {!isLoading && view === 'list' &&
           <React.Fragment>
-          <div className="flex-row flex-row--vmargin">
-            <Link className="button" to="/emails/create">Create</Link>
-          </div>
+            <div className="flex-row flex-row--vmargin">
+              <Link className="button" to="/emails/create">Create</Link>
+            </div>
 
             <EmailList
               emails={emails}
               editEmail={this.editEmail}
               deleteEmail={this.deleteEmail}
+            />
+
+            {}
+          </React.Fragment>
+        }
+
+        {view === 'create' &&
+          <React.Fragment>
+            <EmailEditor
+              mode="CREATE"
+              isLoading={isLoading}
+              done={this.createEmail}
+            />
+          </React.Fragment>
+        }
+
+        {view === 'edit' &&
+          <React.Fragment>
+            <EmailEditor
+              mode="EDIT"
+              isLoading={isLoading}
+              email={emails.find(e => e.id === +subroute)}
+              done={this.createEmail}
             />
           </React.Fragment>
         }

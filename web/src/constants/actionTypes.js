@@ -1,5 +1,7 @@
 import { createNetworkConstants, createModelConstants } from 'Src/utils';
 
+export const GOTO = 'GOTO';
+
 export const REGISTER = createNetworkConstants('REGISTER');
 export const LOGIN = createNetworkConstants('LOGIN');
 export const SET_PASSWORD = createNetworkConstants('SET_PASSWORD');

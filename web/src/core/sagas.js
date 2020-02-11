@@ -1,4 +1,5 @@
-import { all, put, call } from 'redux-saga/effects';
+import { all, put, call, takeLatest } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import { request, action } from 'Src/utils';
 import { registerFormSaga } from 'Src/modules/RegisterForm';
 import { loginFormSaga } from 'Src/modules/LoginForm';
@@ -22,7 +23,8 @@ import { contactUsFormSaga } from 'Src/modules/ContactUsForm';
 import { professorListSaga } from 'Src/modules/ProfessorList';
 import { userListSaga } from 'Src/modules/UserList';
 import { emailsSaga } from 'Src/modules/Emails';
-import { APPLICATION, LOGIN } from 'Src/constants/actionTypes';
+import { snackbarSaga } from 'Src/modules/Snackbar';
+import { GOTO, APPLICATION, LOGIN } from 'Src/constants/actionTypes';
 
 function* init() {
   process.env.NODE_ENV === 'development' &&
@@ -45,7 +47,12 @@ function* init() {
   }
 }
 
+function *goto({ payload }) {
+  yield put(push(payload));
+}
+
 export function* rootSaga() {
+  yield takeLatest(GOTO, goto);
   yield all([
     init(),
     registerFormSaga(),
@@ -69,7 +76,8 @@ export function* rootSaga() {
     professorListSaga(),
     contactUsFormSaga(),
     userListSaga(),
-    emailsSaga()
+    emailsSaga(),
+    snackbarSaga()
   ]);
 }
 

@@ -123,8 +123,8 @@ CREATE TABLE IF NOT EXISTS email
   target     EMAIL_TARGET NOT NULL,
   author_id  INT NOT NULL,
   send_date  TIMESTAMP NOT NULL,
-  title      VARCHAR(100) UNIQUE NOT NULL,
-  content    TEXT UNIQUE NOT NULL,
+  title      VARCHAR(100) NOT NULL,
+  content    TEXT NOT NULL,
   sent       BOOLEAN DEFAULT false NOT NULL,
 
   FOREIGN KEY (author_id) REFERENCES user_account (id)

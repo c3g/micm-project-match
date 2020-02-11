@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import routes from 'Src/routes';
 import Snackbar from 'Src/modules/Snackbar';
@@ -17,23 +18,33 @@ function getComponent(route) {
     : Component;
 }
 
-const App = () => (
-  <div>
-    <Favicon url="/images/favicon.ico" />
+const App = (props) => {
+
+  // fuck this
+  window.goto = props.goto;
+
+  return (
     <div>
-      <Switch>
-        {routes.map(route => (
-          <Route
-            exact={route.exact !== undefined ? route.exact : true}
-            key={route.pathname}
-            path={route.pathname}
-            component={getComponent(route)}
-          />
-        ))}
-      </Switch>
-      <Snackbar />
+      <Favicon url="/images/favicon.ico" />
+      <div>
+        <Switch>
+          {routes.map(route => (
+            <Route
+              exact={route.exact !== undefined ? route.exact : true}
+              key={route.pathname}
+              path={route.pathname}
+              component={getComponent(route)}
+            />
+          ))}
+        </Switch>
+        <Snackbar />
+      </div>
     </div>
-  </div>
-);
+  )
+};
+
+App.propTypes = {
+  goto: PropTypes.func.isRequired
+}
 
 export default App;

@@ -38,7 +38,7 @@ const actionHandlers = {
   [EMAIL.DELETE.RECEIVE]: (s, a) => ({
     ...s,
     isLoading: false,
-    list: s.list.filter(e => (e.id === a.meta.id ? false : true))
+    list: s.list.filter(e => (e.id === a.payload.id ? false : true))
   }),
   [EMAIL.DELETE.ERROR]: (s, a) => ({
     ...s,

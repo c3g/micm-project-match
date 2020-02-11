@@ -4,16 +4,17 @@
 
 import db from '../database.js';
 import * as Query from '../utils/query';
+import { sendScheduledEmailsTick } from '../mail'
 
 function findById(id) {
   return db
     .selectOne(
       `
-      SELECT email.*
-           , row_to_json(user_account.*) AS "author"
-        FROM email
+      SELECT e.*
+           , row_to_json(u.*) AS "author"
+        FROM email e
         JOIN user_account u ON u.id = e.author_id
-       WHERE id = @id
+       WHERE e.id = @id
       `,
       { id }
     );
@@ -29,7 +30,10 @@ function create(email) {
       `,
       email
     )
-    .then(findById);
+    .then(id => {
+      sendScheduledEmailsTick().then(() => {}, console.error);
+      return findById(id);
+    });
 }
 
 function update(email) {
@@ -79,8 +83,8 @@ function markAsSent(email) {
   .then(() => findById(email.id));
 }
 
-function deleteEmail(id) {
-  return db.query(`DELETE FROM email WHERE id = @id`, id);
+function deleteEmail(email) {
+  return db.query(`DELETE FROM email WHERE id = @id`, email).then(() => email);
 }
 
 export default {

@@ -24,8 +24,9 @@ export async function sendScheduledEmail(email) {
         from,
         to: user.email,
         subject: email.title,
-        html: interpolateUser(email.content, user),
+        html: processUserMail(email.content, user),
       })
+      .then(() => {}, console.error) // log errors but don't fail
     )
   ));
 }
@@ -37,8 +38,10 @@ async function getUsersForTarget(target) {
   throw new Error('unreachable');
 }
 
-function interpolateUser(content, user) {
-  return content.replace(/\{\{\s*([^}\s]+)\s*}}/g, (match, value, index, input) => user[value])
+function processUserMail(content, user) {
+  return content
+    .replace(/\{\{\s*([^}\s]+)\s*}}/g, (match, value, index, input) => user[value])
+    .replace(/\n/g, '\n<br/>');
 }
 
 export function sendSetPasswordMail({ email, token, firstName, lastName }) {
@@ -179,16 +182,18 @@ function sendEmailTick() {
 
   // Scheduled emails
   Promise.resolve()
-  .then(async () => {
-    const emails = await Email.listOverdue();
-    console.log(`[email tick] ${emails.length} pending emails`)
-
-    for (let email of emails) {
-      await sendScheduledEmail(email)
-      await Email.markAsSent(email)
-    }
-  })
+  .then(sendScheduledEmailsTick)
   .catch(err => { console.error(err) });
+}
+
+export async function sendScheduledEmailsTick() {
+  const emails = await Email.listOverdue();
+  console.log(`[email tick] ${emails.length} pending emails`)
+
+  for (let email of emails) {
+    await sendScheduledEmail(email)
+    await Email.markAsSent(email)
+  }
 }
 
 
