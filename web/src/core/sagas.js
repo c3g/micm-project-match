@@ -47,7 +47,7 @@ function* init() {
   }
 }
 
-function *goto({ payload }) {
+function* goto({ payload }) {
   yield put(push(payload));
 }
 

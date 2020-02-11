@@ -7,7 +7,7 @@ const Snackbar = props => (
   <div className={`Snackbar ${props.shown ? 'shown' : ''} ${props.type}`}>
     {props.message}
 
-    <button className='Snackbar__hide' onClick={props.hide}>
+    <button className="Snackbar__hide" onClick={props.hide}>
       <Icon name="close" />
     </button>
   </div>

@@ -13,7 +13,7 @@ const EMPTY_EMAIL = {
   authorId: 0,
   author: {
     firstName: undefined,
-    lastName: undefined,
+    lastName: undefined
   },
   sendDate: '',
   title: '',
@@ -49,7 +49,7 @@ class EmailEditor extends Component {
       return { message: undefined, email: EMPTY_EMAIL };
 
     return null;
-  }
+  };
 
   state = {
     message: undefined,
@@ -64,38 +64,35 @@ class EmailEditor extends Component {
   };
 
   onDone = () => {
-    const { email } = this.state
+    const { email } = this.state;
 
     if (email.title.length === 0) {
-      this.setState({ message: 'Invalid title' })
+      this.setState({ message: 'Invalid title' });
       return;
     }
 
     if (Number.isNaN(+new Date(email.sendDate))) {
-      this.setState({ message: 'Invalid send date' })
+      this.setState({ message: 'Invalid send date' });
       return;
     }
 
     if (email.content.length === 0) {
-      this.setState({ message: 'Empty content' })
+      this.setState({ message: 'Empty content' });
       return;
     }
 
-    this.props.done(email)
-  }
+    this.props.done(email);
+  };
 
   render() {
     const { mode, done, cancel } = this.props;
-    const { message, email } = this.state
+    const { message, email } = this.state;
 
     return (
       <div className="EmailEditor">
         <div>
           <span>Title</span>
-          <InputField
-            value={email.title}
-            onChange={this.setField('title')}
-          />
+          <InputField value={email.title} onChange={this.setField('title')} />
         </div>
         <div>
           <span>Send date</span>
@@ -115,18 +112,18 @@ class EmailEditor extends Component {
         </div>
         <div className="flex-row flex-row--vmargin">
           <button className="button" onClick={this.onDone}>
-            { mode === 'EDIT' ? 'Update' : 'Create' }
+            {mode === 'EDIT' ? 'Update' : 'Create'}
           </button>
           <div className="flex-fill" />
           <Link className="button" to="/emails">
             Cancel
           </Link>
         </div>
-        { message &&
+        {message && (
           <div className="flex-row flex-row--vmargin text-danger">
             {message}
           </div>
-        }
+        )}
       </div>
     );
   }

@@ -10,10 +10,12 @@ function* listEmails() {
     yield put(action(EMAIL.LIST.RECEIVE, data.data));
   } else {
     yield put(action(EMAIL.LIST.ERROR, data.message));
-    yield put(action(SNACKBAR.SHOW, {
-      type: SNACKBAR.DANGER,
-      message: data.message
-    }));
+    yield put(
+      action(SNACKBAR.SHOW, {
+        type: SNACKBAR.DANGER,
+        message: data.message
+      })
+    );
   }
 }
 
@@ -22,17 +24,21 @@ function* createEmail({ payload }) {
 
   if (data.success) {
     yield put(action(EMAIL.CREATE.RECEIVE, data.data));
-    yield put(action(SNACKBAR.SHOW, {
-      type: SNACKBAR.SUCCESS,
-      message: 'Your email has been scheduled'
-    }));
-    yield put(push('/emails'))
+    yield put(
+      action(SNACKBAR.SHOW, {
+        type: SNACKBAR.SUCCESS,
+        message: 'Your email has been scheduled'
+      })
+    );
+    yield put(push('/emails'));
   } else {
     yield put(action(EMAIL.CREATE.ERROR, data.message));
-    yield put(action(SNACKBAR.SHOW, {
-      type: SNACKBAR.DANGER,
-      message: data.message
-    }));
+    yield put(
+      action(SNACKBAR.SHOW, {
+        type: SNACKBAR.DANGER,
+        message: data.message
+      })
+    );
   }
 }
 
@@ -41,17 +47,21 @@ function* updateEmail({ payload }) {
 
   if (data.success) {
     yield put(action(EMAIL.UPDATE.RECEIVE, data.data));
-    yield put(action(SNACKBAR.SHOW, {
-      type: SNACKBAR.SUCCESS,
-      message: 'Your email has been updated'
-    }));
-    yield put(push('/emails'))
+    yield put(
+      action(SNACKBAR.SHOW, {
+        type: SNACKBAR.SUCCESS,
+        message: 'Your email has been updated'
+      })
+    );
+    yield put(push('/emails'));
   } else {
     yield put(action(EMAIL.UPDATE.ERROR, data.message));
-    yield put(action(SNACKBAR.SHOW, {
-      type: SNACKBAR.DANGER,
-      message: data.message
-    }));
+    yield put(
+      action(SNACKBAR.SHOW, {
+        type: SNACKBAR.DANGER,
+        message: data.message
+      })
+    );
   }
 }
 
@@ -60,17 +70,21 @@ function* deleteEmail({ payload }) {
 
   if (data.success) {
     yield put(action(EMAIL.DELETE.RECEIVE, data.data));
-    yield put(action(SNACKBAR.SHOW, {
-      type: SNACKBAR.WARNING,
-      message: 'Your email has been delete'
-    }));
-    yield put(push('/emails'))
+    yield put(
+      action(SNACKBAR.SHOW, {
+        type: SNACKBAR.WARNING,
+        message: 'Your email has been delete'
+      })
+    );
+    yield put(push('/emails'));
   } else {
     yield put(action(EMAIL.DELETE.ERROR, data.message));
-    yield put(action(SNACKBAR.SHOW, {
-      type: SNACKBAR.DANGER,
-      message: data.message
-    }));
+    yield put(
+      action(SNACKBAR.SHOW, {
+        type: SNACKBAR.DANGER,
+        message: data.message
+      })
+    );
   }
 }
 

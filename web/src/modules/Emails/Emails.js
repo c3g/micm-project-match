@@ -38,36 +38,42 @@ class Emails extends Component {
 
   state = {
     confirmDelete: false
-  }
+  };
 
   componentDidMount() {
     this.props.listEmails();
   }
 
   deleteEmail = id => {
-    if (!window.confirm('Are you sure you want to delete this email?'))
-      return;
+    if (!window.confirm('Are you sure you want to delete this email?')) return;
 
-    this.props.deleteEmail({ id })
+    this.props.deleteEmail({ id });
   };
 
   createEmail = email => {
     const id = this.props.currentUser.id;
     const data = { ...email, id: undefined, author: undefined, authorId: id };
-    this.props.createEmail(data)
+    this.props.createEmail(data);
   };
 
   updateEmail = email => {
     const id = this.props.currentUser.id;
     const data = { ...email, id: undefined, author: undefined, authorId: id };
-    this.props.createEmail(data)
+    this.props.createEmail(data);
   };
 
   render() {
-    const { isLoading, message, emails, match: { params: { subroute } } } = this.props;
+    const {
+      isLoading,
+      message,
+      emails,
+      match: {
+        params: { subroute }
+      }
+    } = this.props;
 
-    const view = subroute === 'create' ? 'create' :
-                 /\d+/.test(subroute) ? 'edit' : 'list';
+    const view =
+      subroute === 'create' ? 'create' : /\d+/.test(subroute) ? 'edit' : 'list';
 
     return (
       <div className="Emails">
@@ -75,10 +81,12 @@ class Emails extends Component {
 
         {isLoading && view === 'list' && <Loader />}
 
-        {!isLoading && view === 'list' &&
+        {!isLoading && view === 'list' && (
           <React.Fragment>
             <div className="flex-row flex-row--vmargin">
-              <Link className="button" to="/emails/create">Create</Link>
+              <Link className="button" to="/emails/create">
+                Create
+              </Link>
             </div>
 
             <EmailList
@@ -89,9 +97,9 @@ class Emails extends Component {
 
             {}
           </React.Fragment>
-        }
+        )}
 
-        {view === 'create' &&
+        {view === 'create' && (
           <React.Fragment>
             <EmailEditor
               mode="CREATE"
@@ -99,9 +107,9 @@ class Emails extends Component {
               done={this.createEmail}
             />
           </React.Fragment>
-        }
+        )}
 
-        {view === 'edit' &&
+        {view === 'edit' && (
           <React.Fragment>
             <EmailEditor
               mode="EDIT"
@@ -110,7 +118,7 @@ class Emails extends Component {
               done={this.createEmail}
             />
           </React.Fragment>
-        }
+        )}
       </div>
     );
   }

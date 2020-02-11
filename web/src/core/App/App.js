@@ -18,8 +18,7 @@ function getComponent(route) {
     : Component;
 }
 
-const App = (props) => {
-
+const App = props => {
   // fuck this
   window.goto = props.goto;
 
@@ -40,11 +39,11 @@ const App = (props) => {
         <Snackbar />
       </div>
     </div>
-  )
+  );
 };
 
 App.propTypes = {
   goto: PropTypes.func.isRequired
-}
+};
 
 export default App;
