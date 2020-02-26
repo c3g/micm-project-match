@@ -27,14 +27,16 @@ const App = props => {
       <Favicon url="/images/favicon.ico" />
       <div>
         <Switch>
-          {routes.map(route => (
-            <Route
-              exact={route.exact !== undefined ? route.exact : true}
-              key={route.pathname}
-              path={route.pathname}
-              component={getComponent(route)}
-            />
-          ))}
+          {routes.map(route =>
+            route.disabled !== true ? (
+              <Route
+                exact={route.exact !== undefined ? route.exact : true}
+                key={route.pathname}
+                path={route.pathname}
+                component={getComponent(route)}
+              />
+            ) : null
+          )}
         </Switch>
         <Snackbar />
       </div>

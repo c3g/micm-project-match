@@ -9,7 +9,8 @@ const SideNav = ({ user }) => (
   <div className="side-nav">
     {routes.map((route, i) =>
       typeof route.withSidebar === 'string' &&
-      route.access.includes(user.type) ? (
+      route.access.includes(user.type) &&
+      route.disabled !== true ? (
         <SideNavLink
           key={`side_nav_link_${i}`}
           text={route.withSidebar}

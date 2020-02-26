@@ -223,11 +223,19 @@ class ApplicationFormComponent extends Component {
       <div className={cx('ApplicationForm', { isLoading })}>
         <Heading>Summer Scholars Application</Heading>
 
-        {hasSubmittedApplication && (
+        {/*
           <Alert color="success">
             Your application has already been submitted. You can still modify it
             by submitting this form again.
           </Alert>
+           */}
+
+        {hasSubmittedApplication ? (
+          <Alert color="info">
+            Your application has already been submitted.
+          </Alert>
+        ) : (
+          <Alert color="warn">The application period is over.</Alert>
         )}
 
         <div className="form">
@@ -367,10 +375,15 @@ class ApplicationFormComponent extends Component {
               internship will be contacted.
             </Alert>
             <div className="right-button">
-              <RoundedButton disabled={isLoading}>
-                {hasSubmittedApplication
-                  ? 'Update Application'
-                  : 'Submit Application'}
+              {/*
+                  <RoundedButton disabled={isLoading}>
+                    {hasSubmittedApplication
+                      ? 'Update Application'
+                      : 'Submit Application'}
+                  </RoundedButton>
+                 */}
+              <RoundedButton disabled={true} type="button">
+                Application period is over
               </RoundedButton>
             </div>
           </form>

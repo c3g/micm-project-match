@@ -34,13 +34,11 @@ class ApplicationList extends Component {
                 Export as CSV
               </RoundedButton>
             </div>
-            {
-              applications.map((application, i) => (
-                <div key={`application_${i}`}>
-                  <ApplicationListItem data={application} />
-                </div>
-              ))
-            }
+            {applications.map((application, i) => (
+              <div key={`application_${i}`}>
+                <ApplicationListItem data={application} />
+              </div>
+            ))}
           </React.Fragment>
         )}
       </div>
@@ -55,7 +53,7 @@ function exportAsCSV(applications) {
     'Study Year',
     'Graduation Year',
     'University',
-    'Other internships?',
+    'Other internships?'
   ];
 
   const options = {
@@ -69,8 +67,9 @@ function exportAsCSV(applications) {
     application.studyYear,
     application.graduationYear,
     application.university,
-    application.otherInternships ?
-      `Yes: ${application.otherInternshipsDetails}` : 'No',
+    application.otherInternships
+      ? `Yes: ${application.otherInternshipsDetails}`
+      : 'No'
   ]);
 
   csvStringify(records, options, (err, content) => {
