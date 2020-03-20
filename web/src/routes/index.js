@@ -73,14 +73,14 @@ export default [
     withAuth: true,
     withSidebar: true
   },
-  /* {
-   *   name: 'Create project',
-   *   pathname: '/create-project',
-   *   component: CreateProject,
-   *   access: [k.PROFESSOR],
-   *   withAuth: true,
-   *   withSidebar: 'Create Project'
-   * }, */
+  {
+    name: 'Create project',
+    pathname: '/create-project',
+    component: CreateProject,
+    access: [k.PROFESSOR],
+    withAuth: true,
+    withSidebar: 'Create Project'
+  },
   {
     name: 'UserProjects',
     pathname: '/user-projects',
