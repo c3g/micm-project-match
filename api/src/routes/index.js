@@ -41,7 +41,7 @@ router.get(
   auth.verifyEmail
 );
 
-router.get('/user/project/list', setupAccess, project.listUserProjects);
+router.get('/project/list-from-user', setupAccess, project.listUserProjects);
 router.post(
   '/project/create',
   upload.array('files'),

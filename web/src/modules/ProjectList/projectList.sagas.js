@@ -16,7 +16,7 @@ function* listProjects() {
 }
 
 function* listUserProjects() {
-  const data = yield call(request, '/user/project/list');
+  const data = yield call(request, '/project/list-from-user');
   if (data.success) {
     yield put(action(PROJECT.LIST.RECEIVE, data.data));
   } else {
