@@ -2,7 +2,6 @@ import express from 'express';
 import validator from '../utils/validator';
 import schemas from '../schemas';
 import auth from './auth';
-import tag from './tag';
 import project from './project';
 import application from './application';
 import { okHandler, errorHandler } from '../utils/handlers';
@@ -72,19 +71,6 @@ router.post(
   '/project/:id/delete',
   access.adminOrProjectCreator,
   project.deleteProject
-);
-
-router.post(
-  '/tag/create',
-  validator(schemas.tag.create),
-  access.setup,
-  tag.create
-);
-router.get(
-  '/tag/search',
-  validator(schemas.tag.search),
-  access.setup,
-  tag.search
 );
 
 router.get('/application/list', access.admin, application.list);

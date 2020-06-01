@@ -25,12 +25,9 @@ function findById(id) {
                '[]'
              ) as documents
         FROM project
-             LEFT JOIN tag
-             ON tag.id = ANY(project.tag_id)
-             LEFT JOIN project_document
-             ON project.id = project_document.project_id
-             LEFT JOIN user_account
-             ON user_account.id = project.author_id
+             LEFT JOIN tag ON tag.id = ANY(project.tag_id)
+             LEFT JOIN project_document ON project.id = project_document.project_id
+             LEFT JOIN user_account ON user_account.id = project.author_id
        GROUP BY project.id, user_account.id
       HAVING project.id = @id
       `,
@@ -51,10 +48,11 @@ function findById(id) {
 }
 
 function details(id, userId, isAdmin = false) {
-  if (!id) return Promise.resolve(null);
+  if (!id)
+    return Promise.resolve(null);
+
   return db
-    .selectOne(
-      `
+    .selectOne(`
       SELECT project.id,
              project.title,
              project.abstract,
@@ -69,12 +67,9 @@ function details(id, userId, isAdmin = false) {
              professor.department,
              array_agg(tag.text) as tags
         FROM project
-             JOIN user_account
-             ON project.author_id = user_account.id
-             JOIN professor
-             ON project.author_id = professor.user_id
-             LEFT JOIN tag
-             ON tag.id = ANY(project.tag_id)
+             JOIN user_account ON project.author_id = user_account.id
+             LEFT JOIN professor ON project.author_id = professor.user_id
+             LEFT JOIN tag ON tag.id = ANY(project.tag_id)
        GROUP BY project.id,
              user_account.first_name,
              user_account.last_name,
@@ -132,10 +127,8 @@ function list(isAdmin = false) {
            ) d)) as "author",
            array_agg(tag.text) as tags
       FROM project
-           JOIN user_account
-           ON project.author_id = user_account.id
-           LEFT JOIN tag
-           ON tag.id = ANY(project.tag_id)
+           JOIN user_account ON project.author_id = user_account.id
+           LEFT JOIN tag ON tag.id = ANY(project.tag_id)
      GROUP BY project.id,
            user_account.email,
            user_account.first_name,
@@ -169,10 +162,8 @@ function listUserProjects(id) {
            ) d)) as "author",
            array_agg(tag.text) as tags
       FROM project
-           JOIN user_account
-           ON project.author_id = user_account.id
-           LEFT JOIN tag
-           ON tag.id = ANY(project.tag_id)
+           JOIN user_account ON project.author_id = user_account.id
+           LEFT JOIN tag ON tag.id = ANY(project.tag_id)
      WHERE project.author_id = @id
      GROUP BY project.id,
            user_account.email,
@@ -197,10 +188,8 @@ function search({ term, keywords }, isAdmin = false) {
            user_account.approved,
            array_agg(tag.text) as tags
       FROM project
-           JOIN user_account
-           ON project.author_id = user_account.id
-           LEFT JOIN tag
-           ON tag.id = ANY(project.tag_id)
+           JOIN user_account ON project.author_id = user_account.id
+           LEFT JOIN tag ON tag.id = ANY(project.tag_id)
      GROUP BY project.id,
            user_account.first_name,
            user_account.last_name,
@@ -267,8 +256,7 @@ function projectId(id, userId) {
       `
     SELECT project.id
       FROM project
-           LEFT JOIN project_document
-           ON project.id = project_document.project_id
+           LEFT JOIN project_document ON project.id = project_document.project_id
      WHERE project_document.id = @id
            AND project.author_id = @userId
     `,
@@ -334,6 +322,7 @@ function disapproveMatch(id) {
     { id }
   );
 }
+
 export default {
   create,
   findById,
