@@ -77,7 +77,7 @@ export default [
     name: 'Create project',
     pathname: '/create-project',
     component: CreateProject,
-    access: [k.PROFESSOR],
+    access: [k.PROFESSOR, k.STUDENT],
     withAuth: true,
     withSidebar: 'Create Project'
   },
@@ -85,7 +85,7 @@ export default [
     name: 'UserProjects',
     pathname: '/user-projects',
     component: Projects,
-    access: [k.PROFESSOR],
+    access: [k.PROFESSOR, k.STUDENT],
     withAuth: true,
     withSidebar: 'My Projects'
   },
@@ -93,7 +93,7 @@ export default [
     name: 'Projects',
     pathname: '/project/list',
     component: Discover,
-    access: [k.PROFESSOR, k.ADMIN],
+    access: [k.PROFESSOR, k.STUDENT, k.ADMIN],
     withAuth: true,
     withSidebar: 'Projects'
   },
