@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Heading from 'Src/modules/Heading';
 import Loader from 'Src/modules/Loader';
-import Icon from 'Src/modules/Icon';
 import EmailEditor from './EmailEditor';
 import EmailList from './EmailList';
 import './emails.scss';
