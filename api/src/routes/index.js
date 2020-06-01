@@ -44,7 +44,7 @@ router.post(
   upload.array('files'),
   parseBodyData,
   validator(schemas.project.create),
-  access.professor,
+  access.setup,
   project.create
 );
 router.get('/project/list', access.setup, project.list);

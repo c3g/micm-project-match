@@ -28,7 +28,7 @@ export const access = {
     [k.USER_TYPE.ADMIN],
     async req => {
       if (!req.user || !req.params.id) return false;
-      const project = await Project.findById(req.params.id),
+      const project = await Project.findById(req.params.id);
       if (req.user.id !== project.authorId) return false;
       return true;
     }
