@@ -10,7 +10,7 @@ import adminRoute from './routes/admin';
 import userRoute from './routes/user';
 import passportConfig from './config/passport';
 import { scheduledEmailUpdates } from './mail';
-import { adminAccess } from './utils/express';
+import { access } from './utils/express';
 
 const app = express();
 
@@ -29,8 +29,8 @@ app.use(express.static(path.join(__dirname, '../../web/dist')));
 // prettier-ignore
 {
   app.use('/api', routes(passport));
-  app.use('/api/user',               userRoute);
-  app.use('/api/admin', adminAccess, adminRoute);
+  app.use('/api/user',                userRoute);
+  app.use('/api/admin', access.admin, adminRoute);
 }
 
 // Send index.html by default

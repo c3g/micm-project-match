@@ -9,10 +9,7 @@ import { okHandler, errorHandler } from '../utils/handlers';
 import { sendContactUsMail } from '../mail';
 import {
   upload,
-  setupAccess,
-  professorAccess,
-  adminAccess,
-  adminOrProjectCreatorAccess,
+  access,
   parseBodyData
 } from '../utils/express';
 
@@ -41,26 +38,26 @@ router.get(
   auth.verifyEmail
 );
 
-router.get('/project/list-from-user', setupAccess, project.listUserProjects);
+router.get('/project/list-from-user', access.setup, project.listUserProjects);
 router.post(
   '/project/create',
   upload.array('files'),
   parseBodyData,
   validator(schemas.project.create),
-  professorAccess,
+  access.professor,
   project.create
 );
-router.get('/project/list', setupAccess, project.list);
+router.get('/project/list', access.setup, project.list);
 router.post(
   '/project/search',
   validator(schemas.project.search),
-  setupAccess,
+  access.setup,
   project.search
 );
 router.get(
   '/project/:id',
   validator(schemas.project.details),
-  setupAccess,
+  access.setup,
   project.details
 );
 router.post(
@@ -68,35 +65,35 @@ router.post(
   upload.array('files'),
   parseBodyData,
   validator(schemas.project.update),
-  setupAccess,
+  access.setup,
   project.update
 );
 router.post(
   '/project/:id/delete',
-  adminOrProjectCreatorAccess,
+  access.adminOrProjectCreator,
   project.deleteProject
 );
 
 router.post(
   '/tag/create',
   validator(schemas.tag.create),
-  setupAccess,
+  access.setup,
   tag.create
 );
 router.get(
   '/tag/search',
   validator(schemas.tag.search),
-  setupAccess,
+  access.setup,
   tag.search
 );
 
-router.get('/application/list', adminAccess, application.list);
+router.get('/application/list', access.admin, application.list);
 router.post(
   '/application/create',
   upload.single('transcript'),
   parseBodyData,
   validator(schemas.application.create),
-  setupAccess,
+  access.setup,
   application.create
 );
 router.post(
@@ -104,50 +101,50 @@ router.post(
   upload.single('transcript'),
   parseBodyData,
   validator(schemas.application.update),
-  setupAccess,
+  access.setup,
   application.update
 );
 router.get(
   '/application/get',
   validator(schemas.application.findByApplicant),
-  setupAccess,
+  access.setup,
   application.findByApplicant
 );
 router.get(
   '/application/:id/transcript',
-  setupAccess,
+  access.setup,
   application.getTranscript
 );
 router.get(
   '/application/:id/approve',
   validator(schemas.application.approve),
-  professorAccess,
+  access.professor,
   application.approve
 );
 router.get(
   '/application/:id/disapprove',
   validator(schemas.application.disapprove),
-  professorAccess,
+  access.professor,
   application.disapprove
 );
-router.get('/application/applied/list', setupAccess, application.applied);
+router.get('/application/applied/list', access.setup, application.applied);
 router.get(
   '/application/claim/:id',
   validator(schemas.application.claim),
-  setupAccess,
+  access.setup,
   application.claim
 );
 
 router.get(
   '/document/:id',
   validator(schemas.project.getDocument),
-  setupAccess,
+  access.setup,
   project.getDocument
 );
 router.get(
   '/document/:id/delete',
   validator(schemas.project.deleteDocument),
-  setupAccess,
+  access.setup,
   project.deleteDocument
 );
 router.post(
@@ -162,7 +159,7 @@ router.post(
     }
   },
   validator(schemas.project.createDocument),
-  setupAccess,
+  access.setup,
   project.createDocument
 );
 

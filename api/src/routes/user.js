@@ -11,9 +11,7 @@ import * as File from '../utils/file';
 import { clean } from '../config/passport';
 import {
   upload,
-  allAccess,
-  setupAccess,
-  professorAccess
+  access,
 } from '../utils/express';
 
 const router = express.Router();
@@ -45,13 +43,13 @@ router.get('/', (req, res) => {
     .catch(errorHandler(res));
 });
 
-router.get('/oauth', allAccess, (req, res) => {
+router.get('/oauth', access.all, (req, res) => {
   User.getOAuthData(req.user.id)
     .then(dataHandler(res))
     .catch(errorHandler(res));
 });
 
-router.get('/:id', validator(schemas.user.details), setupAccess, (req, res) => {
+router.get('/:id', validator(schemas.user.details), access.setup, (req, res) => {
   User.findProfessorById(req.params.id)
     .then(data => dataHandler(res)(clean(data)))
     .catch(errorHandler(res));
@@ -60,7 +58,7 @@ router.get('/:id', validator(schemas.user.details), setupAccess, (req, res) => {
 router.post(
   '/update',
   validator(schemas.user.updateUser),
-  allAccess,
+  access.all,
   (req, res) => {
     const { email, professor, ...userData } = req.body;
     const emailShouldUpdate = email && !req.user.verified;
@@ -100,7 +98,7 @@ router.post(
 router.post(
   '/professor/update',
   validator(schemas.user.updateProfessor),
-  professorAccess,
+  access.professor,
   (req, res) => {
     Professor.updateOrCreate({ ...req.body, userId: req.user.id })
       .then(dataHandler(res))
@@ -108,7 +106,7 @@ router.post(
   }
 );
 
-router.post('/cv/update', upload.single('cv'), allAccess, (req, res) => {
+router.post('/cv/update', upload.single('cv'), access.all, (req, res) => {
   const { file, user } = req;
   const { id } = user;
   const location = `users/${id}/cv/${file.originalname || 'file'}`;
@@ -125,7 +123,7 @@ router.post('/cv/update', upload.single('cv'), allAccess, (req, res) => {
     .catch(errorHandler(res));
 });
 
-router.get('/cv/:id', validator(schemas.user.getCv), allAccess, (req, res) => {
+router.get('/cv/:id', validator(schemas.user.getCv), access.all, (req, res) => {
   User.findById(req.params.id)
     .then(user => File.getFileLocation(user.cvKey))
     .then(filepath => {
