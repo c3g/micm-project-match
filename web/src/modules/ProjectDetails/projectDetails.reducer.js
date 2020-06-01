@@ -8,11 +8,12 @@ const actionHandlers = {
     isLoading: false,
     project: a.payload.project
   }),
-  [PROJECT.FETCH.ERROR]: s => ({ ...s, isLoading: false })
+  [PROJECT.FETCH.ERROR]: (s, a) => ({ ...s, isLoading: false, error: a.payload })
 };
 
 const initialState = {
   isLoading: false,
+  error: undefined,
   project: {
     id: 0,
     title: '',

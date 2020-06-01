@@ -4,6 +4,11 @@
   display: inline-block;
   padding: 1em 2em;
   border: 1px solid white;
+  border-radius: 4px;
+  width: 100%;
+}
+.Alert > *:first-child {
+  margin-top: 0;
 }
 .Alert--danger   { color: $text-color-danger;   border-color: $border-danger;   background-color: $background-danger; }
 .Alert--primary  { color: $text-color-primary;  border-color: $border-primary;  background-color: $background-primary; }

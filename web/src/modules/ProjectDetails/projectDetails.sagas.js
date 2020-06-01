@@ -11,7 +11,10 @@ function* fetchProject({ payload }) {
         project: projectData.data
       })
     );
-  else yield put(push('/'));
+  else
+    yield put(
+      action(PROJECT.FETCH.ERROR, projectData)
+    );
 }
 
 function* deleteProject({ payload }) {

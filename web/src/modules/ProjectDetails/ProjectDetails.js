@@ -10,6 +10,7 @@ import Dropzone from 'Src/modules/Dropzone';
 import * as k from 'Src/constants/values';
 import './projectDetails.scss';
 import Loader from 'Src/modules/Loader';
+import ErrorMessage from 'Src/modules/ErrorMessage';
 
 class ProjectDetails extends Component {
   static propTypes = {
@@ -44,6 +45,7 @@ class ProjectDetails extends Component {
       approved: PropTypes.bool.isRequired
     }).isRequired,
     isLoading: PropTypes.bool.isRequired,
+    error: PropTypes.object,
     clearProject: PropTypes.func.isRequired
   };
 
@@ -69,12 +71,20 @@ class ProjectDetails extends Component {
   render() {
     if (this.props.isLoading) return <Loader />;
 
-    const { project } = this.props;
+    const { project, error, id } = this.props;
     const { author } = project;
 
     const isAuthor = this.props.userId === project.authorId;
 
     const canSeeDetails = this.props.userType === k.ADMIN || isAuthor;
+
+    if (error)
+      return (
+        <div className="project-details">
+          <Heading hideUnderline>Project {id}</Heading>
+          <ErrorMessage error={error} />
+        </div>
+      )
 
     return (
       <div className="project-details">
