@@ -1,4 +1,4 @@
-import { call, put, takeLatest, delay } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { request, action } from 'Src/utils';
 import { EMAIL, SNACKBAR } from 'Src/constants/actionTypes';
