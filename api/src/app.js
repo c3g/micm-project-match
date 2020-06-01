@@ -8,6 +8,7 @@ import session from './config/session';
 import routes from './routes';
 import adminRoute from './routes/admin';
 import userRoute from './routes/user';
+import tagRoute from './routes/tag';
 import passportConfig from './config/passport';
 import { scheduledEmailUpdates } from './mail';
 import { access } from './utils/express';
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, '../../web/dist')));
 {
   app.use('/api', routes(passport));
   app.use('/api/user',                userRoute);
+  app.use('/api/tag',                 tagRoute);
   app.use('/api/admin', access.admin, adminRoute);
 }
 
