@@ -9,7 +9,7 @@ $color-light:        rgba(245, 245, 245, 1);
 $text-color-primary:      #00a1f8;
 $text-color-info:         #289EB9;
 $text-color-success:      #155724;
-$text-color-danger:       #e05454;
+$text-color-danger:       #D03838;
 $text-color-warning:      #856404;
 $text-color-disabled:     #666666;
 $text-color-light:        rgba(245, 245, 245, 1);
@@ -107,6 +107,15 @@ $input-color:        #e6e6e6;
   margin-right: 5px;
 }
 
+
+/*
+ * Native elements
+ */
+
+pre {
+  font-weight: bold;
+  white-space: pre-wrap;
+}
 
 /*
  * Elements
