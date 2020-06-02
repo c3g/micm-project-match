@@ -163,7 +163,7 @@ function sendEmailTick() {
   // Pending-approval professors
   Promise.resolve()
   .then(() => {
-    const count = User.unapprovedProfessorCount();
+    const count = User.unapprovedCount();
     const admins = User.listAdmins();
     return Promise.all([count, admins]);
   })
