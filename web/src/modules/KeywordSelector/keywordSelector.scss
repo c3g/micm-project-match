@@ -1,22 +1,8 @@
 @import 'Src/core/common.scss';
 
 .keyword-selector {
-  .selected {
-    min-height: 67px;
-    display: flex;
-    padding: 20px 10px 5px 10px;
-    flex-wrap: wrap;
-
-    button {
-      border: none;
-      font-size: inherit;
-      background: $color-primary;
-      color: $text-color-primary;
-      padding: 5px 15px;
-      border-radius: 5px;
-      margin: 0 10px 10px 0;
-      cursor: pointer;
-    }
+  .tags {
+    padding-bottom: 0;
   }
 
   .add {

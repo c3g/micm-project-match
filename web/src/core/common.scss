@@ -139,6 +139,23 @@ pre {
  * Elements
  */
 
+.tags {
+  display: flex;
+  padding-bottom: 20px;
+
+  .tag {
+    padding: 5px 10px;
+    margin: 10px 10px 0 0;
+    border-radius: 5px;
+    color: $text-color-primary;
+    background-color: $background-color-primary;
+    border: 1px solid $color-primary;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
+
+
 .button {
   min-width: 70px;
   padding: 5px 10px;

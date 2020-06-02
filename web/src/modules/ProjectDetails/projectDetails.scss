@@ -56,19 +56,6 @@
     font-weight: 400;
   }
 
-  .tags {
-    display: flex;
-    padding-bottom: 20px;
-
-    .tag {
-      background: $color-primary;
-      padding: 5px 10px;
-      margin: 10px 10px 0 0;
-      border-radius: 5px;
-      color: $text-color-primary;
-    }
-  }
-
   .details {
     margin: 0px 0 30px;
 

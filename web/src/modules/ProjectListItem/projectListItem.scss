@@ -43,17 +43,4 @@
       color: #666666;
     }
   }
-
-  .tags {
-    display: flex;
-
-    div {
-      background: $color-primary;
-      color: $text-color-primary;
-      margin: 10px 10px 10px 0;
-      font-size: 0.9rem;
-      padding: 2px 7px;
-      border-radius: 5px;
-    }
-  }
 }

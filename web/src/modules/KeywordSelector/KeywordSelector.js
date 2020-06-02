@@ -36,11 +36,12 @@ class KeywordSelector extends Component {
   render() {
     return (
       <div className="keyword-selector">
-        Selected keywords:
-        <div className="selected">
+        Selected tags:
+        <div className="tags selected">
           {this.props.selected.length > 0 ? (
             this.props.selected.map((keyword, i) => (
               <button
+                className="tag"
                 onClick={() => this.props.deselectKeyword(keyword)}
                 key={`selected_keyword_${i}`}
               >
