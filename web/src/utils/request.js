@@ -35,6 +35,11 @@ export default (route, data = null, file = false, endpoint = api) => {
     })
     .catch(err => {
       console.log(`%c Error: %c ${err}`, 'color: #FF8888', 'color: #FFFFFF');
-      return { success: false };
+      return {
+        success: false,
+        error: err,
+        message: err.message,
+        stack: err.stack,
+      };
     });
 };

@@ -17,16 +17,13 @@ function* login({ payload }) {
 
     yield put(action(LOGIN.RECEIVE, apiData));
 
-    if (apiData.type === 'PROFESSOR' && apiData.approved === false) {
+    if (apiData.type !== 'ADMIN' && apiData.approved === false)
       yield put(
         action(
           SNACKBAR.WARNING,
           'Your account has not been approved yet. Your projects will not be visible.'
         )
       );
-      yield delay(10000);
-      yield put(action(SNACKBAR.CLEAR));
-    }
 
     if (apiData.type === 'STUDENT') {
       const applicationData = yield call(request, '/application/get');

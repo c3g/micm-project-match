@@ -5,16 +5,19 @@ import { push } from 'connected-react-router';
 
 function* fetchProject({ payload }) {
   const projectData = yield call(request, `/project/${payload.id}`);
-  if (projectData.success)
+  if (projectData.success) {
     yield put(
       action(PROJECT.FETCH.RECEIVE, {
         project: projectData.data
       })
     );
-  else
+  }
+  else {
     yield put(
       action(PROJECT.FETCH.ERROR, projectData)
     );
+
+  }
 }
 
 function* deleteProject({ payload }) {

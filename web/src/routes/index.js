@@ -24,56 +24,6 @@ import Emails from 'Src/modules/Emails';
 
 export default [
   {
-    name: 'Emails',
-    exact: true,
-    link: '/emails',
-    pathname: ['/emails', '/emails/:subroute'],
-    component: Emails,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: 'Emails'
-  },
-  {
-    name: 'Users',
-    pathname: '/users',
-    component: Users,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: 'Users'
-  },
-  {
-    name: 'Professors',
-    pathname: '/professors',
-    component: Professors,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: 'Professors'
-  },
-  {
-    name: 'Applications',
-    pathname: '/applications',
-    component: Applications,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: 'Applications'
-  },
-  {
-    name: 'Application details',
-    pathname: '/applications/:id',
-    component: ApplicationDetails,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: true
-  },
-  {
-    name: 'User',
-    pathname: '/user/:id',
-    component: User,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: true
-  },
-  {
     name: 'Create project',
     pathname: '/create-project',
     component: CreateProject,
@@ -109,7 +59,7 @@ export default [
     name: 'Application',
     pathname: '/application',
     component: Application,
-    access: [k.STUDENT],
+    access: [k.STUDENT, k.PROFESSOR],
     withAuth: true,
     withSidebar: 'Application'
   },
@@ -159,6 +109,58 @@ export default [
     access: [k.PROFESSOR, k.STUDENT, k.ADMIN, k.UNSET],
     withAuth: true,
     withSidebar: 'Profile'
+  },
+
+  // Admin interfaces
+  {
+    name: 'Emails',
+    exact: true,
+    link: '/emails',
+    pathname: ['/emails', '/emails/:subroute'],
+    component: Emails,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Emails'
+  },
+  {
+    name: 'Users',
+    pathname: '/users',
+    component: Users,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Users'
+  },
+  {
+    name: 'Professors',
+    pathname: '/professors',
+    component: Professors,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Professors'
+  },
+  {
+    name: 'Applications',
+    pathname: '/applications',
+    component: Applications,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: 'Applications'
+  },
+  {
+    name: 'Application details',
+    pathname: '/applications/:id',
+    component: ApplicationDetails,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: true
+  },
+  {
+    name: 'User',
+    pathname: '/user/:id',
+    component: User,
+    access: [k.ADMIN],
+    withAuth: true,
+    withSidebar: true
   },
 
   {

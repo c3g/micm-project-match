@@ -1,19 +1,20 @@
 @import 'Src/core/common.scss';
 
 .Snackbar {
-  color: $color-light;
+  color: $text-color-light;
   position: fixed;
   bottom: -50px;
   left: 50%;
   padding: 10px 30px;
   padding-right: 50px;
   border-radius: 1px;
-  font-weight: 400;
+  font-weight: bold;
   text-align: center;
-  box-shadow: 0px 2px 3px 1px #00000085;
+  box-shadow: 0px 2px 7px 1px #00000025;
   border: 1px solid black;
+  border-radius: 5px;
 
-  transform: translateX(-50%);
+  transform: translate(-50%, 100%);
   transition: transform 0.2s ease;
 
   &.shown {
@@ -21,27 +22,34 @@
   }
 
   &.info {
-    background: $color-info;
-    border-color: darken($color-info, 15%);
+    color: $text-color-info;
+    background: darken($background-color-info, 9%);
+    border-color: darken($border-color-info, 40%);
   }
   &.danger {
-    background: $color-danger;
-    border-color: darken($color-danger, 15%);
+    color: $text-color-danger;
+    background: darken($background-color-danger, 9%);
+    border-color: darken($border-color-danger, 40%);
   }
   &.warning {
-    background: $color-warning;
-    border-color: darken($color-warning, 15%);
+    color: $text-color-warning;
+    background: darken($background-color-warning, 9%);
+    border-color: darken($border-color-warning, 40%);
   }
   &.success {
-    background: $color-success;
-    border-color: darken($color-success, 15%);
+    color: $text-color-success;
+    background: darken($background-color-success, 9%);
+    border-color: darken($border-color-success, 40%);
   }
 }
 
 .Snackbar__hide {
   position: absolute;
+  top: 10px;
   right: 15px;
   background-color: transparent;
-  color: white;
-  border: 1px solid rgba(white, 0.2);
+  color: inherit;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  opacity: 0.7;
 }

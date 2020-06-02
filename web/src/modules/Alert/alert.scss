@@ -10,10 +10,13 @@
 .Alert > *:first-child {
   margin-top: 0;
 }
-.Alert--danger   { color: $text-color-danger;   border-color: $border-danger;   background-color: $background-danger; }
-.Alert--primary  { color: $text-color-primary;  border-color: $border-primary;  background-color: $background-primary; }
-.Alert--info     { color: $text-color-info;     border-color: $border-info;     background-color: $background-info; }
-.Alert--success  { color: $text-color-success;  border-color: $border-success;  background-color: $background-success; }
-.Alert--warning  { color: $text-color-warning;  border-color: $border-warning;  background-color: $background-warning; }
-.Alert--disabled { color: $text-color-disabled; border-color: $border-disabled; background-color: $background-disabled; }
-.Alert--light    { color: $text-color-light;    border-color: $border-light;    background-color: $background-light; }
+.Alert > *:last-child {
+  margin-bottom: 0;
+}
+.Alert--danger   { color: $text-color-danger;   border-color: $border-color-danger;   background-color: $background-color-danger; }
+.Alert--primary  { color: $text-color-primary;  border-color: $border-color-primary;  background-color: $background-color-primary; }
+.Alert--info     { color: $text-color-info;     border-color: $border-color-info;     background-color: $background-color-info; }
+.Alert--success  { color: $text-color-success;  border-color: $border-color-success;  background-color: $background-color-success; }
+.Alert--warning  { color: $text-color-warning;  border-color: $border-color-warning;  background-color: $background-color-warning; }
+.Alert--disabled { color: $text-color-disabled; border-color: $border-color-disabled; background-color: $background-color-disabled; }
+.Alert--light    { color: $text-color-light;    border-color: $border-color-light;    background-color: $background-color-light; }

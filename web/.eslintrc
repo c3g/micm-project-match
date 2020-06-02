@@ -3,7 +3,7 @@
   "rules": {
     "no-console": "off",
     "no-debugger": "warn",
-    "curly": ["error", "multi", "consistent"],
+    "curly": ["off"],
     "prettier/prettier": "warn",
     "no-unused-vars": ["warn", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
     "no-underscore-dangle": [
