@@ -178,38 +178,34 @@ class ProjectDetails extends Component {
           </React.Fragment>
         )}
         <div className="sub-heading">Other Details</div>
-        {(this.props.userType === k.ADMIN ||
-          this.props.userId === this.props.project.authorId) && (
-          <div className="details-long">
-            <div>
-              <div>Project description</div>
-              <div>{this.props.project.description}</div>
-            </div>
-            <div>
-              <div>Description of datasets to be used or generated</div>
-              <div>{this.props.project.datasets}</div>
-            </div>
-            <div>
-              <div>
-                Why you see this as a collaborative research project and what
-                you hope to gain from the collaboration
-              </div>
-              <div>{this.props.project.motive}</div>
-            </div>
-            {this.props.project.organizations.length > 0 && (
-              <div>
-                <div>Relevant to the following organization/initiatives</div>
-                <div>
-                  {this.props.project.organizations.map((organization, i) => (
-                    <div key={`organization_${i}`}>{organization}</div>
-                  ))}
-                </div>
-              </div>
-            )}
+        <div className="details-long">
+          <div>
+            <div>Project description</div>
+            <div>{this.props.project.description}</div>
           </div>
-        )}
-        {(this.props.userType === k.ADMIN ||
-          this.props.userId === this.props.project.authorId) && (
+          <div>
+            <div>Description of datasets to be used or generated</div>
+            <div>{this.props.project.datasets}</div>
+          </div>
+          <div>
+            <div>
+              Why you see this as a collaborative research project and what
+              you hope to gain from the collaboration
+            </div>
+            <div>{this.props.project.motive}</div>
+          </div>
+          {this.props.project.organizations.length > 0 && (
+            <div>
+              <div>Relevant to the following organization/initiatives</div>
+              <div>
+                {this.props.project.organizations.map((organization, i) => (
+                  <div key={`organization_${i}`}>{organization}</div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+        {(this.props.userType === k.ADMIN || isAuthor) && (
           <div className="documents">
             <div>
               Relevant Documents&nbsp;&nbsp;
@@ -231,7 +227,7 @@ class ProjectDetails extends Component {
               ? 'None'
               : this.props.project.documents.map((document, i) => (
                   <div className="document" key={`document_${i}`}>
-                    {this.props.userId === this.props.project.authorId && (
+                    {isAuthor && (
                       <button
                         className="delete-button"
                         onClick={() =>
@@ -309,8 +305,7 @@ class ProjectDetails extends Component {
           </RoundedButton>
         )}
         <div className="apply flex-row">
-          {(this.props.userType === k.ADMIN ||
-            this.props.userId === this.props.project.authorId) && (
+          {(this.props.userType === k.ADMIN || isAuthor) && (
             <RoundedButton
               color="danger"
               onClick={() => {
@@ -322,8 +317,7 @@ class ProjectDetails extends Component {
             </RoundedButton>
           )}
           <div className="flex-fill" />
-          {this.props.userType === k.ADMIN ||
-          this.props.userId === this.props.project.authorId ? (
+          {this.props.userType === k.ADMIN || isAuthor ? (
             <Link
               to={{
                 pathname: '/update-project',

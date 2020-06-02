@@ -34,10 +34,11 @@ const ProjectListItem = ({
       </Link>
     </div>
     <div className="tags">
-      {tags &&
-        tags
-          .filter(identity)
-          .map((tag, i) => <div key={`tag_${i}`}>{tag}</div>)}
+      {tags.map((tag, i) =>
+        <div key={`tag_${i}`} className="tag">
+          {tag}
+        </div>)
+      }
     </div>
   </div>
 );

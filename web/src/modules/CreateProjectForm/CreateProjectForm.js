@@ -214,7 +214,7 @@ class CreateProjectFormComponent extends Component {
           <Field name="budget" component={CreateProjectField} type="text" />
         </div>
         <div>
-          High level abstract (to be displayed on website)
+          High level abstract
           <Field name="abstract" component={CreateProjectTextArea} />
         </div>
         <div>

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RoundedInputField from 'Src/modules/RoundedInputField';
 import { Field, reduxForm } from 'redux-form';
-import './projectSearchbar.scss';
 
 const ProjectSearchbarField = ({ input, type, placeholder }) => (
   <RoundedInputField {...input} type={type} placeholder={placeholder} />
@@ -30,9 +29,6 @@ let ProjectSearchbar = props => (
         placeholder="Search..."
         name="search"
       />
-      <div className="submit-button">
-        <button>Go</button>
-      </div>
     </form>
   </div>
 );
