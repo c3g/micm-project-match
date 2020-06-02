@@ -183,9 +183,20 @@ function search({ term, keywords }, isAdmin = false) {
            project.title,
            project.abstract,
            project.author_id,
-           user_account.first_name,
-           user_account.last_name,
-           user_account.approved,
+           project.start_date,
+           project.timeframe,
+           project.budget,
+           project.axis,
+           project.organizations,
+           project.open_for_students,
+           project.approved,
+           user_account.email,
+           row_to_json((SELECT d FROM (SELECT
+             user_account.first_name as first_name,
+             user_account.last_name,
+             user_account.approved,
+             user_account.email
+           ) d)) as "author",
            array_agg(tag.text) as tags
       FROM project
            JOIN user_account ON project.author_id = user_account.id
@@ -194,6 +205,7 @@ function search({ term, keywords }, isAdmin = false) {
            user_account.first_name,
            user_account.last_name,
            user_account.approved,
+           user_account.email,
            project.approved
     HAVING LOWER(project.title) LIKE LOWER(@term)
            AND project.tag_id @> @keywords
