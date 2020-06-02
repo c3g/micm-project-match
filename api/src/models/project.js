@@ -53,11 +53,7 @@ function details(id, userId, isAdmin = false) {
 
   return db
     .selectOne(`
-      SELECT project.id,
-             project.title,
-             project.abstract,
-             project.open_for_students,
-             project.author_id,
+      SELECT project.*,
              row_to_json((SELECT d FROM (SELECT
                user_account.first_name as first_name,
                user_account.last_name,
