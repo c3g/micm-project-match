@@ -41,7 +41,6 @@ class ProjectDetails extends Component {
       tags: PropTypes.array,
       tagId: PropTypes.array,
       documents: PropTypes.array,
-      budget: PropTypes.string,
       approved: PropTypes.bool.isRequired
     }).isRequired,
     isLoading: PropTypes.bool.isRequired,
@@ -126,32 +125,6 @@ class ProjectDetails extends Component {
               <span>Expected project timeframe</span>
               <span>{this.props.project.timeframe}</span>
             </div>
-            <div>
-              <span>Requested budget</span>
-              <span>
-                {this.props.project.budget ? (
-                  this.props.project.budget
-                ) : (
-                  <span className="danger">Unspecified</span>
-                )}
-              </span>
-            </div>
-            {!this.props.project.budget && (
-              <div>
-                <span>
-                  <Link
-                    to={{
-                      pathname: '/update-project',
-                      state: {
-                        project: this.props.project
-                      }
-                    }}
-                  >
-                    Set a budget
-                  </Link>
-                </span>
-              </div>
-            )}
           </div>
         )}
         {!isAuthor && (

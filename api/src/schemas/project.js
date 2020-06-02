@@ -16,7 +16,6 @@ const create = Joi.object({
     description: Joi.string().required(),
     datasets: Joi.string().required(),
     motive: Joi.string().required(),
-    budget: Joi.string().allow(null),
     timeframe: Joi.string()
       .max(20)
       .required(),
@@ -42,7 +41,6 @@ const update = Joi.object({
     description: Joi.string().required(),
     datasets: Joi.string().required(),
     motive: Joi.string().required(),
-    budget: Joi.string().allow(null),
     timeframe: Joi.string()
       .max(20)
       .required(),

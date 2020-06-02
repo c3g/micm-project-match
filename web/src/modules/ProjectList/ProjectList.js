@@ -77,7 +77,6 @@ function exportAsCSV(projects) {
     p.title,
     p.startDate,
     p.timeframe,
-    p.budget,
     p.axis,
     p.organizations.join(', '),
     p.openForStudents ? 'yes' : 'no',

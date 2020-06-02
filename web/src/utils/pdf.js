@@ -103,10 +103,6 @@ function renderProject(project) {
               )}</span>
             </div>
             <div class="fields__item">
-              <span class="fields__label">Budget</span>
-              <span class="fields__value">${project.budget}</span>
-            </div>
-            <div class="fields__item">
               <span class="fields__label">Keywords</span>
               <span class="fields__value">${project.tags.join(', ')}</span>
             </div>

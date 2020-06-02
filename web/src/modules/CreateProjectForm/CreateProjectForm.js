@@ -131,7 +131,6 @@ class CreateProjectFormComponent extends Component {
       tags: PropTypes.array,
       tagId: PropTypes.array,
       documents: PropTypes.array,
-      budget: PropTypes.string,
       approved: PropTypes.bool
     })
   };
@@ -208,10 +207,6 @@ class CreateProjectFormComponent extends Component {
               ))}
             </Field>
           </div>
-        </div>
-        <div>
-          Budget
-          <Field name="budget" component={CreateProjectField} type="text" />
         </div>
         <div>
           High level abstract
