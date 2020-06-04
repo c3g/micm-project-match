@@ -14,6 +14,8 @@ import Input from 'Src/modules/InputField';
 import Alert from 'Src/modules/Alert';
 import './applicationForm.scss';
 
+const isApplicationPeriodOver = false;
+
 const createApplicationValidate = (values, props) => {
   const errors = {};
   if (values.isMcgillStudent === undefined) errors.isMcgillStudent = 'Required';
@@ -223,171 +225,172 @@ class ApplicationFormComponent extends Component {
       <div className={cx('ApplicationForm', { isLoading })}>
         <Heading>Summer Scholars Application</Heading>
 
-        {/*
-          <Alert color="success">
-            Your application has already been submitted. You can still modify it
-            by submitting this form again.
-          </Alert>
-           */}
-
-        {hasSubmittedApplication ? (
-          <Alert color="info">
-            Your application has already been submitted.
-          </Alert>
-        ) : (
-          <Alert color="warn">The application period is over.</Alert>
-        )}
-
-        <div className="form">
-          <form onSubmit={props.handleSubmit(this.onSubmit)}>
-            <div className="ApplicationForm__fields">
-              <div className="flex-row flex-align-center">
-                <div className="flex-fill">First name</div>
-                <Input className="flex-fill" value={user.firstName} disabled />
-              </div>
-              <div className="flex-row flex-align-center">
-                <div className="flex-fill">Last name</div>
-                <Input className="flex-fill" value={user.lastName} disabled />
-              </div>
-              <div className="application-form__cv flex-row">
-                <div className="flex-fill">
-                  <div>CV and cover letter (8 MB max)</div>
-                  <small>
-                    (1 document) In the cover letter indicate why does your past
-                    experience make you a good fit for this scholars program.
-                    How will this project advance your academic/career goals.
-                  </small>
-                </div>
-                <div className="dropzone-container flex-fill">
-                  <Dropzone
-                    multiple={false}
-                    accept={MIME_TYPES.DOCUMENT}
-                    onDrop={this.onDropCV}
-                    text={
-                      <div>
-                        {user.cvKey && (
-                          <span className="dropzone__selected-file">
-                            {getFilename(user.cvKey)}
-                          </span>
-                        )}
-                        Drag file here, or click to select
-                        {this.state.cvMessage && (
-                          <React.Fragment>
-                            <br />
-                            <span className="text-danger">
-                              {this.state.cvMessage}
-                            </span>
-                          </React.Fragment>
-                        )}
-                      </div>
-                    }
-                  />
-                </div>
-              </div>
-
-              <Field
-                name="isMcgillStudent"
-                label="Are you a McGill student?"
-                height={50}
-                component={CheckboxField}
-              />
-              <Field
-                name="university"
-                label="If not, which university are you from?"
-                height={150}
-                component={InputTextField}
-              />
-              <Field
-                name="studyProgram"
-                label="Program of study"
-                height={150}
-                component={InputTextField}
-              />
-              <Field
-                name="studyYear"
-                label="Year of study (i.e. Undergraduate Year 3)"
-                height={150}
-                component={InputTextField}
-              />
-              <Field
-                name="graduationYear"
-                label="Graduation year"
-                height={150}
-                component={InputNumberField}
-              />
-              <Field
-                name="transcript"
-                label="Copy of unofficial transcript (2 MB max)"
-                height={150}
-                component={({ input, label, meta: { touched, error } }) => {
-                  const errorMessage = this.state.transcriptMessage || error;
-
-                  return (
-                    <div className="application-form__transcript flex-row">
-                      <div className="flex-fill">{label}</div>
-                      <div className="dropzone-container flex-fill">
-                        <Dropzone
-                          onDrop={files => this.onDropTranscript(files, input)}
-                          text={
-                            <div>
-                              {(this.state.transcript || application) && (
-                                <span className="dropzone__selected-file">
-                                  {this.state.transcript
-                                    ? this.state.transcript.name
-                                    : getFilename(application.transcriptKey)}
-                                </span>
-                              )}
-                              Drag file here, or click to select
-                              {errorMessage && (
-                                <React.Fragment>
-                                  <br />
-                                  <span className="text-danger">
-                                    {errorMessage}
-                                  </span>
-                                </React.Fragment>
-                              )}
-                            </div>
-                          }
-                        />
-                      </div>
-                    </div>
-                  );
-                }}
-              />
-
-              <Field
-                name="otherInternships"
-                label="Have you applied to other summer internship programs?"
-                height={50}
-                component={CheckboxField}
-              />
-              <Field
-                name="otherInternshipsDetails"
-                label="If yes which ones, and when will you receive the notice of decision?"
-                height={150}
-                component={InputTextField}
-              />
-            </div>
-            <Alert color="info">
-              Thank you for your interest in the Summer Scholars Program. Only
-              ONE online submission is required. Due to the volume of
-              applications, only those candidates being considered for the
-              internship will be contacted.
+        {
+          isApplicationPeriodOver && !hasSubmittedApplication ? (
+            <Alert color="warning">The application period is over.</Alert>
+          ) :
+          isApplicationPeriodOver && hasSubmittedApplication ? (
+            <Alert color="success">
+              Your application has been submitted.
             </Alert>
-            <div className="right-button">
-              {/*
-                  <RoundedButton disabled={isLoading}>
-                    {hasSubmittedApplication
-                      ? 'Update Application'
-                      : 'Submit Application'}
-                  </RoundedButton>
-                 */}
-              <RoundedButton disabled={true} type="button">
-                Application period is over
-              </RoundedButton>
-            </div>
-          </form>
-        </div>
+          ) :
+          hasSubmittedApplication ? (
+            <Alert color="success">
+              Your application has already been submitted. You can still modify it
+              by submitting this form again.
+            </Alert>
+          ) : null
+        }
+
+        {!isApplicationPeriodOver &&
+          <div className="form">
+            <form onSubmit={props.handleSubmit(this.onSubmit)}>
+              <div className="ApplicationForm__fields">
+                <div className="flex-row flex-align-center">
+                  <div className="flex-fill">First name</div>
+                  <Input className="flex-fill" value={user.firstName} disabled />
+                </div>
+                <div className="flex-row flex-align-center">
+                  <div className="flex-fill">Last name</div>
+                  <Input className="flex-fill" value={user.lastName} disabled />
+                </div>
+                <div className="application-form__cv flex-row">
+                  <div className="flex-fill">
+                    <div>CV and cover letter (8 MB max)</div>
+                    <small>
+                      (1 document) In the cover letter indicate why does your past
+                      experience make you a good fit for this scholars program.
+                      How will this project advance your academic/career goals.
+                    </small>
+                  </div>
+                  <div className="dropzone-container flex-fill">
+                    <Dropzone
+                      multiple={false}
+                      accept={MIME_TYPES.DOCUMENT}
+                      onDrop={this.onDropCV}
+                      text={
+                        <div>
+                          {user.cvKey && (
+                            <span className="dropzone__selected-file">
+                              {getFilename(user.cvKey)}
+                            </span>
+                          )}
+                          Drag file here, or click to select
+                          {this.state.cvMessage && (
+                            <React.Fragment>
+                              <br />
+                              <span className="text-danger">
+                                {this.state.cvMessage}
+                              </span>
+                            </React.Fragment>
+                          )}
+                        </div>
+                      }
+                    />
+                  </div>
+                </div>
+
+                <Field
+                  name="isMcgillStudent"
+                  label="Are you a McGill student?"
+                  height={50}
+                  component={CheckboxField}
+                />
+                <Field
+                  name="university"
+                  label="If not, which university are you from?"
+                  height={150}
+                  component={InputTextField}
+                />
+                <Field
+                  name="studyProgram"
+                  label="Program of study"
+                  height={150}
+                  component={InputTextField}
+                />
+                <Field
+                  name="studyYear"
+                  label="Year of study (i.e. Undergraduate Year 3)"
+                  height={150}
+                  component={InputTextField}
+                />
+                <Field
+                  name="graduationYear"
+                  label="Graduation year"
+                  height={150}
+                  component={InputNumberField}
+                />
+                <Field
+                  name="transcript"
+                  label="Copy of unofficial transcript (2 MB max)"
+                  height={150}
+                  component={({ input, label, meta: { touched, error } }) => {
+                    const errorMessage = this.state.transcriptMessage || error;
+
+                    return (
+                      <div className="application-form__transcript flex-row">
+                        <div className="flex-fill">{label}</div>
+                        <div className="dropzone-container flex-fill">
+                          <Dropzone
+                            onDrop={files => this.onDropTranscript(files, input)}
+                            text={
+                              <div>
+                                {(this.state.transcript || application) && (
+                                  <span className="dropzone__selected-file">
+                                    {this.state.transcript
+                                      ? this.state.transcript.name
+                                      : getFilename(application.transcriptKey)}
+                                  </span>
+                                )}
+                                Drag file here, or click to select
+                                {errorMessage && (
+                                  <React.Fragment>
+                                    <br />
+                                    <span className="text-danger">
+                                      {errorMessage}
+                                    </span>
+                                  </React.Fragment>
+                                )}
+                              </div>
+                            }
+                          />
+                        </div>
+                      </div>
+                    );
+                  }}
+                />
+
+                <Field
+                  name="otherInternships"
+                  label="Have you applied to other summer internship programs?"
+                  height={50}
+                  component={CheckboxField}
+                />
+                <Field
+                  name="otherInternshipsDetails"
+                  label="If yes which ones, and when will you receive the notice of decision?"
+                  height={150}
+                  component={InputTextField}
+                />
+              </div>
+              <Alert color="info">
+                Thank you for your interest in the Summer Scholars Program. Only
+                ONE online submission is required. Due to the volume of
+                applications, only those candidates being considered for the
+                internship will be contacted.
+              </Alert>
+              <div className="right-button">
+                {!isApplicationPeriodOver &&
+                    <RoundedButton disabled={isLoading}>
+                      {hasSubmittedApplication
+                        ? 'Update Application'
+                        : 'Submit Application'}
+                    </RoundedButton>
+                }
+              </div>
+            </form>
+          </div>
+        }
       </div>
     );
   }
