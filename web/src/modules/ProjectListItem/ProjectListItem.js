@@ -34,7 +34,7 @@ const ProjectListItem = ({
       </Link>
     </div>
     <div className="tags">
-      {tags.map((tag, i) =>
+      {tags.filter(Boolean).map((tag, i) =>
         <div key={`tag_${i}`} className="tag">
           {tag}
         </div>)
