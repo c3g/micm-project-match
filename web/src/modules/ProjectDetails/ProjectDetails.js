@@ -73,9 +73,10 @@ class ProjectDetails extends Component {
     const { project, error, id } = this.props;
     const { author } = project;
 
+    const isAdmin = this.props.userType === k.ADMIN;
     const isAuthor = this.props.userId === project.authorId;
 
-    const canSeeDetails = this.props.userType === k.ADMIN || isAuthor;
+    const canSeeDetails = isAdmin || isAuthor;
 
     if (error)
       return (
@@ -93,7 +94,7 @@ class ProjectDetails extends Component {
             {this.props.project.approved && 'Approved'}
           </div>
         </div>
-        {this.props.userType === k.ADMIN && (
+        {isAdmin && (
           <div className="extract-button">
             <button onClick={this.extractAsPDF}>Download as PDF</button>
           </div>
@@ -178,7 +179,7 @@ class ProjectDetails extends Component {
             </div>
           )}
         </div>
-        {(this.props.userType === k.ADMIN || isAuthor) && (
+        {(isAdmin || isAuthor) && (
           <div className="documents">
             <div>
               Relevant Documents&nbsp;&nbsp;
@@ -278,7 +279,7 @@ class ProjectDetails extends Component {
           </RoundedButton>
         )}
         <div className="apply flex-row">
-          {(this.props.userType === k.ADMIN || isAuthor) && (
+          {(isAdmin || isAuthor) && (
             <RoundedButton
               color="danger"
               onClick={() => {
@@ -290,7 +291,7 @@ class ProjectDetails extends Component {
             </RoundedButton>
           )}
           <div className="flex-fill" />
-          {this.props.userType === k.ADMIN || isAuthor ? (
+          {(isAdmin || isAuthor) ? (
             <Link
               to={{
                 pathname: '/update-project',
