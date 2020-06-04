@@ -8,7 +8,7 @@ pg_dump -U postgres micm > $DATE.sql
 tar -cvf $DATE.tar.gz $DATE.sql
 rm $DATE.sql
 
-OLD_FILES="$(ls -1htr /var/micm/backups/ | tail -31)"
+OLD_FILES="$(ls -1htr /var/micm/backups/ | tac | tail +31)"
 echo "Removing: $OLD_FILES"
 if [ ! -z "$OLD_FILES" ]; then
   rm $OLD_FILES
