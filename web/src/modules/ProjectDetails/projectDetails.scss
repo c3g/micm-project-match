@@ -3,15 +3,23 @@
 .project-details {
   font-weight: 300;
 
-  .approved {
-    color: $color-success;
+  .status {
     font-weight: 600;
     font-size: 0.8rem;
+    align-self: center;
+    margin-right: 1em;
+  }
+  .status.approved {
+    color: $color-success;
+  }
+  .status.unapproved {
+    color: $color-warning;
   }
 
   .extract-button {
     display: flex;
     justify-content: flex-end;
+    align-self: center;
 
     button {
       background: $color-primary;

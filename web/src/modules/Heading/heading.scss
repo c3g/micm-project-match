@@ -1,10 +1,15 @@
 @import 'Src/core/common.scss';
 
+.Heading {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1em;
+}
+
 .Heading__inner {
   font-size: 1.7rem;
   font-weight: 800;
   padding: 8px 0;
   border-bottom: solid 3px $color-primary;
   display: inline-block;
-  margin-bottom: 1em;
 }

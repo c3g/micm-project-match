@@ -88,20 +88,25 @@ class ProjectDetails extends Component {
 
     return (
       <div className="project-details">
-        <div>
-          <Heading hideUnderline>{this.props.project.title}</Heading>
-          <div className="approved">
-            {this.props.project.approved && 'Approved'}
-          </div>
-        </div>
-        {isAdmin && (
-          <div className="extract-button">
-            <button onClick={this.extractAsPDF}>Download as PDF</button>
-          </div>
-        )}
-        <div className="abstract">{this.props.project.abstract}</div>
+        <Heading
+          hideUnderline
+          extra={
+            <React.Fragment>
+              <div className={'status ' + (project.approved ? 'approved' : 'unapproved')}>
+                {project.approved && 'Approved' || 'Unapproved'}
+              </div>
+              {isAdmin && (
+                <div className="extract-button">
+                  <button onClick={this.extractAsPDF}>Download as PDF</button>
+                </div>
+              )}
+            </React.Fragment>
+          }
+        >
+          {project.title}
+        </Heading>
         <div className="tags">
-          {this.props.project.tags.map(
+          {project.tags.map(
             (tag, i) =>
               tag && (
                 <div className="tag" key={`tag_${i}`}>
@@ -110,24 +115,33 @@ class ProjectDetails extends Component {
               )
           )}
         </div>
-        {canSeeDetails && (
-          <div className="details">
-            <div>
-              <span>Prefered project start date</span>
-              <span>
-                {new Date(this.props.project.startDate).toDateString()}
-              </span>
-            </div>
-            <div>
-              <span>MiCM Axis</span>
-              <span>{this.props.project.axis}</span>
-            </div>
-            <div>
-              <span>Expected project timeframe</span>
-              <span>{this.props.project.timeframe}</span>
-            </div>
+        <div className="abstract">{project.abstract}</div>
+        <div className="details">
+          <div>
+            <span>Can students apply?</span>
+            <span>
+              {project.openForStudents ? 'Yes' : 'No'}
+            </span>
           </div>
-        )}
+          {canSeeDetails && (
+            <React.Fragment>
+              <div>
+                <span>Prefered project start date</span>
+                <span>
+                  {new Date(project.startDate).toDateString()}
+                </span>
+              </div>
+              <div>
+                <span>MiCM Axis</span>
+                <span>{project.axis}</span>
+              </div>
+              <div>
+                <span>Expected project timeframe</span>
+                <span>{project.timeframe}</span>
+              </div>
+            </React.Fragment>
+          )}
+        </div>
         {!isAuthor && (
           <React.Fragment>
             <div className="sub-heading">Professor Details</div>
@@ -135,7 +149,7 @@ class ProjectDetails extends Component {
               <div>
                 <span>Name</span>
                 <span className="blue">
-                  <Link to={`/user/${this.props.project.authorId}`}>
+                  <Link to={`/user/${project.authorId}`}>
                     {author.firstName} {author.lastName}
                   </Link>
                 </span>
@@ -155,24 +169,24 @@ class ProjectDetails extends Component {
         <div className="details-long">
           <div>
             <div>Project description</div>
-            <div>{this.props.project.description}</div>
+            <div>{project.description}</div>
           </div>
           <div>
             <div>Description of datasets to be used or generated</div>
-            <div>{this.props.project.datasets}</div>
+            <div>{project.datasets}</div>
           </div>
           <div>
             <div>
               Why you see this as a collaborative research project and what
               you hope to gain from the collaboration
             </div>
-            <div>{this.props.project.motive}</div>
+            <div>{project.motive}</div>
           </div>
-          {this.props.project.organizations.length > 0 && (
+          {project.organizations.length > 0 && (
             <div>
               <div>Relevant to the following organization/initiatives</div>
               <div>
-                {this.props.project.organizations.map((organization, i) => (
+                {project.organizations.map((organization, i) => (
                   <div key={`organization_${i}`}>{organization}</div>
                 ))}
               </div>
@@ -197,9 +211,9 @@ class ProjectDetails extends Component {
                 </button>
               )}
             </div>
-            {this.props.project.documents.length === 0
+            {project.documents.length === 0
               ? 'None'
-              : this.props.project.documents.map((document, i) => (
+              : project.documents.map((document, i) => (
                   <div className="document" key={`document_${i}`}>
                     {isAuthor && (
                       <button
@@ -207,7 +221,7 @@ class ProjectDetails extends Component {
                         onClick={() =>
                           this.props.deleteDocument({
                             id: document.id,
-                            projectId: this.props.project.id
+                            projectId: project.id
                           })
                         }
                       >
@@ -267,7 +281,7 @@ class ProjectDetails extends Component {
             onClick={() => {
               this.props.uploadDocuments({
                 files: this.state.files,
-                id: this.props.project.id
+                id: project.id
               });
               this.setState({
                 dropzoneOpen: !this.state.dropzoneOpen,
@@ -284,7 +298,7 @@ class ProjectDetails extends Component {
               color="danger"
               onClick={() => {
                 if (confirm('Are you sure you want to delete this project?'))
-                  this.props.deleteProject(this.props.project);
+                  this.props.deleteProject(project);
               }}
             >
               Delete
@@ -296,7 +310,7 @@ class ProjectDetails extends Component {
               to={{
                 pathname: '/update-project',
                 state: {
-                  project: this.props.project
+                  project: project
                 }
               }}
             >
