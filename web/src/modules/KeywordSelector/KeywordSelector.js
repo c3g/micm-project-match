@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import RoundedInputField from 'Src/modules/RoundedInputField';
+import InputField from 'Src/modules/InputField';
 import './keywordSelector.scss';
 
 class KeywordSelector extends Component {
@@ -52,7 +52,7 @@ class KeywordSelector extends Component {
             <span className="message">None</span>
           )}
         </div>
-        <RoundedInputField
+        <InputField
           ref={search => (this.search = search)}
           value={this.state.term}
           onKeyDown={e => {
@@ -87,7 +87,7 @@ class KeywordSelector extends Component {
                   onClick={() => {
                     this.props.selectKeyword(keyword);
                     this.setState({ term: '' });
-                    this.search.input.focus();
+                    this.search.focus();
                   }}
                   key={`keyword_${i}`}
                 >

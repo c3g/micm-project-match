@@ -5,6 +5,7 @@
     "no-debugger": "warn",
     "curly": ["off"],
     "prettier/prettier": "warn",
+    "react/display-name": "off",
     "no-unused-vars": ["warn", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
     "no-underscore-dangle": [
       "error",

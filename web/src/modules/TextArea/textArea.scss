@@ -8,8 +8,8 @@
   padding: 14px;
   font-size: inherit;
   font-family: inherit;
-  background: $input-color;
-  border: none;
-  border-radius: 5px;
+
+  @include input;
+
   width: 100%;
 }

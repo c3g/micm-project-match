@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import cx from 'classname';
 import './inputField.scss';
 
-const InputField = ({ className, size, ...rest }) => (
+const InputField = React.forwardRef(({ className, size, ...rest }, ref) => (
   <input
+    ref={ref}
     className={cx(
       className,
       'InputField',
@@ -12,7 +13,7 @@ const InputField = ({ className, size, ...rest }) => (
     )}
     {...rest}
   />
-);
+));
 
 InputField.propTypes = {
   className: PropTypes.string,

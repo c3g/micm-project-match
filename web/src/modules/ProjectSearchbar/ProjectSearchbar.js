@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RoundedInputField from 'Src/modules/RoundedInputField';
+import InputField from 'Src/modules/InputField';
 import { Field, reduxForm } from 'redux-form';
 
 const ProjectSearchbarField = ({ input, type, placeholder }) => (
-  <RoundedInputField {...input} type={type} placeholder={placeholder} />
+  <InputField {...input} type={type} placeholder={placeholder} />
 );
 
 ProjectSearchbarField.propTypes = {

@@ -1,17 +1,19 @@
+@import 'Src/core/common.scss';
+
 .dropzone {
-  background: #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
   padding: 20px;
   text-align: center;
-  color: #666666;
   font-size: 0.9rem;
+  @include input;
+  border-style: dashed;
+  border-width: 3px;
+  color: #666666;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px dashed #c2c2c2;
-  border-radius: 4px;
 }
 
 .dropzone__selected-file {

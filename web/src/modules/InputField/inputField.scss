@@ -7,9 +7,7 @@
   font-family: inherit;
   font-weight: 300;
 
-  background: $input-color;
-  border: none;
-  border-radius: 4px;
+  @include input;
 
   width: 100%;
 
@@ -33,3 +31,4 @@
 }
 .InputField--medium { /* default */ }
 .InputField--large {}
+
