@@ -189,6 +189,10 @@ pre {
   background-color: lighten($color-primary, 10%);
   text-decoration: none;
 }
+.button-group {
+  display: flex;
+  flex-direction: row;
+}
 .button-group .button:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

@@ -23,11 +23,8 @@ export const DISAPPROVE_APPLICATION = createNetworkConstants(
 export const CLAIM_PROJECT = createNetworkConstants('CLAIM_PROJECT');
 export const APPLIED_PROJECTS = createNetworkConstants('APPLIED_PROJECTS');
 export const CONTACT_US = createNetworkConstants('CONTACT_US');
-export const PROFESSOR_LIST = createNetworkConstants('PROFESSOR_LIST');
-export const APPROVE_PROFESSOR = createNetworkConstants('APPROVE_PROFESSOR');
-export const DISAPPROVE_PROFESSOR = createNetworkConstants(
-  'DISAPPROVE_PROFESSOR'
-);
+export const APPROVE_USER = createNetworkConstants('APPROVE_USER');
+export const DISAPPROVE_USER = createNetworkConstants('DISAPPROVE_USER');
 export const MATCH_LIST = createNetworkConstants('MATCH_LIST');
 export const APPROVE_MATCH = createNetworkConstants('APPROVE_MATCH');
 export const DISAPPROVE_MATCH = createNetworkConstants('DISAPPROVE_MATCH');

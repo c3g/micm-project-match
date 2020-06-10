@@ -42,27 +42,21 @@ router.get(
   }
 );
 
-router.get('/professors/list', (req, res) => {
-  User.listProfessors()
-    .then(dataHandler(res))
-    .catch(errorHandler(res));
-});
-
 router.get(
-  '/professors/:id/approve',
-  validator(schemas.user.approveProfessor),
+  '/users/:id/approve',
+  validator(schemas.user.approveUser),
   (req, res) => {
-    User.approveProfessor(req.params.id)
+    User.approveUser(req.params.id)
       .then(okHandler(res))
       .catch(errorHandler(res));
   }
 );
 
 router.get(
-  '/professors/:id/disapprove',
-  validator(schemas.user.disapproveProfessor),
+  '/users/:id/disapprove',
+  validator(schemas.user.disapproveUser),
   (req, res) => {
-    User.disapproveProfessor(req.params.id)
+    User.disapproveUser(req.params.id)
       .then(okHandler(res))
       .catch(errorHandler(res));
   }

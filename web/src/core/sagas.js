@@ -20,7 +20,6 @@ import { userProfileSaga } from 'Src/modules/UserProfile';
 import { keywordSelectorSaga } from 'Src/modules/KeywordSelector';
 import { applicationDetailsSaga } from 'Src/modules/ApplicationDetails';
 import { contactUsFormSaga } from 'Src/modules/ContactUsForm';
-import { professorListSaga } from 'Src/modules/ProfessorList';
 import { userListSaga } from 'Src/modules/UserList';
 import { emailsSaga } from 'Src/modules/Emails';
 import { snackbarSaga } from 'Src/modules/Snackbar';
@@ -73,7 +72,6 @@ export function* rootSaga() {
     applicationListSaga(),
     projectDetailsSaga(),
     applicationDetailsSaga(),
-    professorListSaga(),
     contactUsFormSaga(),
     userListSaga(),
     emailsSaga(),

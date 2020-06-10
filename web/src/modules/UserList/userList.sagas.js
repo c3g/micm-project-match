@@ -5,7 +5,9 @@ import {
   MAKE_ADMIN,
   MAKE_STUDENT,
   MAKE_PROFESSOR,
-  SNACKBAR
+  APPROVE_USER,
+  DISAPPROVE_USER,
+  SNACKBAR,
 } from 'Src/constants/actionTypes';
 
 function* listUsers() {
@@ -56,11 +58,33 @@ function* makeProfessor({ payload }) {
   yield put(action(SNACKBAR.CLEAR));
 }
 
+function* approveUser({ payload }) {
+  const data = yield call(request, `/admin/users/${payload}/approve`);
+  if (data.success) {
+    yield put(action(USER_LIST.REQUEST));
+  } else {
+    yield put(action(APPROVE_USER.ERROR));
+    yield put(action(SNACKBAR.SHOW, { type: SNACKBAR.DANGER, message: data.message }));
+  }
+}
+
+function* disapproveUser({ payload }) {
+  const data = yield call(request, `/admin/users/${payload}/disapprove`);
+  if (data.success) {
+    yield put(action(USER_LIST.REQUEST));
+  } else {
+    yield put(action(DISAPPROVE_USER.ERROR));
+    yield put(action(SNACKBAR.SHOW, { type: SNACKBAR.DANGER, message: data.message }));
+  }
+}
+
 function* userListSaga() {
   yield takeLatest(USER_LIST.REQUEST, listUsers);
   yield takeLatest(MAKE_ADMIN.REQUEST, makeAdmin);
   yield takeLatest(MAKE_STUDENT.REQUEST, makeStudent);
   yield takeLatest(MAKE_PROFESSOR.REQUEST, makeProfessor);
+  yield takeLatest(APPROVE_USER.REQUEST, approveUser);
+  yield takeLatest(DISAPPROVE_USER.REQUEST, disapproveUser);
 }
 
 export default userListSaga;

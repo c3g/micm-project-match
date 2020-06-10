@@ -51,7 +51,7 @@
     "supertest": "4.0.2"
   },
   "scripts": {
-    "postinstall": "[ ! -f ./src/config/nodemailer.js ] && cp ./src/config/nodemailer.example.js ./src/config/nodemailer.js",
+    "postinstall": "[ ! -f ./src/config/nodemailer.js ] && cp ./src/config/nodemailer.example.js ./src/config/nodemailer.js || true",
     "start": "nodemon --watch src --exec babel-node src/bin/www",
     "build": "babel src --out-dir dist --copy-files",
     "serve": "node dist/bin/www",

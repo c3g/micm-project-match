@@ -23,6 +23,8 @@ class UserList extends Component {
     makeAdmin: PropTypes.func.isRequired,
     makeProfessor: PropTypes.func.isRequired,
     makeStudent: PropTypes.func.isRequired,
+    approveUser: PropTypes.func.isRequired,
+    disapproveUser: PropTypes.func.isRequired,
     listUsers: PropTypes.func.isRequired,
     clearUsers: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired
@@ -43,7 +45,9 @@ class UserList extends Component {
       users,
       makeAdmin,
       makeProfessor,
-      makeStudent
+      makeStudent,
+      approveUser,
+      disapproveUser,
     } = this.props;
 
     return (
@@ -70,22 +74,34 @@ class UserList extends Component {
                 {user.approved ? 'Yes' : 'No'}
               </div>
               <div className="flex-fill" />
-              <div className="button-group">
-                {user.type !== k.PROFESSOR && (
-                  <button onClick={() => makeProfessor(user.id)}>
-                    Make Professor
+              <div className='UserList__actions flex-row'>
+                {user.approved ? (
+                  <button className="button" onClick={() => disapproveUser(user.id)}>
+                    Disapprove
                   </button>
-                )}
-                {user.type !== k.STUDENT && (
-                  <button onClick={() => makeStudent(user.id)}>
-                    Make Student
+                ) : (
+                  <button className="button" onClick={() => approveUser(user.id)}>
+                    Approve
                   </button>
-                )}
-                {user.type !== k.ADMIN && (
-                  <button onClick={() => makeAdmin(user.id)}>
-                    Make Admin <Icon name="exclamation-triangle" />
-                  </button>
-                )}
+                )
+                }
+                <div className="button-group">
+                  {user.type !== k.PROFESSOR && (
+                    <button className="button" onClick={() => makeProfessor(user.id)}>
+                      Make Professor
+                    </button>
+                  )}
+                  {user.type !== k.STUDENT && (
+                    <button className="button" onClick={() => makeStudent(user.id)}>
+                      Make Student
+                    </button>
+                  )}
+                  {user.type !== k.ADMIN && (
+                    <button className="button" onClick={() => makeAdmin(user.id)}>
+                      Make Admin <Icon name="exclamation-triangle" />
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           )

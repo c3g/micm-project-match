@@ -282,7 +282,7 @@ function listAdmins() {
   `);
 }
 
-function approveProfessor(id) {
+function approveUser(id) {
   return db.query(
     `
     UPDATE user_account
@@ -293,7 +293,7 @@ function approveProfessor(id) {
   );
 }
 
-function disapproveProfessor(id) {
+function disapproveUser(id) {
   return db.query(
     `
     UPDATE user_account
@@ -399,8 +399,8 @@ export default {
   verifyEmail,
   findProfessorById,
   listProfessors,
-  approveProfessor,
-  disapproveProfessor,
+  approveUser,
+  disapproveUser,
   unapprovedCount,
   listAdmins,
   listUsers,

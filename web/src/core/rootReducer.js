@@ -16,7 +16,6 @@ import { keywordSelectorReducer } from 'Src/modules/KeywordSelector';
 import { applicationFormReducer } from 'Src/modules/ApplicationForm';
 import { applicationListReducer } from 'Src/modules/ApplicationList';
 import { userProfileReducer } from 'Src/modules/UserProfile';
-import { professorListReducer } from 'Src/modules/ProfessorList';
 import { userListReducer } from 'Src/modules/UserList';
 import { emailsReducer } from 'Src/modules/Emails';
 import { appReducer } from 'Src/core/App';
@@ -43,7 +42,6 @@ export default function configureRootReducer(history) {
     setPassword: setPasswordFormReducer,
     login: loginFormReducer,
     setup: setupFormReducer,
-    professorList: professorListReducer,
     userList: userListReducer,
     emails: emailsReducer
   });

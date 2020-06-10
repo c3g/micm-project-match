@@ -21,32 +21,8 @@
     }
   }
 
-  .button-group {
-    display: flex;
-    flex-direction: row;
-  }
-
-  button {
-    width: 130px;
-    padding: 5px 10px;
-    border: none;
-    color: #ffffff;
-    border-radius: 5px;
-    font-weight: bold;
-    background-color: $color-primary;
-    transition: all .15s ease;
-  }
-  button:hover{
-    background-color: lighten($color-primary, 10%);
-  }
-  .button-group button:not(:first-child) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: 1px solid rgba(black, 0.1);
-  }
-  .button-group button:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  .button {
+    font-size: 0.8em;
   }
 }
 
@@ -73,5 +49,11 @@
   flex: 0 0 auto;
   text-transform: capitalize;
   font-size: 0.8rem;
+}
+
+.UserList__actions {
+  & > *:not(:last-child) {
+    margin-right: 1em;
+  }
 }
 

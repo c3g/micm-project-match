@@ -18,7 +18,6 @@ import User from './User';
 import Projects from './Projects';
 import UpdateProject from './UpdateProject';
 import Applications from './Applications';
-import Professors from './Professors';
 import Users from './Users';
 import Emails from 'Src/modules/Emails';
 
@@ -129,14 +128,6 @@ export default [
     access: [k.ADMIN],
     withAuth: true,
     withSidebar: 'Users'
-  },
-  {
-    name: 'Professors',
-    pathname: '/professors',
-    component: Professors,
-    access: [k.ADMIN],
-    withAuth: true,
-    withSidebar: 'Professors'
   },
   {
     name: 'Applications',
