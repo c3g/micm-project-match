@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { pdfFromProject } from 'Src/utils/pdf';
 import Heading from 'Src/modules/Heading';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import Icon from 'Src/modules/Icon';
 import { remove, uniqBy, prop } from 'ramda';
 import Dropzone from 'Src/modules/Dropzone';
@@ -277,7 +277,7 @@ class ProjectDetails extends Component {
           </div>
         )}
         {this.state.dropzoneOpen && (
-          <RoundedButton
+          <Button
             onClick={() => {
               this.props.uploadDocuments({
                 files: this.state.files,
@@ -290,11 +290,11 @@ class ProjectDetails extends Component {
             }}
           >
             Upload
-          </RoundedButton>
+          </Button>
         )}
         <div className="apply flex-row">
           {(isAdmin || isAuthor) && (
-            <RoundedButton
+            <Button
               color="danger"
               onClick={() => {
                 if (confirm('Are you sure you want to delete this project?'))
@@ -302,7 +302,7 @@ class ProjectDetails extends Component {
               }}
             >
               Delete
-            </RoundedButton>
+            </Button>
           )}
           <div className="flex-fill" />
           {(isAdmin || isAuthor) ? (
@@ -314,7 +314,7 @@ class ProjectDetails extends Component {
                 }
               }}
             >
-              <RoundedButton>Update</RoundedButton>
+              <Button>Update</Button>
             </Link>
           ) : null}
         </div>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import './professorSetupForm.scss';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import Checkbox from 'Src/modules/Checkbox';
 import InputField from 'Src/modules/InputField';
 
@@ -79,7 +79,7 @@ const ProfessorSetupForm = props => (
           disabled={props.formData ? !props.formData.values.mila : false}
         />
         <div className="centered-button">
-          <RoundedButton>Continue</RoundedButton>
+          <Button>Continue</Button>
         </div>
       </form>
     </div>

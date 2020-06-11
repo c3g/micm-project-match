@@ -5,7 +5,7 @@ import Heading from 'Src/modules/Heading';
 import './setPassword.scss';
 import Navbar from 'Src/modules/Navbar';
 import { Link } from 'react-router-dom';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 
 class SetPassword extends Component {
   static propTypes = {
@@ -28,7 +28,7 @@ class SetPassword extends Component {
         <Navbar>
           <Link to="/">Home</Link>
           <Link to="/signup">
-            <RoundedButton>Sign Up</RoundedButton>
+            <Button>Sign Up</Button>
           </Link>
         </Navbar>
         <div className="heading-container">

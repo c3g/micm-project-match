@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Captcha from 'Src/modules/Captcha';
 import './forgotPasswordForm.scss';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import InputField from 'Src/modules/InputField';
 
 const ForgotPasswordField = ({ input, type, placeholder }) => (
@@ -32,7 +32,7 @@ let ForgotPasswordForm = props => (
             <Field name="captchaResponse" component={Captcha} />
           </div>
           <div className="centered-button">
-            <RoundedButton>Continue</RoundedButton>
+            <Button>Continue</Button>
           </div>
         </form>
       </div>

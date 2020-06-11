@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import File from 'Src/utils/file';
 import Alert from 'Src/modules/Alert';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import InputField from 'Src/modules/InputField';
 import TextArea from 'Src/modules/TextArea';
 import Checkbox from 'Src/modules/Checkbox';
@@ -334,9 +334,9 @@ class CreateProjectFormComponent extends Component {
         )}
         <KeywordSelector />
         <div className="right-button">
-          <RoundedButton>
+          <Button>
             {this.props.project ? 'Update Project' : 'Create Project'}
-          </RoundedButton>
+          </Button>
         </div>
       </form>
     );

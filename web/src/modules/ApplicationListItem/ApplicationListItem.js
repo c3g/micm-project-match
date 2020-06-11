@@ -19,7 +19,7 @@ const ApplicationListItem = ({ data }) => {
           {application.approved ? 'Approved' : 'Not approved'}
         </span>
         <Link
-          className="rounded-button primary"
+          className="button secondary"
           to={`/applications/${application.id}`}
         >
           View <Icon name="arrow-right" />

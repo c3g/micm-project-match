@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import './loginForm.scss';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import InputField from 'Src/modules/InputField';
 import { facebookLogin, googleLogin } from 'Src/config/endpoints';
 import Icon from 'Src/modules/Icon';
@@ -49,7 +49,7 @@ let LoginForm = props => (
           placeholder="Password"
         />
         <div className="centered-button">
-          <RoundedButton>Continue</RoundedButton>
+          <Button>Continue</Button>
         </div>
       </form>
     </div>

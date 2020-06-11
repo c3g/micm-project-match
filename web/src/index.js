@@ -8,6 +8,8 @@ import App from 'Src/core/App';
 import configureRootReducer from 'Src/core/rootReducer';
 import configureStore, { history } from 'Src/store';
 
+import 'Src/core/global.scss'
+
 const rootReducer = configureRootReducer(history);
 const store = configureStore(rootReducer);
 

@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import UserPropTypes from 'Src/propTypes/User';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import InputField from 'Src/modules/InputField';
 import RadioButton from 'Src/modules/RadioButton';
 import { equals, pick, pickBy } from 'ramda';
@@ -124,7 +124,7 @@ class SetupFormComponent extends Component {
                 value="PROFESSOR"
               />
               <div className="centered-button">
-                <RoundedButton>Continue</RoundedButton>
+                <Button>Continue</Button>
               </div>
             </form>
           </div>
@@ -137,9 +137,9 @@ class SetupFormComponent extends Component {
             </div>
             <div className="centered-button">
               <div>
-                <RoundedButton onClick={() => props.onRefillForm()}>
+                <Button onClick={() => props.onRefillForm()}>
                   Refill Details
-                </RoundedButton>
+                </Button>
               </div>
             </div>
           </div>

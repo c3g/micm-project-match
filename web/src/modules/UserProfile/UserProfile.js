@@ -8,7 +8,7 @@ import Checkbox from 'Src/modules/Checkbox';
 import InputField from 'Src/modules/InputField';
 import { withRouter, Link } from 'react-router-dom';
 import Loader from 'Src/modules/Loader';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import * as k from 'Src/constants/values';
 import './userProfile.scss';
 
@@ -162,7 +162,7 @@ class UserProfile extends Component {
               </>
             )}
             <div>
-              <RoundedButton color="success">Save</RoundedButton>
+              <Button color="success">Save</Button>
             </div>
           </form>
         )}
@@ -208,18 +208,18 @@ class UserProfile extends Component {
                       href={`/api/user/cv/${user.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-button-link"
+                      className="button-link"
                     >
                       View {getFilename(user.cvKey)}
                     </a>
                     {!this.props.public && (
-                      <Link to="/cv-setup" className="rounded-button-link">
+                      <Link to="/cv-setup" className="button-link">
                         Update
                       </Link>
                     )}
                   </>
                 ) : (
-                  <Link to="/cv-setup" className="rounded-button-link">
+                  <Link to="/cv-setup" className="button-link">
                     Upload
                   </Link>
                 )}
@@ -237,9 +237,9 @@ class UserProfile extends Component {
             )}
             {!this.props.public && (
               <div>
-                <RoundedButton onClick={this.onClickEdit}>
+                <Button onClick={this.onClickEdit}>
                   Edit Details
-                </RoundedButton>
+                </Button>
               </div>
             )}
           </div>

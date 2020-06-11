@@ -1,0 +1,89 @@
+@import 'Src/core/common.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+/*
+ * Text utils
+ */
+
+.text-danger   { color: $color-danger; }
+.text-primary  { color: $color-primary; }
+.text-info     { color: $color-info; }
+.text-success  { color: $color-success; }
+.text-warning  { color: $color-warning; }
+.text-disabled { color: $color-disabled; }
+.text-light    { color: $color-light; }
+.text-muted    { color: $color-disabled; }
+
+
+/*
+ * Layout
+ */
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-row--vmargin {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.flex-row--hmargin {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.flex-row--margin {
+  margin: 15px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row > *, .flex-column > * {
+  flex: 0 0 auto;
+}
+
+.flex-fill {
+  flex: 1 1;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.flex-item-rmargin {
+  margin-right: 5px;
+}
+
+
+/*
+ * Native elements
+ */
+
+pre {
+  font-weight: bold;
+  white-space: pre-wrap;
+}
+
+/*
+ * Elements
+ */
+
+.tags {
+  display: flex;
+
+  .tag {
+    padding: 5px 10px;
+    margin: 10px 10px 0 0;
+    border-radius: 5px;
+    color: $text-color-primary;
+    background-color: $background-color-primary;
+    border: 1px solid $color-primary;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}

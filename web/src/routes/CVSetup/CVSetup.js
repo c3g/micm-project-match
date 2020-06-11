@@ -4,7 +4,7 @@ import './cvSetup.scss';
 import Navbar from 'Src/modules/Navbar';
 import LogoutButton from 'Src/modules/LogoutButton';
 import Heading from 'Src/modules/Heading';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import { Link } from 'react-router-dom';
 
 const CVSetup = () => (
@@ -19,7 +19,7 @@ const CVSetup = () => (
     <div className="form-container">
       <CVSetupForm />
       <Link to="/">
-        <RoundedButton>Skip for now</RoundedButton>
+        <Button>Skip for now</Button>
       </Link>
     </div>
   </div>

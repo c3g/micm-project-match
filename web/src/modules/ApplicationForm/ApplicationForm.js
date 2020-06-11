@@ -7,7 +7,7 @@ import cx from 'classname';
 import MIME_TYPES from 'Src/constants/mimeTypes';
 import { checkSizeInMB } from 'Src/utils/file';
 import Dropzone from 'Src/modules/Dropzone';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import Heading from 'Src/modules/Heading';
 import Checkbox from 'Src/modules/Checkbox';
 import Input from 'Src/modules/InputField';
@@ -381,11 +381,11 @@ class ApplicationFormComponent extends Component {
               </Alert>
               <div className="right-button">
                 {!isApplicationPeriodOver &&
-                    <RoundedButton disabled={isLoading}>
+                    <Button disabled={isLoading}>
                       {hasSubmittedApplication
                         ? 'Update Application'
                         : 'Submit Application'}
-                    </RoundedButton>
+                    </Button>
                 }
               </div>
             </form>

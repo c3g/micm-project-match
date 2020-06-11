@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Captcha from 'Src/modules/Captcha';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import InputField from 'Src/modules/InputField';
 import RadioButton from 'Src/modules/RadioButton';
 import { facebookLogin, googleLogin } from 'Src/config/endpoints';
@@ -107,7 +107,7 @@ let RegisterForm = props => (
               <Field name="captchaResponse" component={Captcha} />
             </div>
             <div className="centered-button">
-              <RoundedButton>Continue</RoundedButton>
+              <Button>Continue</Button>
             </div>
           </form>
         </div>
@@ -119,11 +119,11 @@ let RegisterForm = props => (
           complete your registration by setting your password.
         </div>
         <div className="centered-button">
-          <RoundedButton
+          <Button
             onClick={() => props.onResendMail({ email: props.email })}
           >
             Resend E-mail
-          </RoundedButton>
+          </Button>
         </div>
       </div>
     )}

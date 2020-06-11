@@ -5,7 +5,7 @@ import getFilename from '@lukeboyle/get-filename-from-path';
 import { pdfFromApplication } from 'Src/utils/pdf';
 import Loader from 'Src/modules/Loader';
 import Icon from 'Src/modules/Icon';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import { withRouter, Link } from 'react-router-dom';
 import './applicationDetails.scss';
 
@@ -40,9 +40,9 @@ const ApplicationDetails = ({
           <Icon name="arrow-left" /> Back to applications
         </Link>
         <div className="flex-fill" />
-        <RoundedButton onClick={() => saveAsPDF(a)}>
+        <Button onClick={() => saveAsPDF(a)}>
           Export as PDF
-        </RoundedButton>
+        </Button>
       </div>
 
       <div className="right-align">
@@ -63,7 +63,7 @@ const ApplicationDetails = ({
               href={`/api/user/cv/${user.id}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-button-link"
+              className="button-link"
             >
               View {getFilename(user.cvKey)}
             </a>
@@ -98,7 +98,7 @@ const ApplicationDetails = ({
               href={`/api/application/${application.id}/transcript`}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-button-link"
+              className="button-link"
             >
               View {getFilename(application.transcriptKey)}
             </a>
@@ -117,23 +117,23 @@ const ApplicationDetails = ({
       <div className="right-button">
         {application.approved ? (
           <div className="button-container">
-            <RoundedButton
+            <Button
               onClick={() => {
                 disapproveApplication(application.id);
               }}
             >
               Disapprove Application
-            </RoundedButton>
+            </Button>
           </div>
         ) : (
           <div className="button-container">
-            <RoundedButton
+            <Button
               onClick={() => {
                 approveApplication(application.id);
               }}
             >
               Approve Application
-            </RoundedButton>
+            </Button>
           </div>
         )}
       </div>

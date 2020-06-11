@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ApplicationPropType from 'Src/propTypes/Application';
 import ApplicationListItem from 'Src/modules/ApplicationListItem';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import Loader from 'Src/modules/Loader';
 import csvStringify from 'csv-stringify';
 import { saveAs } from 'file-saver';
@@ -30,9 +30,9 @@ class ApplicationList extends Component {
           <React.Fragment>
             <div className="flex-row">
               <div className="flex-fill" />
-              <RoundedButton onClick={() => exportAsCSV(applications)}>
+              <Button onClick={() => exportAsCSV(applications)}>
                 Export as CSV
-              </RoundedButton>
+              </Button>
             </div>
             {applications.map((application, i) => (
               <div key={`application_${i}`}>

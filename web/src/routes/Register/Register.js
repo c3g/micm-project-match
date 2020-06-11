@@ -4,14 +4,14 @@ import './register.scss';
 import Heading from 'Src/modules/Heading';
 import Navbar from 'Src/modules/Navbar';
 import { Link } from 'react-router-dom';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 
 const Register = () => (
   <div className="register-page">
     <Navbar>
       <Link to="/">Home</Link>
       <Link to="/signin">
-        <RoundedButton>Log In</RoundedButton>
+        <Button>Log In</Button>
       </Link>
     </Navbar>
     <div className="heading-container">

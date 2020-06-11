@@ -1,0 +1,79 @@
+@import 'Src/core/common.scss';
+
+.button {
+  padding: 5px 10px;
+  font-size: inherit;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+
+  color: #ffffff;
+  background-color: $color-primary;
+  text-decoration: none;
+  transition: all .15s ease;
+
+  &:hover{
+    background-color: lighten($color-primary, 10%);
+  }
+
+  &.danger    { background-color: $color-danger; }
+  &.primary   { background-color: $color-primary; }
+  &.secondary { background-color: $color-secondary; color: $text-color-secondary; border: 1px solid $border-color-secondary; }
+  &.info      { background-color: $color-info; }
+  &.success   { background-color: $color-success; }
+  &.warning   { background-color: $color-warning; }
+  &.disabled  { background-color: $color-disabled; }
+  &.light     { background-color: $color-light; }
+
+  &.danger:hover    { background-color: lighten($color-danger, 10%); }
+  &.primary:hover   { background-color: lighten($color-primary, 10%); }
+  &.secondary:hover { background-color: darken($color-secondary, 6%); }
+  &.info:hover      { background-color: lighten($color-info, 10%); }
+  &.success:hover   { background-color: lighten($color-success, 10%); }
+  &.warning:hover   { background-color: lighten($color-warning, 10%); }
+  &.disabled:hover  { background-color: lighten($color-disabled, 10%); }
+  &.light:hover     { background-color: lighten($color-light, 10%); }
+
+  &.primary:focus { outline: 1px solid black; }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+  &[disabled].danger    { background-color: lighten($color-danger, 20%); }
+  &[disabled].primary   { background-color: lighten($color-primary, 20%); }
+  &[disabled].secondary { background-color: darken($color-secondary, 10%); }
+  &[disabled].info      { background-color: lighten($color-info, 20%); }
+  &[disabled].success   { background-color: lighten($color-success, 20%); }
+  &[disabled].warning   { background-color: lighten($color-warning, 20%); }
+  &[disabled].disabled  { background-color: lighten($color-disabled, 20%); }
+  &[disabled].light     { background-color: lighten($color-light, 20%); }
+}
+
+a.button {
+  text-decoration: none;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+}
+.button-group .button:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 1px solid rgba(black, 0.1);
+}
+.button-group .button:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-link {
+  background: #00a1f8;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  margin-right: 20px;
+  padding: 4px 20px;
+  text-decoration: none;
+}

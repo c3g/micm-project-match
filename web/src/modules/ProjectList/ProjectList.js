@@ -4,7 +4,7 @@ import csvStringify from 'csv-stringify';
 import { saveAs } from 'file-saver';
 import ProjectListItem from 'Src/modules/ProjectListItem';
 import Loader from 'Src/modules/Loader';
-import RoundedButton from 'Src/modules/RoundedButton';
+import Button from 'Src/modules/Button';
 import './projectList.scss';
 
 class ProjectList extends Component {
@@ -37,9 +37,9 @@ class ProjectList extends Component {
           <>
             <div className="flex-row">
               <div className="flex-fill" />
-              <RoundedButton onClick={() => exportAsCSV(projects)}>
+              <Button onClick={() => exportAsCSV(projects)}>
                 Export as CSV
-              </RoundedButton>
+              </Button>
             </div>
             {projects.map((project, i) => (
               <ProjectListItem key={`project_${i}`} project={project} />
