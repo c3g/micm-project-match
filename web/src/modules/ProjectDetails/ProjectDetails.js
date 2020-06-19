@@ -92,9 +92,13 @@ class ProjectDetails extends Component {
           hideUnderline
           extra={
             <React.Fragment>
-              <div className={'status ' + (project.approved ? 'approved' : 'unapproved')}>
-                {project.approved && 'Approved' || 'Unapproved'}
-              </div>
+              {
+              /*
+               * <div className={'status ' + (project.approved ? 'approved' : 'unapproved')}>
+               *   {project.approved && 'Approved' || 'Unapproved'}
+               * </div>
+               */
+              }
               {isAdmin && (
                 <div className="extract-button">
                   <button onClick={this.extractAsPDF}>Download as PDF</button>
