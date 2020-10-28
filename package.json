@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.13.1"
+    "lerna": "^3.22.1"
   },
   "scripts": {
     "postinstall": "lerna bootstrap --hoist",
