@@ -136,7 +136,7 @@ export function sendProjectCreationMail(project, author) {
 }
 
 function sendAdminUpdateMail(count, admin) {
-  const html = adminUpdateMail(admin, count.count);
+  const html = adminUpdateMail(admin, count);
 
   return sendMail({
     from,
