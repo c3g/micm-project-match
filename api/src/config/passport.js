@@ -87,23 +87,11 @@ function oAuth(strategy) {
 }
 
 export default passport => {
-  // TODO add OpenId Auth
-  passport.use(
-    new LocalStrategy(
-      { usernameField: 'email', passwordField: 'password' },
-      localAuth
-    )
-  );
+  passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, localAuth));
+  passport.use(new FacebookStrategy(config.facebook, oAuth(k.STRATEGY.FACEBOOK)));
+  passport.use(new GoogleStrategy(config.google,     oAuth(k.STRATEGY.GOOGLE)));
 
-  passport.use(
-    new FacebookStrategy(config.facebook, oAuth(k.STRATEGY.FACEBOOK))
-  );
-  passport.use(new GoogleStrategy(config.google, oAuth(k.STRATEGY.GOOGLE)));
-
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
-
+  passport.serializeUser(function(user, done) { done(null, user.id); });
   passport.deserializeUser(function(id, done) {
     User.findProfessorById(id)
       .then(user => done(null, clean(user)))
