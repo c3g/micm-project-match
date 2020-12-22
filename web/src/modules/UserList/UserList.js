@@ -50,6 +50,18 @@ class UserList extends Component {
       disapproveUser,
     } = this.props;
 
+    const sortedUsers = users.sort((a, b) => {
+      const aa = isUnapprovedProfessor(a)
+      const ba = isUnapprovedProfessor(b)
+      if (aa && !ba)
+        return -1
+      if (!aa && ba)
+        return +1
+      const an = a.lastName + '_' + a.firstName
+      const bn = b.lastName + '_' + b.firstName
+      return an.localeCompare(bn)
+    })
+
     return (
       <div className="UserList">
         {isLoading && <Loader />}
@@ -60,18 +72,21 @@ class UserList extends Component {
           <div className="UserList__approved">Approved</div>
           <div className="flex-fill" />
         </div>
-        {users.map((user, i) =>
+        {sortedUsers.map((user, i) =>
           user.id === currentUser.id ? null : (
             <div
               key={`user_${i}`}
               className="UserList__item flex-row flex-align-center"
             >
               <Link className="UserList__name" to={`/user/${user.id}`}>
-                {user.firstName} {user.lastName}
+                {user.lastName}, {user.firstName}
               </Link>
               <div className="UserList__type">{user.type}</div>
               <div className="UserList__approved">
-                {user.approved ? 'Yes' : 'No'}
+                {user.approved ? 'Yes' : 'No'}{' '}
+                {isUnapprovedProfessor(user) &&
+                  <Icon className='text-warning' name='exclamation-triangle' />
+                }
               </div>
               <div className="flex-fill" />
               <div className='UserList__actions flex-row'>
@@ -109,6 +124,10 @@ class UserList extends Component {
       </div>
     );
   }
+}
+
+function isUnapprovedProfessor(u) {
+  return u.type === k.PROFESSOR && u.approved === false
 }
 
 export default UserList;
