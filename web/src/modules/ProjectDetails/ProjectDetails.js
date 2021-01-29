@@ -247,7 +247,7 @@ class ProjectDetails extends Component {
           <div className="documents">
             <div>
               Relevant Documents&nbsp;&nbsp;
-              {this.props.userType !== k.ADMIN && (
+              {this.props.user.type !== k.ADMIN && (
                 <button
                   className="delete-button"
                   onClick={() =>
