@@ -72,6 +72,12 @@ const ProfessorSetupForm = props => (
           label="Are you affiliated with Mila?"
         />
         <Field
+          name="mrmn"
+          component={CheckboxFormField}
+          type="checkbox"
+          label="Are you affiliated with McGill Regenerative Medicine Network?"
+        />
+        <Field
           name="university"
           component={InputFormField}
           type="text"
@@ -95,6 +101,7 @@ ProfessorSetupForm.propTypes = {
 export default reduxForm({
   form: 'professorSetup',
   initialValues: {
-    mila: false
+    mila: false,
+    mrmn: false,
   }
 })(connect(mapStateToProps)(ProfessorSetupForm));
