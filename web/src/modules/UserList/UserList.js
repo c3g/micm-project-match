@@ -62,9 +62,11 @@ class UserList extends Component {
       return an.localeCompare(bn)
     })
 
+    const isLoadingWithUsers = isLoading && users.length > 0
+
     return (
-      <div className="UserList">
-        {isLoading && <Loader />}
+      <div className={"UserList " + (isLoadingWithUsers ? "loading" : "")}>
+        {isLoading && !isLoadingWithUsers && <Loader />}
 
         <div className="UserList__header flex-row">
           <div className="UserList__name">Name</div>

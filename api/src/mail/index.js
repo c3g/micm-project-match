@@ -163,7 +163,7 @@ function sendEmailTick() {
   // Pending-approval professors
   Promise.resolve()
   .then(() => {
-    const count = User.unapprovedCount();
+    const count = User.unapprovedProfessorCount();
     const admins = User.listAdmins();
     return Promise.all([count, admins]);
   })
@@ -172,6 +172,7 @@ function sendEmailTick() {
     if (count === 0)
       return Promise.resolve()
 
+    console.log(`[email tick] Sending unnaproved professors email (${count})`)
     return Promise.all(
       admins.map((admin, i) =>
         wait(i).then(() => sendAdminUpdateMail(count, admin))

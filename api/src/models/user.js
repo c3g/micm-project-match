@@ -264,11 +264,12 @@ function listProfessors() {
   `);
 }
 
-function unapprovedCount() {
+function unapprovedProfessorCount() {
   return db.selectOne(`
     SELECT COUNT(*)
       FROM user_account
      WHERE approved = false
+       AND type = 'PROFESSOR'
   `);
 }
 
@@ -401,7 +402,7 @@ export default {
   listProfessors,
   approveUser,
   disapproveUser,
-  unapprovedCount,
+  unapprovedProfessorCount,
   listAdmins,
   listUsers,
   makeProfessor,
