@@ -26,7 +26,7 @@ export default [
     name: 'Create project',
     pathname: '/create-project',
     component: CreateProject,
-    access: [k.PROFESSOR, k.STUDENT],
+    access: [k.PROFESSOR],
     withAuth: true,
     withSidebar: 'Create Project'
   },
@@ -34,7 +34,7 @@ export default [
     name: 'UserProjects',
     pathname: '/user-projects',
     component: Projects,
-    access: [k.PROFESSOR, k.STUDENT],
+    access: [k.PROFESSOR],
     withAuth: true,
     withSidebar: 'My Projects'
   },

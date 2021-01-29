@@ -91,14 +91,14 @@ let RegisterForm = props => (
             />
             <Field
               name="type"
-              text="I'm a Student"
+              text="I'm a regular user (student, staff, post-doc, non-McGill professor)"
               component={RadioButton}
               type="radio"
               value="STUDENT"
             />
             <Field
               name="type"
-              text="I'm a Professor"
+              text="I'm a McGill Professor"
               component={RadioButton}
               type="radio"
               value="PROFESSOR"

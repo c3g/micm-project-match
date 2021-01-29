@@ -24,7 +24,7 @@ const SideNav = ({ user }) => (
       <div className="user-info__name">
         {user.firstName} {user.lastName}
       </div>
-      <div className="user-info__type">{user.type}</div>
+      <div className="user-info__type">{getTypeName(user.type)}</div>
     </div>
   </div>
 );
@@ -34,3 +34,9 @@ SideNav.propTypes = {
 };
 
 export default SideNav;
+
+function getTypeName(type) {
+  if (type === 'STUDENT')
+    return 'STANDARD'
+  return type
+}
