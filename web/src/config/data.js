@@ -4,10 +4,11 @@ export const axis = [
   'Population health research'
 ];
 export const organizations = [
-  'McGill Interdisciplinary Initiative in Infection and Immunity (MI4)',
   'Healthy Brains & Healthy Lives (HBHL)',
+  'Jewish General Hospital',
   'McGill Cancer Consortium (MC2)',
-  'MUHC-RI',
+  'McGill Interdisciplinary Initiative in Infection and Immunity (MI4)',
+  'McGill Regenerative Medicine Network',
   'Mila (Quebec Artificial Intelligence Institute)',
-  'Jewish General Hospital'
+  'MUHC-RI',
 ];
