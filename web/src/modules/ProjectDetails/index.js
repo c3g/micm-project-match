@@ -1,4 +1,4 @@
-import ProjectDetails from './projectDetails.container';
+import ProjectDetails from './ProjectDetails';
 import reducer from './projectDetails.reducer';
 import saga from './projectDetails.sagas';
 

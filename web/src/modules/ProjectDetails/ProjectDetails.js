@@ -1,24 +1,65 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { pick, remove, uniqBy, prop } from 'ramda';
+import { action } from 'Src/utils';
+import { PROJECT, DOCUMENT } from 'Src/constants/actionTypes';
 import { pdfFromProject } from 'Src/utils/pdf';
 import Heading from 'Src/modules/Heading';
 import Button from 'Src/modules/Button';
 import Icon from 'Src/modules/Icon';
-import { remove, uniqBy, prop } from 'ramda';
 import Dropzone from 'Src/modules/Dropzone';
 import * as k from 'Src/constants/values';
 import './projectDetails.scss';
 import Loader from 'Src/modules/Loader';
 import ErrorMessage from 'Src/modules/ErrorMessage';
 
+const mapDispatchToProps = dispatch => ({
+  fetchProject: data => dispatch(action(PROJECT.FETCH.REQUEST, data)),
+  deleteProject: data => dispatch(action(PROJECT.DELETE.REQUEST, data)),
+  deleteDocument: data => dispatch(action(DOCUMENT.DELETE.REQUEST, data)),
+  uploadDocuments: data => dispatch(action(DOCUMENT.CREATE.REQUEST, data)),
+  clearProject: () =>
+    dispatch(
+      action(PROJECT.FETCH.RECEIVE, {
+        application: null,
+        project: {
+          id: 0,
+          title: '',
+          abstract: '',
+          openForStudents: true,
+          authorId: 0,
+          author: {
+            firstName: '',
+            lastName: '',
+            department: '',
+            email: ''
+          },
+          tags: [],
+          tagId: [],
+          documents: [],
+          organizations: [],
+          files: [],
+          approved: false
+        }
+      })
+    )
+});
+
+const mapStateToProps = state => ({
+  ...pick(['isLoading', 'project', 'application', 'error'], state.projectDetails),
+  userId: state.app.user.id,
+  user: state.app.user,
+});
+
 class ProjectDetails extends Component {
   static propTypes = {
     fetchProject: PropTypes.func.isRequired,
     deleteProject: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
-    userType: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
+    user: PropTypes.object.isRequired,
     deleteDocument: PropTypes.func.isRequired,
     uploadDocuments: PropTypes.func.isRequired,
     project: PropTypes.shape({
@@ -73,10 +114,11 @@ class ProjectDetails extends Component {
     const { project, error, id } = this.props;
     const { author } = project;
 
-    const isAdmin = this.props.userType === k.ADMIN;
+    const isAdmin = this.props.user.type === k.ADMIN;
+    const isApprovedProfessor = this.props.user.type === k.PROFESSOR && this.props.user.approved;
     const isAuthor = this.props.userId === project.authorId;
 
-    const canSeeDetails = isAdmin || isAuthor;
+    const canSeeDetails = isAdmin || isAuthor || isApprovedProfessor;
 
     if (error)
       return (
@@ -169,34 +211,38 @@ class ProjectDetails extends Component {
             </div>
           </React.Fragment>
         )}
-        <div className="sub-heading">Other Details</div>
-        <div className="details-long">
-          <div>
-            <div>Project description</div>
-            <div>{project.description}</div>
-          </div>
-          <div>
-            <div>Description of datasets to be used or generated</div>
-            <div>{project.datasets}</div>
-          </div>
-          <div>
-            <div>
-              Why you see this as a collaborative research project and what
-              you hope to gain from the collaboration
-            </div>
-            <div>{project.motive}</div>
-          </div>
-          {project.organizations.length > 0 && (
-            <div>
-              <div>Relevant to the following organization/initiatives</div>
+        {canSeeDetails && (
+          <React.Fragment>
+            <div className="sub-heading">Other Details</div>
+            <div className="details-long">
               <div>
-                {project.organizations.map((organization, i) => (
-                  <div key={`organization_${i}`}>{organization}</div>
-                ))}
+                <div>Project description</div>
+                <div>{project.description}</div>
               </div>
+              <div>
+                <div>Description of datasets to be used or generated</div>
+                <div>{project.datasets}</div>
+              </div>
+              <div>
+                <div>
+                  Why you see this as a collaborative research project and what
+                  you hope to gain from the collaboration
+                </div>
+                <div>{project.motive}</div>
+              </div>
+              {project.organizations?.length > 0 && (
+                <div>
+                  <div>Relevant to the following organization/initiatives</div>
+                  <div>
+                    {project.organizations.map((organization, i) => (
+                      <div key={`organization_${i}`}>{organization}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </React.Fragment>
+        )}
         {(isAdmin || isAuthor) && (
           <div className="documents">
             <div>
@@ -327,4 +373,7 @@ class ProjectDetails extends Component {
   }
 }
 
-export default ProjectDetails;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProjectDetails);
