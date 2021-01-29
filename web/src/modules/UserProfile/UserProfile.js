@@ -149,16 +149,6 @@ class UserProfile extends Component {
                   </div>
                 </div>
                 <div>
-                  <div>Affiliated with McGill Regenerative Medicine Network?</div>
-                  <div>
-                    <Checkbox
-                      size="small"
-                      value={editUser.professor.mrmn}
-                      onChange={this.handleChange('professor.mrmn', x => x)}
-                    />
-                  </div>
-                </div>
-                <div>
                   <div>University</div>
                   <div>
                     <InputField
@@ -196,10 +186,6 @@ class UserProfile extends Component {
                 <div>
                   <span>Position</span>
                   <span>{user.professor.position}</span>
-                </div>
-                <div>
-                  <span>Affiliated with McGill Regenerative Medicine Network?</span>
-                  <span>{user.professor.mrmn ? 'Yes' : 'No'}</span>
                 </div>
                 <div>
                   <span>Affiliated with Mila?</span>

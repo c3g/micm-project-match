@@ -14,14 +14,11 @@
   & > div {
     margin: 30px 0;
 
-    display: flex;
-    align-items: flex-start;
-
     & > * {
       display: inline-block;
 
       &:first-child {
-        width: 200px;
+        min-width: 200px;
         font-weight: 300;
       }
       &:last-child {
