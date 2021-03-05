@@ -343,12 +343,12 @@ class CreateProjectFormComponent extends Component {
   }
 
   render() {
-    const hasMaxProjects = this.props.user.projectCount >= 2;
+    const hasMaxProjects = this.props.user.projectCount >= 3;
     return (
       <div className="create-project-form">
         {hasMaxProjects ? (
           <Alert color="warning">
-            You already have the maximum number of projects (2). Please delete
+            You already have the maximum number of projects (3). Please delete
             one if you want to create more.
           </Alert>
         ) : (

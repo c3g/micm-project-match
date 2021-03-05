@@ -8,8 +8,8 @@ import k from '../constants';
 function create(req, res) {
   Project.listUserProjects(req.user.id)
   .then(projects =>
-    projects.length >= 2 ?
-      Promise.reject(new Error('Maximum reached: user already has 2 projects')) :
+    projects.length >= 3 ?
+      Promise.reject(new Error('Maximum reached: user already has 3 projects')) :
       Promise.resolve())
   .then(() =>
     Project.create({
