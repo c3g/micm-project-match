@@ -11,11 +11,15 @@ function create(req, res) {
     projects.length >= 3 ?
       Promise.reject(new Error('Maximum reached: user already has 3 projects')) :
       Promise.resolve())
-  .then(() =>
-    Project.create({
+  .then(() => {
+    // NOTE: we add logging to catch a bug where a user created a project
+    // and the project ended up having a different authorId than said user.
+    console.log('CREATE_PROJECT', req.user, req.body)
+    return Project.create({
       ...req.body,
       authorId: req.user.id
-    }))
+    })
+  })
   .then(project =>
     uploadFiles(req.files, project)
       .then(() => dataHandler(res)(project))
