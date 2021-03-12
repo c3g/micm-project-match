@@ -19,7 +19,7 @@
     "html2canvas": "1.0.0-rc.5",
     "html2pdf.js": "0.9.1",
     "is-object": "1.0.1",
-    "jspdf": "1.5.3",
+    "jspdf": "2.3.1",
     "prop-types": "15.7.2",
     "rambda": "4.4.0",
     "ramda": "0.26.1",
