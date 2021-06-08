@@ -18,6 +18,8 @@ to analyze.
 
 ## Installation
 
+Make sure nodejs, postgres & redis are installed and running.
+
 To configure the API, copy `api/.env.example` to `api/.env` and modify the variables.
 Then, copy `api/src/config/nodemailer.example.js` to `api/src/config/nodemailer.js`
 and modify the configuration.
