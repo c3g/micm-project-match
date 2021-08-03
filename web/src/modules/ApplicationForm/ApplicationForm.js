@@ -14,7 +14,7 @@ import Input from 'Src/modules/InputField';
 import Alert from 'Src/modules/Alert';
 import './applicationForm.scss';
 
-const isApplicationPeriodOver = false;
+const isApplicationPeriodOver = true;
 
 const createApplicationValidate = (values, props) => {
   const errors = {};
