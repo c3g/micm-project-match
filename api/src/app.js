@@ -40,6 +40,6 @@ app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../../web/dist/index.html'));
 });
 
-scheduledEmailUpdates();
+//scheduledEmailUpdates();
 
 export default app;
